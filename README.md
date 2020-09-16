@@ -2,4 +2,4 @@
 
 
 ### Бизнес логика
-![alt text](https://github.com/denis-petrov/google-slids/blob/master/img/buissnes-logic.png)
+![alt text](https://raw.githubusercontent.com/denis-petrov/google-slids/master/img/buissnes-logic.png)
