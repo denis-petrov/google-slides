@@ -1,6 +1,6 @@
 export const Position = {
-    x1: null,
-    y1: null,
-    x2: null,
-    y2: null
+    x1: Number,
+    y1: Number,
+    x2: Number,
+    y2: Number
 }

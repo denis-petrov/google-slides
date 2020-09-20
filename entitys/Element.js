@@ -4,6 +4,7 @@ import { Image } from './Image'
 import { Position } from './Position'
 
 export const Element = {
+    Id: Number,
     Text: Text,
     Primitive: Primitive,
     Image: Image,

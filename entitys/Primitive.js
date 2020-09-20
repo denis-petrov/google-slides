@@ -1,4 +1,4 @@
 export const Primitive = {
-    Shape: null,
-    Color: null,
+    Shape: String,
+    Color: Number,
 }

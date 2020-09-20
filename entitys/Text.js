@@ -1,8 +1,8 @@
 export const Text = {
-    Font: null,
-    SizeFont: null,
-    Color: null,
-    Align: null,
+    Font: String,
+    SizeFont: Number,
+    Color: Number,
+    Align: String,
     isBold: false,
     isCurve: false
 }

@@ -1,5 +1,5 @@
 import { Element } from './Element'
 
-export const ListElements = {
+export const AllElements = {
     ListElements: [Element]
 }

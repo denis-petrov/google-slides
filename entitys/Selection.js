@@ -1,5 +1,6 @@
-import { ListElements } from "./ListElements";
+import { AllElements } from "./AllElements";
 
 export const Selection = {
-    ListElements: ListElements
+    ElementsIdList: [Element.Id],
+    SlidesIdList: [Slide.Id]
 }
