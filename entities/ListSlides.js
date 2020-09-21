@@ -1,5 +1,5 @@
-import { Slide } from "./Slide";
+import { Slide } from "./Slide.js";
 
 export const ListSlides = {
-    Slides: [Slide],
+    Slides: [Slide]
 }

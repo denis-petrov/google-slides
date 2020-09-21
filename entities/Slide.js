@@ -1,7 +1,7 @@
-import { ListSlides } from "./ListSlides.js";
+import { ListElements } from "./ListElements.js";
 import { SlideBackground } from "./SlideBackground.js";
 
 export const Slide = {
-    Elems: ListSlides,
+    Elements: ListElements,
     Background: SlideBackground 
 }

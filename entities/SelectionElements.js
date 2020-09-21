@@ -1,5 +1,5 @@
-import { AllElements } from "./AllElements";
+import { Element } from "./Element.js";
 
-export const SelectionSlides = {
+export const SelectionElements = {
     ElementsIdList: [Element.Id]
 }

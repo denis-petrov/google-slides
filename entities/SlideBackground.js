@@ -1,4 +1,5 @@
-import { Color } from "./Color";
+import { Color } from "./Color.js";
+import { Image } from "./Image.js";
 
 export const SlideBackground = {
     BackgroundImage: Image,

@@ -1,7 +1,7 @@
-import { Text } from "./Text";
-import { Primitive } from "./Primitive";
-import { Image } from "./Image";
-import { Position } from "./Position";
+import { Text } from "./Text.js";
+import { Primitive } from "./Primitive.js";
+import { Image } from "./Image.js";
+import { Position } from "./Position.js";
 
 export const Element = {
     Id: Number,

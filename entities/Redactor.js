@@ -1,9 +1,11 @@
-import { CommandsHistory } from "./CommandsHistory";
-import { Presentation } from "./Presentation";
-import { Selection } from "./Selection";
+import { Presentation } from "./Presentation.js";
+import { CommandsHistory } from "./CommandsHistory.js";
+import { SelectionSlides } from "./SelectionSlides.js";
+import { SelectionElements } from "./SelectionElements.js";
 
 export const Redactor = {
     Presentation: Presentation,
     CommandsHistory: CommandsHistory,
-    Selection: Selection
+    SelectionSlides: SelectionSlides,
+    SelectionElements: SelectionElements
 }
