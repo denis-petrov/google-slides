@@ -1,5 +1,5 @@
-import { Element } from './Element'
+import { Element } from "./Element";
 
 export const AllElements = {
-    ListElements: [Element]
+    ListElements: [Element.Id]
 }
