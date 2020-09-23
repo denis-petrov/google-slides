@@ -1,4 +1,4 @@
-import {Redactor} from "../entities/Redactor.ts";
+import {Redactor} from "../entities/Redactor";
 
 export {
     ChangeNamePresentation

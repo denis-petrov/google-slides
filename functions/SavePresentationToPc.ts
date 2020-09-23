@@ -1,4 +1,4 @@
-import {Presentation} from "../entities/Presentation.ts";
+import {Presentation} from "../entities/Presentation";
 
 export {
     SavePresentationToPc
