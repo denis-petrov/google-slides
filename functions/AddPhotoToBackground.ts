@@ -1,11 +1,11 @@
-import {Redactor} from "./entities/Redactor";
-import {Slide} from "./entities/Slide";
-import {Image} from "./entities/Image";
+import {Redactor} from "../entities/Redactor";
+import {Slide} from "../entities/Slide";
+import {Image} from "../entities/Image";
 
 export {
     AddPhotoToBackground
 }
 
-function AddPhotoToBackground(Redactor: Redactor, Slide: Slide, Photo: Image) {
-    return Redactor;
+function AddPhotoToBackground(redactor: Redactor, slide: Slide, img: Image): Redactor {
+    return redactor;
 }   
