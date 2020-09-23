@@ -1,4 +1,8 @@
-export const Text = {
+export {
+    Text
+}
+
+type Text = {
     Font: String,
     SizeFont: Number,
     Color: Number,
