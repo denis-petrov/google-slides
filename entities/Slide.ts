@@ -1,5 +1,5 @@
-import {ListElements} from './ListElements.ts';
-import {SlideBackground} from './SlideBackground.ts';
+import {ListElements} from './ListElements';
+import {SlideBackground} from './SlideBackground';
 
 export {
     Slide

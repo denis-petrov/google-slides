@@ -1,4 +1,4 @@
-import {Slide} from './Slide.js';
+import {Slide} from './Slide';
 
 export {
     SelectionSlides

@@ -1,4 +1,4 @@
-import {ListSlides} from './ListSlides.ts';
+import {ListSlides} from './ListSlides';
 
 export {
     Presentation

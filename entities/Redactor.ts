@@ -1,7 +1,7 @@
-import {Presentation} from './Presentation.ts';
-import {CommandsHistory} from './CommandsHistory.ts';
-import {SelectionSlides} from './SelectionSlides.js';
-import {SelectionElements} from './SelectionElements.js';
+import {Presentation} from './Presentation';
+import {CommandsHistory} from './CommandsHistory';
+import {SelectionSlides} from './SelectionSlides';
+import {SelectionElements} from './SelectionElements';
 
 export {
     Redactor

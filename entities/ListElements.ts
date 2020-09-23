@@ -1,4 +1,4 @@
-import {Element} from './Element.ts';
+import {Element} from './Element';
 
 export {
     ListElements
