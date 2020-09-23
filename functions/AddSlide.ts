@@ -1,9 +1,9 @@
-import {Redactor} from "./entities/Redactor";
+import {Redactor} from "../entities/Redactor";
 
 export {
     AddSlide
 }
 
-function AddSlide(Redactor: Redactor) {
-    return Redactor;
+function AddSlide(redactor: Redactor) {
+    return redactor;
 }
