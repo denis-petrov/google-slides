@@ -1,5 +1,5 @@
-import {Color} from './Color.ts';
-import {Image} from './Image.ts';
+import {Color} from './Color';
+import {Image} from './Image';
 
 export {
     SlideBackground

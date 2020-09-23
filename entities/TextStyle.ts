@@ -1,8 +1,8 @@
 export {
-    Text
+    TextStyle
 }
 
-type Text = {
+type TextStyle = {
     Font: String,
     SizeFont: Number,
     Color: Number,

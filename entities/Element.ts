@@ -1,7 +1,7 @@
-import {Text} from './Text.ts';
-import {Primitive} from './Primitive.ts';
-import {Image} from './Image.ts';
-import {Position} from './Position.ts';
+import {TextElement} from './Text';
+import {Primitive} from './Primitive';
+import {Image} from './Image';
+import {Position} from './Position';
 
 export {
     Element
@@ -9,6 +9,6 @@ export {
 
 type Element = {
     Id: Number,
-    Entity: Text | Primitive | Image,
+    Entity: TextElement | Primitive | Image,
     Position: Position
 }

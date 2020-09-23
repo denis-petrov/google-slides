@@ -1,4 +1,4 @@
-import {Redactor} from './Redactor.ts';
+import {Redactor} from './Redactor';
 
 export {
     CommandsHistory
