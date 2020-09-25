@@ -1,10 +1,10 @@
-import {Redactor} from "../entities/Redactor";
-import {ListSlides} from "../entities/ListSlides";
+import {Redactor} from '../entities/Redactor'
+import {ListSlides} from '../entities/ListSlides'
 
 export {
-    ChooseSlides
+    chooseSlides
 }
 
-function ChooseSlides(redactor: Redactor, slides: ListSlides): Redactor {
-    return redactor;
+function chooseSlides(redactor: Redactor, slides: ListSlides): Redactor {
+    return redactor
 }

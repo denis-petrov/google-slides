@@ -1,7 +1,11 @@
-import {Redactor} from "../entities/Redactor";
-import {TextStyle} from "../entities/TextStyle";
-import {ListElements} from "../entities/ListElements";
+import {Redactor} from '../entities/Redactor'
+import {TextStyle} from '../entities/TextStyle'
+import {ListElements} from '../entities/ListElements'
 
-function ChangeStyleOfText(redactor: Redactor, slideId: number, elems: ListElements, textStyle: TextStyle): Redactor {
-    return redactor;
+export {
+    changeStyleOfText
+}
+
+function changeStyleOfText(redactor: Redactor, slideId: number, elements: ListElements, textStyle: TextStyle): Redactor {
+    return redactor
 }

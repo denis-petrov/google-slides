@@ -1,11 +1,11 @@
-import {Redactor} from "../entities/Redactor";
-import {ListSlides} from "../entities/ListSlides";
-import {Position} from "../entities/Position";
+import {Redactor} from '../entities/Redactor'
+import {ListSlides} from '../entities/ListSlides'
+import {Position} from '../entities/Position'
 
 export {
-    MoveSlides
+    moveSlides
 }
 
-function MoveSlides(redactor: Redactor, listSlides: ListSlides, newPosition: Position): Redactor {
-    return redactor;
+function moveSlides(redactor: Redactor, listSlides: ListSlides, newPosition: Position): Redactor {
+    return redactor
 }   

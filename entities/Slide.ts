@@ -1,11 +1,12 @@
-import {ListElements} from './ListElements';
-import {SlideBackground} from './SlideBackground';
+import {Element} from './Element'
+import {SlideBackground} from './SlideBackground'
 
 export {
     Slide
 }
 
 type Slide = {
-    Elements: ListElements,
+    Id: Number,
+    Elements: Array<Element>,
     Background: SlideBackground 
 }

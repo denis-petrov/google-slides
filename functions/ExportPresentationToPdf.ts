@@ -1,9 +1,9 @@
-import {Presentation} from "../entities/Presentation";
+import {Presentation} from '../entities/Presentation'
 
 export {
-    ExportPresentationToPdf
+    exportPresentationToPdf
 }
 
-function ExportPresentationToPdf(presentation: Presentation): Promise<string> {
-    return null;
+function exportPresentationToPdf(presentation: Presentation): Promise<string> {
+    return null
 }

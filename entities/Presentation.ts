@@ -1,4 +1,4 @@
-import {ListSlides} from './ListSlides';
+import {ListSlides} from './ListSlides'
 
 export {
     Presentation

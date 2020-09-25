@@ -1,7 +1,10 @@
-import {Redactor} from "../entities/Redactor"
-import {ListElements} from "../entities/ListElements"
+import {Redactor} from '../entities/Redactor'
+import {ListElements} from '../entities/ListElements'
 
+export {
+    deleteElements
+}
 
-function DeleteElements(redactor: Redactor, slideId: Number, elems: ListElements): Redactor {
-    return redactor;
+function deleteElements(redactor: Redactor, slideId: Number, elements: ListElements): Redactor {
+    return redactor
 }

@@ -1,9 +1,9 @@
-import {Presentation} from "../entities/Presentation";
+import {Presentation} from '../entities/Presentation'
 
 export {
-    SavePresentationToPc
+    savePresentationToPc
 }
 
-function SavePresentationToPc(presentation: Presentation): void {
+function savePresentationToPc(presentation: Presentation): void {
 
 }

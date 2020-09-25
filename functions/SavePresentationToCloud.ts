@@ -1,9 +1,9 @@
-import {Presentation} from "../entities/Presentation";
+import {Presentation} from '../entities/Presentation'
 
 export {
-    SavePresentationToCloud
+    savePresentationToCloud
 }
 
-function SavePresentationToCloud(presentation: Presentation, cloudToken: string): void {
+function savePresentationToCloud(presentation: Presentation, cloudToken: string): void {
 
 }

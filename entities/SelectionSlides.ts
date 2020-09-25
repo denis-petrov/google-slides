@@ -1,9 +1,8 @@
-import {Slide} from './Slide';
-
 export {
-    SelectionSlides
+    Selection
 }
 
-type SelectionSlides = {
-    SlidesList: Array<Slide>
+type Selection = {
+    SelectedSlides: Array<Number> | null,
+    SelectedElements: Array<Number> | null
 }

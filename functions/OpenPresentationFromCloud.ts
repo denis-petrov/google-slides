@@ -1,9 +1,9 @@
-import {Presentation} from "../entities/Presentation";
+import {Presentation} from '../entities/Presentation'
 
 export {
-    OpenPresentationFromCloud
+    openPresentationFromCloud
 }
 
-function OpenPresentationFromCloud(URL: string): Presentation {
-    return null;
+function openPresentationFromCloud(URL: string): Presentation {
+    return null
 }

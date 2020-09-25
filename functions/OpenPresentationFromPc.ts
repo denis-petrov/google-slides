@@ -1,9 +1,9 @@
-import {Presentation} from "../entities/Presentation";
+import {Presentation} from '../entities/Presentation'
 
 export {
-    OpenPresentationFromPc
+    openPresentationFromPc
 }
 
-function OpenPresentationFromPc(json: JSON): Presentation {
-    return null;
+function openPresentationFromPc(json: JSON): Presentation {
+    return null
 }

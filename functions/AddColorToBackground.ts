@@ -1,10 +1,10 @@
-import {Redactor} from "../entities/Redactor";
-import {Slide} from "../entities/Slide";
+import {Redactor} from '../entities/Redactor'
+import {Slide} from '../entities/Slide'
 
 export {
-    AddColorToBackground
+    addColorToBackground
 }
 
-function AddColorToBackground(redactor: Redactor, slide: Slide, number: Number): Redactor {
-    return redactor;
+function addColorToBackground(redactor: Redactor, slide: Slide, number: Number): Redactor {
+    return redactor
 }   

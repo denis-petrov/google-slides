@@ -1,9 +1,10 @@
-import {Redactor} from './Redactor';
+import {Redactor} from './Redactor'
 
 export {
     CommandsHistory
 }
 
 type CommandsHistory = {
-    CommandStack: Array<Redactor>
+    CommandSet: Array<Redactor>,
+    IndexOfCurrentState: Number,
 }

@@ -1,5 +1,9 @@
-import {Redactor} from "../entities/Redactor";
+import {Redactor} from '../entities/Redactor'
 
-function UndoChanges(redactor: Redactor): Redactor {
-    return redactor;
+export {
+    undoChanges
+}
+
+function undoChanges(redactor: Redactor): Redactor {
+    return redactor
 }

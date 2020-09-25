@@ -1,6 +1,10 @@
-import {Redactor} from "../entities/Redactor";
-import {Position} from "../entities/Position";
+import {Redactor} from '../entities/Redactor'
+import {Position} from '../entities/Position'
 
-function ChangePositionOfElement(redactor: Redactor, slideId: Number, elementId: Number, newPosition: Position): Redactor {
+export {
+    changePositionOfElement
+}
+
+function changePositionOfElement(redactor: Redactor, slideId: Number, elementId: Number, newPosition: Position): Redactor {
     return redactor
 }

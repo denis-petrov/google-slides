@@ -1,10 +1,11 @@
+import {Point} from './Point'
+
 export {
     Position
 }
 
 type Position = {
-    x: Number,
-    y: Number,
+    Center: Point,
     scaleX: Number,
     scaleY: Number,
     angleRoute: Number

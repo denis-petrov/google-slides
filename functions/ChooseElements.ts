@@ -1,11 +1,11 @@
-import {Redactor} from "../entities/Redactor";
-import {Slide} from "../entities/Slide";
-import {ListElements} from "../entities/ListElements";
+import {Redactor} from '../entities/Redactor'
+import {Slide} from '../entities/Slide'
+import {ListElements} from '../entities/ListElements'
 
 export {
-    ChooseElements
+    chooseElements
 }
 
-function ChooseElements(redactor: Redactor, slide: Slide, listElements: ListElements): Redactor {
-    return redactor;
+function chooseElements(redactor: Redactor, slide: Slide, listElements: ListElements): Redactor {
+    return redactor
 }   
