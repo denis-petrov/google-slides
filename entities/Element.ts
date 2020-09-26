@@ -11,7 +11,7 @@ export {
     Ellipse
 }
 
-type ElementType = 'text' | 'triangle' | 'ellipse' | 'rectangle' | 'image'
+type ElementType = 'text' | 'triangle' | 'rectangle' | 'ellipse'  | 'image'
 
 
 type Element = {
@@ -29,23 +29,27 @@ type Text = Element & {
 type Triangle = Element & {
     A: Point,
     B: Point,
-    C: Point
+    C: Point,
+    type: 'triangle'
 }
 
 type Rectangle = Element & {
     Width: Number,
     Height: Number,
-    Center: Point
-}
-
-type Image = Element & {
-    Element: HTMLElement
+    Center: Point,
+    type: 'rectangle'
 }
 
 type Ellipse = Element & {
     Center: Point,
     RadiusX: Number,
-    RadiusY: Number
+    RadiusY: Number,
+    type: 'ellipse'
+}
+
+type Image = Element & {
+    Element: HTMLElement,
+    type: 'image'
 }
 
 /*example*/
