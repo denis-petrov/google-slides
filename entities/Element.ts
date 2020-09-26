@@ -58,7 +58,7 @@ let text: { Text: string; type: string } = {
     type: 'text'
 }
 
-function foo(e: Element) {
+function foo(e: Text) {
     console.log(e)
     if (e.type == 'text')
     {
