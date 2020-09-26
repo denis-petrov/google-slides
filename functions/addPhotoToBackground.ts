@@ -1,6 +1,6 @@
 import {Redactor} from '../entities/Redactor'
 import {Slide} from '../entities/Slide'
-import {Image} from '../entities/Image'
+import {Image} from '../entities/Element'
 
 export {
     addPhotoToBackground

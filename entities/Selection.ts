@@ -3,6 +3,6 @@ export {
 }
 
 type Selection = {
-    SelectedSlides: Array<Number> | null,
+    SelectedSlides: Array<Number>,
     SelectedElements: Array<Number> | null
 }

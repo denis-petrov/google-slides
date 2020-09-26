@@ -1,7 +1,5 @@
 import {Presentation} from './Presentation'
 import {CommandsHistory} from './CommandsHistory'
-import {SelectionSlides} from './SelectionSlides'
-import {SelectionElements} from './SelectionElements'
 
 export {
     Redactor
@@ -10,6 +8,6 @@ export {
 type Redactor = {
     Presentation: Presentation,
     CommandsHistory: CommandsHistory,
-    SelectionSlides: SelectionSlides,
-    SelectionElements: SelectionElements
+    SelectionSlides: Array<Number>,
+    SelectionElements: Array<Number> | null
 }

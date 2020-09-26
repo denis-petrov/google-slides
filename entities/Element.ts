@@ -1,35 +1,60 @@
-import {TextElement} from './TextElement'
-import {Primitive} from './Primitive'
-import {Image} from './Image'
+import {TextStyle} from './TextStyle'
 import {Position} from './Position'
+import {Point} from "./Point";
 
 export {
-    Element1
+    Element,
+    Text,
+    Triangle,
+    Rectangle,
+    Image,
+    Ellipse
 }
 
-type ElementType = 'text' | 'rect'
+type ElementType = 'text' | 'triangle' | 'ellipse' | 'rectangle' | 'image'
 
-type Element1 = {
+
+type Element = {
     Id: Number,
-    // Entity: TextElement | Primitive | Image,
     Position: Position
     type: ElementType
 }
 
-type TextElement = Element & {
+type Text = Element & {
     Text: String,
-    /*TextStyle: TextStyle,*/
+    TextStyle: TextStyle,
     type: 'text',
 }
 
+type Triangle = Element & {
+    A: Point,
+    B: Point,
+    C: Point
+}
+
+type Rectangle = Element & {
+    Width: Number,
+    Height: Number,
+    Center: Point
+}
+
+type Image = Element & {
+    Element: HTMLElement
+}
+
+type Ellipse = Element & {
+    Center: Point,
+    RadiusX: Number,
+    RadiusY: Number
+}
 
 /*example*/
-let text: TextElement = {
+let text: { Text: string; type: string } = {
     Text: 'hello',
     type: 'text'
 }
 
-function foo(e: Element1) {
+function foo(e: Element) {
     console.log(e)
     if (e.type == 'text')
     {

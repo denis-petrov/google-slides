@@ -1,5 +1,5 @@
+import {Image} from './Element'
 import {Color} from './Color'
-import {Image} from './Image'
 
 export {
     SlideBackground

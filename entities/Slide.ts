@@ -1,4 +1,3 @@
-import {Element} from './Element'
 import {SlideBackground} from './SlideBackground'
 
 export {
@@ -7,6 +6,6 @@ export {
 
 type Slide = {
     Id: Number,
-    Elements: Array<Element>,
+    Elements: Array<Number> | null,
     Background: SlideBackground 
 }

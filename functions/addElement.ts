@@ -4,6 +4,6 @@ export {
     addElement
 }
 
-function addElement(redactor: Redactor , slideId: Number, element: Element) {
+function addElement(redactor: Redactor, slideId: Number, element: Element) {
     return redactor
 }
