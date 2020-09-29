@@ -17,45 +17,46 @@ type ElementType = 'text' | 'triangle' | 'rectangle' | 'ellipse'  | 'image'
 type Element = {
     Id: Number,
     Position: Position
-    type: ElementType
+    Type: ElementType
 }
 
 type Text = Element & {
     Text: String,
     TextStyle: TextStyle,
-    type: 'text',
+    Type: 'text',
 }
 
 type Triangle = Element & {
     A: Point,
     B: Point,
     C: Point,
-    type: 'triangle'
+    Type: 'triangle'
 }
 
 type Rectangle = Element & {
     Width: Number,
     Height: Number,
     Center: Point,
-    type: 'rectangle'
+    Type: 'rectangle'
 }
 
 type Ellipse = Element & {
     Center: Point,
     RadiusX: Number,
     RadiusY: Number,
-    type: 'ellipse'
+    Type: 'ellipse'
 }
 
 type Image = Element & {
     Element: HTMLElement,
-    type: 'image'
+    Type: 'image'
 }
 
 /*example*/
-let text: { Text: string; type: string } = {
+/*
+let text: { Text: string; Type: string } = {
     Text: 'hello',
-    type: 'text'
+    Type: 'text'
 }
 
 function foo(e: Text) {
@@ -65,4 +66,15 @@ function foo(e: Text) {
         e.Text = '123'
         console.log(e)
     }
+}
+*/
+
+
+/*guards*/
+function isText(argument: any): argument is Text {
+    return argument.Text !== undefined && argument.TextStyle !== undefined && argument.Type === 'text';
+}
+
+function isImage(argument: any): argument is Image {
+    return argument.Element !== undefined && argument.Type === 'image';
 }
