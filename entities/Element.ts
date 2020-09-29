@@ -4,10 +4,10 @@ import {Point} from "./Point";
 
 export {
     Element,
-    Text,
+    Text, isText,
     Triangle,
     Rectangle,
-    Image,
+    Image, isImage,
     Ellipse
 }
 
