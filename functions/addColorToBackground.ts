@@ -7,4 +7,4 @@ export {
 
 function addColorToBackground(redactor: Redactor, slide: Slide, number: Number): Redactor {
     return redactor
-}   
+}

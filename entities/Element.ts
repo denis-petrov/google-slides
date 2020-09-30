@@ -1,14 +1,14 @@
 import {TextStyle} from './TextStyle'
 import {Position} from './Position'
-import {Point} from "./Point";
+import {Point} from './Point'
 
 export {
-    Element,
+    Element, isElement,
     Text, isText,
-    Triangle,
-    Rectangle,
+    Triangle, isTriangle,
+    Rectangle, isRectangle,
     Image, isImage,
-    Ellipse
+    Ellipse, isEllipse
 }
 
 type ElementType = 'text' | 'triangle' | 'rectangle' | 'ellipse'  | 'image'
@@ -71,10 +71,40 @@ function foo(e: Text) {
 
 
 /*guards*/
+function isElement(argument: any): argument is Element {
+    return argument.Id !== undefined && typeof argument.Id === 'number'
+        && argument.Position !== undefined
+        && argument.Type === ('text' | 'triangle' | 'rectangle' | 'ellipse'  | 'image')
+}
+
 function isText(argument: any): argument is Text {
-    return argument.Text !== undefined && argument.TextStyle !== undefined && argument.Type === 'text';
+    return argument.Text !== undefined && typeof argument.Text === 'string'
+        && argument.TextStyle !== undefined
+        && argument.Type === 'text';
+}
+
+function isTriangle(argument: any): argument is Triangle {
+    return argument.A !== undefined
+        && argument.B !== undefined
+        && argument.C !== undefined
+        && argument.Type === 'triangle'
+}
+
+function isRectangle(argument: any): argument is Rectangle {
+    return argument.Width !== undefined && typeof argument.Width === 'number'
+        && argument.Height !== undefined && typeof argument.Height === 'number'
+        && argument.Center !== undefined
+        && argument.Type === 'rectangle'
+}
+
+function isEllipse(argument: any): argument is Ellipse {
+    return argument.Center !== undefined
+        && argument.RadiusX !== undefined && typeof argument.RadiusX === 'number'
+        && argument.RadiusY !== undefined && typeof argument.RadiusY === 'number'
+        && argument.Type === 'ellipse'
 }
 
 function isImage(argument: any): argument is Image {
-    return argument.Element !== undefined && argument.Type === 'image';
+    return argument.Element !== undefined
+        && argument.Type === 'image';
 }
