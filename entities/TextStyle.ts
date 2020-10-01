@@ -1,5 +1,5 @@
 export {
-    TextStyle
+    TextStyle, isTextStyle
 }
 
 type TextStyle = {
@@ -9,4 +9,13 @@ type TextStyle = {
     Align: String,
     isBold: false,
     isCurve: false
+}
+
+function isTextStyle(argument: any): argument is TextStyle {
+    return argument.Font !== undefined
+        && argument.SizeFont !== undefined
+        && argument.Color !== undefined
+        && argument.Align !== undefined
+        && argument.isBold !== undefined
+        && argument.isCurve !== undefined;
 }
