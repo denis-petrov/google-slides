@@ -1,5 +1,3 @@
-import {Ellipse} from "./Element";
-
 export {
     Color, isColor
 }

@@ -1,5 +1,5 @@
-import {Image} from './Element'
-import {Color} from './Color'
+import {Image, isImage} from './Element'
+import {Color, isColor} from './Color'
 
 export {
     SlideBackground, isSlideBackground
@@ -10,5 +10,6 @@ type SlideBackground = {
 }
 
 function isSlideBackground(argument: any): argument is SlideBackground {
-    return argument.SelectedSlides !== undefined;
+    return argument.Background !== undefined &&
+        (isImage(argument.Background) || isColor(argument.Background));
 }

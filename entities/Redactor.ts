@@ -1,5 +1,5 @@
-import {Presentation} from './Presentation'
-import {CommandsHistory} from './CommandsHistory'
+import {isPresentation, Presentation} from './Presentation'
+import {CommandsHistory, isCommandsHistory} from './CommandsHistory'
 
 export {
     Redactor, isRedactor
@@ -13,8 +13,8 @@ type Redactor = {
 }
 
 function isRedactor(argument: any): argument is Redactor {
-    return argument.Presentation !== undefined
-        && argument.CommandsHistory !== undefined
-        && argument.SelectionSlides !== undefined
-        && argument.SelectionElements !== undefined
+    return argument.Presentation !== undefined && isPresentation(argument.Presentation)
+        && argument.CommandsHistory !== undefined && isCommandsHistory(argument.CommandsHistory)
+        && argument.SelectionSlides !== undefined &&
+            (typeof argument.SelectionSlides[0] === 'number' || argument.SelectionSlides.length === 0)
 }

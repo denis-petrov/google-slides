@@ -1,6 +1,8 @@
 import {TextStyle} from './TextStyle'
+import {isTextStyle} from './TextStyle'
 import {Position} from './Position'
 import {Point} from './Point'
+import {isPoint} from './Point'
 
 export {
     Element, isElement,
@@ -79,26 +81,26 @@ function isElement(argument: any): argument is Element {
 
 function isText(argument: any): argument is Text {
     return argument.Text !== undefined && typeof argument.Text === 'string'
-        && argument.TextStyle !== undefined
+        && argument.TextStyle !== undefined && isTextStyle(argument.TextStyle)
         && argument.Type === 'text';
 }
 
 function isTriangle(argument: any): argument is Triangle {
-    return argument.A !== undefined
-        && argument.B !== undefined
-        && argument.C !== undefined
+    return argument.A !== undefined && isPoint(argument.A)
+        && argument.B !== undefined && isPoint(argument.B)
+        && argument.C !== undefined && isPoint(argument.C)
         && argument.Type === 'triangle'
 }
 
 function isRectangle(argument: any): argument is Rectangle {
     return argument.Width !== undefined && typeof argument.Width === 'number'
         && argument.Height !== undefined && typeof argument.Height === 'number'
-        && argument.Center !== undefined
+        && argument.Center !== undefined && isPoint(argument.Center)
         && argument.Type === 'rectangle'
 }
 
 function isEllipse(argument: any): argument is Ellipse {
-    return argument.Center !== undefined
+    return argument.Center !== undefined && isPoint(argument.Center)
         && argument.RadiusX !== undefined && typeof argument.RadiusX === 'number'
         && argument.RadiusY !== undefined && typeof argument.RadiusY === 'number'
         && argument.Type === 'ellipse'

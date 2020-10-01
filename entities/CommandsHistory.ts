@@ -1,5 +1,5 @@
 import {Redactor} from './Redactor'
-import {Color} from "./Color";
+import {isRedactor} from './Redactor'
 
 export {
     CommandsHistory, isCommandsHistory
@@ -11,6 +11,7 @@ type CommandsHistory = {
 }
 
 function isCommandsHistory(argument: any): argument is CommandsHistory {
-    return argument.CommandSet !== undefined
+    return argument.CommandSet !== undefined && Array.isArray(argument.CommandSet)
+        && (isRedactor(argument.CommandSet[argument.IndexOfCurrentState]) || argument.CommandSet.length === 0)
         && argument.IndexOfCurrentState !== undefined && typeof argument.IndexOfCurrentState === 'number'
 }
