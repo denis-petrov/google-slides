@@ -1,4 +1,4 @@
-import {Slide} from "./Slide";
+import {Slide} from './Slide'
 
 export {
     Presentation, isPresentation

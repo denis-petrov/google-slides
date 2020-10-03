@@ -1,18 +1,24 @@
 import {Editor} from '../entities/Editor'
-import {Image} from '../entities/Element'
+import {Image} from '../entities/Elements'
 
 export {
     addPhotoToBackground
 }
 
-function addPhotoToBackground(redactor: Editor, slideId: number, img: Image): Editor {
-    let result: Editor = {
-        ...redactor
+function addPhotoToBackground(editor: Editor, img: Image, slideId: number): Editor {
+    return {
+        ...editor,
+        Presentation: {
+            ...editor.Presentation,
+            Slides: editor.Presentation.Slides.map(sldie => {
+                if (editor.SelectionSlidesId.includes(slideId)) {
+                    return {
+                        ...sldie,
+                        Background: img,
+                    }
+                }
+                return sldie
+            })
+        }
     }
-    result.SelectionSlides.find(elem => elem.Id === slideId).Background = {
-        Background: img
-    }
-    result.CommandsHistory.CommandList.push(result)
-    result.CommandsHistory.IndexOfCurrentState += 1
-    return result
 }   

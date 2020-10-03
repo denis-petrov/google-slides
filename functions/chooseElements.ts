@@ -5,6 +5,6 @@ export {
     chooseElements
 }
 
-function chooseElements(redactor: Editor, slide: Slide, listElements: Array<number>): Editor {
+function chooseElements(redactor: Editor, slideId: number, listElements: Array<number>): Editor {
     return redactor
 }   

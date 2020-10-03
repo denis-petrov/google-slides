@@ -1,18 +1,27 @@
 import {Editor} from '../entities/Editor'
-import {Slide} from "../entities/Slide";
+import {Slide} from '../entities/Slide'
 
 export {
     addEmptySlide
 }
 
-function addEmptySlide(redactor: Editor) {
-    let result: Editor = {
-        ...redactor
+function addEmptySlide(editor: Editor) {
+    return {
+        ...editor,
+        Presentation: {
+            ...editor.Presentation,
+            Slides: editor.Presentation.Slides.push(
+                {
+                    Id: editor.Presentation.Slides.length + 1,
+                    Elements: null,
+                    Background: {
+                        Red: 229,
+                        Green: 229,
+                        Blue: 229
+                    },
+                    SelectionElementsId: null
+                } as Slide
+            )
+        }
     }
-    let slide: Slide = {}
-
-    result.SelectionSlides.push()
-    result.CommandsHistory.CommandList.push(result)
-    result.CommandsHistory.IndexOfCurrentState += 1
-    return result
 }

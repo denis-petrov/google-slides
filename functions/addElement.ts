@@ -1,15 +1,23 @@
 import {Editor} from '../entities/Editor'
+import {Elements} from '../entities/Elements'
 
 export {
     addElement
 }
 
-function addElement(redactor: Editor, slideId: number, element: Element) {
-    let result: Editor = {
-        ...redactor
+function addElement(editor: Editor, element: Elements, slideId: number) {
+    return {
+        ...editor,
+        Presentation: {
+            ...editor.Presentation,
+            Slides: editor.Presentation.Slides.map(slide => {
+                if (editor.SelectionSlidesId.includes(slideId)) {
+                    return {
+                        ...slide.Elements.push(element) as {},
+                    }
+                }
+                return slide
+            })
+        }
     }
-    result.SelectionElements.push(element)
-    result.CommandsHistory.CommandList.push(result)
-    result.CommandsHistory.IndexOfCurrentState += 1
-    return result
 }

@@ -2,7 +2,7 @@ import {isTextStyle, TextStyle} from './TextStyle'
 import {isPoint, Point} from './Point'
 
 export {
-    Element, isElement,
+    Elements, isElement,
     Text, isText,
     Triangle, isTriangle,
     Rectangle, isRectangle,
@@ -18,7 +18,7 @@ enum ElementType {
     image
 }
 
-type Element = {
+type Elements = {
     Id: number,
     Position: Point,
     scaleX: number,
@@ -27,58 +27,41 @@ type Element = {
     Type: ElementType
 }
 
-type Text = Element & {
+type Text = Elements & {
     Text: String,
     TextStyle: TextStyle,
     Type: 'text',
 }
 
-type Triangle = Element & {
+type Triangle = Elements & {
     A: Point,
     B: Point,
     C: Point,
     Type: 'triangle'
 }
 
-type Rectangle = Element & {
+type Rectangle = Elements & {
     Width: number,
     Height: number,
     Center: Point,
     Type: 'rectangle'
 }
 
-type Ellipse = Element & {
+type Ellipse = Elements & {
     Center: Point,
     RadiusX: number,
     RadiusY: number,
     Type: 'ellipse'
 }
 
-type Image = Element & {
+type Image = Elements & {
     Element: HTMLElement,
     Type: 'image'
 }
 
-/*example*/
-/*
-let text: { Text: string; Type: string } = {
-    Text: 'hello',
-    Type: 'text'
-}
-
-function foo(e: Text) {
-    console.log(e)
-    if (e.type == 'text')
-    {
-        e.Text = '123'
-        console.log(e)
-    }
-}
-*/
-
 
 /*guards*/
-function isElement(argument: any): argument is Element {
+function isElement(argument: any): argument is Elements {
     return argument.Id !== undefined && typeof argument.Id === 'number'
         && argument.Position !== undefined
         && (argument.Type >= 0 && argument.Type <= 4)
@@ -87,7 +70,7 @@ function isElement(argument: any): argument is Element {
 function isText(argument: any): argument is Text {
     return argument.Text !== undefined && typeof argument.Text === 'string'
         && argument.TextStyle !== undefined && isTextStyle(argument.TextStyle)
-        && argument.Type === 'text';
+        && argument.Type === 'text'
 }
 
 function isTriangle(argument: any): argument is Triangle {
@@ -113,5 +96,5 @@ function isEllipse(argument: any): argument is Ellipse {
 
 function isImage(argument: any): argument is Image {
     return argument.Element !== undefined
-        && argument.Type === 'image';
+        && argument.Type === 'image'
 }

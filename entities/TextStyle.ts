@@ -1,4 +1,4 @@
-import {Color, isColor} from "./Color";
+import {Color, isColor} from './Color'
 
 export {
     TextStyle, isTextStyle
@@ -19,5 +19,5 @@ function isTextStyle(argument: any): argument is TextStyle {
         && argument.Color !== undefined && isColor(argument.Color)
         && argument.Align !== undefined && typeof argument.Align === 'string'
         && argument.isBold !== undefined && typeof argument.isBold === 'boolean'
-        && argument.isCurve !== undefined && typeof argument.isCurve === 'boolean';
+        && argument.isCurve !== undefined && typeof argument.isCurve === 'boolean'
 }
