@@ -4,6 +4,12 @@ export {
     changeNamePresentation
 }
 
-function changeNamePresentation(editor: Editor, name: string): Editor {
-    return null
+function changeNamePresentation(redactor: Editor, name: string): Editor {
+    return {
+        ...redactor,
+        Presentation: {
+            ...redactor.Presentation,
+            Name: name
+        }
+    }
 }
