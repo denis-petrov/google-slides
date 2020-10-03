@@ -1,6 +1,6 @@
 import {Color} from '../entities/Color'
 import {Editor} from '../entities/Editor'
-import {ElementType} from "../entities/Element";
+import {ElementType} from '../entities/Elements'
 
 export {
     changeStyleOfPrimitive
@@ -16,7 +16,7 @@ function changeStyleOfPrimitive(editor: Editor, slideId: number, elementsId: Arr
                 {
                     return {
                         ...s,
-                        Elements: editor.Presentation.Slides[slideId].Elements.filter((e, index,array) => {
+                        Elements: editor.Presentation.Slides[slideId].Elements.filter((e) => {
                             if ((elementsId.includes(e.Id)) && (e.Type != ElementType.text) && (e.Type != ElementType.image))
                             {
                                 return {

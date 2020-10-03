@@ -1,6 +1,6 @@
 import {Editor} from '../entities/Editor'
 import {TextStyle} from '../entities/TextStyle'
-import {ElementType, isText} from "../entities/Element";
+import {ElementType} from '../entities/Elements'
 
 export {
     changeStyleOfText
@@ -17,7 +17,7 @@ function changeStyleOfText(editor: Editor, slideId: number, elementsId: Array<nu
                 {
                     return {
                         ...s,
-                        Elements: editor.Presentation.Slides[slideId].Elements.filter((e, index,array) => {
+                        Elements: editor.Presentation.Slides[slideId].Elements.filter((e) => {
                             if ((elementsId.includes(e.Id)) && (e.Type == ElementType.text))
                             {
                                 return {

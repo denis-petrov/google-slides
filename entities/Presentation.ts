@@ -5,6 +5,7 @@ export {
 }
 
 type Presentation = {
+    Name: String,
     Slides: Array<Slide>
 }
 

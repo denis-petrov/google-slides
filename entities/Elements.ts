@@ -1,5 +1,6 @@
 import {isTextStyle, TextStyle} from './TextStyle'
 import {isPoint, Point} from './Point'
+import {Color} from "./Color";
 
 export {
     Elements, isElement,
@@ -7,7 +8,8 @@ export {
     Triangle, isTriangle,
     Rectangle, isRectangle,
     Image, isImage,
-    Ellipse, isEllipse
+    Ellipse, isEllipse,
+    ElementType
 }
 
 enum ElementType {
@@ -24,39 +26,43 @@ type Elements = {
     scaleX: number,
     scaleY: number,
     angleRoute: number,
+    BorderColor: Color,
     Type: ElementType
 }
 
 type Text = Elements & {
     Text: String,
     TextStyle: TextStyle,
-    Type: 'text',
+    Type: ElementType.text,
 }
 
 type Triangle = Elements & {
     A: Point,
     B: Point,
     C: Point,
-    Type: 'triangle'
+    BackgroundColor: Color,
+    Type: ElementType.triangle
 }
 
 type Rectangle = Elements & {
     Width: number,
     Height: number,
     Center: Point,
-    Type: 'rectangle'
+    BackgroundColor: Color,
+    Type: ElementType.rectangle
 }
 
 type Ellipse = Elements & {
     Center: Point,
     RadiusX: number,
     RadiusY: number,
-    Type: 'ellipse'
+    BackgroundColor: Color,
+    Type: ElementType.ellipse
 }
 
 type Image = Elements & {
     Element: HTMLElement,
-    Type: 'image'
+    Type: ElementType.image
 }
 
 

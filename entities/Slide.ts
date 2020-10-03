@@ -1,6 +1,6 @@
-import {isSlideBackground, SlideBackground} from './SlideBackground'
-import {Color} from "./Color";
-import {Elements, Image} from "./Element";
+import {isSlideBackground} from './SlideBackground'
+import {Color} from './Color'
+import {Elements, Image} from './Elements'
 
 export {
     Slide, isSlide
