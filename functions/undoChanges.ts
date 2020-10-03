@@ -1,9 +1,9 @@
-import {Redactor} from '../entities/Redactor'
+import {Editor} from '../entities/Editor'
 
 export {
     undoChanges
 }
 
-function undoChanges(redactor: Redactor): Redactor {
+function undoChanges(redactor: Editor): Editor {
     return redactor
 }

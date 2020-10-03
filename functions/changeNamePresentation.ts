@@ -1,9 +1,9 @@
-import {Redactor} from '../entities/Redactor'
+import {Editor} from '../entities/Editor'
 
 export {
     changeNamePresentation
 }
 
-function changeNamePresentation(redactor: Redactor, name: string): Redactor {
+function changeNamePresentation(redactor: Editor, name: string): Editor {
     return redactor
 }

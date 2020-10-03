@@ -3,8 +3,8 @@ export {
 }
 
 type Point = {
-    X: Number,
-    Y: Number
+    X: number,
+    Y: number
 }
 
 function isPoint(argument: any): argument is Point {

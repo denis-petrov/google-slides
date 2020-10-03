@@ -3,9 +3,9 @@ export {
 }
 
 type Color = {
-    Red: Number,
-    Green: Number,
-    Blue: Number
+    Red: number,
+    Green: number,
+    Blue: number
 }
 
 function isColor(argument: any): argument is Color {

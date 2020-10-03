@@ -1,13 +1,13 @@
-import {Redactor} from './Redactor'
-import {isRedactor} from './Redactor'
+import {Editor} from './Editor'
+import {isRedactor} from './Editor'
 
 export {
     CommandsHistory, isCommandsHistory
 }
 
 type CommandsHistory = {
-    CommandSet: Array<Redactor>,
-    IndexOfCurrentState: Number,
+    CommandList: Array<Editor>,
+    IndexOfCurrentState: number,
 }
 
 function isCommandsHistory(argument: any): argument is CommandsHistory {

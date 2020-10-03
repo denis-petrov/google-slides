@@ -1,10 +1,10 @@
-import {Redactor} from '../entities/Redactor'
+import {Editor} from '../entities/Editor'
 import {Slide} from '../entities/Slide'
 
 export {
     chooseElements
 }
 
-function chooseElements(redactor: Redactor, slide: Slide, listElements: Array<Number>): Redactor {
+function chooseElements(redactor: Editor, slide: Slide, listElements: Array<number>): Editor {
     return redactor
 }   

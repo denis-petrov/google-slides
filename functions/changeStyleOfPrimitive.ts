@@ -1,10 +1,10 @@
 import {Color} from '../entities/Color'
-import {Redactor} from '../entities/Redactor'
+import {Editor} from '../entities/Editor'
 
 export {
     changeStyleOfPrimitive
 }
 
-function changeStyleOfPrimitive(redactor: Redactor, slideId: Number, elements: Array<Number>, newColor: Color): Redactor {
+function changeStyleOfPrimitive(redactor: Editor, slideId: number, elements: Array<number>, newColor: Color): Editor {
     return redactor
 }

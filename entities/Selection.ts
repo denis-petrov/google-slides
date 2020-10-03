@@ -3,8 +3,8 @@ export {
 }
 
 type Selection = {
-    SelectedSlides: Array<Number>,
-    SelectedElements: Array<Number> | null
+    SelectedSlides: Array<number>,
+    SelectedElements: Array<number> | null
 }
 
 function isSelection(argument: any): argument is Selection {

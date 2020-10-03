@@ -1,8 +1,5 @@
-import {TextStyle} from './TextStyle'
-import {isTextStyle} from './TextStyle'
-import {Position} from './Position'
-import {Point} from './Point'
-import {isPoint} from './Point'
+import {isTextStyle, TextStyle} from './TextStyle'
+import {isPoint, Point} from './Point'
 
 export {
     Element, isElement,
@@ -13,12 +10,20 @@ export {
     Ellipse, isEllipse
 }
 
-type ElementType = 'text' | 'triangle' | 'rectangle' | 'ellipse'  | 'image'
-
+enum ElementType {
+    text,
+    triangle,
+    rectangle,
+    ellipse,
+    image
+}
 
 type Element = {
-    Id: Number,
-    Position: Position
+    Id: number,
+    Position: Point,
+    scaleX: number,
+    scaleY: number,
+    angleRoute: number,
     Type: ElementType
 }
 
@@ -36,16 +41,16 @@ type Triangle = Element & {
 }
 
 type Rectangle = Element & {
-    Width: Number,
-    Height: Number,
+    Width: number,
+    Height: number,
     Center: Point,
     Type: 'rectangle'
 }
 
 type Ellipse = Element & {
     Center: Point,
-    RadiusX: Number,
-    RadiusY: Number,
+    RadiusX: number,
+    RadiusY: number,
     Type: 'ellipse'
 }
 
@@ -76,7 +81,7 @@ function foo(e: Text) {
 function isElement(argument: any): argument is Element {
     return argument.Id !== undefined && typeof argument.Id === 'number'
         && argument.Position !== undefined
-        && argument.Type === ('text' | 'triangle' | 'rectangle' | 'ellipse'  | 'image')
+        && (argument.Type >= 0 && argument.Type <= 4)
 }
 
 function isText(argument: any): argument is Text {

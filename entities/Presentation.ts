@@ -1,11 +1,11 @@
-import {isRedactor} from "./Redactor";
+import {Slide} from "./Slide";
 
 export {
     Presentation, isPresentation
 }
 
 type Presentation = {
-    Slides: Array<Number>
+    Slides: Array<Slide>
 }
 
 function isPresentation(argument: any): argument is Presentation {

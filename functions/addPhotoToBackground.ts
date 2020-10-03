@@ -1,11 +1,18 @@
-import {Redactor} from '../entities/Redactor'
-import {Slide} from '../entities/Slide'
+import {Editor} from '../entities/Editor'
 import {Image} from '../entities/Element'
 
 export {
     addPhotoToBackground
 }
 
-function addPhotoToBackground(redactor: Redactor, slide: Slide, img: Image): Redactor {
-    return redactor
+function addPhotoToBackground(redactor: Editor, slideId: number, img: Image): Editor {
+    let result: Editor = {
+        ...redactor
+    }
+    result.SelectionSlides.find(elem => elem.Id === slideId).Background = {
+        Background: img
+    }
+    result.CommandsHistory.CommandList.push(result)
+    result.CommandsHistory.IndexOfCurrentState += 1
+    return result
 }   

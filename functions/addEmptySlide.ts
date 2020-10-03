@@ -1,14 +1,17 @@
 import {Editor} from '../entities/Editor'
+import {Slide} from "../entities/Slide";
 
 export {
-    addElement
+    addEmptySlide
 }
 
-function addElement(redactor: Editor, slideId: number, element: Element) {
+function addEmptySlide(redactor: Editor) {
     let result: Editor = {
         ...redactor
     }
-    result.SelectionElements.push(element)
+    let slide: Slide = {}
+
+    result.SelectionSlides.push()
     result.CommandsHistory.CommandList.push(result)
     result.CommandsHistory.IndexOfCurrentState += 1
     return result

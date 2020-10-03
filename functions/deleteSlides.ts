@@ -1,9 +1,9 @@
-import {Redactor} from '../entities/Redactor'
+import {Editor} from '../entities/Editor'
 
 export {
     deleteSlides
 }
 
-function deleteSlides(redactor: Redactor, slides: Array<Number>) {
+function deleteSlides(redactor: Editor, slides: Array<number>) {
     return redactor
 }

@@ -1,10 +1,25 @@
-import {Redactor} from '../entities/Redactor'
-import {Slide} from '../entities/Slide'
+import {Editor} from '../entities/Editor'
+import {Color} from "../entities/Color";
 
 export {
     addColorToBackground
 }
 
-function addColorToBackground(redactor: Redactor, slide: Slide, number: Number): Redactor {
-    return redactor
+function addColorToBackground(redactor: Editor, slideId: number, color: Color): Editor {
+    return {
+        ...redactor,
+        Presentation: {
+            ...redactor.Presentation,
+            Slides: redactor.Presentation.Slides.map(s => {
+                if (redactor.SelectionSlides.includes(s.Id))
+                {
+                    return {
+                        ...s,
+                        Background: color,
+                    }
+                }
+                return s
+            })
+        }
+    }
 }

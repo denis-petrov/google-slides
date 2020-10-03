@@ -6,7 +6,7 @@ export {
 
 type TextStyle = {
     Font: String,
-    SizeFont: Number,
+    SizeFont: number,
     Color: Color,
     Align: String,
     isBold: false,
