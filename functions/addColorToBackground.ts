@@ -11,7 +11,7 @@ function addColorToBackground(redactor: Editor, slideId: number, color: Color): 
         Presentation: {
             ...redactor.Presentation,
             Slides: redactor.Presentation.Slides.map(s => {
-                if (redactor.SelectionSlides.includes(s.Id))
+                if (redactor.SelectionSlidesId.includes(s.Id))
                 {
                     return {
                         ...s,

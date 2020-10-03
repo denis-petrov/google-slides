@@ -1,10 +1,25 @@
 import {Editor} from '../entities/Editor'
-import {Slide} from '../entities/Slide'
 
 export {
     chooseElements
 }
 
-function chooseElements(redactor: Editor, slide: Slide, listElements: Array<number>): Editor {
-    return redactor
+function chooseElements(editor: Editor, slideId: number, listElements: Array<number>): Editor {
+    return {
+        ...editor,
+        Presentation: {
+            ...editor.Presentation,
+            Slides: editor.Presentation.Slides.map(s => {
+                if (editor.SelectionSlidesId.includes(s.Id))
+                {
+                    return {
+                        ...s,
+                        SelectionElements: listElements
+                    }
+                }
+                return s
+            })
+        }
+    }
+    return editor
 }   

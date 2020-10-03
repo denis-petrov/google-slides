@@ -1,6 +1,4 @@
 import {isPresentation, Presentation} from './Presentation'
-import {CommandsHistory, isCommandsHistory} from './CommandsHistory'
-import {Slide} from "./Slide";
 
 export {
     Editor, isRedactor
@@ -8,8 +6,7 @@ export {
 
 type Editor = {
     Presentation: Presentation,
-    SelectionSlides: Array<number>,
-    SelectionElements: Array<number> | null
+    SelectionSlidesId: Array<number>
 }
 
 function isRedactor(argument: any): argument is Editor {
