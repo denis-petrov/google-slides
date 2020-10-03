@@ -15,6 +15,7 @@ function deleteElements(editor: Editor, slideId: number, elements: Array<number>
     return {
         ...editor,
         Presentation: {
+            Name: editor.Presentation.Name,
             Slides: allSlides
         }
     }

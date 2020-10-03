@@ -8,9 +8,9 @@ export {
 
 type Slide = {
     Id: number,
-    Elements: Array<Elements> | null,
+    Elements: Array<Elements>,
     Background: Image | Color,
-    SelectionElementsId: Array<number> | null
+    SelectionElementsId: Array<number>
 }
 
 function isSlide(argument: any): argument is Slide {

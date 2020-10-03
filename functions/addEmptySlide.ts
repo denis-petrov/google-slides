@@ -1,6 +1,6 @@
 import {Editor} from '../entities/Editor'
 import {Slide} from '../entities/Slide'
-import {WHITE} from '../Constants'
+import {WHITE} from '../entities/Constants'
 
 export {
     addEmptySlide

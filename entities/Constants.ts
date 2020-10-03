@@ -1,4 +1,4 @@
-import {Color} from "./entities/Color";
+import {Color} from "./Color";
 
 export {
     WHITE
