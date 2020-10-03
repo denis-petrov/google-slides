@@ -1,10 +1,12 @@
 import {Editor} from '../entities/Editor'
-import {Slide} from '../entities/Slide'
 
 export {
     chooseSlides
 }
 
-function chooseSlides(redactor: Editor, slides: Array<number>): Editor {
-    return redactor
+function chooseSlides(editor: Editor, slides: Array<number>): Editor {
+    return {
+        ...editor,
+        SelectionSlidesId: editor.SelectionSlidesId.slice().concat(slides)
+    }
 }
