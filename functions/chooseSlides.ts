@@ -1,5 +1,5 @@
 import {Editor} from '../entities/Editor'
-import {Slide} from "../entities/Slide";
+import {Slide} from '../entities/Slide'
 
 export {
     chooseSlides

@@ -1,6 +1,6 @@
-import {isSlideBackground, SlideBackground} from './SlideBackground'
-import {Color} from "./Color";
-import {Image} from "./Element";
+import {isSlideBackground} from './SlideBackground'
+import {Color} from './Color'
+import {Elements, Image} from './Elements'
 
 export {
     Slide, isSlide
@@ -8,12 +8,13 @@ export {
 
 type Slide = {
     Id: number,
-    Elements: Array<number> | null,
-    Background: Image | Color
+    Elements: Array<Elements> | null,
+    Background: Image | Color,
+    SelectionElementsId: Array<number> | null
 }
 
 function isSlide(argument: any): argument is Slide {
     return argument.Id !== undefined && typeof argument.Id === 'number'
         && argument.Elements !== undefined
-        && argument.Background !== undefined && isSlideBackground(argument.Background);
+        && argument.Background !== undefined && isSlideBackground(argument.Background)
 }
