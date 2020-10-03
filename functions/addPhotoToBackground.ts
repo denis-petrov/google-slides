@@ -10,14 +10,14 @@ function addPhotoToBackground(editor: Editor, img: Image, slideId: number): Edit
         ...editor,
         Presentation: {
             ...editor.Presentation,
-            Slides: editor.Presentation.Slides.map(sldie => {
+            Slides: editor.Presentation.Slides.map(slide => {
                 if (editor.SelectionSlidesId.includes(slideId)) {
                     return {
-                        ...sldie,
+                        ...slide,
                         Background: img,
                     }
                 }
-                return sldie
+                return slide
             })
         }
     }
