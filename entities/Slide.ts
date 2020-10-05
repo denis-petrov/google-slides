@@ -9,7 +9,7 @@ export {
 type Slide = {
     Id: number,
     Elements: Array<Elements>,
-    Background: Image | Color,
+    Background: Color | Image,
     SelectionElementsId: Array<number>
 }
 
