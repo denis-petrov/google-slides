@@ -1,5 +1,5 @@
 import {addColorToBackground} from '../functions/addColorToBackground'
-import {WHITE} from '../entities/Constants'
+import {BLACK, WHITE} from '../entities/Constants'
 
 describe('test add color to background', () => {
     test('change black to white', () => {
@@ -11,17 +11,13 @@ describe('test add color to background', () => {
                 Slides: [
                     {
                         Id: 0,
-                        Elements: null,
-                        Background: {
-                            Red: 255,
-                            Green: 255,
-                            Blue: 255
-                        },
-                        SelectionElementsId: null
+                        Elements: [],
+                        Background: WHITE,
+                        SelectionElementsId: []
                     }
                 ]
             },
-            SelectionSlidesId: [0, 1, 2]
+            SelectionSlidesId: [0]
         }
 
         // Act
@@ -31,22 +27,159 @@ describe('test add color to background', () => {
                 Slides: [
                     {
                         Id: 0,
-                        Elements: null,
+                        Elements: [],
+                        Background: BLACK,
+                        SelectionElementsId: []
+                    }
+                ]
+            },
+            SelectionSlidesId: [0]
+        }
+        let result = addColorToBackground(emptyEditor, WHITE, 0)
+
+        // Assert
+        expect(result).toEqual(expectedEditor)
+    })
+
+    test('change specter Red to 100', () => {
+
+        // Arrange
+        let expectedEditor = {
+            Presentation: {
+                Name: 'test',
+                Slides: [
+                    {
+                        Id: 0,
+                        Elements: [],
+                        Background: {
+                            Red: 100,
+                            Green: 0,
+                            Blue: 0
+                        },
+                        SelectionElementsId: []
+                    }
+                ]
+            },
+            SelectionSlidesId: [0]
+        }
+
+        // Act
+        let emptyEditor = {
+            Presentation: {
+                Name: 'test',
+                Slides: [
+                    {
+                        Id: 0,
+                        Elements: [],
                         Background: {
                             Red: 0,
                             Green: 0,
                             Blue: 0
                         },
-                        SelectionElementsId: null
+                        SelectionElementsId: []
                     }
                 ]
             },
-            SelectionSlidesId: [0, 1, 2]
+            SelectionSlidesId: [0]
         }
-        let result = addColorToBackground(emptyEditor, WHITE, 0)
+        let result = addColorToBackground(emptyEditor, {Red: 100, Green: 0, Blue: 0}, 0)
 
         // Assert
-        expect(result).toStrictEqual(expectedEditor)
+        expect(result).toEqual(expectedEditor)
+    })
+
+    test('change specter Green to 50', () => {
+
+        // Arrange
+        let expectedEditor = {
+            Presentation: {
+                Name: 'test',
+                Slides: [
+                    {
+                        Id: 0,
+                        Elements: [],
+                        Background: {
+                            Red: 0,
+                            Green: 50,
+                            Blue: 0
+                        },
+                        SelectionElementsId: []
+                    }
+                ]
+            },
+            SelectionSlidesId: [0]
+        }
+
+        // Act
+        let emptyEditor = {
+            Presentation: {
+                Name: 'test',
+                Slides: [
+                    {
+                        Id: 0,
+                        Elements: [],
+                        Background: {
+                            Red: 0,
+                            Green: 0,
+                            Blue: 0
+                        },
+                        SelectionElementsId: []
+                    }
+                ]
+            },
+            SelectionSlidesId: [0]
+        }
+        let result = addColorToBackground(emptyEditor, {Red: 0, Green: 50, Blue: 0}, 0)
+
+        // Assert
+        expect(result).toEqual(expectedEditor)
+    })
+
+    test('change specter Blue to 170', () => {
+
+        // Arrange
+        let expectedEditor = {
+            Presentation: {
+                Name: 'test',
+                Slides: [
+                    {
+                        Id: 0,
+                        Elements: [],
+                        Background: {
+                            Red: 0,
+                            Green: 0,
+                            Blue: 170
+                        },
+                        SelectionElementsId: []
+                    }
+                ]
+            },
+            SelectionSlidesId: [0]
+        }
+
+        // Act
+        let emptyEditor = {
+            Presentation: {
+                Name: 'test',
+                Slides: [
+                    {
+                        Id: 0,
+                        Elements: [],
+                        Background: {
+                            Red: 0,
+                            Green: 0,
+                            Blue: 0
+                        },
+                        SelectionElementsId: []
+                    }
+                ]
+            },
+            SelectionSlidesId: [0]
+        }
+        let result = addColorToBackground(emptyEditor, {Red: 0, Green: 0, Blue: 170}, 0)
+
+        // Assert
+        expect(result).toEqual(expectedEditor)
     })
 })
 
