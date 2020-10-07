@@ -47,13 +47,11 @@ type Triangle = Elements & {
 type Rectangle = Elements & {
     Width: number,
     Height: number,
-    Center: Point,
     BackgroundColor: Color,
     Type: ElementType.rectangle
 }
 
 type Ellipse = Elements & {
-    Center: Point,
     RadiusX: number,
     RadiusY: number,
     BackgroundColor: Color,

@@ -4,7 +4,7 @@ export {
     chooseElements
 }
 
-function chooseElements(editor: Editor, slideId: number, listElements: Array<number>): Editor {
+function chooseElements(editor: Editor, listElementsId: Array<number>): Editor {
     return {
         ...editor,
         Presentation: {
@@ -14,7 +14,7 @@ function chooseElements(editor: Editor, slideId: number, listElements: Array<num
                 {
                     return {
                         ...s,
-                        SelectionElements: listElements
+                        SelectionElementsId: listElementsId
                     }
                 }
                 return s

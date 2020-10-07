@@ -5,12 +5,12 @@ export {
 }
 
 type TextStyle = {
-    Font: String,
+    Font: string,
     SizeFont: number,
     Color: Color,
-    Align: String,
-    isBold: false,
-    isCurve: false
+    Align: string,
+    isBold: boolean,
+    isCurve: boolean
 }
 
 function isTextStyle(argument: any): argument is TextStyle {

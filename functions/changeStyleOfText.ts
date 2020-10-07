@@ -1,12 +1,12 @@
 import {Editor} from '../entities/Editor'
 import {TextStyle} from '../entities/TextStyle'
-import {ElementType} from '../entities/Elements'
+import {ElementType, Text} from '../entities/Elements'
 
 export {
     changeStyleOfText
 }
 
-function changeStyleOfText(editor: Editor, slideId: number, elementsId: Array<number>, textStyle: TextStyle): Editor {
+function changeStyleOfText(editor: Editor, elementsId: Array<number>, textStyle: TextStyle): Editor {
 
     return {
         ...editor,
@@ -17,16 +17,16 @@ function changeStyleOfText(editor: Editor, slideId: number, elementsId: Array<nu
                 {
                     return {
                         ...s,
-                        Elements: editor.Presentation.Slides[slideId].Elements.filter((e) => {
-                            if ((elementsId.includes(e.Id)) && (e.Type == ElementType.text))
+                        Elements: s.Elements.filter((element) => {
+                            if ((elementsId.includes(element.Id)) && (element.Type == ElementType.text))
                             {
                                 return {
-                                    ...e,
-                                    TextStyle: textStyle
+                                    ...element,
+                                    TextStyle: (element as Text).TextStyle = textStyle
                                 }
                             }
 
-                            return e
+                            return element
                         })
                     }
                 }
