@@ -1,7 +1,9 @@
 import {Color} from "./Color";
 
 export {
-    WHITE, BLACK
+    WHITE,
+    GREEN,
+    RED
 }
 
 const WHITE: Color = {
@@ -10,8 +12,14 @@ const WHITE: Color = {
     Blue: 255
 }
 
-const BLACK: Color = {
+const GREEN: Color = {
     Red: 0,
+    Green: 255,
+    Blue: 0
+}
+
+const RED: Color = {
+    Red: 255,
     Green: 0,
     Blue: 0
 }

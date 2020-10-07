@@ -1,32 +1,31 @@
 import {Color} from '../entities/Color'
 import {Editor} from '../entities/Editor'
-import {ElementType} from '../entities/Elements'
+import {ElementType, Ellipse, Rectangle, Triangle} from '../entities/Elements'
 
 export {
     changeStyleOfPrimitive
 }
 
-function changeStyleOfPrimitive(editor: Editor, slideId: number, elementsId: Array<number>, newBackgroundColor: Color, newBorderColor: Color): Editor {
+function changeStyleOfPrimitive(editor: Editor, elementsId: Array<number>, newBackgroundColor: Color, newBorderColor: Color): Editor {
     return {
         ...editor,
         Presentation: {
             ...editor.Presentation,
             Slides: editor.Presentation.Slides.map(s => {
-                if (editor.SelectionSlidesId.includes(s.Id))
-                {
+                if (editor.SelectionSlidesId.includes(s.Id)) {
                     return {
                         ...s,
-                        Elements: editor.Presentation.Slides[slideId].Elements.filter((e) => {
-                            if ((elementsId.includes(e.Id)) && (e.Type != ElementType.text) && (e.Type != ElementType.image))
-                            {
+                        Elements: s.Elements.filter((element) => {
+                            if ((elementsId.includes(element.Id)) && ((element.Type == ElementType.triangle)
+                                || (element.Type == ElementType.ellipse) || (element.Type == ElementType.rectangle))) {
                                 return {
-                                    ...e,
-                                    BackgroundColor: newBackgroundColor,
-                                    BorderColor: newBorderColor
+                                    ...element,
+                                    BackgroundColor: (element as (Ellipse | Triangle | Rectangle)).BackgroundColor = newBackgroundColor,
+                                    BorderColor: element.BorderColor = newBorderColor
                                 }
                             }
 
-                            return e
+                            return element
                         })
                     }
                 }
