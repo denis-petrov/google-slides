@@ -1,5 +1,5 @@
 import {addEmptySlide} from '../functions/addEmptySlide'
-import {WHITE} from "../entities/Constants";
+import {WHITE} from '../entities/Constants'
 
 describe('test Empty slide', () => {
     test('add empty slide', () => {

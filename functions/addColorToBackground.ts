@@ -5,19 +5,19 @@ export {
     addColorToBackground
 }
 
-function addColorToBackground(editor: Editor, color: Color, slideId: number): Editor {
+function addColorToBackground(editor: Editor, color: Color): Editor {
     return {
         ...editor,
         Presentation: {
             ...editor.Presentation,
-            Slides: editor.Presentation.Slides.map(slide => {
-                if (editor.SelectionSlidesId.includes(slideId)) {
+            Slides: editor.Presentation.Slides.map(s => {
+                if (editor.SelectionSlidesId.includes(s.Id)) {
                     return {
-                        ...slide,
+                        ...s,
                         Background: color,
                     }
                 }
-                return slide
+                return s
             })
         }
     }

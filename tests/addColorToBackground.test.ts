@@ -13,7 +13,7 @@ describe('test add color to background', () => {
                         Id: 0,
                         Elements: [],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -29,13 +29,13 @@ describe('test add color to background', () => {
                         Id: 0,
                         Elements: [],
                         Background: BLACK,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
             SelectionSlidesId: [0]
         }
-        let result = addColorToBackground(emptyEditor, WHITE, 0)
+        let result = addColorToBackground(emptyEditor, WHITE)
 
         // Assert
         expect(result).toEqual(expectedEditor)
@@ -56,7 +56,7 @@ describe('test add color to background', () => {
                             Green: 0,
                             Blue: 0
                         },
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -76,13 +76,13 @@ describe('test add color to background', () => {
                             Green: 0,
                             Blue: 0
                         },
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
             SelectionSlidesId: [0]
         }
-        let result = addColorToBackground(emptyEditor, {Red: 100, Green: 0, Blue: 0}, 0)
+        let result = addColorToBackground(emptyEditor, {Red: 100, Green: 0, Blue: 0})
 
         // Assert
         expect(result).toEqual(expectedEditor)
@@ -103,7 +103,7 @@ describe('test add color to background', () => {
                             Green: 50,
                             Blue: 0
                         },
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -123,13 +123,13 @@ describe('test add color to background', () => {
                             Green: 0,
                             Blue: 0
                         },
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
             SelectionSlidesId: [0]
         }
-        let result = addColorToBackground(emptyEditor, {Red: 0, Green: 50, Blue: 0}, 0)
+        let result = addColorToBackground(emptyEditor, {Red: 0, Green: 50, Blue: 0})
 
         // Assert
         expect(result).toEqual(expectedEditor)
@@ -150,7 +150,7 @@ describe('test add color to background', () => {
                             Green: 0,
                             Blue: 170
                         },
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -170,13 +170,13 @@ describe('test add color to background', () => {
                             Green: 0,
                             Blue: 0
                         },
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
             SelectionSlidesId: [0]
         }
-        let result = addColorToBackground(emptyEditor, {Red: 0, Green: 0, Blue: 170}, 0)
+        let result = addColorToBackground(emptyEditor, {Red: 0, Green: 0, Blue: 170})
 
         // Assert
         expect(result).toEqual(expectedEditor)

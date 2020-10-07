@@ -57,7 +57,7 @@ describe('add elements to Slide', () => {
                             }
                         ],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -96,7 +96,7 @@ describe('add elements to Slide', () => {
                             }
                         ],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -123,7 +123,7 @@ describe('add elements to Slide', () => {
             BorderColor: WHITE,
             Type: ElementType.text
         }
-        let result = addElement(emptyEditor, element, 0)
+        let result = addElement(emptyEditor, element)
 
         // Assert
         expect(result).toEqual(expectedEditor)
@@ -186,7 +186,7 @@ describe('add elements to Slide', () => {
                             }
                         ],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -225,7 +225,7 @@ describe('add elements to Slide', () => {
                             }
                         ],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -256,7 +256,7 @@ describe('add elements to Slide', () => {
             BorderColor: WHITE,
             Type: ElementType.triangle
         }
-        let result = addElement(emptyEditor, element, 0)
+        let result = addElement(emptyEditor, element)
 
         // Assert
         expect(result).toEqual(expectedEditor)
@@ -313,7 +313,7 @@ describe('add elements to Slide', () => {
                             }
                         ],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -352,7 +352,7 @@ describe('add elements to Slide', () => {
                             }
                         ],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -377,7 +377,7 @@ describe('add elements to Slide', () => {
             BorderColor: WHITE,
             Type: ElementType.rectangle
         }
-        let result = addElement(emptyEditor, element, 0)
+        let result = addElement(emptyEditor, element)
 
         // Assert
         expect(result).toEqual(expectedEditor)
@@ -434,7 +434,7 @@ describe('add elements to Slide', () => {
                             }
                         ],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -473,7 +473,7 @@ describe('add elements to Slide', () => {
                             }
                         ],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -498,7 +498,7 @@ describe('add elements to Slide', () => {
             BorderColor: WHITE,
             Type: ElementType.ellipse
         }
-        let result = addElement(emptyEditor, element, 0)
+        let result = addElement(emptyEditor, element)
 
         // Assert
         expect(result).toEqual(expectedEditor)
@@ -574,7 +574,7 @@ describe('add elements to Slide', () => {
                             }
                         ],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -631,7 +631,7 @@ describe('add elements to Slide', () => {
                             }
                         ],
                         Background: WHITE,
-                        SelectionElementsId: []
+                        SelectionElementsId: [0]
                     }
                 ]
             },
@@ -656,7 +656,7 @@ describe('add elements to Slide', () => {
             BorderColor: WHITE,
             Type: ElementType.rectangle
         }
-        let result = addElement(emptyEditor, element, 0)
+        let result = addElement(emptyEditor, element)
 
         // Assert
         expect(result).toEqual(expectedEditor)
