@@ -7,7 +7,8 @@ export {
     Triangle, isTriangle,
     Rectangle, isRectangle,
     Image, isImage,
-    Ellipse, isEllipse
+    Ellipse, isEllipse,
+    ElementType
 }
 
 enum ElementType {
