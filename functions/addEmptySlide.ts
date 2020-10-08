@@ -1,5 +1,6 @@
 import {Editor} from '../entities/Editor'
 import {Slide} from '../entities/Slide'
+import {WHITE} from '../entities/Constants'
 
 export {
     addEmptySlide
@@ -10,16 +11,11 @@ function addEmptySlide(editor: Editor) {
         ...editor,
         Presentation: {
             ...editor.Presentation,
-            Slides: editor.Presentation.Slides.push(
-                {
-                    Id: editor.Presentation.Slides.length + 1,
-                    Elements: null,
-                    Background: {
-                        Red: 229,
-                        Green: 229,
-                        Blue: 229
-                    },
-                    SelectionElementsId: null
+            Slides: editor.Presentation.Slides.concat({
+                    Id: editor.Presentation.Slides.length == 0 ? 0 : editor.Presentation.Slides.length,
+                    Elements: [],
+                    Background: WHITE,
+                    SelectionElementsId: []
                 } as Slide
             )
         }

@@ -4,6 +4,6 @@ export {
     changeNamePresentation
 }
 
-function changeNamePresentation(redactor: Editor, name: String): Editor {
+function changeNamePresentation(redactor: Editor, name: string): Editor {
     return redactor
 }

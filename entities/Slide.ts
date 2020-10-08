@@ -8,13 +8,13 @@ export {
 
 type Slide = {
     Id: number,
-    Elements: Array<Elements> | null,
-    Background: Image | Color,
-    SelectionElementsId: Array<number> | null
+    Elements: Array<Elements>,
+    Background: Color | Image,
+    SelectionElementsId: Array<number>
 }
 
 function isSlide(argument: any): argument is Slide {
     return argument.Id !== undefined && typeof argument.Id === 'number'
         && argument.Elements !== undefined
-        && argument.Background !== undefined && isSlideBackground(argument.Background)
+        && argument.Background !== undefined && isSlideBackground(argument.Background);
 }
