@@ -13,6 +13,7 @@ describe('deleteElements', () => {
         // Arrange
         let expectedEditor: Editor = {
             Presentation: {
+                Name: "Name",
                 Slides: [
                     {
                         Id: 1,
@@ -76,6 +77,7 @@ describe('deleteElements', () => {
         // Arrange
         let initialEditor: Editor = {
             Presentation: {
+                Name: "Name",
                 Slides: [
                     {
                         Id: 1,
@@ -142,6 +144,7 @@ describe('deleteElements', () => {
         }
         let expectedEditor: Editor = {
             Presentation: {
+                Name: "Name",
                 Slides: [
                     {
                         Id: 1,
