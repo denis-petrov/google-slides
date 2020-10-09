@@ -1,22 +1,22 @@
 import {Editor} from '../entities/Editor'
-import {Slide} from '../entities/Slide'
+import {Slide} from "../entities/Slide";
 
 export {
     deleteElements
 }
 
-function deleteElements(editor: Editor, slideId: number, elements: Array<number>): Editor {
-    let slideWithDeletedElements: Slide = editor.Presentation.Slides[slideId]
-    let allSlides = editor.Presentation.Slides.filter(
+function deleteElements(editor: Editor, slideId: number, elementsForDeleting: Array<number>): Editor {
+    let slideWithDeletedElements: Slide = editor.Presentation.Slides.find(slide => slide.Id == slideId)
+    let allSlidesWithoutslidesWithDeletedElements = editor.Presentation.Slides.filter(
         slides => slides.Id != slideWithDeletedElements.Id
     )
     slideWithDeletedElements.Elements = slideWithDeletedElements.Elements
-        .filter(elem => !elements.includes(elem.Id))
+        .filter(elem => !elementsForDeleting.includes(elem.Id))
     return {
         ...editor,
         Presentation: {
             Name: editor.Presentation.Name,
-            Slides: allSlides
+            Slides: allSlidesWithoutslidesWithDeletedElements.concat(slideWithDeletedElements)
         }
     }
 }
