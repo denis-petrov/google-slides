@@ -6,263 +6,263 @@ describe('test change 4 elements positions', () => {
 
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 1,
-                        Elements: [
+                        id: 1,
+                        elements: [
                             {
-                                Id: 1,
-                                Position: {
-                                    X: 10,
-                                    Y: 10
+                                id: 1,
+                                position: {
+                                    x: 10,
+                                    y: 10
                                 },
                                 scaleX: 1,
                                 scaleY: 1,
                                 angleRoute: 15,
-                                BorderColor: {
-                                    Red: 255,
-                                    Green: 255,
-                                    Blue: 255
+                                borderColor: {
+                                    red: 255,
+                                    green: 255,
+                                    blue: 255
                                 },
-                                Type: ElementType.text,
-                                Text: 'Test 1 by Andrey',
-                                TextStyle: {
-                                    Font: 'Times New Roman',
-                                    SizeFont: 14,
-                                    Color: {
-                                        Red: 100,
-                                        Green: 100,
-                                        Blue: 100
+                                type: ElementType.text,
+                                text: 'Test 1 by Andrey',
+                                textStyle: {
+                                    font: 'Times New Roman',
+                                    sizeFont: 14,
+                                    color: {
+                                        red: 100,
+                                        green: 100,
+                                        blue: 100
                                     },
-                                    Align: 'Left',
+                                    align: 'Left',
                                     isBold: true,
                                     isCurve: false
                                 }
                             },
                             {
-                                Id: 2,
-                                Position: {
-                                    X: 10,
-                                    Y: 10
+                                id: 2,
+                                position: {
+                                    x: 10,
+                                    y: 10
                                 },
                                 scaleX: 1,
                                 scaleY: 1,
                                 angleRoute: 15,
-                                BorderColor: {
-                                    Red: 255,
-                                    Green: 255,
-                                    Blue: 255
+                                borderColor: {
+                                    red: 255,
+                                    green: 255,
+                                    blue: 255
                                 },
-                                Type: ElementType.triangle,
-                                A: {
-                                    X: 20,
-                                    Y: 50
+                                type: ElementType.triangle,
+                                a: {
+                                    x: 20,
+                                    y: 50
                                 },
-                                B: {
-                                    X: 100,
-                                    Y: 50
+                                b: {
+                                    x: 100,
+                                    y: 50
                                 },
-                                C: {
-                                    X: 150,
-                                    Y: 10
+                                c: {
+                                    x: 150,
+                                    y: 10
                                 },
-                                BackgroundColor: {
-                                    Red: 0,
-                                    Green: 0,
-                                    Blue: 0
+                                backgroundColor: {
+                                    red: 0,
+                                    green: 0,
+                                    blue: 0
                                 },
                             },
                             {
-                                Id: 3,
-                                Position: {
-                                    X: 10,
-                                    Y: 10
+                                id: 3,
+                                position: {
+                                    x: 10,
+                                    y: 10
                                 },
                                 scaleX: 1,
                                 scaleY: 1,
                                 angleRoute: 15,
-                                BorderColor: {
-                                    Red: 255,
-                                    Green: 255,
-                                    Blue: 255
+                                borderColor: {
+                                    red: 255,
+                                    green: 255,
+                                    blue: 255
                                 },
-                                Type: ElementType.rectangle,
-                                Width: 100,
-                                Height: 100,
-                                BackgroundColor: {
-                                    Red: 0,
-                                    Green: 0,
-                                    Blue: 0
+                                type: ElementType.rectangle,
+                                width: 100,
+                                height: 100,
+                                backgroundColor: {
+                                    red: 0,
+                                    green: 0,
+                                    blue: 0
                                 }
                             },
                             {
-                                Id: 4,
-                                Position: {
-                                    X: 10,
-                                    Y: 10
+                                id: 4,
+                                position: {
+                                    x: 10,
+                                    y: 10
                                 },
                                 scaleX: 1,
                                 scaleY: 1,
                                 angleRoute: 15,
-                                BorderColor: {
-                                    Red: 255,
-                                    Green: 255,
-                                    Blue: 255
+                                borderColor: {
+                                    red: 255,
+                                    green: 255,
+                                    blue: 255
                                 },
-                                Type: ElementType.ellipse,
-                                RadiusX: 50,
-                                RadiusY: 50,
-                                BackgroundColor: {
-                                    Red: 0,
-                                    Green: 0,
-                                    Blue: 0
+                                type: ElementType.ellipse,
+                                radiusX: 50,
+                                radiusY: 50,
+                                backgroundColor: {
+                                    red: 0,
+                                    green: 0,
+                                    blue: 0
                                 }
                             }
                         ],
-                        Background: {
-                            Red: 255,
-                            Green: 255,
-                            Blue: 255
+                        background: {
+                            red: 255,
+                            green: 255,
+                            blue: 255
                         },
-                        SelectionElementsId: [1, 2, 3, 4]
+                        selectionElementsId: [1, 2, 3, 4]
                     }
                 ]
             },
-            SelectionSlidesId: [1]
+            selectionSlidesId: [1]
         }
 
         // Act
         let fullEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 1,
-                        Elements: [
+                        id: 1,
+                        elements: [
                             {
-                                Id: 1,
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                id: 1,
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: {
-                                    Red: 255,
-                                    Green: 255,
-                                    Blue: 255
+                                borderColor: {
+                                    red: 255,
+                                    green: 255,
+                                    blue: 255
                                 },
-                                Type: ElementType.text,
-                                Text: 'Test 1 by Andrey',
-                                TextStyle: {
-                                    Font: 'Times New Roman',
-                                    SizeFont: 14,
-                                    Color: {
-                                        Red: 100,
-                                        Green: 100,
-                                        Blue: 100
+                                type: ElementType.text,
+                                text: 'Test 1 by Andrey',
+                                textStyle: {
+                                    font: 'Times New Roman',
+                                    sizeFont: 14,
+                                    color: {
+                                        red: 100,
+                                        green: 100,
+                                        blue: 100
                                     },
-                                    Align: 'Left',
+                                    align: 'Left',
                                     isBold: true,
                                     isCurve: false
                                 }
                             },
                             {
-                                Id: 2,
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                id: 2,
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: {
-                                    Red: 255,
-                                    Green: 255,
-                                    Blue: 255
+                                borderColor: {
+                                    red: 255,
+                                    green: 255,
+                                    blue: 255
                                 },
-                                Type: ElementType.triangle,
-                                A: {
-                                    X: 10,
-                                    Y: 40
+                                type: ElementType.triangle,
+                                a: {
+                                    x: 10,
+                                    y: 40
                                 },
-                                B: {
-                                    X: 90,
-                                    Y: 40
+                                b: {
+                                    x: 90,
+                                    y: 40
                                 },
-                                C: {
-                                    X: 140,
-                                    Y: 0
+                                c: {
+                                    x: 140,
+                                    y: 0
                                 },
-                                BackgroundColor: {
-                                    Red: 0,
-                                    Green: 0,
-                                    Blue: 0
+                                backgroundColor: {
+                                    red: 0,
+                                    green: 0,
+                                    blue: 0
                                 },
                             },
                             {
-                                Id: 3,
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                id: 3,
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: {
-                                    Red: 255,
-                                    Green: 255,
-                                    Blue: 255
+                                borderColor: {
+                                    red: 255,
+                                    green: 255,
+                                    blue: 255
                                 },
-                                Type: ElementType.rectangle,
-                                Width: 100,
-                                Height: 100,
-                                BackgroundColor: {
-                                    Red: 0,
-                                    Green: 0,
-                                    Blue: 0
+                                type: ElementType.rectangle,
+                                width: 100,
+                                height: 100,
+                                backgroundColor: {
+                                    red: 0,
+                                    green: 0,
+                                    blue: 0
                                 }
                             },
                             {
-                                Id: 4,
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                id: 4,
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: {
-                                    Red: 255,
-                                    Green: 255,
-                                    Blue: 255
+                                borderColor: {
+                                    red: 255,
+                                    green: 255,
+                                    blue: 255
                                 },
-                                Type: ElementType.ellipse,
-                                RadiusX: 50,
-                                RadiusY: 50,
-                                BackgroundColor: {
-                                    Red: 0,
-                                    Green: 0,
-                                    Blue: 0
+                                type: ElementType.ellipse,
+                                radiusX: 50,
+                                radiusY: 50,
+                                backgroundColor: {
+                                    red: 0,
+                                    green: 0,
+                                    blue: 0
                                 }
                             }
                         ],
-                        Background: {
-                            Red: 255,
-                            Green: 255,
-                            Blue: 255
+                        background: {
+                            red: 255,
+                            green: 255,
+                            blue: 255
                         },
-                        SelectionElementsId: [1, 2, 3, 4]
+                        selectionElementsId: [1, 2, 3, 4]
                     }
                 ]
             },
-            SelectionSlidesId: [1]
+            selectionSlidesId: [1]
         }
 
-        let result = changePositionOfElements(fullEditor, [1, 2, 3, 4], {X: 10, Y: 10}, 1, 1, 15)
+        let result = changePositionOfElements(fullEditor, [1, 2, 3, 4], {x: 10, y: 10}, 1, 1, 15)
 
         // Assert
         expect(result).toStrictEqual(expectedEditor)

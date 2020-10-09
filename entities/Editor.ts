@@ -5,12 +5,12 @@ export {
 }
 
 type Editor = {
-    Presentation: Presentation,
-    SelectionSlidesId: Array<number>
+    presentation: Presentation,
+    selectionSlidesId: Array<number>
 }
 
 function isRedactor(argument: any): argument is Editor {
-    return argument.Presentation !== undefined && isPresentation(argument.Presentation)
-        && argument.SelectionSlides !== undefined &&
-            (typeof argument.SelectionSlides[0] === 'number' || argument.SelectionSlides.length === 0)
+    return argument.presentation !== undefined && isPresentation(argument.presentation)
+        && argument.Selectionslides !== undefined &&
+            (typeof argument.Selectionslides[0] === 'number' || argument.Selectionslides.length === 0)
 }

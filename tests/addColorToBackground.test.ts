@@ -6,34 +6,34 @@ describe('test add color to background', () => {
 
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        id: 0,
+                        elements: [],
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: BLACK,
-                        SelectionElementsId: [0]
+                        id: 0,
+                        elements: [],
+                        background: BLACK,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
         let result = addColorToBackground(emptyEditor, WHITE)
 
@@ -41,142 +41,142 @@ describe('test add color to background', () => {
         expect(result).toEqual(expectedEditor)
     })
 
-    test('change specter Red to 100', () => {
+    test('change specter red to 100', () => {
 
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: {
-                            Red: 100,
-                            Green: 0,
-                            Blue: 0
+                        id: 0,
+                        elements: [],
+                        background: {
+                            red: 100,
+                            green: 0,
+                            blue: 0
                         },
-                        SelectionElementsId: [0]
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: {
-                            Red: 0,
-                            Green: 0,
-                            Blue: 0
+                        id: 0,
+                        elements: [],
+                        background: {
+                            red: 0,
+                            green: 0,
+                            blue: 0
                         },
-                        SelectionElementsId: [0]
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
-        let result = addColorToBackground(emptyEditor, {Red: 100, Green: 0, Blue: 0})
+        let result = addColorToBackground(emptyEditor, {red: 100, green: 0, blue: 0})
 
         // Assert
         expect(result).toEqual(expectedEditor)
     })
 
-    test('change specter Green to 50', () => {
+    test('change specter green to 50', () => {
 
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: {
-                            Red: 0,
-                            Green: 50,
-                            Blue: 0
+                        id: 0,
+                        elements: [],
+                        background: {
+                            red: 0,
+                            green: 50,
+                            blue: 0
                         },
-                        SelectionElementsId: [0]
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: {
-                            Red: 0,
-                            Green: 0,
-                            Blue: 0
+                        id: 0,
+                        elements: [],
+                        background: {
+                            red: 0,
+                            green: 0,
+                            blue: 0
                         },
-                        SelectionElementsId: [0]
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
-        let result = addColorToBackground(emptyEditor, {Red: 0, Green: 50, Blue: 0})
+        let result = addColorToBackground(emptyEditor, {red: 0, green: 50, blue: 0})
 
         // Assert
         expect(result).toEqual(expectedEditor)
     })
 
-    test('change specter Blue to 170', () => {
+    test('change specter blue to 170', () => {
 
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: {
-                            Red: 0,
-                            Green: 0,
-                            Blue: 170
+                        id: 0,
+                        elements: [],
+                        background: {
+                            red: 0,
+                            green: 0,
+                            blue: 170
                         },
-                        SelectionElementsId: [0]
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: {
-                            Red: 0,
-                            Green: 0,
-                            Blue: 0
+                        id: 0,
+                        elements: [],
+                        background: {
+                            red: 0,
+                            green: 0,
+                            blue: 0
                         },
-                        SelectionElementsId: [0]
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
-        let result = addColorToBackground(emptyEditor, {Red: 0, Green: 0, Blue: 170})
+        let result = addColorToBackground(emptyEditor, {red: 0, green: 0, blue: 170})
 
         // Assert
         expect(result).toEqual(expectedEditor)

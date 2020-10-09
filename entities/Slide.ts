@@ -7,14 +7,14 @@ export {
 }
 
 type Slide = {
-    Id: number,
-    Elements: Array<Elements>,
-    Background: Color | Image,
-    SelectionElementsId: Array<number>
+    id: number,
+    elements: Array<Elements>,
+    background: Color | Image,
+    selectionElementsId: Array<number>
 }
 
 function isSlide(argument: any): argument is Slide {
-    return argument.Id !== undefined && typeof argument.Id === 'number'
-        && argument.Elements !== undefined
-        && argument.Background !== undefined && isSlideBackground(argument.Background);
+    return argument.id !== undefined && typeof argument.id === 'number'
+        && argument.elements !== undefined
+        && argument.background !== undefined && isSlideBackground(argument.background);
 }

@@ -11,33 +11,33 @@ function changePositionOfElements(editor: Editor, elementsId: Array<number>, new
 
     return {
         ...editor,
-        Presentation: {
-            ...editor.Presentation,
-            Slides: editor.Presentation.Slides.map(s => {
-                if (editor.SelectionSlidesId.includes(s.Id)) {
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(s => {
+                if (editor.selectionSlidesId.includes(s.id)) {
                     return {
                         ...s,
-                        Elements: s.Elements.filter((element) => {
-                            if (elementsId.includes(element.Id)) {
-                                if (element.Type == ElementType.triangle) {
+                        elements: s.elements.filter((element) => {
+                            if (elementsId.includes(element.id)) {
+                                if (element.type == ElementType.triangle) {
                                     return {
                                         ...element,
-                                        A: {
-                                            X: (element as Triangle).A.X += newPosition.X,
-                                            Y: (element as Triangle).A.Y += newPosition.Y
+                                        a: {
+                                            x: (element as Triangle).a.x += newPosition.x,
+                                            y: (element as Triangle).a.y += newPosition.y
                                         },
-                                        B: {
-                                            X: (element as Triangle).B.X += newPosition.X,
-                                            Y: (element as Triangle).B.Y += newPosition.Y
+                                        b: {
+                                            x: (element as Triangle).b.x += newPosition.x,
+                                            y: (element as Triangle).b.y += newPosition.y
                                         },
-                                        C: {
-                                            X: (element as Triangle).C.X += newPosition.X,
-                                            Y: (element as Triangle).C.Y += newPosition.Y
+                                        c: {
+                                            x: (element as Triangle).c.x += newPosition.x,
+                                            y: (element as Triangle).c.y += newPosition.y
                                         },
-                                        Position: {
-                                            ...element.Position,
-                                            X: element.Position.X += newPosition.X,
-                                            Y: element.Position.Y += newPosition.Y,
+                                        position: {
+                                            ...element.position,
+                                            x: element.position.x += newPosition.x,
+                                            y: element.position.y += newPosition.y,
                                         },
                                         scaleX: element.scaleX += addScaleX,
                                         scaleY: element.scaleY += addScaleY,
@@ -46,10 +46,10 @@ function changePositionOfElements(editor: Editor, elementsId: Array<number>, new
                                 } else {
                                     return {
                                         ...element,
-                                        Position: {
-                                            ...element.Position,
-                                            X: element.Position.X += newPosition.X,
-                                            Y: element.Position.Y += newPosition.Y,
+                                        position: {
+                                            ...element.position,
+                                            x: element.position.x += newPosition.x,
+                                            y: element.position.y += newPosition.y,
                                         },
                                         scaleX: element.scaleX += addScaleX,
                                         scaleY: element.scaleY += addScaleY,
@@ -57,12 +57,10 @@ function changePositionOfElements(editor: Editor, elementsId: Array<number>, new
                                     }
                                 }
                             }
-
                             return element
                         })
                     }
                 }
-
                 return s
             })
         }

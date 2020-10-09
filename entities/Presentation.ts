@@ -5,11 +5,11 @@ export {
 }
 
 type Presentation = {
-    Name: String,
-    Slides: Array<Slide>
+    name: string,
+    slides: Array<Slide>
 }
 
 function isPresentation(argument: any): argument is Presentation {
-    return argument.Slides !== undefined &&
-        (typeof argument.Slides[0] === 'number' || argument.Slides.length === 0)
+    return argument.slides !== undefined &&
+        (typeof argument.slides[0] === 'number' || argument.slides.length === 0)
 }

@@ -6,10 +6,10 @@ export {
 }
 
 type SlideBackground = {
-    Background: Image | Color
+    background: Image | Color
 }
 
 function isSlideBackground(argument: any): argument is SlideBackground {
-    return argument.Background !== undefined &&
-        (isImage(argument.Background) || isColor(argument.Background))
+    return argument.background !== undefined &&
+        (isImage(argument.background) || isColor(argument.background))
 }

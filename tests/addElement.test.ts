@@ -6,122 +6,122 @@ describe('add elements to Slide', () => {
     test('add text to Slide', () => {
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [
+                        id: 0,
+                        elements: [
                             {
-                                Id: 0,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 0,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
                             },
                             {
-                                Id: 1,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 1,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
 
                             }
                         ],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [
+                        id: 0,
+                        elements: [
                             {
-                                Id: 0,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 0,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
 
                             }
                         ],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
         let element: Text = {
-            Id: 1,
-            Text: 'lmao',
-            TextStyle: {
-                Font: 'Robot',
-                SizeFont: 18,
-                Color: BLACK,
-                Align: 'Center',
+            id: 1,
+            text: 'lmao',
+            textStyle: {
+                font: 'Robot',
+                sizeFont: 18,
+                color: BLACK,
+                align: 'Center',
                 isBold: false,
                 isCurve: false
             },
-            Position: {
-                X: 0,
-                Y: 0
+            position: {
+                x: 0,
+                y: 0
             },
             scaleX: 0,
             scaleY: 0,
             angleRoute: 0,
-            BorderColor: WHITE,
-            Type: ElementType.text
+            borderColor: WHITE,
+            type: ElementType.text
         }
         let result = addElement(emptyEditor, element)
 
@@ -132,129 +132,129 @@ describe('add elements to Slide', () => {
     test('add Triangle to Slide', () => {
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [
+                        id: 0,
+                        elements: [
                             {
-                                Id: 0,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 0,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
                             },
                             {
-                                Id: 1,
-                                A: {
-                                    X: 0,
-                                    Y: 0
+                                id: 1,
+                                a: {
+                                    x: 0,
+                                    y: 0
                                 },
-                                B: {
-                                    X: 1,
-                                    Y: 1
+                                b: {
+                                    x: 1,
+                                    y: 1
                                 },
-                                C: {
-                                    X: 2,
-                                    Y: 2
+                                c: {
+                                    x: 2,
+                                    y: 2
                                 },
-                                BackgroundColor: WHITE,
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                backgroundColor: WHITE,
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.triangle
+                                borderColor: WHITE,
+                                type: ElementType.triangle
                             }
                         ],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [
+                        id: 0,
+                        elements: [
                             {
-                                Id: 0,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 0,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
 
                             }
                         ],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
         let element: Triangle = {
-            Id: 1,
-            A: {
-                X: 0,
-                Y: 0
+            id: 1,
+            a: {
+                x: 0,
+                y: 0
             },
-            B: {
-                X: 1,
-                Y: 1
+            b: {
+                x: 1,
+                y: 1
             },
-            C: {
-                X: 2,
-                Y: 2
+            c: {
+                x: 2,
+                y: 2
             },
-            BackgroundColor: WHITE,
-            Position: {
-                X: 0,
-                Y: 0
+            backgroundColor: WHITE,
+            position: {
+                x: 0,
+                y: 0
             },
             scaleX: 0,
             scaleY: 0,
             angleRoute: 0,
-            BorderColor: WHITE,
-            Type: ElementType.triangle
+            borderColor: WHITE,
+            type: ElementType.triangle
         }
         let result = addElement(emptyEditor, element)
 
@@ -265,117 +265,109 @@ describe('add elements to Slide', () => {
     test('add Rectangle to Slide', () => {
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [
+                        id: 0,
+                        elements: [
                             {
-                                Id: 0,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 0,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
                             },
                             {
-                                Id: 1,
-                                Width: 10,
-                                Height: 10,
-                                Center: {
-                                    X: 0,
-                                    Y: 1
-                                },
-                                BackgroundColor: WHITE,
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                id: 1,
+                                width: 10,
+                                height: 10,
+                                backgroundColor: WHITE,
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.rectangle
+                                borderColor: WHITE,
+                                type: ElementType.rectangle
                             }
                         ],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [
+                        id: 0,
+                        elements: [
                             {
-                                Id: 0,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 0,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
 
                             }
                         ],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
         let element: Rectangle = {
-            Id: 1,
-            Width: 10,
-            Height: 10,
-            Center: {
-                X: 0,
-                Y: 1
-            },
-            BackgroundColor: WHITE,
-            Position: {
-                X: 0,
-                Y: 0
+            id: 1,
+            width: 10,
+            height: 10,
+            backgroundColor: WHITE,
+            position: {
+                x: 0,
+                y: 0
             },
             scaleX: 0,
             scaleY: 0,
             angleRoute: 0,
-            BorderColor: WHITE,
-            Type: ElementType.rectangle
+            borderColor: WHITE,
+            type: ElementType.rectangle
         }
         let result = addElement(emptyEditor, element)
 
@@ -386,117 +378,109 @@ describe('add elements to Slide', () => {
     test('add Ellipse to Slide', () => {
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [
+                        id: 0,
+                        elements: [
                             {
-                                Id: 0,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 0,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
                             },
                             {
-                                Id: 1,
-                                Center: {
-                                    X: 0,
-                                    Y: 0
-                                },
-                                RadiusX: 10,
-                                RadiusY: 10,
-                                BackgroundColor: WHITE,
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                id: 1,
+                                radiusX: 10,
+                                radiusY: 10,
+                                backgroundColor: WHITE,
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.ellipse
+                                borderColor: WHITE,
+                                type: ElementType.ellipse
                             }
                         ],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [
+                        id: 0,
+                        elements: [
                             {
-                                Id: 0,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 0,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
 
                             }
                         ],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
         let element: Ellipse = {
-            Id: 1,
-            Center: {
-                X: 0,
-                Y: 0
-            },
-            RadiusX: 10,
-            RadiusY: 10,
-            BackgroundColor: WHITE,
-            Position: {
-                X: 0,
-                Y: 0
+            id: 1,
+            radiusX: 10,
+            radiusY: 10,
+            backgroundColor: WHITE,
+            position: {
+                x: 0,
+                y: 0
             },
             scaleX: 0,
             scaleY: 0,
             angleRoute: 0,
-            BorderColor: WHITE,
-            Type: ElementType.ellipse
+            borderColor: WHITE,
+            type: ElementType.ellipse
         }
         let result = addElement(emptyEditor, element)
 
@@ -507,154 +491,138 @@ describe('add elements to Slide', () => {
     test('add third element to Slide', () => {
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [
+                        id: 0,
+                        elements: [
                             {
-                                Id: 0,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 0,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
                             },
                             {
-                                Id: 1,
-                                Center: {
-                                    X: 0,
-                                    Y: 0
-                                },
-                                RadiusX: 10,
-                                RadiusY: 10,
-                                BackgroundColor: WHITE,
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                id: 1,
+                                radiusX: 10,
+                                radiusY: 10,
+                                backgroundColor: WHITE,
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.rectangle
+                                borderColor: WHITE,
+                                type: ElementType.rectangle
                             },
                             {
-                                Id: 2,
-                                Width: 10,
-                                Height: 10,
-                                Center: {
-                                    X: 0,
-                                    Y: 1
-                                },
-                                BackgroundColor: WHITE,
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                id: 2,
+                                width: 10,
+                                height: 10,
+                                backgroundColor: WHITE,
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.rectangle
+                                borderColor: WHITE,
+                                type: ElementType.rectangle
                             }
                         ],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [
+                        id: 0,
+                        elements: [
                             {
-                                Id: 0,
-                                Text: 'lmao',
-                                TextStyle: {
-                                    Font: 'Robot',
-                                    SizeFont: 18,
-                                    Color: BLACK,
-                                    Align: 'Center',
+                                id: 0,
+                                text: 'lmao',
+                                textStyle: {
+                                    font: 'Robot',
+                                    sizeFont: 18,
+                                    color: BLACK,
+                                    align: 'Center',
                                     isBold: false,
                                     isCurve: false
                                 },
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.text
+                                borderColor: WHITE,
+                                type: ElementType.text
                             },
                             {
-                                Id: 1,
-                                Center: {
-                                    X: 0,
-                                    Y: 0
-                                },
-                                RadiusX: 10,
-                                RadiusY: 10,
-                                BackgroundColor: WHITE,
-                                Position: {
-                                    X: 0,
-                                    Y: 0
+                                id: 1,
+                                radiusX: 10,
+                                radiusY: 10,
+                                backgroundColor: WHITE,
+                                position: {
+                                    x: 0,
+                                    y: 0
                                 },
                                 scaleX: 0,
                                 scaleY: 0,
                                 angleRoute: 0,
-                                BorderColor: WHITE,
-                                Type: ElementType.rectangle
+                                borderColor: WHITE,
+                                type: ElementType.rectangle
                             }
                         ],
-                        Background: WHITE,
-                        SelectionElementsId: [0]
+                        background: WHITE,
+                        selectionElementsId: [0]
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
         let element: Rectangle = {
-            Id: 1,
-            Width: 10,
-            Height: 10,
-            Center: {
-                X: 0,
-                Y: 1
-            },
-            BackgroundColor: WHITE,
-            Position: {
-                X: 0,
-                Y: 0
+            id: 1,
+            width: 10,
+            height: 10,
+            backgroundColor: WHITE,
+            position: {
+                x: 0,
+                y: 0
             },
             scaleX: 0,
             scaleY: 0,
             angleRoute: 0,
-            BorderColor: WHITE,
-            Type: ElementType.rectangle
+            borderColor: WHITE,
+            type: ElementType.rectangle
         }
         let result = addElement(emptyEditor, element)
 

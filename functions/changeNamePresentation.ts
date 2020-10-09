@@ -7,9 +7,9 @@ export {
 function changeNamePresentation(redactor: Editor, name: string): Editor {
     return {
         ...redactor,
-        Presentation: {
-            ...redactor.Presentation,
-            Name: name
+        presentation: {
+            ...redactor.presentation,
+            name: name
         }
     }
 }

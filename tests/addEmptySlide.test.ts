@@ -6,27 +6,27 @@ describe('test Empty slide', () => {
 
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: WHITE,
-                        SelectionElementsId: []
+                        id: 0,
+                        elements: [],
+                        background: WHITE,
+                        selectionElementsId: []
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: []
+            presentation: {
+                name: 'test',
+                slides: []
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
         let result = addEmptySlide(emptyEditor)
 
@@ -34,44 +34,44 @@ describe('test Empty slide', () => {
         expect(result).toEqual(expectedEditor)
     })
 
-    test('add more one empty slide for test Id', () => {
+    test('add more one empty slide for test id', () => {
 
         // Arrange
         let expectedEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: WHITE,
-                        SelectionElementsId: []
+                        id: 0,
+                        elements: [],
+                        background: WHITE,
+                        selectionElementsId: []
                     },
                     {
-                        Id: 1,
-                        Elements: [],
-                        Background: WHITE,
-                        SelectionElementsId: []
+                        id: 1,
+                        elements: [],
+                        background: WHITE,
+                        selectionElementsId: []
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
 
         // Act
         let emptyEditor = {
-            Presentation: {
-                Name: 'test',
-                Slides: [
+            presentation: {
+                name: 'test',
+                slides: [
                     {
-                        Id: 0,
-                        Elements: [],
-                        Background: WHITE,
-                        SelectionElementsId: []
+                        id: 0,
+                        elements: [],
+                        background: WHITE,
+                        selectionElementsId: []
                     }
                 ]
             },
-            SelectionSlidesId: [0]
+            selectionSlidesId: [0]
         }
         let result = addEmptySlide(emptyEditor)
 

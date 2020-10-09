@@ -5,18 +5,18 @@ export {
     deleteElements
 }
 
-function deleteElements(editor: Editor, slideId: number, elements: Array<number>): Editor {
-    let slideWithDeletedElements: Slide = editor.Presentation.Slides[slideId]
-    let allSlides = editor.Presentation.Slides.filter(
-        slides => slides.Id != slideWithDeletedElements.Id
+function deleteElements(editor: Editor, slideId: number, elementsForDeleting: Array<number>): Editor {
+    let slideWithDeletedElements: Slide = editor.presentation.slides.find(slide => slide.id == slideId)
+    let allSlidesWithoutSlidesWithDeletedElements = editor.presentation.slides.filter(
+        slides => slides.id != slideWithDeletedElements.id
     )
-    slideWithDeletedElements.Elements = slideWithDeletedElements.Elements
-        .filter(elem => !elements.includes(elem.Id))
+    slideWithDeletedElements.elements = slideWithDeletedElements.elements
+        .filter(elem => !elementsForDeleting.includes(elem.id))
     return {
         ...editor,
-        Presentation: {
-            Name: editor.Presentation.Name,
-            Slides: allSlides
+        presentation: {
+            name: editor.presentation.name,
+            slides: allSlidesWithoutSlidesWithDeletedElements.concat(slideWithDeletedElements)
         }
     }
 }

@@ -7,9 +7,9 @@ export {
 function deleteSlides(editor: Editor, slidesId: Array<number>): Editor {
     return {
         ...editor,
-        Presentation: {
-            Name: editor.Presentation.Name,
-            Slides: editor.Presentation.Slides.filter(slide => !slidesId.includes(slide.Id))
+        presentation: {
+            name: editor.presentation.name,
+            slides: editor.presentation.slides.filter(slide => !slidesId.includes(slide.id))
         }
     }
 }

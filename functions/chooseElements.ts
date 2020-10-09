@@ -7,19 +7,18 @@ export {
 function chooseElements(editor: Editor, listElementsId: Array<number>): Editor {
     return {
         ...editor,
-        Presentation: {
-            ...editor.Presentation,
-            Slides: editor.Presentation.Slides.map(s => {
-                if (editor.SelectionSlidesId.includes(s.Id))
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(s => {
+                if (editor.selectionSlidesId.includes(s.id))
                 {
                     return {
                         ...s,
-                        SelectionElementsId: listElementsId
+                        selectionElementsId: listElementsId
                     }
                 }
                 return s
             })
         }
     }
-    return editor
-}   
+}

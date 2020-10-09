@@ -3,11 +3,11 @@ export {
 }
 
 type Point = {
-    X: number,
-    Y: number
+    x: number,
+    y: number
 }
 
 function isPoint(argument: any): argument is Point {
-    return argument.X !== undefined && typeof argument.X === 'number'
-        && argument.Y !== undefined && typeof argument.Y === 'number'
+    return argument.x !== undefined && typeof argument.x === 'number'
+        && argument.y !== undefined && typeof argument.y === 'number'
 }

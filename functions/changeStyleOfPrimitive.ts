@@ -6,30 +6,33 @@ export {
     changeStyleOfPrimitive
 }
 
-function changeStyleOfPrimitive(editor: Editor, elementsId: Array<number>, newBackgroundColor: Color, newBorderColor: Color): Editor {
+function changeStyleOfPrimitive(
+    editor: Editor,
+    elementsId: Array<number>,
+    newBackgroundColor: Color,
+    newBorderColor: Color
+): Editor {
     return {
         ...editor,
-        Presentation: {
-            ...editor.Presentation,
-            Slides: editor.Presentation.Slides.map(s => {
-                if (editor.SelectionSlidesId.includes(s.Id)) {
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(s => {
+                if (editor.selectionSlidesId.includes(s.id)) {
                     return {
                         ...s,
-                        Elements: s.Elements.filter((element) => {
-                            if ((elementsId.includes(element.Id)) && ((element.Type == ElementType.triangle)
-                                || (element.Type == ElementType.ellipse) || (element.Type == ElementType.rectangle))) {
+                        elements: s.elements.filter((element) => {
+                            if ((elementsId.includes(element.id)) && ((element.type == ElementType.triangle)
+                                || (element.type == ElementType.ellipse) || (element.type == ElementType.rectangle))) {
                                 return {
                                     ...element,
-                                    BackgroundColor: (element as (Ellipse | Triangle | Rectangle)).BackgroundColor = newBackgroundColor,
-                                    BorderColor: element.BorderColor = newBorderColor
+                                    backgroundColor: (element as (Ellipse | Triangle | Rectangle)).backgroundColor = newBackgroundColor,
+                                    borderColor: element.borderColor = newBorderColor
                                 }
                             }
-
                             return element
                         })
                     }
                 }
-
                 return s
             })
         }

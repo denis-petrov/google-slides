@@ -10,27 +10,23 @@ function changeStyleOfText(editor: Editor, elementsId: Array<number>, textStyle:
 
     return {
         ...editor,
-        Presentation: {
-            ...editor.Presentation,
-            Slides: editor.Presentation.Slides.map(s => {
-                if (editor.SelectionSlidesId.includes(s.Id))
-                {
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(s => {
+                if (editor.selectionSlidesId.includes(s.id)) {
                     return {
                         ...s,
-                        Elements: s.Elements.filter((element) => {
-                            if ((elementsId.includes(element.Id)) && (element.Type == ElementType.text))
-                            {
+                        elements: s.elements.filter((element) => {
+                            if ((elementsId.includes(element.id)) && (element.type == ElementType.text)) {
                                 return {
                                     ...element,
-                                    TextStyle: (element as Text).TextStyle = textStyle
+                                    textStyle: (element as Text).textStyle = textStyle
                                 }
                             }
-
                             return element
                         })
                     }
                 }
-
                 return s
             })
         }

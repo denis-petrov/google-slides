@@ -6,12 +6,12 @@ export {
 }
 
 type CommandsHistory = {
-    CommandList: Array<Editor>,
-    IndexOfCurrentState: number,
+    commandList: Array<Editor>,
+    indexOfCurrentState: number,
 }
 
 function isCommandsHistory(argument: any): argument is CommandsHistory {
-    return argument.CommandSet !== undefined && Array.isArray(argument.CommandSet)
-        && (isRedactor(argument.CommandSet[argument.IndexOfCurrentState]) || argument.CommandSet.length === 0)
-        && argument.IndexOfCurrentState !== undefined && typeof argument.IndexOfCurrentState === 'number'
+    return argument.commandSet !== undefined && Array.isArray(argument.commandSet)
+        && (isRedactor(argument.commandSet[argument.indexOfCurrentState]) || argument.commandSet.length === 0)
+        && argument.indexOfCurrentState !== undefined && typeof argument.indexOfCurrentState === 'number'
 }

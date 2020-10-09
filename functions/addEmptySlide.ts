@@ -9,13 +9,13 @@ export {
 function addEmptySlide(editor: Editor) {
     return {
         ...editor,
-        Presentation: {
-            ...editor.Presentation,
-            Slides: editor.Presentation.Slides.concat({
-                    Id: editor.Presentation.Slides.length == 0 ? 0 : editor.Presentation.Slides.length,
-                    Elements: [],
-                    Background: WHITE,
-                    SelectionElementsId: []
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.concat({
+                    id: editor.presentation.slides.length == 0 ? 0 : editor.presentation.slides.length,
+                    elements: [],
+                    background: WHITE,
+                    selectionElementsId: []
                 } as Slide
             )
         }

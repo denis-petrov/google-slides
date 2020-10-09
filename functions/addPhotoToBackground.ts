@@ -8,13 +8,13 @@ export {
 function addPhotoToBackground(editor: Editor, img: Image): Editor {
     return {
         ...editor,
-        Presentation: {
-            ...editor.Presentation,
-            Slides: editor.Presentation.Slides.map(s => {
-                if (editor.SelectionSlidesId.includes(s.Id)) {
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(s => {
+                if (editor.selectionSlidesId.includes(s.id)) {
                     return {
                         ...s,
-                        Background: img,
+                        background: img,
                     }
                 }
                 return s

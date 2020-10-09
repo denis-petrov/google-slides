@@ -3,13 +3,13 @@ export {
 }
 
 type Color = {
-    Red: number,
-    Green: number,
-    Blue: number
+    red: number,
+    green: number,
+    blue: number
 }
 
 function isColor(argument: any): argument is Color {
-    return argument.Red !== undefined && typeof argument.Red === 'number'
-        && argument.Green !== undefined && typeof argument.Green === 'number'
-        && argument.Blue !== undefined && typeof argument.Blue === 'number'
+    return argument.red !== undefined && typeof argument.red === 'number'
+        && argument.green !== undefined && typeof argument.green === 'number'
+        && argument.blue !== undefined && typeof argument.blue === 'number'
 }

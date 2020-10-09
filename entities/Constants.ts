@@ -1,25 +1,32 @@
-import {Color} from "./Color";
+import {Color} from './Color'
 
 export {
     WHITE,
+    BLACK,
     GREEN,
     RED
 }
 
 const WHITE: Color = {
-    Red: 255,
-    Green: 255,
-    Blue: 255
+    red: 255,
+    green: 255,
+    blue: 255
+}
+
+const BLACK: Color = {
+    red: 0,
+    green: 0,
+    blue: 0
 }
 
 const GREEN: Color = {
-    Red: 0,
-    Green: 255,
-    Blue: 0
+    red: 0,
+    green: 255,
+    blue: 0
 }
 
 const RED: Color = {
-    Red: 255,
-    Green: 0,
-    Blue: 0
+    red: 255,
+    green: 0,
+    blue: 0
 }
