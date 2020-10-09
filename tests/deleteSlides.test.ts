@@ -3,7 +3,7 @@ import {Color} from "../entities/Color"
 import {ElementType, Triangle} from "../entities/Elements"
 import {Text} from "../entities/Elements"
 import {Point} from "../entities/Point"
-import {BLACK, WHITE} from "../entities/Constants"
+import {RED, WHITE} from "../entities/Constants"
 import {deleteSlides} from "../functions/deleteSlides";
 
 describe('deleteSlides', () => {
@@ -23,7 +23,7 @@ describe('deleteSlides', () => {
                                 TextStyle: {
                                     Font: 'Robot',
                                     SizeFont: 18,
-                                    Color: BLACK,
+                                    Color: RED,
                                     Align: 'Center',
                                     isBold: false,
                                     isCurve: false
@@ -148,7 +148,7 @@ describe('deleteSlides', () => {
                                 TextStyle: {
                                     Font: 'Robot',
                                     SizeFont: 18,
-                                    Color: BLACK,
+                                    Color: RED,
                                     Align: 'Center',
                                     isBold: false,
                                     isCurve: false

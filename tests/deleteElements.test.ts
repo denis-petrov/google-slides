@@ -4,7 +4,7 @@ import {ElementType, Triangle} from "../entities/Elements"
 import {Text} from "../entities/Elements"
 import {Point} from "../entities/Point"
 import {Ellipse} from "../entities/Elements"
-import {BLACK, WHITE} from "../entities/Constants"
+import {RED, WHITE} from "../entities/Constants"
 import {deleteElements} from "../functions/deleteElements"
 
 describe('deleteElements', () => {
@@ -24,7 +24,7 @@ describe('deleteElements', () => {
                                 TextStyle: {
                                     Font: 'Robot',
                                     SizeFont: 18,
-                                    Color: BLACK,
+                                    Color: RED,
                                     Align: 'Center',
                                     isBold: false,
                                     isCurve: false
@@ -88,7 +88,7 @@ describe('deleteElements', () => {
                                 TextStyle: {
                                     Font: 'Robot',
                                     SizeFont: 18,
-                                    Color: BLACK,
+                                    Color: RED,
                                     Align: 'Center',
                                     isBold: false,
                                     isCurve: false

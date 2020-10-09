@@ -3,8 +3,7 @@ import {Color} from "../entities/Color"
 import {ElementType, Triangle} from "../entities/Elements"
 import {Text} from "../entities/Elements"
 import {Point} from "../entities/Point"
-import {BLACK, WHITE} from "../entities/Constants"
-import {deleteSlides} from "../functions/deleteSlides";
+import {RED, WHITE} from "../entities/Constants"
 import {moveSlides} from "../functions/moveSlides";
 
 describe('moveSlides', () => {
@@ -24,7 +23,7 @@ describe('moveSlides', () => {
                                 TextStyle: {
                                     Font: 'Robot',
                                     SizeFont: 18,
-                                    Color: BLACK,
+                                    Color: RED,
                                     Align: 'Center',
                                     isBold: false,
                                     isCurve: false
@@ -129,7 +128,7 @@ describe('moveSlides', () => {
                                 TextStyle: {
                                     Font: 'Robot',
                                     SizeFont: 18,
-                                    Color: BLACK,
+                                    Color: RED,
                                     Align: 'Center',
                                     isBold: false,
                                     isCurve: false
@@ -247,7 +246,7 @@ describe('moveSlides', () => {
                                 TextStyle: {
                                     Font: 'Robot',
                                     SizeFont: 18,
-                                    Color: BLACK,
+                                    Color: RED,
                                     Align: 'Center',
                                     isBold: false,
                                     isCurve: false
@@ -341,6 +340,7 @@ describe('moveSlides', () => {
         }
         let expectedEditor: Editor = {
             Presentation: {
+                Name: 'Name',
                 Slides: [
                     {
                         Id: 1,
@@ -351,7 +351,7 @@ describe('moveSlides', () => {
                                 TextStyle: {
                                     Font: 'Robot',
                                     SizeFont: 18,
-                                    Color: BLACK,
+                                    Color: RED,
                                     Align: 'Center',
                                     isBold: false,
                                     isCurve: false
@@ -469,7 +469,7 @@ describe('moveSlides', () => {
                                 TextStyle: {
                                     Font: 'Robot',
                                     SizeFont: 18,
-                                    Color: BLACK,
+                                    Color: RED,
                                     Align: 'Center',
                                     isBold: false,
                                     isCurve: false
