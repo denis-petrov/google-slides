@@ -1,7 +1,10 @@
 import {isPresentation, Presentation} from './Presentation'
 
+export type {
+    Editor
+}
 export {
-    Editor, isRedactor
+    isRedactor
 }
 
 type Editor = {

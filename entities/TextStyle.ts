@@ -1,7 +1,10 @@
 import {Color, isColor} from './Color'
 
+export type {
+    TextStyle
+}
 export {
-    TextStyle, isTextStyle
+    isTextStyle
 }
 
 type TextStyle = {

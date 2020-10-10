@@ -1,8 +1,11 @@
 import {Image, isImage} from './Elements'
 import {Color, isColor} from './Color'
 
+export type {
+    SlideBackground
+}
 export {
-    SlideBackground, isSlideBackground
+    isSlideBackground
 }
 
 type SlideBackground = {

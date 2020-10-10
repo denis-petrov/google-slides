@@ -12,7 +12,7 @@ function addEmptySlide(editor: Editor) {
         presentation: {
             ...editor.presentation,
             slides: editor.presentation.slides.concat({
-                    id: editor.presentation.slides.length == 0 ? 0 : editor.presentation.slides.length,
+                    id: editor.presentation.slides.length === 0 ? 0 : editor.presentation.slides.length,
                     elements: [],
                     background: WHITE,
                     selectionElementsId: []

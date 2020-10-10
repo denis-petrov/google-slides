@@ -17,7 +17,7 @@ function changeStyleOfText(editor: Editor, elementsId: Array<number>, textStyle:
                     return {
                         ...s,
                         elements: s.elements.filter((element) => {
-                            if ((elementsId.includes(element.id)) && (element.type == ElementType.text)) {
+                            if ((elementsId.includes(element.id)) && (element.type === ElementType.text)) {
                                 return {
                                     ...element,
                                     textStyle: (element as Text).textStyle = textStyle

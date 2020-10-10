@@ -1,5 +1,8 @@
+export type {
+    Color
+}
 export {
-    Color, isColor
+    isColor
 }
 
 type Color = {

@@ -21,8 +21,8 @@ function changeStyleOfPrimitive(
                     return {
                         ...s,
                         elements: s.elements.filter((element) => {
-                            if ((elementsId.includes(element.id)) && ((element.type == ElementType.triangle)
-                                || (element.type == ElementType.ellipse) || (element.type == ElementType.rectangle))) {
+                            if ((elementsId.includes(element.id)) && ((element.type === ElementType.triangle)
+                                || (element.type === ElementType.ellipse) || (element.type === ElementType.rectangle))) {
                                 return {
                                     ...element,
                                     backgroundColor: (element as (Ellipse | Triangle | Rectangle)).backgroundColor = newBackgroundColor,

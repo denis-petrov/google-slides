@@ -19,7 +19,7 @@ function changePositionOfElements(editor: Editor, elementsId: Array<number>, new
                         ...s,
                         elements: s.elements.filter((element) => {
                             if (elementsId.includes(element.id)) {
-                                if (element.type == ElementType.triangle) {
+                                if (element.type === ElementType.triangle) {
                                     return {
                                         ...element,
                                         a: {

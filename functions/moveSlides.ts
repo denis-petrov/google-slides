@@ -11,7 +11,7 @@ function moveSlides(editor: Editor, listSlides: Array<number>, slideInsertId: nu
     let movedSlides = editor.presentation.slides.filter(slide => listSlides.includes(slide.id));
     let slidesWithoutMovedSlides = editor.presentation.slides
         .filter(slide => !listSlides.includes(slide.id));
-    let slideMovePoint = slidesWithoutMovedSlides.findIndex(slide => slide.id == slideInsertId) + 1;
+    let slideMovePoint = slidesWithoutMovedSlides.findIndex(slide => slide.id === slideInsertId) + 1;
     let slidesBeforeInsertSlide = slidesWithoutMovedSlides.slice(0, slideMovePoint)
     let slidesAfterInsertSlide = slidesWithoutMovedSlides.slice(slideMovePoint)
     return {

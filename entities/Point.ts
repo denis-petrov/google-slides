@@ -1,5 +1,8 @@
+export type {
+    Point
+}
 export {
-    Point, isPoint
+    isPoint
 }
 
 type Point = {

@@ -2,8 +2,11 @@ import {isSlideBackground} from './SlideBackground'
 import {Color} from './Color'
 import {Elements, Image} from './Elements'
 
+export type {
+    Slide
+}
 export {
-    Slide, isSlide
+    isSlide
 }
 
 type Slide = {

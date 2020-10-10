@@ -1,7 +1,10 @@
 import {Slide} from './Slide'
 
+export type {
+    Presentation
+}
 export {
-    Presentation, isPresentation
+    isPresentation
 }
 
 type Presentation = {

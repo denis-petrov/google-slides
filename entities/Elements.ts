@@ -2,14 +2,22 @@ import {isTextStyle, TextStyle} from './TextStyle'
 import {isPoint, Point} from './Point'
 import {Color} from './Color'
 
+export type {
+    Elements,
+    Text,
+    Triangle,
+    Rectangle,
+    Image,
+    Ellipse
+}
 export {
-    Elements, isElement,
-    Text, isText,
-    Triangle, isTriangle,
-    Rectangle, isRectangle,
-    Image, isImage,
-    Ellipse, isEllipse,
-    ElementType
+    ElementType,
+    isElement,
+    isText,
+    isTriangle,
+    isRectangle,
+    isImage,
+    isEllipse
 }
 
 enum ElementType {

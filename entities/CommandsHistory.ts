@@ -1,8 +1,11 @@
 import {Editor} from './Editor'
 import {isRedactor} from './Editor'
 
+export type {
+    CommandsHistory
+}
 export {
-    CommandsHistory, isCommandsHistory
+    isCommandsHistory
 }
 
 type CommandsHistory = {

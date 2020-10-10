@@ -7,7 +7,7 @@ describe('chooseSlide', () => {
 
         // Arrange
         let expectedEditor: Editor = {
-            presentation: <Presentation>{},
+            presentation: {} as Presentation,
             selectionSlidesId: []
         }
         let initialEditor: Editor = { ...expectedEditor }
@@ -23,13 +23,13 @@ describe('chooseSlide', () => {
 
         // Arrange
         let expectedEditor: Editor = {
-            presentation: <Presentation>{},
+            presentation: {} as Presentation,
             selectionSlidesId: [1 , 2, 3]
         }
 
         // Act
         let initialEditor: Editor = {
-            presentation: <Presentation>{},
+            presentation: {} as Presentation,
             selectionSlidesId: [4, 5]
         }
         let selectedElementsId = [1, 2, 3]
