@@ -11,3 +11,46 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.nav_bar {
+  background: white !important;
+  box-shadow: none !important;
+}
+
+.nav__wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__file_icon {
+  width: auto;
+  height: 50px !important;
+}
+
+.nav__presentation_name {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+  padding: 10px 8px 0 15px;
+}
+
+.nav__menu {
+  flex-direction: row;
+  cursor: pointer;
+}
+
+nav__menu:hover {
+  outline: 1px solid blue;
+}
+
+.nav__menu_button {
+  font-size: 17px;
+  float: left;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+.nav__menu_dropbox {
+  margin-top: 40px;
+}
+
