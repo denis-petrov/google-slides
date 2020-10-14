@@ -3,7 +3,8 @@ import {AppBar, Toolbar, Typography} from "@material-ui/core"
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-
+import {Dropdown} from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function NavbarApp() {
 
@@ -26,9 +27,9 @@ export default function NavbarApp() {
                         <Typography variant="body1" className="nav__presentation_name">
                             PRESENTATION NAME
                         </Typography>
-                        <div className="nav__menu">
+                        {/*<div className="nav__menu">
                             <div className="nav__menu_button">
-                                <Button aria-controls="nav-menu-file" aria-haspopup="true" onClick={handleClick} >
+                                <Button aria-controls="nav-menu-file" aria-haspopup="true" onClick={handleClick} id="nav-menu-file" >
                                     File
                                 </Button>
                                 <Menu
@@ -46,7 +47,7 @@ export default function NavbarApp() {
                             </div>
 
                             <div className="nav__menu_button">
-                                <Button aria-controls="nav-menu-insert" aria-haspopup="true" onClick={handleClick}>
+                                <Button aria-controls="nav-menu-insert" aria-haspopup="true" onClick={handleClick} id="nav-menu-insert">
                                     Insert
                                 </Button>
                                 <Menu
@@ -65,8 +66,8 @@ export default function NavbarApp() {
                                 </Menu>
                             </div>
 
-                            <div className="nav__menu_button">
-                                <Button aria-controls="nav-menu-slide" aria-haspopup="true" onClick={handleClick} >
+                            <div className="nav__menu_button" id="nav-menu-slide">
+                                <Button aria-controls="nav-menu-slide" aria-haspopup="true" onClick={handleClick} id="nav-menu-slide">
                                     Slide
                                 </Button>
                                 <Menu
@@ -77,11 +78,23 @@ export default function NavbarApp() {
                                     onClose={handleClose}
                                     className="nav__menu_dropbox"
                                 >
-                                    <MenuItem onClick={handleClose}>New slide</MenuItem>
-                                    <MenuItem onClick={handleClose}>Delete slide</MenuItem>
+                                    <MenuItem onClick={handleClose} id="nav-menu-slide">New slide</MenuItem>
+                                    <MenuItem onClick={handleClose} id="nav-menu-slide">Delete slide</MenuItem>
                                 </Menu>
                             </div>
-                        </div>
+                        </div>*/}
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Dropdown Button
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+
                     </div>
                 </Toolbar>
             </AppBar>
