@@ -1,56 +1,61 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 .nav_bar {
-  background: white !important;
-  box-shadow: none !important;
-}
-
-.nav__wrap {
-  display: flex;
-  flex-direction: column;
+    background: white !important;
+    box-shadow: none !important;
 }
 
 .nav__file_icon {
-  width: auto;
-  height: 50px !important;
+    width: auto;
+    height: 50px !important;
 }
 
 .nav__presentation_name {
-  color: rgba(0, 0, 0, 0.87);
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
-  padding: 10px 8px 0 15px;
+    color: rgba(0, 0, 0, 0.87) !important;
+    max-width: 200px !important;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+    border: 0 solid white !important;
+    margin: 5px 0 5px 15px;
 }
 
-.nav__menu {
-  flex-direction: row;
-  cursor: pointer;
+.nav__presentation_name:active {
+    border: 1px solid mediumpurple !important;
+    border-radius: 5px;
 }
-
-nav__menu:hover {
-  outline: 1px solid blue;
-}
-
-.nav__menu_button {
-  font-size: 17px;
-  float: left;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
 
 .nav__menu_dropbox {
-  margin-top: 40px;
+    padding: 5px 8px 0 15px;
+    margin-right: 10px;
+}
+
+.dropdown-toggle:after {
+    content: none !important;
+}
+
+.nav__menu_dropbox_file {
+    margin-right: 10px;
+    color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.nav__menu_dropbox_insert {
+    margin-right: 10px;
+    color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.nav__menu_dropbox_slide {
+    margin-right: 10px;
+    color: rgba(0, 0, 0, 0.87) !important;
 }
 
