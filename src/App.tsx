@@ -1,13 +1,14 @@
 import React from 'react'
 import './App.css'
-import NavbarApp from "./Nav"
+import Nav from './Nav'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
     return (
         <div>
-            <NavbarApp />
+            <Nav />
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
