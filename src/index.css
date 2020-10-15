@@ -54,3 +54,45 @@ nav__menu:hover {
   margin-top: 40px;
 }
 
+.slide-area {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-area > .workspace {
+  border-radius: inherit;
+}
+
+.workspace {
+  width: 1200px;
+  height: 675px;
+  margin: auto 0;
+}
+
+@media screen and (max-width: 1400px) {
+  .workspace {
+    width: calc(100vw - 220px);
+    height: calc((100vw - 220px)*9/16);
+    margin: auto 0;
+  }
+}
+
+.main-block {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+.sidebar {
+  background-color: #282c34;
+  width: 200px;
+}
+
+.wrapper {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 80px 1fr;
+}

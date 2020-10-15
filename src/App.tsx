@@ -1,11 +1,16 @@
 import React from 'react'
 import './App.css'
-import NavbarApp from "./Nav"
+import NavbarApp from './Nav'
+import SlideArea from './SlideArea'
 
 function App() {
     return (
-        <div>
+        <div className="wrapper">
             <NavbarApp />
+            <div className="main-block">
+                <div className="sidebar"></div>
+                <SlideArea />
+            </div>
         </div>
     );
 }
