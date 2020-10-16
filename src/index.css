@@ -95,26 +95,23 @@ nav__menu:hover {
 }
 
 .workspace {
-  width: 1200px;
-  height: 675px;
+  width: 124vh;
+  height: 70vh;
   margin: auto 0;
-}
-
-@media screen and (max-width: 1400px) {
-  .workspace {
-    width: calc(100vw - 220px);
-    height: calc((100vw - 220px)*9/16);
-    margin: auto 0;
-  }
 }
 
 .main-block {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 230px 1fr;
 }
 
 .wrapper {
   height: 100vh;
   display: grid;
   grid-template-rows: 100px 1fr;
+}
+
+.sidebar {
+  margin-top: 1rem;
+  overflow-y: scroll;
 }

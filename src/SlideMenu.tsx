@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card'
 
 export default function SlideMenu() {
     return (
-        <Box px={"1rem"} mt={"1rem"} overflow={"auto"} maxHeight={"calc(100vh - 100px - 1rem)"}>
+        <Box className="sidebar" px={"1rem"} overflow={"auto"} maxHeight={"calc(100vh - 100px - 1rem)"}>
             <Card className={"mb-3"}>
                 <Card.Body>
                     <Card.Title>Card Title</Card.Title>
