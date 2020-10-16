@@ -2,13 +2,14 @@ import React from 'react'
 import './App.css'
 import NavbarApp from './Nav'
 import SlideArea from './SlideArea'
+import SlideMenu from "./SlideMenu";
 
 function App() {
     return (
         <div className="wrapper">
             <NavbarApp />
             <div className="main-block">
-                <div className="sidebar"></div>
+                <SlideMenu />
                 <SlideArea />
             </div>
         </div>

@@ -28,9 +28,16 @@ code {
 }
 
 .nav__presentation_name {
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(0, 0, 0, 0.87) !important;
+  max-width: 200px !important;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
-  padding: 10px 8px 0 15px;
+  border: 0 solid white !important;
+  margin: 5px 0 5px 15px;
+}
+
+.nav__presentation_name:active {
+  border: 1px solid mediumpurple !important;
+  border-radius: 5px;
 }
 
 .nav__menu {
@@ -51,7 +58,27 @@ nav__menu:hover {
 
 
 .nav__menu_dropbox {
-  margin-top: 40px;
+  padding: 5px 8px 0 15px;
+  margin-right: 10px;
+}
+
+.dropdown-toggle:after {
+  content: none !important;
+}
+
+.nav__menu_dropbox_file {
+  margin-right: 10px;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.nav__menu_dropbox_insert {
+  margin-right: 10px;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.nav__menu_dropbox_slide {
+  margin-right: 10px;
+  color: rgba(0, 0, 0, 0.87) !important;
 }
 
 .slide-area {
@@ -86,13 +113,8 @@ nav__menu:hover {
   grid-template-columns: 200px 1fr;
 }
 
-.sidebar {
-  background-color: #282c34;
-  width: 200px;
-}
-
 .wrapper {
   height: 100vh;
   display: grid;
-  grid-template-rows: 80px 1fr;
+  grid-template-rows: 100px 1fr;
 }
