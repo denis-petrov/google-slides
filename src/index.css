@@ -71,6 +71,29 @@ nav__menu:hover {
   color: rgba(0, 0, 0, 0.87) !important;
 }
 
+.nav__menu_data {
+  margin-bottom: 0 !important;
+  display: block;
+  width: 100%;
+  padding: .25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.nav__my_file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
 .nav__menu_dropbox_insert {
   margin-right: 10px;
   color: rgba(0, 0, 0, 0.87) !important;
@@ -115,3 +138,5 @@ nav__menu:hover {
   margin-top: 1rem;
   overflow-y: scroll;
 }
+
+

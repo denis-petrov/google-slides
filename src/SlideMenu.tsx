@@ -46,6 +46,22 @@ export default function SlideMenu() {
                     </Card.Text>
                 </Card.Body>
             </Card>
+            <Card className={"mb-3"}>
+                <Card.Body>
+                    <Card.Title>Card Title</Card.Title>
+                    <Card.Text>
+                        Some quick example text to build on the card title
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+            <Card className={"mb-3"}>
+                <Card.Body>
+                    <Card.Title>Card Title</Card.Title>
+                    <Card.Text>
+                        Some quick example text to build on the card title
+                    </Card.Text>
+                </Card.Body>
+            </Card>
             <hr/>
         </Box>
     )

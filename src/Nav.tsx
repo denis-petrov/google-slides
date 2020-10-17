@@ -1,6 +1,6 @@
 import React from 'react'
 import {AppBar, Toolbar} from "@material-ui/core"
-import {Dropdown} from 'react-bootstrap'
+import {Dropdown, Form} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Nav() {
@@ -22,7 +22,11 @@ export default function Nav() {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">Open</Dropdown.Item>
+                                    <div>
+                                        <label htmlFor="myfile" className="nav__menu_data">Open</label>
+                                        <input type="file" className="nav__my_file" id="myfile" name="myfile"/>
+                                    </div>
+
                                     <Dropdown.Item href="#/action-2">Save</Dropdown.Item>
                                     <Dropdown.Item href="#/action-3">Export</Dropdown.Item>
                                 </Dropdown.Menu>
