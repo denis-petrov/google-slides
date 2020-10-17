@@ -12,7 +12,7 @@ export default function Nav() {
 
                     <div className="container-fluid">
                         <div className="row">
-                            <input type="email" className="form-control nav__presentation_name" id="exampleInputEmail1"
+                            <input type="text" className="form-control nav__presentation_name" id="exampleInputEmail1"
                                    aria-describedby="emailHelp" placeholder="PRESENTATION NAME"/>
                         </div>
                         <div className="row nav__menu_dropbox">
@@ -24,7 +24,7 @@ export default function Nav() {
                                 <Dropdown.Menu>
                                     <div>
                                         <label htmlFor="myfile" className="nav__menu_data">Open</label>
-                                        <input type="file" className="nav__my_file" id="myfile" name="myfile"/>
+                                        <input type="file" className="nav__my_file" id="myfile" name="myfile" accept=".json"/>
                                     </div>
 
                                     <Dropdown.Item href="#/action-2">Save</Dropdown.Item>

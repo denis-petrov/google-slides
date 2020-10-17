@@ -85,6 +85,19 @@ nav__menu:hover {
   border: 0;
 }
 
+.nav__menu_data:hover {
+  color: #212529;
+  background-color: #e2e6ea;
+  border: 0;
+  box-shadow: 0 0 0 0.2rem rgba(216,217,219,.5);
+}
+
+.nav__menu_data:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #007bff;
+}
+
 .nav__my_file {
   width: 0.1px;
   height: 0.1px;
