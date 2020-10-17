@@ -1,14 +1,19 @@
 import React from 'react'
 import './App.css'
-import Nav from './Nav'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import NavbarApp from './Nav'
+import SlideArea from './SlideArea'
+import SlideMenu from "./SlideMenu";
 
 function App() {
     return (
-        <div>
-            <Nav />
+        <div className="wrapper">
+            <NavbarApp />
+            <div className="main-block">
+                <SlideMenu />
+                <SlideArea />
+            </div>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;

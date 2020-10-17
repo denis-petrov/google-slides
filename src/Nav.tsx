@@ -1,5 +1,5 @@
 import React from 'react'
-import {AppBar, Toolbar, Typography} from "@material-ui/core"
+import {AppBar, Toolbar} from "@material-ui/core"
 import {Dropdown} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -14,9 +14,6 @@ export default function Nav() {
                         <div className="row">
                             <input type="email" className="form-control nav__presentation_name" id="exampleInputEmail1"
                                    aria-describedby="emailHelp" placeholder="PRESENTATION NAME"/>
-                            {/*<Typography variant="body1" className="nav__presentation_name">
-                                PRESENTATION NAME
-                            </Typography>*/}
                         </div>
                         <div className="row nav__menu_dropbox">
                             <Dropdown>
