@@ -1,6 +1,6 @@
-import {chooseElements} from '../functions/chooseElements'
-import {RED, GREEN, WHITE} from '../entities/Constants'
-import {ElementType} from '../entities/Elements'
+import {chooseElements} from '../src/functions/chooseElements'
+import {RED, GREEN, WHITE} from '../src/entities/Constants'
+import {ElementType} from '../src/entities/Elements'
 
 describe('test choose elements', () => {
     test('choose two elements', () => {

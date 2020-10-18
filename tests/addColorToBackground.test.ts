@@ -1,5 +1,5 @@
-import {addColorToBackground} from '../functions/addColorToBackground'
-import {BLACK, WHITE} from '../entities/Constants'
+import {addColorToBackground} from '../src/functions/addColorToBackground'
+import {BLACK, WHITE} from '../src/entities/Constants'
 
 describe('test add color to background', () => {
     test('change black to white', () => {

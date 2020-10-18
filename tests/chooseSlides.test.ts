@@ -1,6 +1,6 @@
-import {chooseSlides} from '../functions/chooseSlides'
-import {Editor} from '../entities/Editor'
-import {Presentation} from '../entities/Presentation'
+import {chooseSlides} from '../src/functions/chooseSlides'
+import {Editor} from '../src/entities/Editor'
+import {Presentation} from '../src/entities/Presentation'
 
 describe('chooseSlide', () => {
     test('No slide selected, No slides are selected', () => {

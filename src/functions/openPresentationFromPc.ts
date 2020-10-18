@@ -4,6 +4,6 @@ export {
     openPresentationFromPc
 }
 
-function openPresentationFromPc(json: JSON): Presentation {
-    return null
+function openPresentationFromPc(json: JSON) /*Presentation*/ {
+/*    return null*/
 }

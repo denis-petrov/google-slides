@@ -4,6 +4,6 @@ export {
     savePresentationToCloud
 }
 
-function savePresentationToCloud(presentation: Presentation, cloudToken: string): void {
+function savePresentationToCloud(presentation: Presentation, cloudToken: string)/*: void */{
 
 }

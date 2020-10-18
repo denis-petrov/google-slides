@@ -1,5 +1,5 @@
-import {changePositionOfElements} from '../functions/changePositionOfElements'
-import {ElementType} from '../entities/Elements'
+import {changePositionOfElements} from '../src/functions/changePositionOfElements'
+import {ElementType} from '../src/entities/Elements'
 
 describe('test change 4 elements positions', () => {
     test('increase the position on X and Y by 10, scaleX and scaleY by 1 and angleRoute by 15', () => {

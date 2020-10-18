@@ -1,6 +1,6 @@
-import {changeStyleOfPrimitive} from '../functions/changeStyleOfPrimitive'
-import {ElementType} from '../entities/Elements'
-import {GREEN, RED} from '../entities/Constants'
+import {changeStyleOfPrimitive} from '../src/functions/changeStyleOfPrimitive'
+import {ElementType} from '../src/entities/Elements'
+import {GREEN, RED} from '../src/entities/Constants'
 
 describe('test change style of primitive', () => {
     test('change triangle`s, rectangle`s, ellipse`s background colors from white to red ' +

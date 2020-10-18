@@ -1,10 +1,10 @@
-import {Editor} from '../entities/Editor'
-import {Color} from '../entities/Color'
-import {ElementType, Triangle} from '../entities/Elements'
-import {Text} from '../entities/Elements'
-import {Point} from '../entities/Point'
-import {RED, WHITE} from '../entities/Constants'
-import {deleteSlides} from '../functions/deleteSlides'
+import {Editor} from '../src/entities/Editor'
+import {Color} from '../src/entities/Color'
+import {ElementType, Triangle} from '../src/entities/Elements'
+import {Text} from '../src/entities/Elements'
+import {Point} from '../src/entities/Point'
+import {RED, WHITE} from '../src/entities/Constants'
+import {deleteSlides} from '../src/functions/deleteSlides'
 
 describe('deleteSlides', () => {
     test('Multiple removed slides, Needed slides are removed', () => {

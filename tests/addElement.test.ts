@@ -1,6 +1,6 @@
-import {BLACK, WHITE} from '../entities/Constants'
-import {addElement} from '../functions/addElement'
-import {ElementType, Ellipse, Rectangle, Text, Triangle} from '../entities/Elements'
+import {BLACK, WHITE} from '../src/entities/Constants'
+import {addElement} from '../src/functions/addElement'
+import {ElementType, Ellipse, Rectangle, Text, Triangle} from '../src/entities/Elements'
 
 describe('add elements to Slide', () => {
     test('add text to Slide', () => {

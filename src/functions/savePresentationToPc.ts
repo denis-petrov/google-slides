@@ -4,6 +4,6 @@ export {
     savePresentationToPc
 }
 
-function savePresentationToPc(presentation: Presentation): void {
+function savePresentationToPc(presentation: Presentation) /*void*/ {
 
 }

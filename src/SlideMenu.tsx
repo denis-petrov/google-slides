@@ -2,11 +2,12 @@ import React from 'react'
 import {Box} from "@material-ui/core"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Card from 'react-bootstrap/Card'
+import {Editor} from "./entities/Editor"
 
-export default function SlideMenu() {
+export default function SlideMenu(editor: Editor) {
     return (
         <Box className="sidebar" px={"1rem"} overflow={"auto"} maxHeight={"calc(100vh - 100px - 1rem)"}>
-            <Card className={"mb-3"}>
+            <Card className={"mb-3 slidemenu__card"}>
                 <Card.Body>
                     <Card.Title>Card Title</Card.Title>
                     <Card.Text>

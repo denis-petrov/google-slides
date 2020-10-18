@@ -4,6 +4,6 @@ export {
     openPresentationFromCloud
 }
 
-function openPresentationFromCloud(URL: string): Presentation {
-    return null
+function openPresentationFromCloud(URL: string) /*Presentation*/ {
+    /*return null*/
 }

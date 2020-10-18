@@ -1,6 +1,6 @@
-import {changeStyleOfText} from '../functions/changeStyleOfText'
-import {ElementType} from '../entities/Elements'
-import {GREEN} from '../entities/Constants'
+import {changeStyleOfText} from '../src/functions/changeStyleOfText'
+import {ElementType} from '../src/entities/Elements'
+import {GREEN} from '../src/entities/Constants'
 
 describe('test change element text style', () => {
     test('change font from Times New Roman to Arial, Color from black to green, sizeFont from 10 to 16, ' +
