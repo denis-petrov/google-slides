@@ -1,24 +1,30 @@
-import React from 'react'
+import React, {RefObject} from 'react'
 import {AppBar, Toolbar} from "@material-ui/core"
-import {Dropdown, Form} from 'react-bootstrap'
+import {Dropdown} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {addEmptySlide} from "./functions/addEmptySlide";
-import {Editor} from "./entities/Editor";
 
 
-function submitFile(file: FileList) {
-    let fileReader = new FileReader()
-    fileReader.onload = () => console.log(fileReader.result)
-    console.log(file)
+let fileReader: FileReader
+
+const handleFileRead = (e: ProgressEvent<FileReader>) => {
+    const content = fileReader.result
+    console.log(content)
 }
 
-let emptyEditor = {
-    presentation: {
-        name: 'test',
-        slides: []
-    },
-    selectionSlidesId: [0]
+const handleFileChosen = (file: File) => {
+    fileReader = new FileReader()
+    fileReader.onloadend = handleFileRead
+    fileReader.readAsText(file)
 }
+
+const fileField = React.createRef<HTMLInputElement>()
+
+function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>): void {
+    if (e.target.files != null) {
+        handleFileChosen(e.target.files[0])
+    }
+}
+
 
 export default function Nav() {
     return (
@@ -41,9 +47,15 @@ export default function Nav() {
                                 <Dropdown.Menu>
                                     <div>
                                         <label htmlFor="myfile" className="nav__menu_data">Open</label>
-                                        {/*<input type="file" className="nav__my_file" id="file" name="file"
-                                               accept=".json" onChange={e => console.log(e)} />*/}
-                                        <input type="file" className="nav__my_file" id="myfile" name="myfile" accept=".json"  onChange={e => console.log(e)}/>
+                                        <input
+                                            className="nav__my_file"
+                                            id="myfile"
+                                            name="myfile"
+                                            accept=".json"
+                                            onChange={handleFileSelected}
+                                            ref={fileField}
+                                            type="file"
+                                        />
                                     </div>
 
                                     <Dropdown.Item href="#/action-2">Save</Dropdown.Item>
@@ -70,7 +82,6 @@ export default function Nav() {
                                     Slide
                                 </Dropdown.Toggle>
 
-                                <button onClick={(e) => addEmptySlide(emptyEditor)}>slide</button>
                                 <Dropdown.Menu>
                                     <Dropdown.Item href="#/action-1" >New slide</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2">Delete slide</Dropdown.Item>
