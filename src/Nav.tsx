@@ -1,7 +1,8 @@
-import React, {RefObject} from 'react'
-import {AppBar, Toolbar} from "@material-ui/core"
+import React from 'react'
+import {AppBar, Toolbar} from '@material-ui/core'
 import {Dropdown} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './nav.css'
 
 
 let fileReader: FileReader
@@ -29,9 +30,9 @@ function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>): void {
 export default function Nav() {
     return (
         <div>
-            <AppBar position="static" className="nav_bar">
+            <AppBar position="static" className="nav">
                 <Toolbar variant="dense">
-                    <img src="/nav__logo.png" alt="nav__logo" className="nav__file_icon" />
+                    <img src="/nav__logo.png" alt="logo" className="nav__file_icon" />
 
                     <div className="container-fluid">
                         <div className="row">
@@ -40,15 +41,15 @@ export default function Nav() {
                         </div>
                         <div className="row nav__menu_dropbox">
                             <Dropdown>
-                                <Dropdown.Toggle className="nav__menu_dropbox_file btn-light" variant="success" id="dropdown-file">
+                                <Dropdown.Toggle className="dropbox__file btn-light" variant="success" id="dropdown-file">
                                     File
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
                                     <div>
-                                        <label htmlFor="myfile" className="nav__menu_data">Open</label>
+                                        <label htmlFor="myfile" className="dropbox__open_data">Open</label>
                                         <input
-                                            className="nav__my_file"
+                                            className="dropbox__open_button"
                                             id="myfile"
                                             name="myfile"
                                             accept=".json"
@@ -64,7 +65,8 @@ export default function Nav() {
                             </Dropdown>
 
                             <Dropdown>
-                                <Dropdown.Toggle className="nav__menu_dropbox_insert btn-light" variant="success" id="dropdown-insert">
+                                <Dropdown.Toggle className="dropbox__insert btn-light"
+                                                 variant="success" id="dropdown-insert">
                                     Insert
                                 </Dropdown.Toggle>
 
@@ -78,7 +80,8 @@ export default function Nav() {
                             </Dropdown>
 
                             <Dropdown>
-                                <Dropdown.Toggle className="nav__menu_dropbox_slide btn-light" variant="success" id="dropdown-slide">
+                                <Dropdown.Toggle className="dropbox__slide btn-light"
+                                                 variant="success" id="dropdown-slide">
                                     Slide
                                 </Dropdown.Toggle>
 
