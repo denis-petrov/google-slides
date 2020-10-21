@@ -3,6 +3,7 @@ import {AppBar, Toolbar} from '@material-ui/core'
 import {Dropdown} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
+import {saveFile} from './saveFile'
 
 
 let fileReader: FileReader
@@ -59,7 +60,7 @@ export default function Nav() {
                                         />
                                     </div>
 
-                                    <Dropdown.Item href="#/action-2">Save</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2" onClick={saveFile}>Save</Dropdown.Item>
                                     <Dropdown.Item href="#/action-3">Export</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
