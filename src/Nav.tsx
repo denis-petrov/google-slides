@@ -1,24 +1,8 @@
 import React from 'react'
 import {AppBar, Toolbar} from "@material-ui/core"
-import {Dropdown, Form} from 'react-bootstrap'
+import {Dropdown} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {addEmptySlide} from "./functions/addEmptySlide";
-import {Editor} from "./entities/Editor";
-
-
-function submitFile(file: FileList) {
-    let fileReader = new FileReader()
-    fileReader.onload = () => console.log(fileReader.result)
-    console.log(file)
-}
-
-let emptyEditor = {
-    presentation: {
-        name: 'test',
-        slides: []
-    },
-    selectionSlidesId: [0]
-}
+import {saveFile} from "./saveFile";
 
 export default function Nav() {
     return (
@@ -29,7 +13,7 @@ export default function Nav() {
 
                     <div className="container-fluid">
                         <div className="row">
-                            <input type="text" className="form-control nav__presentation_name" id="exampleInputEmail1"
+                            <input type="email" className="form-control nav__presentation_name" id="exampleInputEmail1"
                                    aria-describedby="emailHelp" placeholder="PRESENTATION NAME"/>
                         </div>
                         <div className="row nav__menu_dropbox">
@@ -41,12 +25,10 @@ export default function Nav() {
                                 <Dropdown.Menu>
                                     <div>
                                         <label htmlFor="myfile" className="nav__menu_data">Open</label>
-                                        {/*<input type="file" className="nav__my_file" id="file" name="file"
-                                               accept=".json" onChange={e => console.log(e)} />*/}
-                                        <input type="file" className="nav__my_file" id="myfile" name="myfile" accept=".json"  onChange={e => console.log(e)}/>
+                                        <input type="file" className="nav__my_file" id="myfile" name="myfile"/>
                                     </div>
 
-                                    <Dropdown.Item href="#/action-2">Save</Dropdown.Item>
+                                    <Dropdown.Item id="save_presentation" onClick={saveFile}>Save</Dropdown.Item>
                                     <Dropdown.Item href="#/action-3">Export</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -70,9 +52,8 @@ export default function Nav() {
                                     Slide
                                 </Dropdown.Toggle>
 
-                                <button onClick={(e) => addEmptySlide(emptyEditor)}>slide</button>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1" >New slide</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-1">New slide</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2">Delete slide</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

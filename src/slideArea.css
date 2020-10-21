@@ -1,0 +1,18 @@
+.slide-area {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-area > .workspace {
+    border-radius: inherit;
+}
+
+.workspace {
+    width: 124vh;
+    height: 70vh;
+    margin: auto 0;
+}
