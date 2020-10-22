@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {AppBar, Toolbar} from '@material-ui/core'
 import {Dropdown} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {saveFile} from './saveFile'
+import {addEmptySlide} from "./functions/addEmptySlide";
+import {Editor} from "./entities/Editor";
+import {Add} from "@material-ui/icons";
 
 
 let fileReader: FileReader
@@ -27,8 +30,13 @@ function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>): void {
     }
 }
 
+function AddSlide(editorState: Editor, editorSetter: React.Dispatch<React.SetStateAction<Editor>>){
+    useEffect(() => {
+        editorSetter(addEmptySlide(editorState))
+    });
+}
 
-export default function Nav() {
+export default function Nav(editorState: Editor, editorSetter: React.Dispatch<React.SetStateAction<Editor>>) {
     return (
         <div>
             <AppBar position="static" className="nav">
@@ -87,7 +95,9 @@ export default function Nav() {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1" >New slide</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-1" onClick={ (e) =>
+                                        AddSlide(editorState, editorSetter)
+                                    } >New slide</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2">Delete slide</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

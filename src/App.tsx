@@ -1,23 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react';
 import './App.css'
 import NavbarApp from './Nav'
 import SlideArea from './SlideArea'
 import SlideMenu from "./SlideMenu";
 import {Editor} from "./entities/Editor";
+import {Slide} from "./entities/Slide";
+import {WHITE} from "./entities/Constants";
 
 function App() {
-    let editor: Editor = {
-        presentation: {
+    const [editorState, setEditorState] = useState<Editor>({presentation: {
             name: 'test',
-            slides: []
+            slides: [
+                {
+                    id: 0,
+                    background: WHITE,
+                    elements: [],
+                    selectionElementsId: []
+                }
+            ]
         },
-        selectionSlidesId: [0]
-    }
+        selectionSlidesId: [0]});
     return (
         <div className="wrapper">
-            <NavbarApp />
+            <NavbarApp{...editorState}{...setEditorState}/>
             <div className="main-block">
-                <SlideMenu{...editor} />
+                <SlideMenu{...editorState} />
                 <SlideArea />
             </div>
         </div>
