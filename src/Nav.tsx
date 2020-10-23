@@ -3,14 +3,27 @@ import {AppBar, Toolbar} from '@material-ui/core'
 import {Dropdown} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
-import {saveFile} from './saveFile'
+import ReactDOM from "react-dom";
+import App from "./App";
+import {Editor} from './entities/Editor'
+import {addEmptySlide} from "./functions/addEmptySlide";
+import {savePresentationToPc} from "./functions/savePresentationToPc";
 
 
 let fileReader: FileReader
 
 const handleFileRead = (e: ProgressEvent<FileReader>) => {
     const content = fileReader.result
-    console.log(content)
+    if (typeof(content) === 'string') {
+        console.log(JSON.parse(content))
+
+        ReactDOM.render(
+            <React.StrictMode>
+                <App{...JSON.parse(content)} />
+            </React.StrictMode>,
+            document.getElementById('root')
+        )
+    }
 }
 
 const handleFileChosen = (file: File) => {
@@ -28,7 +41,7 @@ function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>): void {
 }
 
 
-export default function Nav() {
+export default function Nav(editor: Editor) {
     return (
         <div>
             <AppBar position="static" className="nav">
@@ -60,7 +73,7 @@ export default function Nav() {
                                         />
                                     </div>
 
-                                    <Dropdown.Item href="#/action-2" onClick={saveFile}>Save</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2" onClick={() => {savePresentationToPc(editor, 'json')}}>Save</Dropdown.Item>
                                     <Dropdown.Item href="#/action-3">Export</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -87,7 +100,15 @@ export default function Nav() {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1" >New slide</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-1" onClick={() => {
+                                        editor = addEmptySlide(editor)
+                                        ReactDOM.render(
+                                            <React.StrictMode>
+                                                <App{...editor} />
+                                            </React.StrictMode>,
+                                            document.getElementById('root')
+                                        )
+                                    }}>New slide</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2">Delete slide</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
