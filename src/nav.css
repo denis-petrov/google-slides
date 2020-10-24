@@ -21,9 +21,11 @@
     margin: 5px 0 5px 15px;
 }
 
-.nav__presentation_name:active {
-    border: 1px solid mediumpurple !important;
+.nav__presentation_name:active,
+.nav__presentation_name:focus {
+    border: 1px solid #fde293 !important;
     border-radius: 5px;
+    box-shadow: 0 0 0 0.2rem #fde293 !important;
 }
 
 .nav__menu {
@@ -32,7 +34,7 @@
 }
 
 nav__menu:hover {
-    outline: 1px solid blue;
+    outline: 1px solid #fde293;
 }
 
 .nav__menu_button {
@@ -52,9 +54,20 @@ nav__menu:hover {
     content: none !important;
 }
 
-.dropbox__file {
+.dropbox__button{
     margin-right: 10px;
     color: rgba(0, 0, 0, 0.87) !important;
+    background-color: white !important;
+    border: white !important;
+}
+
+
+.dropbox__button:hover,
+.dropbox__button:active,
+.dropbox__button:focus {
+    background-color: #fde293 !important;
+    border-color: #fde293 !important;
+    box-shadow: none !important;
 }
 
 .dropbox__open_data {
@@ -93,12 +106,23 @@ nav__menu:hover {
     z-index: -1;
 }
 
-.dropbox__insert {
+.dropbox__slide {
     margin-right: 10px;
     color: rgba(0, 0, 0, 0.87) !important;
 }
 
-.dropbox__slide {
-    margin-right: 10px;
-    color: rgba(0, 0, 0, 0.87) !important;
+.button__onclick:active {
+    background-color: #fde293 !important;
+    color: #282c34;
+    box-shadow: none !important;
+}
+
+.nav__hr {
+    margin-top: 10px !important;
+    margin-bottom: 4px !important;
+}
+
+.second_nav__hr {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
 }

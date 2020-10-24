@@ -1,11 +1,11 @@
 import React from 'react'
-import {Box} from "@material-ui/core"
+import {Box} from '@material-ui/core'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Card from 'react-bootstrap/Card'
-import {Editor} from './entities/Editor'
+import {getEditor} from './StateManager'
 
-export default function SlideMenu(editor: Editor) {
-    let slides = editor.presentation.slides.map(item =>
+export default function SlideMenu() {
+    let slides = getEditor().presentation.slides.map(item =>
         <Card className={"mb-3"} key={item.id}>
             <Card.Body>
                 <Card.Title>Card Title</Card.Title>
@@ -13,11 +13,11 @@ export default function SlideMenu(editor: Editor) {
                     Some quick example text to build on the card title
                 </Card.Text>
             </Card.Body>
-        </Card>)
+        </Card>
+    )
     return (
         <Box className="sidebar" px={"1rem"} overflow={"auto"} maxHeight={"calc(100vh - 100px - 1rem)"}>
             { slides }
-            <hr/>
         </Box>
     )
 }

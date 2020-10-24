@@ -3,14 +3,13 @@ import './App.css'
 import NavbarApp from './Nav'
 import SlideArea from './SlideArea'
 import SlideMenu from './SlideMenu'
-import {Editor} from './entities/Editor'
 
-function App(editor: Editor) {
+function App() {
     return (
         <div className="wrapper">
-            <NavbarApp{...editor} />
+            <NavbarApp />
             <div className="main-block">
-                <SlideMenu{...editor} />
+                <SlideMenu />
                 <SlideArea />
             </div>
         </div>

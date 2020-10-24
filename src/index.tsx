@@ -3,19 +3,11 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import {Editor} from './entities/Editor'
 
-let editor: Editor = {
-    presentation: {
-        name: 'test',
-        slides: []
-    },
-    selectionSlidesId: [0]
-}
 
 ReactDOM.render(
     <React.StrictMode>
-        <App{...editor} />
+        <App />
     </React.StrictMode>,
     document.getElementById('root')
 )
