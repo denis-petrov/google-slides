@@ -48,5 +48,11 @@ code {
   max-height: calc(100vh - 160px - 1rem);
 }
 
+.MuiBox-root-2 {
+  overflow: auto;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
 
 

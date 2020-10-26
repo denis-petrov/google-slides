@@ -6,7 +6,7 @@ export default function SlideArea() {
 
     return (
         <div id="slide-area" className='slide-area'>
-            <Paper className="workspace" elevation={5} />
+            <svg className={'workspace'}/>
         </div>
     );
 }

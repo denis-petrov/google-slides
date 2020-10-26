@@ -15,4 +15,6 @@
     width: 124vh;
     height: 70vh;
     margin: auto 0;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
