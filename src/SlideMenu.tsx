@@ -20,7 +20,7 @@ function handleClick(id: number) {
 
     if (currSlidesMenuItemDomElement != null) {
         let previousAttributeValue = currSlidesMenuItemDomElement.getAttribute(attributeName)
-        currSlidesMenuItemDomElement.setAttribute(attributeName, previousAttributeValue == 'true'? 'false' : 'true')
+        currSlidesMenuItemDomElement.setAttribute(attributeName, previousAttributeValue == 'true' ? 'false' : 'true')
     }
 
     dispatch(chooseSlides, {
