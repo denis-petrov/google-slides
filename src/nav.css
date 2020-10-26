@@ -63,10 +63,13 @@ nav__menu:hover {
 
 
 .dropbox__button:hover,
-.dropbox__button:active,
-.dropbox__button:focus {
+.dropbox__button:active {
     background-color: #fde293 !important;
     border-color: #fde293 !important;
+    box-shadow: none !important;
+}
+
+.dropbox__button:focus {
     box-shadow: none !important;
 }
 
@@ -115,6 +118,7 @@ nav__menu:hover {
     background-color: #fde293 !important;
     color: #282c34;
     box-shadow: none !important;
+    outline: none !important;
 }
 
 .nav__hr {
@@ -125,4 +129,8 @@ nav__menu:hover {
 .second_nav__hr {
     margin-top: 4px !important;
     margin-bottom: 4px !important;
+}
+
+.vertical_separator {
+    border-left: 1px solid #dadce0;
 }

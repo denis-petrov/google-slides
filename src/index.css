@@ -39,12 +39,13 @@ code {
 .wrapper {
   height: 100vh;
   display: grid;
-  grid-template-rows: 100px 1fr;
+  grid-template-rows: 160px 1fr;
 }
 
 .sidebar {
   margin-top: 1rem;
   overflow-y: scroll;
+  max-height: calc(100vh - 160px - 1rem);
 }
 
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import React from 'react'
 import App from './App'
 import { deepCopy } from 'deep-copy-ts'
-import {WHITE} from "./entities/Constants";
+import {WHITE} from './entities/Constants'
 
 let editor: Editor = {
     presentation: {

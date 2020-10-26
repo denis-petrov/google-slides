@@ -1,6 +1,14 @@
 import React from 'react'
 import {AppBar, Toolbar} from '@material-ui/core'
 import {Dropdown} from 'react-bootstrap'
+import AddIcon from '@material-ui/icons/Add'
+import RemoveIcon from '@material-ui/icons/Remove'
+import RedoIcon from '@material-ui/icons/Redo'
+import UndoIcon from '@material-ui/icons/Undo'
+import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory'
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
+import TextFieldsIcon from '@material-ui/icons/TextFields'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {addEmptySlide} from './functions/addEmptySlide'
@@ -90,11 +98,40 @@ export default function Nav() {
             <hr className="nav__hr"/>
             <AppBar position="static" className="nav">
                 <Toolbar variant="dense">
-                    <button type="button" className="btn btn-light btn-sm">
-                        LightK
+                    <button type="button" className="btn btn-sm button__onclick dropbox__button" onClick={() => {
+                        dispatch(addEmptySlide, {})
+                    }}>
+                        <AddIcon />
                     </button>
-                    <button type="button" className="btn btn-light btn-sm">
-                        Light
+
+                    <button type="button" className="btn btn-sm button__onclick dropbox__button">
+                        <RemoveIcon />
+                    </button>
+
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                        <UndoIcon />
+                    </button>
+
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                        <RedoIcon />
+                    </button>
+
+                    <div className="vertical_separator">&nbsp;</div>
+
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                        <ChangeHistoryIcon />
+                    </button>
+
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                        <RadioButtonUncheckedIcon />
+                    </button>
+
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                        <CheckBoxOutlineBlankIcon />
+                    </button>
+
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                        <TextFieldsIcon />
                     </button>
                 </Toolbar>
             </AppBar>

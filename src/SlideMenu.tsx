@@ -3,7 +3,6 @@ import {Box} from '@material-ui/core'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Card from 'react-bootstrap/Card'
 import {dispatch, getEditor} from './StateManager'
-import {Editor} from './entities/Editor';
 import {chooseSlides} from './functions/chooseSlides'
 import './slideMenu.css'
 
@@ -23,7 +22,6 @@ function handleClick(id: number) {
         let previousAttributeValue = currSlidesMenuItemDomElement.getAttribute(attributeName)
         currSlidesMenuItemDomElement.setAttribute(attributeName, previousAttributeValue == 'true'? 'false' : 'true')
     }
-
 
     dispatch(chooseSlides, {
         slides: [id]
@@ -45,7 +43,7 @@ export default function SlideMenu() {
             </Card.Body>
         </Card>)
     return (
-        <Box className='sidebar' px={'1rem'} overflow={'auto'} maxHeight={'calc(100vh - 100px - 1rem)'}>
+        <Box className='sidebar' px={'1rem'} overflow={'auto'} >
             { slides }
         </Box>
     )
