@@ -1,6 +1,5 @@
 import {Editor} from '../entities/Editor'
 import {Point} from '../entities/Point'
-import {ElementType, Element} from '../entities/Elements'
 
 export {
     changePositionOfElements

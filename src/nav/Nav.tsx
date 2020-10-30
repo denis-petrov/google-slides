@@ -13,7 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {addEmptySlide} from '../functions/addEmptySlide'
 import {savePresentationToPc} from '../functions/savePresentationToPc'
-import {dispatch, getEditor} from '../stateManager/StateManager'
+import {dispatch, getEditor, reDo, unDo} from '../stateManager/StateManager'
 import {openPresentationFromPc} from '../functions/openPresentationFromPc'
 import {changeNamePresentation} from '../functions/changeNamePresentation'
 
@@ -102,7 +102,7 @@ export default function Nav() {
                                         dispatch(addEmptySlide, {})
                                     }}>New slide</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2" className="btn-sm button__onclick" onClick={() => {
-                                        deleteSlides()
+                                        dispatch(deleteSlides, {})
                                     }}>
                                         Delete slide
                                     </Dropdown.Item>
@@ -125,11 +125,15 @@ export default function Nav() {
                         <RemoveIcon />
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button" onClick={() => {
+                        unDo()
+                    }}>
                         <UndoIcon />
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button" onClick={() => {
+                        reDo()
+                    }}>
                         <RedoIcon />
                     </button>
 
