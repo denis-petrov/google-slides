@@ -20,6 +20,19 @@ import {changeNamePresentation} from './functions/changeNamePresentation'
 
 const fileField = React.createRef<HTMLInputElement>()
 
+export function deleteSlides() {
+    const attributeName = 'data-is-checked'
+    const slidesMenuItemClass = 'slides-menu-item'
+    let allSelectedElements = document.getElementsByClassName(slidesMenuItemClass)
+
+    for (let i = 0; i < allSelectedElements.length; i++) {
+        let currElement = allSelectedElements[i]
+        if (allSelectedElements[i].getAttribute(attributeName) == 'true') {
+            currElement.remove()
+        }
+    }
+}
+
 export default function Nav() {
     return (
         <div>
@@ -88,7 +101,11 @@ export default function Nav() {
                                     <Dropdown.Item href="#/action-1" className="btn-sm button__onclick" onClick={() => {
                                         dispatch(addEmptySlide, {})
                                     }}>New slide</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2" className="btn-sm button__onclick">Delete slide</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2" className="btn-sm button__onclick" onClick={() => {
+                                        deleteSlides()
+                                    }}>
+                                        Delete slide
+                                    </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
