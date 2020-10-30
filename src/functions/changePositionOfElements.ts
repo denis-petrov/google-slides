@@ -6,8 +6,8 @@ export {
     changePositionOfElements
 }
 
-function changePositionOfElements(editor: Editor, elementsId: Array<number>, newPosition: Point,
-                                  addScaleX: number, addScaleY: number, addAngleRoute: number): Editor {
+function changePositionOfElements(editor: Editor, elementsId: Array<number>, newCenter: Point,
+                                  newTopLeftPoint: Point, newBottomRightPoint: Point): Editor {
 
     return {
         ...editor,
@@ -19,42 +19,15 @@ function changePositionOfElements(editor: Editor, elementsId: Array<number>, new
                         ...s,
                         elements: s.elements.filter((element) => {
                             if (elementsId.includes(element.id)) {
-                                if (element.type === ElementType.triangle) {
-                                    return {
-                                        ...element,
-                                        a: {
-                                            x: (element as Element).a.x += newPosition.x,
-                                            y: (element as Element).a.y += newPosition.y
-                                        },
-                                        b: {
-                                            x: (element as Element).b.x += newPosition.x,
-                                            y: (element as Element).b.y += newPosition.y
-                                        },
-                                        c: {
-                                            x: (element as Element).c.x += newPosition.x,
-                                            y: (element as Element).c.y += newPosition.y
-                                        },
-                                        position: {
-                                            ...element.position,
-                                            x: element.position.x += newPosition.x,
-                                            y: element.position.y += newPosition.y,
-                                        },
-                                        scaleX: element.scaleX += addScaleX,
-                                        scaleY: element.scaleY += addScaleY,
-                                        angleRoute: element.angleRoute += addAngleRoute
-                                    }
-                                } else {
-                                    return {
-                                        ...element,
-                                        position: {
-                                            ...element.position,
-                                            x: element.position.x += newPosition.x,
-                                            y: element.position.y += newPosition.y,
-                                        },
-                                        scaleX: element.scaleX += addScaleX,
-                                        scaleY: element.scaleY += addScaleY,
-                                        angleRoute: element.angleRoute += addAngleRoute
-                                    }
+                                return {
+                                    ...element,
+                                    position: {
+                                        ...element.center,
+                                        x: element.center.x += newCenter.x,
+                                        y: element.center.y += newCenter.y,
+                                    },
+                                    topLeftPoint: element.topLeftPoint = newTopLeftPoint,
+                                    bottomRightPoint: element.bottomRightPoint = newBottomRightPoint
                                 }
                             }
                             return element

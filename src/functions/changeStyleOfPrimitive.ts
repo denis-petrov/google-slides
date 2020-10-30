@@ -10,7 +10,8 @@ function changeStyleOfPrimitive(
     editor: Editor,
     elementsId: Array<number>,
     newBackgroundColor: Color,
-    newBorderColor: Color
+    newBorderColor: Color,
+    newBorderWidth: number
 ): Editor {
     return {
         ...editor,
@@ -26,7 +27,8 @@ function changeStyleOfPrimitive(
                                 return {
                                     ...element,
                                     backgroundColor: (element as Element).backgroundColor = newBackgroundColor,
-                                    borderColor: element.borderColor = newBorderColor
+                                    borderColor: element.borderColor = newBorderColor,
+                                    borderWidth: element.borderWidth = newBorderWidth
                                 }
                             }
                             return element
