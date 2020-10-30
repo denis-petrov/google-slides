@@ -11,11 +11,11 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
 import TextFieldsIcon from '@material-ui/icons/TextFields'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
-import {addEmptySlide} from './functions/addEmptySlide'
-import {savePresentationToPc} from './functions/savePresentationToPc'
-import {dispatch, getEditor} from './StateManager'
-import {openPresentationFromPc} from './functions/openPresentationFromPc'
-import {changeNamePresentation} from './functions/changeNamePresentation'
+import {addEmptySlide} from '../functions/addEmptySlide'
+import {savePresentationToPc} from '../functions/savePresentationToPc'
+import {dispatch, getEditor} from '../stateManager/StateManager'
+import {openPresentationFromPc} from '../functions/openPresentationFromPc'
+import {changeNamePresentation} from '../functions/changeNamePresentation'
 
 
 const fileField = React.createRef<HTMLInputElement>()

@@ -4,7 +4,8 @@ import {Color} from './Color'
 
 export type {
     Element,
-    Text
+    Text,
+    Image
 }
 export {
     ElementType
@@ -14,7 +15,8 @@ enum ElementType {
     text,
     triangle,
     rectangle,
-    ellipse
+    ellipse,
+    image
 }
 
 
@@ -33,4 +35,9 @@ type Text = Element & {
     text: string,
     textStyle: TextStyle,
     type: ElementType.text,
+}
+
+type Image = Element & {
+    element: HTMLElement,
+    type: ElementType.image
 }

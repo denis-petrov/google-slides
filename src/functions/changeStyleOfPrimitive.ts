@@ -1,6 +1,6 @@
 import {Color} from '../entities/Color'
 import {Editor} from '../entities/Editor'
-import {ElementType, Ellipse, Rectangle, Triangle} from '../entities/Elements'
+import {ElementType, Element} from '../entities/Elements'
 
 export {
     changeStyleOfPrimitive
@@ -25,7 +25,7 @@ function changeStyleOfPrimitive(
                                 || (element.type === ElementType.ellipse) || (element.type === ElementType.rectangle))) {
                                 return {
                                     ...element,
-                                    backgroundColor: (element as (Ellipse | Triangle | Rectangle)).backgroundColor = newBackgroundColor,
+                                    backgroundColor: (element as Element).backgroundColor = newBackgroundColor,
                                     borderColor: element.borderColor = newBorderColor
                                 }
                             }

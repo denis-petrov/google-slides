@@ -1,11 +1,11 @@
 import {Editor} from '../entities/Editor'
-import {Elements} from '../entities/Elements'
+import {Element} from '../entities/Elements'
 
 export {
     addElement
 }
 
-function addElement(editor: Editor, element: Elements) {
+function addElement(editor: Editor, element: Element) {
     return {
         ...editor,
         presentation: {

@@ -1,5 +1,5 @@
 import React from 'react'
-import {setEditor} from '../StateManager'
+import {setEditor} from '../stateManager/StateManager'
 
 export {
     openPresentationFromPc
@@ -14,7 +14,7 @@ function openPresentationFromPc(e: React.ChangeEvent<HTMLInputElement>) {
         fileReader.readAsText(file)
     }
 
-    const handleFileRead = (e: ProgressEvent<FileReader>) => {
+    const handleFileRead = () => {
         const content = fileReader.result
         if (typeof(content) === 'string') {
             console.log(JSON.parse(content))

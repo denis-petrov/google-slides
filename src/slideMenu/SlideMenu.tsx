@@ -2,8 +2,8 @@ import React from 'react'
 import {Box} from '@material-ui/core'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Card from 'react-bootstrap/Card'
-import {dispatch, getEditor} from './StateManager'
-import {chooseSlides} from './functions/chooseSlides'
+import {dispatch, getEditor} from '../stateManager/StateManager'
+import {chooseSlides} from '../functions/chooseSlides'
 import './slideMenu.css'
 
 function handleClick(id: number) {

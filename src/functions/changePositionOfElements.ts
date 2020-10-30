@@ -1,6 +1,6 @@
 import {Editor} from '../entities/Editor'
 import {Point} from '../entities/Point'
-import {ElementType, Triangle} from '../entities/Elements'
+import {ElementType, Element} from '../entities/Elements'
 
 export {
     changePositionOfElements
@@ -23,16 +23,16 @@ function changePositionOfElements(editor: Editor, elementsId: Array<number>, new
                                     return {
                                         ...element,
                                         a: {
-                                            x: (element as Triangle).a.x += newPosition.x,
-                                            y: (element as Triangle).a.y += newPosition.y
+                                            x: (element as Element).a.x += newPosition.x,
+                                            y: (element as Element).a.y += newPosition.y
                                         },
                                         b: {
-                                            x: (element as Triangle).b.x += newPosition.x,
-                                            y: (element as Triangle).b.y += newPosition.y
+                                            x: (element as Element).b.x += newPosition.x,
+                                            y: (element as Element).b.y += newPosition.y
                                         },
                                         c: {
-                                            x: (element as Triangle).c.x += newPosition.x,
-                                            y: (element as Triangle).c.y += newPosition.y
+                                            x: (element as Element).c.x += newPosition.x,
+                                            y: (element as Element).c.y += newPosition.y
                                         },
                                         position: {
                                             ...element.position,

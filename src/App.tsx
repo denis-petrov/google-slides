@@ -1,8 +1,8 @@
 import React from 'react'
 import './App.css'
-import NavbarApp from './Nav'
-import SlideArea from './SlideArea'
-import SlideMenu from './SlideMenu'
+import NavbarApp from './nav/Nav'
+import SlideArea from './slideArea/SlideArea'
+import SlideMenu from './slideMenu/SlideMenu'
 
 function App() {
     return (
