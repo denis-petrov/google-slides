@@ -16,7 +16,9 @@ import {savePresentationToPc} from '../functions/savePresentationToPc'
 import {dispatch, getEditor, reDo, unDo} from '../stateManager/StateManager'
 import {openPresentationFromPc} from '../functions/openPresentationFromPc'
 import {changeNamePresentation} from '../functions/changeNamePresentation'
-
+import {addElement} from "../functions/addElement"
+import {Element} from "../entities/Elements"
+import {DEFAULT_RECTANGLE} from "../entities/Constants"
 
 const fileField = React.createRef<HTMLInputElement>()
 
@@ -27,10 +29,14 @@ export function deleteSlides() {
 
     for (let i = 0; i < allSelectedElements.length; i++) {
         let currElement = allSelectedElements[i]
-        if (allSelectedElements[i].getAttribute(attributeName) == 'true') {
+        if (allSelectedElements[i].getAttribute(attributeName) === 'true') {
             currElement.remove()
         }
     }
+}
+
+function addSomeElement(elem: Element) {
+    dispatch(addElement, elem)
 }
 
 export default function Nav() {
@@ -147,7 +153,7 @@ export default function Nav() {
                         <RadioButtonUncheckedIcon />
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button" onClick={() => {addSomeElement(DEFAULT_RECTANGLE)}}>
                         <CheckBoxOutlineBlankIcon />
                     </button>
 

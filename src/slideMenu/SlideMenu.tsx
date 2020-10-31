@@ -20,7 +20,7 @@ function handleClick(id: number) {
 
     if (currSlidesMenuItemDomElement != null) {
         let previousAttributeValue = currSlidesMenuItemDomElement.getAttribute(attributeName)
-        currSlidesMenuItemDomElement.setAttribute(attributeName, previousAttributeValue == 'true' ? 'false' : 'true')
+        currSlidesMenuItemDomElement.setAttribute(attributeName, previousAttributeValue === 'true' ? 'false' : 'true')
     }
 
     dispatch(chooseSlides, {
@@ -42,6 +42,7 @@ export default function SlideMenu() {
                 </Card.Text>
             </Card.Body>
         </Card>)
+
     return (
         <Box className='sidebar' px={'1rem'} overflow={'auto'} >
             { slides }
