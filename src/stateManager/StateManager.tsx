@@ -2,9 +2,8 @@ import {Editor} from '../entities/Editor'
 import ReactDOM from 'react-dom'
 import React from 'react'
 import App from '../App'
-import { deepCopy } from 'deep-copy-ts'
+import {deepCopy} from 'deep-copy-ts'
 import {WHITE} from '../entities/Constants'
-import {ElementType} from "../entities/Elements";
 
 let editor: Editor = {
     presentation: {
@@ -75,14 +74,19 @@ let editor: Editor = {
     },
     selectionSlidesId: [0]
 }
-let stackState: Array<Editor> = []
-let indexState: number = 0
-let indexUnDo: number = 0
+let presentationHistory: Array<Editor> = [deepCopy(editor)]
+let indexHistory: number = 0
+
 
 export function dispatch<F extends Function>(fn: F, payload: any): void {
-    editor = fn(editor, payload)
-    stackState.push(editor)
-    indexState += 1
+    if (indexHistory != presentationHistory.length - 1) {
+        presentationHistory.splice(indexHistory + 1)
+    }
+
+    editor = fn(deepCopy(editor), payload)
+
+    presentationHistory.push(deepCopy(editor))
+    indexHistory += 1
 
     ReactDOM.render(
         <React.StrictMode>
@@ -96,12 +100,11 @@ export function getEditor(): Editor {
     return deepCopy(editor)
 }
 
-export function setEditor(newEditor: Editor, isAddHistory: boolean): void {
+export function setEditorNewPresentation(newEditor: Editor): void {
     editor = deepCopy(newEditor)
-    if (isAddHistory) {
-        stackState.push(editor)
-        indexState += 1
-    }
+
+    presentationHistory = [deepCopy(editor)]
+    indexHistory = 0
 
     ReactDOM.render(
         <React.StrictMode>
@@ -112,10 +115,9 @@ export function setEditor(newEditor: Editor, isAddHistory: boolean): void {
 }
 
 export function unDo(): void {
-    if (indexState > 0) {
-        editor = deepCopy(stackState[indexState - 1])
-        indexUnDo = indexUnDo + 1
-        indexState = indexState - 1
+    if (indexHistory > 0) {
+        editor = presentationHistory[indexHistory - 1]
+        indexHistory = indexHistory - 1
 
         ReactDOM.render(
             <React.StrictMode>
@@ -127,10 +129,9 @@ export function unDo(): void {
 }
 
 export function reDo(): void {
-    editor = deepCopy(stackState[indexState + indexUnDo])
-    if (indexUnDo > 0) {
-        indexState = indexState + 1
-        indexUnDo = indexUnDo - 1
+    if (indexHistory < presentationHistory.length - 1) {
+        editor = presentationHistory[indexHistory + 1]
+        indexHistory = indexHistory + 1
 
         ReactDOM.render(
             <React.StrictMode>

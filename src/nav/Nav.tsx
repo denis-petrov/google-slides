@@ -127,7 +127,9 @@ export default function Nav() {
                         <AddIcon />
                     </button>
 
-                    <button type="button" className="btn btn-sm button__onclick dropbox__button">
+                    <button type="button" className="btn btn-sm button__onclick dropbox__button" onClick={() => {
+                        dispatch(deleteSlides, {})
+                    }}>
                         <RemoveIcon />
                     </button>
 

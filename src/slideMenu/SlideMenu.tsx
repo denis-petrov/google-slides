@@ -23,9 +23,7 @@ function handleClick(id: number) {
         currSlidesMenuItemDomElement.setAttribute(attributeName, previousAttributeValue === 'true' ? 'false' : 'true')
     }
 
-    dispatch(chooseSlides, {
-        slides: [id]
-    })
+    dispatch(chooseSlides, [id])
 }
 
 export default function SlideMenu() {

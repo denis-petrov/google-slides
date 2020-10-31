@@ -5,8 +5,9 @@ export {
 }
 
 function chooseSlides(editor: Editor, slides: Array<number>): Editor {
-    return {
-        ...editor,
-        selectionSlidesId: slides
+    editor.selectionSlidesId = []
+    for (let i = 0; i < slides.length; i++) {
+        editor.selectionSlidesId.push(slides[i])
     }
+    return editor
 }

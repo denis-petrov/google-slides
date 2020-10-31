@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
+import {reDo, unDo} from './stateManager/StateManager'
 
 
 ReactDOM.render(
@@ -11,6 +12,15 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById('root')
 )
+
+window.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 90) {
+        reDo()
+    } else if (e.ctrlKey && e.keyCode == 90) {
+        unDo()
+    }
+})
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
