@@ -4,6 +4,7 @@ import React from 'react'
 import App from '../App'
 import { deepCopy } from 'deep-copy-ts'
 import {WHITE} from '../entities/Constants'
+import {ElementType} from "../entities/Elements";
 
 let editor: Editor = {
     presentation: {
@@ -12,7 +13,62 @@ let editor: Editor = {
             {
                 id: 0,
                 selectionElementsId: [],
-                elements: [],
+                elements: [
+                    /*{
+                        id: 0,
+                        center: {
+                            x: 0,
+                            y: 0
+                        },
+                        topLeftPoint: {
+                            x: 0,
+                            y: 0
+                        },
+                        bottomRightPoint: {
+                            x: 0,
+                            y: 0
+                        },
+                        borderColor: {
+                            red: 255,
+                            green: 255,
+                            blue: 255
+                        },
+                        borderWidth: 1,
+                        backgroundColor: {
+                            red: 100,
+                            green: 100,
+                            blue: 100
+                        },
+                        type: ElementType.rectangle,
+                    },
+                    {
+                        id: 1,
+                        center: {
+                            x: 0,
+                            y: 0
+                        },
+                        topLeftPoint: {
+                            x: 200,
+                            y: 200
+                        },
+                        bottomRightPoint: {
+                            x: 0,
+                            y: 0
+                        },
+                        borderColor: {
+                            red: 255,
+                            green: 255,
+                            blue: 255
+                        },
+                        borderWidth: 1,
+                        backgroundColor: {
+                            red: 100,
+                            green: 100,
+                            blue: 100
+                        },
+                        type: ElementType.ellipse,
+                    }*/
+                ],
                 background: WHITE
             }
         ]

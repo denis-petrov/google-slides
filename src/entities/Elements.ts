@@ -7,9 +7,6 @@ export type {
     Text,
     Image
 }
-export {
-    ElementType
-}
 
 enum ElementType {
     text,
@@ -17,6 +14,10 @@ enum ElementType {
     rectangle,
     ellipse,
     image
+}
+
+export {
+    ElementType
 }
 
 

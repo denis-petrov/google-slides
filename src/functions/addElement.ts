@@ -1,11 +1,14 @@
 import {Editor} from '../entities/Editor'
 import {Element} from '../entities/Elements'
+import {deepCopy} from "deep-copy-ts";
 
 export {
     addElement
 }
 
 function addElement(editor: Editor, element: Element) {
+
+    let copyElement = deepCopy(element)
     return {
         ...editor,
         presentation: {
@@ -13,8 +16,11 @@ function addElement(editor: Editor, element: Element) {
             slides: editor.presentation.slides.map(s => {
                 if (editor.selectionSlidesId.includes(s.id)) {
                     let elements = editor.presentation.slides[s.id].elements.slice()
-                    element.id = Math.max(...elements.map(element => element.id)) + 1
-                    elements.push(element)
+                    if (elements.length > 0) {
+                        copyElement.id = Math.max(...elements.map(element => element.id)) + 1
+                    }
+
+                    elements.push(copyElement)
                     return {
                         ...s,
                         elements: elements
