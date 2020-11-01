@@ -7,7 +7,9 @@ export {
     BLACK,
     GREEN,
     RED,
-    DEFAULT_RECTANGLE
+    DEFAULT_RECTANGLE,
+    DEFAULT_TRIANGLE,
+    DEFAULT_ELLIPSE
 }
 
 const WHITE: Color = {
@@ -37,19 +39,59 @@ const RED: Color = {
 const DEFAULT_RECTANGLE: Element = {
     id: 0,
     center: {
-        x: 0,
-        y: 0
+        x: 50,
+        y: 50
     },
     topLeftPoint: {
         x: 0,
         y: 0
     },
     bottomRightPoint: {
-        x: 0,
-        y: 0
+        x: 100,
+        y: 100
     },
     borderColor: BLACK,
     borderWidth: 1,
     backgroundColor: WHITE,
     type: ElementType.rectangle
+}
+
+const DEFAULT_TRIANGLE: Element = {
+    id: 0,
+    center: {
+        x: 50,
+        y: 42.5
+    },
+    topLeftPoint: {
+        x: 0,
+        y: 0
+    },
+    bottomRightPoint: {
+        x: 100,
+        y: 85
+    },
+    borderColor: BLACK,
+    borderWidth: 1,
+    backgroundColor: WHITE,
+    type: ElementType.triangle
+}
+
+const DEFAULT_ELLIPSE: Element = {
+    id: 0,
+    center: {
+        x: 50,
+        y: 50
+    },
+    topLeftPoint: {
+        x: 0,
+        y: 0
+    },
+    bottomRightPoint: {
+        x: 100,
+        y: 100
+    },
+    borderColor: BLACK,
+    borderWidth: 1,
+    backgroundColor: WHITE,
+    type: ElementType.ellipse
 }

@@ -7,13 +7,28 @@ export default function SlideArea() {
     let editor = getEditor()
     let elements = editor.presentation.slides.map(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
-             s.elements.map(e => {
-                 if (e.type === ElementType.rectangle) {
-                     return <rect x={e.topLeftPoint.x} y={e.topLeftPoint.y} width="100" height="100" key={e.id}
-                                 id={'slide_' + s.id + '_element_' + e.id}/>
+            return s.elements.map(e => {
+                let width = e.bottomRightPoint.x - e.topLeftPoint.x
+                let height = e.bottomRightPoint.y - e.topLeftPoint.y
+                let borderColor = 'rgb(' + e.borderColor.red + ', ' + e.borderColor.green + ', ' + e.borderColor.blue +')'
+                let backgroundColor = 'rgb(255, 255, 255)'
+                if (e.backgroundColor) {
+                    backgroundColor = 'rgb(' + e.backgroundColor.red + ', ' + e.backgroundColor.green + ', ' + e.backgroundColor.blue +')'
+                }
+
+                if (e.type === ElementType.rectangle) {
+                    return <rect x={e.topLeftPoint.x} y={e.topLeftPoint.y} width={width} height={height}
+                                 fill={backgroundColor} stroke={borderColor} strokeWidth={e.borderWidth} key={e.id} id={'slide_' + s.id + '_element_' + e.id}/>
                 } else if (e.type === ElementType.ellipse) {
-                    return <ellipse rx="100" ry="100" cx={e.topLeftPoint.x} cy={e.topLeftPoint.y} fill="gold" stroke="orange"
-                                    key={e.id} id={'slide_' + s.id + '_element_' + e.id} />
+                    let rx = (e.bottomRightPoint.x - e.topLeftPoint.x)/2
+                    let ry = (e.bottomRightPoint.y - e.topLeftPoint.y)/2
+                    return <ellipse rx={rx} ry={ry} cx={e.center.x} cy={e.center.y} fill="white" stroke={borderColor} strokeWidth={e.borderWidth}
+                                   key={e.id} id={'slide_' + s.id + '_element_' + e.id} />
+                } else if (e.type === ElementType.triangle) {
+                    let points = '' + e.center.x + ' ' + e.topLeftPoint.y + ', ' + e.bottomRightPoint.x + ' '
+                        + e.bottomRightPoint.y + ', ' + e.topLeftPoint.x + ' ' + e.bottomRightPoint.y
+                    return <polygon points={points} fill={backgroundColor} stroke={borderColor}
+                                    strokeWidth={e.borderWidth} key={e.id} id={'slide_' + s.id + '_element_' + e.id} />
                 }
             })
         }

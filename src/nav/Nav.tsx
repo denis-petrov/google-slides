@@ -18,7 +18,7 @@ import {openPresentationFromPc} from '../functions/openPresentationFromPc'
 import {changeNamePresentation} from '../functions/changeNamePresentation'
 import {addElement} from "../functions/addElement"
 import {Element} from "../entities/Elements"
-import {DEFAULT_RECTANGLE} from "../entities/Constants"
+import {DEFAULT_TRIANGLE, DEFAULT_ELLIPSE, DEFAULT_RECTANGLE} from "../entities/Constants"
 
 const fileField = React.createRef<HTMLInputElement>()
 
@@ -90,9 +90,9 @@ export default function Nav() {
 
                                 <Dropdown.Menu>
                                     <Dropdown.Item href="#/action-1" className="btn-sm button__onclick">Text</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2" className="btn-sm button__onclick">Triangle</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" className="btn-sm button__onclick">Rectangle</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" className="btn-sm button__onclick">Ellipse</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2" className="btn-sm button__onclick" onClick={() => {addSomeElement(DEFAULT_TRIANGLE)}}>Triangle</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3" className="btn-sm button__onclick" onClick={() => {addSomeElement(DEFAULT_RECTANGLE)}}>Rectangle</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3" className="btn-sm button__onclick" onClick={() => {addSomeElement(DEFAULT_ELLIPSE)}}>Ellipse</Dropdown.Item>
                                     <Dropdown.Item href="#/action-3" className="btn-sm button__onclick">Image</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -147,11 +147,11 @@ export default function Nav() {
 
                     <div className="vertical_separator">&nbsp;</div>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button" onClick={() => {addSomeElement(DEFAULT_TRIANGLE)}}>
                         <ChangeHistoryIcon />
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button" onClick={() => {addSomeElement(DEFAULT_ELLIPSE)}}>
                         <RadioButtonUncheckedIcon />
                     </button>
 
