@@ -49,7 +49,7 @@ export default function Nav() {
                     <div className="container-fluid">
                         <div className="row">
                             <input type="text" className="form-control nav__presentation_name" id="presentationName"
-                                   aria-describedby="emailHelp" placeholder="NEW PRESENTATION"
+                                   aria-describedby="emailHelp" placeholder="NEW PRESENTATION" value={getEditor().presentation.name}
                                    onChange={(e) =>
                                        dispatch(changeNamePresentation, e.target.value)
                                    }
