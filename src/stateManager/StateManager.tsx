@@ -7,7 +7,7 @@ import {WHITE} from '../entities/Constants'
 
 let editor: Editor = {
     presentation: {
-        name: 'Presentation',
+        name: '',
         slides: [
             {
                 id: 0,
