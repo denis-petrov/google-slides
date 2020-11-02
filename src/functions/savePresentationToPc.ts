@@ -5,7 +5,11 @@ export {
 }
 
 function savePresentationToPc(editor: Editor): void {
-    const fileName = editor.presentation.name + '.json'
+    let fileName = editor.presentation.name + '.json'
+    if (!editor.presentation.name) {
+        fileName = 'presentation_name.json'
+    }
+
     let file = new Blob([JSON.stringify(editor)], {type: 'json'})
     if (window.navigator.msSaveOrOpenBlob)
         window.navigator.msSaveOrOpenBlob(file, fileName)
