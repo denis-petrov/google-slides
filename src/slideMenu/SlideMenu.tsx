@@ -8,19 +8,19 @@ import './slideMenu.css'
 
 function handleClick(id: number) {
     const attributeName = 'data-is-checked'
-    const slidesMenuItemClass = 'slides-menu-item'
+    const slideClass = 'slide'
 
-    let currSlidesMenuItemDomElementId: string = 'slides-menu-item-' + id
-    let currSlidesMenuItemDomElement = document.getElementById(currSlidesMenuItemDomElementId)
-    let allSlidesMenuItems = document.getElementsByClassName(slidesMenuItemClass)
+    let currSlideDomElementId: string = 'slide' + id
+    let currSlideElement = document.getElementById(currSlideDomElementId)
+    let allSlides = document.getElementsByClassName(slideClass)
 
-    for (let i = 0; i < allSlidesMenuItems.length; i++) {
-        allSlidesMenuItems[i].setAttribute(attributeName, 'false')
+    for (let i = 0; i < allSlides.length; i++) {
+        allSlides[i].setAttribute(attributeName, 'false')
     }
 
-    if (currSlidesMenuItemDomElement != null) {
-        let previousAttributeValue = currSlidesMenuItemDomElement.getAttribute(attributeName)
-        currSlidesMenuItemDomElement.setAttribute(attributeName, previousAttributeValue === 'true' ? 'false' : 'true')
+    if (currSlideElement != null) {
+        let previousAttributeValue = currSlideElement.getAttribute(attributeName)
+        currSlideElement.setAttribute(attributeName, previousAttributeValue === 'true' ? 'false' : 'true')
     }
 
     dispatch(chooseSlides, [id])
@@ -29,21 +29,16 @@ function handleClick(id: number) {
 export default function SlideMenu() {
     let editor = getEditor();
     let slides = editor.presentation.slides.map(item =>
-        <Card className={'mb-3 slides-menu-item'}
-              key={item.id} id={'slides-menu-item-' + item.id}
-              data-is-checked={false}
-              onClick={() => handleClick(item.id)}>
-            <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                    Some quick example text to build on the card title
-                </Card.Text>
-            </Card.Body>
-        </Card>)
+        <div className='slide' data-is-checked={false} key={item.id} id={'slide' + item.id}>
+            <span className='item-position'>{ editor.presentation.slides.indexOf(item) + 1 }</span>
+            <Card className={'mb-3 slides-menu-item'} onClick={() => handleClick(item.id)}>
+            </Card>
+        </div>
+    )
 
     return (
-        <Box className='sidebar' px={'1rem'} overflow={'auto'} >
+        <div className='sidebar' >
             { slides }
-        </Box>
+        </div>
     )
 }
