@@ -4,12 +4,24 @@ export {
     deleteSlides
 }
 
-function deleteSlides(editor: Editor, slidesId: Array<number>): Editor {
+function deleteSlides(editor: Editor): Editor {
+    let slidesId = editor.selectionSlidesId;
+
     return {
         ...editor,
         presentation: {
             name: editor.presentation.name,
-            slides: editor.presentation.slides.filter(slide => !slidesId.includes(slide.id))
+            slides: editor.presentation.slides.filter(slide => {
+                let isDeleted = false;
+
+                for(let i=0; i < slidesId.length; i++) {
+                    isDeleted = (slidesId[i] == slide.id)
+                    if (isDeleted) {
+                        break
+                    }
+                }
+                return !isDeleted
+            })
         }
     }
 }

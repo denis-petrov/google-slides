@@ -18,22 +18,10 @@ import {openPresentationFromPc} from '../functions/openPresentationFromPc'
 import {changeNamePresentation} from '../functions/changeNamePresentation'
 import {addElement} from "../functions/addElement"
 import {Element} from "../entities/Elements"
-import {DEFAULT_TRIANGLE, DEFAULT_ELLIPSE, DEFAULT_RECTANGLE} from "../entities/Constants"
+import {DEFAULT_ELLIPSE, DEFAULT_RECTANGLE, DEFAULT_TRIANGLE} from "../entities/Constants"
+import {deleteSlides} from "../functions/deleteSlides";
 
 const fileField = React.createRef<HTMLInputElement>()
-
-export function deleteSlides() {
-    const attributeName = 'data-is-checked'
-    const slidesMenuItemClass = 'slides-menu-item'
-    let allSelectedElements = document.getElementsByClassName(slidesMenuItemClass)
-
-    for (let i = 0; i < allSelectedElements.length; i++) {
-        let currElement = allSelectedElements[i]
-        if (allSelectedElements[i].getAttribute(attributeName) === 'true') {
-            currElement.remove()
-        }
-    }
-}
 
 function addSomeElement(elem: Element) {
     dispatch(addElement, elem)
