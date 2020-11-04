@@ -12,62 +12,7 @@ let editor: Editor = {
             {
                 id: 0,
                 selectionElementsId: [],
-                elements: [
-                    /*{
-                        id: 0,
-                        center: {
-                            x: 0,
-                            y: 0
-                        },
-                        topLeftPoint: {
-                            x: 0,
-                            y: 0
-                        },
-                        bottomRightPoint: {
-                            x: 0,
-                            y: 0
-                        },
-                        borderColor: {
-                            red: 255,
-                            green: 255,
-                            blue: 255
-                        },
-                        borderWidth: 1,
-                        backgroundColor: {
-                            red: 100,
-                            green: 100,
-                            blue: 100
-                        },
-                        type: ElementType.rectangle,
-                    },
-                    {
-                        id: 1,
-                        center: {
-                            x: 0,
-                            y: 0
-                        },
-                        topLeftPoint: {
-                            x: 200,
-                            y: 200
-                        },
-                        bottomRightPoint: {
-                            x: 0,
-                            y: 0
-                        },
-                        borderColor: {
-                            red: 255,
-                            green: 255,
-                            blue: 255
-                        },
-                        borderWidth: 1,
-                        backgroundColor: {
-                            red: 100,
-                            green: 100,
-                            blue: 100
-                        },
-                        type: ElementType.ellipse,
-                    }*/
-                ],
+                elements: [],
                 background: WHITE
             }
         ]
@@ -78,15 +23,17 @@ let presentationHistory: Array<Editor> = [deepCopy(editor)]
 let indexHistory: number = 0
 
 
-export function dispatch<F extends Function>(fn: F, payload: any): void {
-    if (indexHistory != presentationHistory.length - 1) {
+export function dispatch<F extends Function>(fn: F, payload: any, isNeedToHistory = true): void {
+    if (indexHistory !== presentationHistory.length - 1) {
         presentationHistory.splice(indexHistory + 1)
     }
 
     editor = fn(deepCopy(editor), payload)
 
-    presentationHistory.push(deepCopy(editor))
-    indexHistory += 1
+    if (isNeedToHistory) {
+        presentationHistory.push(deepCopy(editor))
+        indexHistory += 1
+    }
 
     ReactDOM.render(
         <React.StrictMode>

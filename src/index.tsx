@@ -18,13 +18,13 @@ ReactDOM.render(
 SelectSlide(getEditor().presentation.slides[0].id, false)
 
 window.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 90) {
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 90) {
         reDo()
-    } else if (e.ctrlKey && e.keyCode == 90) {
+    } else if (e.ctrlKey && e.keyCode === 90) {
         unDo()
     }
 
-    if (e.keyCode == 46) {
+    if (e.keyCode === 46) {
         dispatch(deleteElements, {})
     }
 })

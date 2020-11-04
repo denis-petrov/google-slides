@@ -15,7 +15,7 @@ function deleteSlides(editor: Editor): Editor {
                 let isDeleted = false;
 
                 for(let i=0; i < slidesId.length; i++) {
-                    isDeleted = (slidesId[i] == slide.id)
+                    isDeleted = (slidesId[i] === slide.id)
                     if (isDeleted) {
                         break
                     }

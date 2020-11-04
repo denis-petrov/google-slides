@@ -21,13 +21,13 @@ export function selectElements(event: any, id: number) {
             let allSelectedElems = document.getElementsByClassName(className)
             for (let i = 0; i < allSelectedElems.length; i++) {
                 if (allSelectedElems[i].classList.contains(className)) {
-                    selectedElems.push(Number(clickedElem.getAttribute('key')))
+                    selectedElems.push(Number(allSelectedElems[i].getAttribute('data-elem-id')))
                 }
             }
-            dispatch(chooseElements, selectedElems)
+            dispatch(chooseElements, selectedElems, false)
         }
     } else {
-        dispatch(chooseElements, [id])
+        dispatch(chooseElements, [id], false)
         let allSelectedElems = document.getElementsByClassName(className)
         while(allSelectedElems[0]) {
             if (allSelectedElems[0].classList.contains(className)) {
@@ -52,19 +52,19 @@ export function getElements(s: Slide) {
         if (e.type === ElementType.rectangle) {
 
             return <rect x={e.topLeftPoint.x} y={e.topLeftPoint.y} width={width} height={height} fill={backgroundColor} stroke={borderColor}
-                         strokeWidth={e.borderWidth} key={e.id} id={id} onClick={(evt) => selectElements(evt, e.id)} />
+                         strokeWidth={e.borderWidth} data-elem-id={e.id} key={e.id} id={id} onClick={(evt) => selectElements(evt, e.id)} />
         } else if (e.type === ElementType.ellipse) {
             let rx = (e.bottomRightPoint.x - e.topLeftPoint.x)/2 + '%'
             let ry = (e.bottomRightPoint.y - e.topLeftPoint.y)/2 + '%'
 
             return <ellipse rx={rx} ry={ry} cx={e.center.x + '%'} cy={e.center.y + '%'} fill={backgroundColor} stroke={borderColor} strokeWidth={e.borderWidth}
-                            key={e.id} id={id} onClick={(evt) => selectElements(evt, e.id)} />
+                            data-elem-id={e.id} key={e.id} id={id} onClick={(evt) => selectElements(evt, e.id)} />
         } else if (e.type === ElementType.triangle) {
             const points = '50 0, 100 84, 0 84'
 
             return <svg width={width} height={height} viewBox='0 0 100 85' preserveAspectRatio="none" key={e.id} id={id}>
                 <polygon points={points} fill={backgroundColor} stroke={borderColor}
-                         strokeWidth={e.borderWidth} onClick={(evt) => selectElements(evt, e.id)} />
+                         data-elem-id={e.id} strokeWidth={e.borderWidth} onClick={(evt) => selectElements(evt, e.id)} />
             </svg>
         }
         return e
