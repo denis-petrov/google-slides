@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import {reDo, unDo} from './stateManager/StateManager'
+import {dispatch, reDo, unDo} from './stateManager/StateManager'
+import {chooseElements} from "./functions/chooseElements";
+import {deleteElements} from "./functions/deleteElements";
 
 
 ReactDOM.render(
@@ -19,6 +21,30 @@ window.addEventListener('keydown', (e: KeyboardEvent) => {
     } else if (e.ctrlKey && e.keyCode == 90) {
         unDo()
     }
+
+    if (e.keyCode == 46) {
+        dispatch(deleteElements, {})
+    }
+})
+
+window.addEventListener('click', (evt) => {
+    let clickedElemTagName = (evt.target as HTMLElement).tagName
+    let slideArea = document.getElementById('slide-area')
+    let itsSlideArea = null
+    if (slideArea) {
+        itsSlideArea = evt.target === slideArea || slideArea.contains(evt.target as Node);
+    }
+    if (itsSlideArea && clickedElemTagName !== 'rect' && clickedElemTagName !== 'ellipse' && clickedElemTagName !== 'polygon') {
+        let className = 'element_choosed'
+        let allSelectedElems = document.getElementsByClassName(className)
+        while(allSelectedElems[0]) {
+            if (allSelectedElems[0].classList.contains(className)) {
+                allSelectedElems[0].classList.remove(className)
+            }
+        }
+        dispatch(chooseElements, new Array<number>())
+    }
+
 })
 
 
