@@ -47,8 +47,8 @@ const DEFAULT_RECTANGLE: Element = {
         y: 0
     },
     bottomRightPoint: {
-        x: 100,
-        y: 100
+        x: 10,
+        y: 17.78
     },
     borderColor: BLACK,
     borderWidth: 1,
@@ -60,15 +60,15 @@ const DEFAULT_TRIANGLE: Element = {
     id: 0,
     center: {
         x: 50,
-        y: 42.5
+        y: 50
     },
     topLeftPoint: {
         x: 0,
         y: 0
     },
     bottomRightPoint: {
-        x: 100,
-        y: 85
+        x: 10,
+        y: 17.78
     },
     borderColor: BLACK,
     borderWidth: 1,
@@ -79,16 +79,16 @@ const DEFAULT_TRIANGLE: Element = {
 const DEFAULT_ELLIPSE: Element = {
     id: 0,
     center: {
-        x: 50,
-        y: 50
+        x: 5,
+        y: 8.89
     },
     topLeftPoint: {
         x: 0,
         y: 0
     },
     bottomRightPoint: {
-        x: 100,
-        y: 100
+        x: 10,
+        y: 17.78
     },
     borderColor: BLACK,
     borderWidth: 1,

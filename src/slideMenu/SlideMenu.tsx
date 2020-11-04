@@ -4,16 +4,21 @@ import Card from 'react-bootstrap/Card'
 import {getEditor} from '../stateManager/StateManager'
 import './slideMenu.css'
 import {SelectSlide} from "../functions/SelectSlide"
+import {getElements} from "../slideArea/SlideArea";
 
 export default function SlideMenu() {
     let editor = getEditor();
-    let slides = editor.presentation.slides.map(item =>
-        <div className='slide' data-is-checked={false} key={item.id} id={'slide' + item.id}>
-            <span className='item-position'>{ editor.presentation.slides.indexOf(item) + 1 }</span>
+    let slides = editor.presentation.slides.map(item => {
+        let elements = getElements(item)
+
+        return <div className='slide' data-is-checked={false} key={item.id} id={'slide' + item.id}>
+            <span className='item-position'>{editor.presentation.slides.indexOf(item) + 1}</span>
             <Card className={'mb-3 slides-menu-item'} onClick={() => SelectSlide(item.id)}>
+                <svg className='slides-menu-item-svg'>
+                    {elements}
+                </svg>
             </Card>
-        </div>
-    )
+        </div>})
 
     return (
         <div className='sidebar' >
