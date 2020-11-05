@@ -22,7 +22,7 @@ export {
 
 
 type Element = {
-    id: number;
+    id: string;
     center: Point;
     topLeftPoint: Point;
     bottomRightPoint: Point;

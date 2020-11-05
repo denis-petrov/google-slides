@@ -4,20 +4,23 @@ import React from 'react'
 import App from '../App'
 import {deepCopy} from 'deep-copy-ts'
 import {WHITE} from '../entities/Constants'
+import { v4 as uuidv4 } from 'uuid'
+
+let firstSlideId = uuidv4()
 
 let editor: Editor = {
     presentation: {
         name: '',
         slides: [
             {
-                id: 0,
+                id: firstSlideId,
                 selectionElementsId: [],
                 elements: [],
                 background: WHITE
             }
         ]
     },
-    selectionSlidesId: [0]
+    selectionSlidesId: [firstSlideId]
 }
 let presentationHistory: Array<Editor> = [deepCopy(editor)]
 let indexHistory: number = 0

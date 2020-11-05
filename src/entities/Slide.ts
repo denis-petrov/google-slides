@@ -10,10 +10,10 @@ export {
 }
 
 type Slide = {
-    id: number,
+    id: string,
     elements: Array<Element>,
     background: Color | Image,
-    selectionElementsId: Array<number>
+    selectionElementsId: Array<string>
 }
 
 function isSlide(argument: any): argument is Slide {

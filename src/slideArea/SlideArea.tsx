@@ -5,7 +5,7 @@ import {ElementType} from '../entities/Elements'
 import {Slide} from "../entities/Slide"
 import {chooseElements} from "../functions/chooseElements"
 
-export function selectElements(event: any, id: number) {
+export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget
     let className = 'element_choosed'
     if (event.shiftKey) {
@@ -52,19 +52,22 @@ export function getElements(s: Slide) {
         if (e.type === ElementType.rectangle) {
 
             return <rect x={e.topLeftPoint.x} y={e.topLeftPoint.y} width={width} height={height} fill={backgroundColor} stroke={borderColor}
-                         strokeWidth={e.borderWidth} data-elem-id={e.id} key={e.id} id={id} onClick={(evt) => selectElements(evt, e.id)} />
+                         strokeWidth={e.borderWidth} data-elem-id={e.id} key={e.id} id={id}
+                         onClick={(evt) => selectElements(evt, e.id)} />
         } else if (e.type === ElementType.ellipse) {
             let rx = (e.bottomRightPoint.x - e.topLeftPoint.x)/2 + '%'
             let ry = (e.bottomRightPoint.y - e.topLeftPoint.y)/2 + '%'
 
             return <ellipse rx={rx} ry={ry} cx={e.center.x + '%'} cy={e.center.y + '%'} fill={backgroundColor} stroke={borderColor} strokeWidth={e.borderWidth}
-                            data-elem-id={e.id} key={e.id} id={id} onClick={(evt) => selectElements(evt, e.id)} />
+                            data-elem-id={e.id} key={e.id} id={id}
+                            onClick={(evt) => selectElements(evt, e.id)} />
         } else if (e.type === ElementType.triangle) {
             const points = '50 0, 100 84, 0 84'
 
             return <svg width={width} height={height} viewBox='0 0 100 85' preserveAspectRatio="none" key={e.id} id={id}>
                 <polygon points={points} fill={backgroundColor} stroke={borderColor}
-                         data-elem-id={e.id} strokeWidth={e.borderWidth} onClick={(evt) => selectElements(evt, e.id)} />
+                         data-elem-id={e.id} strokeWidth={e.borderWidth}
+                         onClick={(evt) => selectElements(evt, e.id)} />
             </svg>
         }
         return e

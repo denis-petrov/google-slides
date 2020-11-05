@@ -1,7 +1,7 @@
 import {dispatch} from "../stateManager/StateManager";
 import {chooseSlides} from "./chooseSlides";
 
-export function SelectSlide(slideId: number, isDispatch: boolean = true) {
+export function SelectSlide(slideId: string, isDispatch: boolean = true) {
     const attributeName = 'data-is-checked'
     const slideClass = 'slide'
     let currSlideDomElementId: string = 'slide' + slideId

@@ -5,6 +5,8 @@ export {
 }
 
 function deleteSlides(editor: Editor): Editor {
+    console.log(editor)
+
     let slidesId = editor.selectionSlidesId;
 
     return {
@@ -14,7 +16,7 @@ function deleteSlides(editor: Editor): Editor {
             slides: editor.presentation.slides.filter(slide => {
                 let isDeleted = false;
 
-                for(let i=0; i < slidesId.length; i++) {
+                for (let i = 0; i < slidesId.length; i++) {
                     isDeleted = (slidesId[i] === slide.id)
                     if (isDeleted) {
                         break

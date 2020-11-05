@@ -5,9 +5,8 @@ export {
     changePositionOfElements
 }
 
-function changePositionOfElements(editor: Editor, elementsId: Array<number>, newCenter: Point,
+function changePositionOfElements(editor: Editor, elementsId: Array<string>, newCenter: Point,
                                   newTopLeftPoint: Point, newBottomRightPoint: Point): Editor {
-
     return {
         ...editor,
         presentation: {
