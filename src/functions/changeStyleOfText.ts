@@ -6,7 +6,7 @@ export {
     changeStyleOfText
 }
 
-function changeStyleOfText(editor: Editor, elementsId: Array<number>, textStyle: TextStyle): Editor {
+function changeStyleOfText(editor: Editor, elementsId: Array<string>, textStyle: TextStyle): Editor {
 
     return {
         ...editor,

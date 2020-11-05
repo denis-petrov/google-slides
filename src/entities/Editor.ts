@@ -9,7 +9,7 @@ export {
 
 type Editor = {
     presentation: Presentation,
-    selectionSlidesId: Array<number>
+    selectionSlidesId: Array<string>
 }
 
 function isRedactor(argument: any): argument is Editor {

@@ -10,12 +10,7 @@ export function deleteElements(editor: Editor): Editor {
                 {
                     return {
                         ...s,
-                        elements: s.elements.filter(elem => {
-                            let isDeleted = false;
-                            isDeleted = s.selectionElementsId.includes(elem.id)
-
-                            return !isDeleted
-                        }),
+                        elements: s.elements.filter(elem => {return !s.selectionElementsId.includes(elem.id)}),
                         selectionElementsId: []
                     }
                 }

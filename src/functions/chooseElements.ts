@@ -4,7 +4,7 @@ export {
     chooseElements
 }
 
-function chooseElements(editor: Editor, listElementsId: Array<number>): Editor {
+function chooseElements(editor: Editor, listElementsId: Array<string>): Editor {
     return {
         ...editor,
         presentation: {

@@ -4,7 +4,7 @@ export {
     moveSlides
 }
 
-function moveSlides(editor: Editor, listSlides: Array<number>, slideInsertId: number): Editor {
+function moveSlides(editor: Editor, listSlides: Array<string>, slideInsertId: string): Editor {
     if (listSlides.includes(slideInsertId)) {
         throw new Error('"slideInsertId" cannot be in "listSlides"')
     }

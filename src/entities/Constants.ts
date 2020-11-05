@@ -1,6 +1,6 @@
 import {Color} from './Color'
-import {Element} from "./Elements";
-import {ElementType} from "./Elements";
+import {Element} from "./Elements"
+import {ElementType} from "./Elements"
 
 export {
     WHITE,
@@ -37,7 +37,7 @@ const RED: Color = {
 }
 
 const DEFAULT_RECTANGLE: Element = {
-    id: 0,
+    id: '',
     center: {
         x: 50,
         y: 50
@@ -57,7 +57,7 @@ const DEFAULT_RECTANGLE: Element = {
 }
 
 const DEFAULT_TRIANGLE: Element = {
-    id: 0,
+    id: '',
     center: {
         x: 50,
         y: 50
@@ -77,7 +77,7 @@ const DEFAULT_TRIANGLE: Element = {
 }
 
 const DEFAULT_ELLIPSE: Element = {
-    id: 0,
+    id: '',
     center: {
         x: 5,
         y: 8.89

@@ -8,7 +8,7 @@ export {
 
 function changeStyleOfPrimitive(
     editor: Editor,
-    elementsId: Array<number>,
+    elementsId: Array<string>,
     newBackgroundColor: Color,
     newBorderColor: Color,
     newBorderWidth: number
