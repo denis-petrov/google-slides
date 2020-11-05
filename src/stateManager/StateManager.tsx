@@ -50,6 +50,10 @@ export function getEditor(): Editor {
     return deepCopy(editor)
 }
 
+export function setEditor(newEditor: Editor): void {
+    editor = deepCopy(newEditor)
+}
+
 export function setEditorNewPresentation(newEditor: Editor): void {
     editor = deepCopy(newEditor)
 

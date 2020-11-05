@@ -5,8 +5,6 @@ export {
 }
 
 function deleteSlides(editor: Editor): Editor {
-    console.log(editor)
-
     let slidesId = editor.selectionSlidesId;
 
     return {
@@ -24,6 +22,7 @@ function deleteSlides(editor: Editor): Editor {
                 }
                 return !isDeleted
             })
-        }
+        },
+        selectionSlidesId: editor.selectionSlidesId.filter((elemUuid) => !slidesId.includes(elemUuid))
     }
 }

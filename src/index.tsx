@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import {dispatch, getEditor, reDo, unDo} from './stateManager/StateManager'
-import {SelectSlide} from "./functions/SelectSlide";
-import {deleteElements} from "./functions/deleteElements";
-import {chooseElements} from "./functions/chooseElements";
+import {dispatch, reDo, unDo} from './stateManager/StateManager'
+import {deleteElements} from "./functions/deleteElements"
+import {chooseElements} from "./functions/chooseElements"
 
 ReactDOM.render(
     <React.StrictMode>
@@ -14,8 +13,6 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById('root')
 )
-
-SelectSlide(getEditor().presentation.slides[0].id, false)
 
 window.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.ctrlKey && e.shiftKey && e.keyCode === 90) {

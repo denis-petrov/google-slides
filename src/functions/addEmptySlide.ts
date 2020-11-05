@@ -1,14 +1,13 @@
 import {Editor} from '../entities/Editor'
 import {Slide} from '../entities/Slide'
 import {WHITE} from '../entities/Constants'
-import { v4 as uuidv4 } from 'uuid'
+import {v4 as uuidv4} from 'uuid'
 
 export {
     addEmptySlide
 }
 
-function addEmptySlide(editor: Editor) {
-    console.log(editor)
+function addEmptySlide(editor: Editor): Editor {
     return {
         ...editor,
         presentation: {
