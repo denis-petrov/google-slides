@@ -32,10 +32,12 @@ window.addEventListener('keydown', (e: KeyboardEvent) => {
 window.addEventListener('click', (evt) => {
     let clickedElemTagName = (evt.target as HTMLElement).tagName
     let slideArea = document.getElementById('slide-area')
+    let pathClassName = 'elem-path_active'
     let itsSlideArea = null
     if (slideArea) {
         itsSlideArea = evt.target === slideArea || slideArea.contains(evt.target as Node);
     }
+
     if (itsSlideArea && clickedElemTagName !== 'rect' && clickedElemTagName !== 'ellipse' && clickedElemTagName !== 'polygon') {
         let className = 'element_choosed'
         let allSelectedElems = document.getElementsByClassName(className)
@@ -44,6 +46,14 @@ window.addEventListener('click', (evt) => {
                 allSelectedElems[0].classList.remove(className)
             }
         }
+
+        let elemPathArray = document.getElementsByClassName(pathClassName)
+        while(elemPathArray[0]) {
+            if (elemPathArray[0].classList.contains(pathClassName)) {
+                elemPathArray[0].classList.remove(pathClassName)
+            }
+        }
+
         dispatch(chooseElements, new Array<number>())
     }
 

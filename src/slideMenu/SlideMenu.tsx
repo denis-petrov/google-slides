@@ -9,7 +9,7 @@ import {getElements} from "../slideArea/SlideArea";
 export default function SlideMenu() {
     let editor = getEditor();
     let slides = editor.presentation.slides.map(item => {
-        let elements = getElements(item)
+        let elements = getElements(item, false)
 
         return <div className='slide' data-is-checked={false} key={item.id} id={'slide' + item.id}>
             <span className='item-position'>{editor.presentation.slides.indexOf(item) + 1}</span>

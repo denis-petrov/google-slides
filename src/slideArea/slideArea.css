@@ -29,3 +29,11 @@
 .element_choosed {
     stroke: #007bff;
 }
+
+.elem-path {
+    display: none;
+}
+
+.elem-path.elem-path_active {
+    display: block;
+}

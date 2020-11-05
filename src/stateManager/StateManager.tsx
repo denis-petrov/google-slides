@@ -23,7 +23,7 @@ let presentationHistory: Array<Editor> = [deepCopy(editor)]
 let indexHistory: number = 0
 
 
-export function dispatch<F extends Function>(fn: F, payload: any, isNeedToHistory = true): void {
+export function dispatch<F extends Function>(fn: F, payload: any, isNeedToHistory: boolean = true): void {
     if (indexHistory !== presentationHistory.length - 1) {
         presentationHistory.splice(indexHistory + 1)
     }
