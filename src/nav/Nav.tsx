@@ -18,7 +18,7 @@ import {openPresentationFromPc} from '../functions/openPresentationFromPc'
 import {changeNamePresentation} from '../functions/changeNamePresentation'
 import {addElement} from "../functions/addElement"
 import {Element} from "../entities/Elements"
-import {DEFAULT_ELLIPSE, DEFAULT_RECTANGLE, DEFAULT_TRIANGLE} from "../entities/Constants"
+import {DEFAULT_ELLIPSE, DEFAULT_RECTANGLE, DEFAULT_TEXT, DEFAULT_TRIANGLE} from "../entities/Constants"
 import {deleteSlides} from "../functions/deleteSlides"
 import {Editor} from "../entities/Editor"
 
@@ -159,7 +159,8 @@ export default function Nav() {
                         <CheckBoxOutlineBlankIcon />
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button">
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                            onClick={() => {addSomeElement(DEFAULT_TEXT)}}>
                         <TextFieldsIcon />
                     </button>
                 </Toolbar>

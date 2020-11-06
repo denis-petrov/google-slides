@@ -1,19 +1,19 @@
 import React from 'react'
 import './slideArea.css'
 import {dispatch, getEditor} from '../stateManager/StateManager'
-import {ElementType} from '../entities/Elements'
+import {ElementType, Text} from '../entities/Elements'
 import {Slide} from "../entities/Slide"
 import {chooseElements} from "../functions/chooseElements"
+import {isColor} from "../entities/Color";
 
-export function selectElements(event: any, id: number) {
+export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget
     let elemPathId = clickedElem.getAttribute('data-path-id')
     let elemPath = document.getElementById(elemPathId)
     let elemClassName = 'element_choosed'
     let pathClassName = 'elem-path_active'
-    if (event.shiftKey) {
-        let clickedElemTagName = clickedElem.tagName
-        if (clickedElemTagName === 'rect' || clickedElemTagName === 'ellipse' || clickedElemTagName === 'polygon') {
+    if (event.ctrlKey) {
+        if (clickedElem.getAttribute('data-path-id')) {
             if (clickedElem.classList.contains(elemClassName)) {
                 if (elemPath) {
                     elemPath.classList.remove(pathClassName)
@@ -27,11 +27,15 @@ export function selectElements(event: any, id: number) {
                 clickedElem.classList.add(elemClassName)
             }
 
-            let selectedElems = new Array<number>()
+            let selectedElems = new Array<string>()
             let allSelectedElems = document.getElementsByClassName(elemClassName)
+            console.log()
             for (let i = 0; i < allSelectedElems.length; i++) {
                 if (allSelectedElems[i].classList.contains(elemClassName)) {
-                    selectedElems.push(Number(allSelectedElems[i].getAttribute('data-elem-id')))
+                    let selectedElemId = allSelectedElems[i].getAttribute('data-elem-id')
+                    if (selectedElemId) {
+                        selectedElems.push(selectedElemId)
+                    }
                 }
             }
 
@@ -58,10 +62,24 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
     return s.elements.map(e => {
         let width = e.bottomRightPoint.x - e.topLeftPoint.x + '%'
         let height = e.bottomRightPoint.y - e.topLeftPoint.y + '%'
-        let borderColor = 'rgb(' + e.borderColor.red + ', ' + e.borderColor.green + ', ' + e.borderColor.blue +')'
+        let borderColor = `rgb(${e.borderColor.red},${e.borderColor.green},${e.borderColor.blue}`
         let backgroundColor = 'rgb(255, 255, 255)'
-        const d = "M 0, 0 H 100 V 100 H 0 V 0"
-        let pathId = ''
+        if (e.backgroundColor) {
+            backgroundColor = `rgb(${e.backgroundColor.red},${e.backgroundColor.green},${e.backgroundColor.blue}`
+        }
+
+        let pathId
+        let viewBoxWidth = (e.bottomRightPoint.x - e.topLeftPoint.x) * 10
+        let viewBoxHeight = Math.floor(Math.abs(((e.bottomRightPoint.y - e.topLeftPoint.y) -
+            Math.floor((e.bottomRightPoint.x - e.topLeftPoint.x)/9*16*100)/100) * 10) * 100) / 100
+        if (viewBoxHeight === 0) {
+            viewBoxHeight = viewBoxWidth
+        } else if ((e.bottomRightPoint.x - e.topLeftPoint.x)/9*16 < (e.bottomRightPoint.y - e.topLeftPoint.y)) {
+            viewBoxHeight += viewBoxWidth
+        }
+
+        let viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
+        const d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
         if (isIdNeeded) {
             pathId = 'slide_' + s.id + '_element_' + e.id
         }
@@ -72,31 +90,59 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
         if (e.type === ElementType.rectangle) {
 
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width} height={height} viewBox="0 0, 100 100" preserveAspectRatio="none" key={e.id}>
-                <rect x="0" y="0" width="100%" height="100%" fill={backgroundColor} stroke={borderColor}
-                      data-path-id={pathId} strokeWidth={e.borderWidth} data-elem-id={e.id} onClick={(evt) => selectElements(evt, e.id)} />
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width} height={height} preserveAspectRatio="none" key={e.id}>
+                <path data-elem-id={e.id} data-path-id={pathId} d={d} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
+                       strokeLinecap="square" fill={backgroundColor}
+                      onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
             </svg>
         } else if (e.type === ElementType.ellipse) {
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width} height={height} viewBox="0 0, 100 100" preserveAspectRatio="none" key={e.id}>
-                <ellipse rx="50%" ry="50%" cx="50%" cy="50%" fill={backgroundColor} stroke={borderColor} strokeWidth={e.borderWidth}
-                         data-path-id={pathId} data-elem-id={e.id} onClick={(evt) => selectElements(evt, e.id)} />
+            const ellipsePoints = `M 1,${viewBoxHeight/2} A ${viewBoxWidth/2 - 1},${viewBoxHeight/2 - 1} 0 1, 1 1,${viewBoxHeight/2 + 0.1}`
+
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width} height={height} preserveAspectRatio="none" key={e.id}>
+                <path data-elem-id={e.id} data-path-id={pathId} d={ellipsePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
+                      strokeLinecap="square" fill={backgroundColor}
+                      onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
             </svg>
         } else if (e.type === ElementType.triangle) {
-            const points = '50 0, 100 84, 0 84'
+            const trianglePoints = `M ${viewBoxWidth/2} 0, L ${viewBoxWidth} ${viewBoxHeight - 1}, L 0 ${viewBoxHeight - 1}, L ${viewBoxWidth/2} 0`
 
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width} height={height} viewBox="0 0, 100 85" preserveAspectRatio="none" key={e.id}>
-                <polygon points={points} fill={backgroundColor} stroke={borderColor} data-path-id={pathId}
-                         data-elem-id={e.id} strokeWidth={e.borderWidth} onClick={(evt) => selectElements(evt, e.id)} />
-                <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width} height={height} preserveAspectRatio="none" key={e.id}>
+                <path data-elem-id={e.id} data-path-id={pathId} d={trianglePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
+                      strokeLinecap="square" fill={backgroundColor}
+                      onClick={(evt) => selectElements(evt, e.id)} />
+                <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
+                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
+            </svg>
+        } else if (e.type === ElementType.text) {
+            const textStyle = (e as Text).textStyle
+            const font = `${textStyle.isBold ? 'bold' : ''} ${textStyle.isCurve ? 'italic' : ''} ${textStyle.sizeFont}px ${textStyle.font}`
+            const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
+
+            //проверить нужен ли viewBox для svg с текстом
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width} height={height} preserveAspectRatio="none" key={e.id}>
+                <text x="0" y="20" data-elem-id={e.id} data-path-id={pathId} fill={textColor} style={{font: font}} onClick={(evt) => selectElements(evt, e.id)}>Тест</text>
+                <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
             </svg>
         }
         return e
     })
+}
+
+export function getSlideBackground() {
+    let editor = getEditor()
+    let currentSlide = editor.presentation.slides.filter(s => editor.selectionSlidesId.includes(s.id))[0]
+    let slideBack
+    if (isColor(currentSlide.background)) {
+        let slideBackColor = currentSlide.background
+        slideBack = `rgb(${slideBackColor.red},${slideBackColor.green},${slideBackColor.blue}`
+    }
+
+    return slideBack
 }
 
 export default function SlideArea() {
@@ -110,8 +156,7 @@ export default function SlideArea() {
 
     return (
         <div id="slide-area" className='slide-area'>
-            {/* style={{backgroundColor: "blue"}} for <svg> */}
-            <svg className={'workspace'}>
+            <svg className={'workspace'} style={{background: getSlideBackground()}}>
                 { elements }
             </svg>
         </div>

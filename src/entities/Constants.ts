@@ -1,5 +1,5 @@
 import {Color} from './Color'
-import {Element} from "./Elements"
+import {Element, Text} from "./Elements"
 import {ElementType} from "./Elements"
 
 export {
@@ -9,7 +9,8 @@ export {
     RED,
     DEFAULT_RECTANGLE,
     DEFAULT_TRIANGLE,
-    DEFAULT_ELLIPSE
+    DEFAULT_ELLIPSE,
+    DEFAULT_TEXT
 }
 
 const WHITE: Color = {
@@ -48,7 +49,7 @@ const DEFAULT_RECTANGLE: Element = {
     },
     bottomRightPoint: {
         x: 10,
-        y: 17.78
+        y: 17.77
     },
     borderColor: BLACK,
     borderWidth: 1,
@@ -68,7 +69,7 @@ const DEFAULT_TRIANGLE: Element = {
     },
     bottomRightPoint: {
         x: 10,
-        y: 17.78
+        y: 17.77
     },
     borderColor: BLACK,
     borderWidth: 1,
@@ -88,10 +89,47 @@ const DEFAULT_ELLIPSE: Element = {
     },
     bottomRightPoint: {
         x: 10,
-        y: 17.78
+        y: 17.77
     },
     borderColor: BLACK,
     borderWidth: 1,
     backgroundColor: WHITE,
     type: ElementType.ellipse
+}
+
+const DEFAULT_TEXT: Text = {
+    id: '',
+    center: {
+        x: 5,
+        y: 8.89
+    },
+    topLeftPoint: {
+        x: 0,
+        y: 5
+    },
+    bottomRightPoint: {
+        x: 10,
+        y: 17.77
+    },
+    borderColor: {
+        red: 255,
+        green: 255,
+        blue: 255
+    },
+    borderWidth: 1,
+    backgroundColor: BLACK,
+    text: 'ТЕст',
+    textStyle: {
+        font: 'Arial',
+        sizeFont: 16,
+        color: {
+            red: 0,
+            green: 255,
+            blue: 0
+        },
+        align: 'Left',
+        isBold: true,
+        isCurve: true
+    },
+    type: ElementType.text
 }

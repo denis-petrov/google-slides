@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card'
 import {getEditor} from '../stateManager/StateManager'
 import './slideMenu.css'
 import {SelectSlide} from '../functions/SelectSlide'
-import {getElements} from '../slideArea/SlideArea'
+import {getElements, getSlideBackground} from '../slideArea/SlideArea'
 
 export default function SlideMenu() {
     let editor = getEditor();
@@ -15,7 +15,7 @@ export default function SlideMenu() {
                         onClick={(evt) => SelectSlide(evt, item.id)}>
                     <span className='item-position'>{editor.presentation.slides.indexOf(item) + 1}</span>
                     <Card className={'mb-3 slides-menu-item'}>
-                        <svg className='slides-menu-item-svg'>
+                        <svg className='slides-menu-item-svg' style={{background: getSlideBackground()}}>
                             {elements}
                         </svg>
                     </Card>

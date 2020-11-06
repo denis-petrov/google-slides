@@ -16,8 +16,7 @@ let editor: Editor = {
                 id: firstSlideId,
                 selectionElementsId: [],
                 elements: [],
-                background: WHITE
-            }
+                background: WHITE            }
         ]
     },
     selectionSlidesId: [firstSlideId]
