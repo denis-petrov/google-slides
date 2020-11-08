@@ -39,6 +39,6 @@ type Text = Element & {
 }
 
 type Image = Element & {
-    element: HTMLElement,
+    base64: string,
     type: ElementType.image
 }

@@ -17,7 +17,6 @@ function openPresentationFromPc(e: React.ChangeEvent<HTMLInputElement>) {
     const handleFileRead = () => {
         const content = fileReader.result
         if (typeof(content) === 'string') {
-            console.log(JSON.parse(content))
             setEditorNewPresentation(JSON.parse(content))
         }
     }

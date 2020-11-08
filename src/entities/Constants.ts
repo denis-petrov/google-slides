@@ -1,5 +1,5 @@
 import {Color} from './Color'
-import {Element, Text} from "./Elements"
+import {Element, Image, Text} from "./Elements"
 import {ElementType} from "./Elements"
 
 export {
@@ -132,4 +132,27 @@ const DEFAULT_TEXT: Text = {
         isCurve: true
     },
     type: ElementType.text
+}
+
+export function IMAGE(base64: string | ArrayBuffer) {
+    return {
+        id: '',
+        base64: base64,
+        center: {
+            x: 5,
+            y: 8.89
+        },
+        topLeftPoint: {
+            x: 0,
+            y: 0
+        },
+        bottomRightPoint: {
+            x: 10,
+            y: 17.77
+        },
+        borderColor: WHITE,
+        borderWidth: 0,
+        backgroundColor: WHITE,
+        type: ElementType.image
+    } as Image
 }

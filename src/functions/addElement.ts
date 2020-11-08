@@ -16,7 +16,7 @@ function addElement(editor: Editor, element: Element) {
             ...editor.presentation,
             slides: editor.presentation.slides.map(s => {
                 if (editor.selectionSlidesId.includes(s.id)) {
-                    let elements = editor.presentation.slides.filter((slide) => s.id === slide.id)[0].elements.slice()/*[s.id].elements.slice()*/
+                    let elements = editor.presentation.slides.filter((slide) => s.id === slide.id)[0].elements.slice()
                     copyElement.id = uuidv4()
 
                     elements.push(copyElement)

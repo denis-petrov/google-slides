@@ -91,7 +91,6 @@ nav__menu:hover {
     color: #212529;
     background-color: #e2e6ea;
     border: 0;
-    box-shadow: 0 0 0 0.2rem rgba(216,217,219,.5);
 }
 
 .dropbox__open_data:active {
@@ -121,6 +120,12 @@ nav__menu:hover {
     outline: none !important;
 }
 
+.button__onclick:hover {
+    color: #16181b !important;
+    text-decoration: none !important;
+    background-color: #f8f9fa !important;
+}
+
 .nav__hr {
     margin-top: 10px !important;
     margin-bottom: 4px !important;
@@ -133,4 +138,14 @@ nav__menu:hover {
 
 .vertical_separator {
     border-left: 1px solid #dadce0;
+}
+
+.dropbox_image__item {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    min-width: 180px;
+}
+
+.dropbox_image__item_no_bottom_margin {
+    margin-bottom: 0;
 }

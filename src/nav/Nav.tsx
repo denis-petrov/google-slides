@@ -9,6 +9,8 @@ import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory'
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
 import TextFieldsIcon from '@material-ui/icons/TextFields'
+import CropOriginalIcon from '@material-ui/icons/CropOriginal'
+import GetAppRoundedIcon from '@material-ui/icons/GetAppRounded'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {addEmptySlide} from '../functions/addEmptySlide'
@@ -16,17 +18,16 @@ import {savePresentationToPc} from '../functions/savePresentationToPc'
 import {dispatch, getEditor, reDo, unDo} from '../stateManager/StateManager'
 import {openPresentationFromPc} from '../functions/openPresentationFromPc'
 import {changeNamePresentation} from '../functions/changeNamePresentation'
-import {addElement} from "../functions/addElement"
-import {Element} from "../entities/Elements"
 import {DEFAULT_ELLIPSE, DEFAULT_RECTANGLE, DEFAULT_TEXT, DEFAULT_TRIANGLE} from "../entities/Constants"
 import {deleteSlides} from "../functions/deleteSlides"
 import {Editor} from "../entities/Editor"
+import {addSomeElement} from "../functions/addSomeElement"
+import {insertImageFromPc} from "../functions/insertImageFromPc"
+import FormDialog from "./FomDialog"
+
 
 const fileField = React.createRef<HTMLInputElement>()
-
-function addSomeElement(elem: Element) {
-    dispatch(addElement, elem)
-}
+const imageFiled = React.createRef<HTMLInputElement>()
 
 export default function Nav() {
     return (
@@ -64,10 +65,10 @@ export default function Nav() {
                                         />
                                     </div>
 
-                                    <Dropdown.Item href="#/action-2" className="btn-sm button__onclick" onClick={() => {
+                                    <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
                                         savePresentationToPc(getEditor())
                                     }}>Save</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" className="btn-sm button__onclick">Export</Dropdown.Item>
+                                    <Dropdown.Item className="btn-sm button__onclick">Export</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
 
@@ -78,11 +79,23 @@ export default function Nav() {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1" className="btn-sm button__onclick">Text</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2" className="btn-sm button__onclick" onClick={() => {addSomeElement(DEFAULT_TRIANGLE)}}>Triangle</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" className="btn-sm button__onclick" onClick={() => {addSomeElement(DEFAULT_RECTANGLE)}}>Rectangle</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" className="btn-sm button__onclick" onClick={() => {addSomeElement(DEFAULT_ELLIPSE)}}>Ellipse</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" className="btn-sm button__onclick">Image</Dropdown.Item>
+                                    <Dropdown.Item className="btn-sm button__onclick"
+                                                   onClick={() => {addSomeElement(DEFAULT_TRIANGLE)}}>
+                                        Triangle
+                                    </Dropdown.Item>
+                                    <Dropdown.Item className="btn-sm button__onclick"
+                                                   onClick={() => {addSomeElement(DEFAULT_ELLIPSE)}}>
+                                        Ellipse
+                                    </Dropdown.Item>
+                                    <Dropdown.Item className="btn-sm button__onclick"
+                                                   onClick={() => {addSomeElement(DEFAULT_RECTANGLE)}}>
+                                        Rectangle
+                                    </Dropdown.Item>
+                                    <Dropdown.Item className="btn-sm button__onclick"
+                                                   onClick={() => {addSomeElement(DEFAULT_TEXT)}}>
+                                        Text
+                                    </Dropdown.Item>
+                                    <Dropdown.Item className="btn-sm button__onclick">Image</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
 
@@ -93,10 +106,10 @@ export default function Nav() {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1" className="btn-sm button__onclick" onClick={() => {
+                                    <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
                                         dispatch(addEmptySlide, {})
                                     }}>New slide</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2" className="btn-sm button__onclick" onClick={() => {
+                                    <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
                                         dispatch(deleteSlides, {})
                                     }}>
                                         Delete slide
@@ -163,6 +176,33 @@ export default function Nav() {
                             onClick={() => {addSomeElement(DEFAULT_TEXT)}}>
                         <TextFieldsIcon />
                     </button>
+
+                    <Dropdown>
+                        <Dropdown.Toggle className="btn-light btn-sm dropbox__insert dropbox__button"
+                                         variant="success" id="dropdown-insert">
+                            <CropOriginalIcon />
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <div>
+                                <label htmlFor="myImage" className="btn-sm button__onclick dropbox_image__item">
+                                    <GetAppRoundedIcon /> Insert from computer
+                                </label>
+                                <input
+                                    className="dropbox__open_button"
+                                    id="myImage"
+                                    name="myImage"
+                                    accept="image/*"
+                                    onChange={(e) => insertImageFromPc(e)}
+                                    ref={imageFiled}
+                                    type="file"
+                                />
+                            </div>
+                            <div>
+                                <FormDialog />
+                            </div>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </Toolbar>
             </AppBar>
             <hr className="second_nav__hr"/>
