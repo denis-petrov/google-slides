@@ -9,6 +9,7 @@ export {
 
 function addElement(editor: Editor, element: Element) {
     let copyElement = deepCopy(element)
+    console.log(element.bottomRightPoint)
 
     return {
         ...editor,

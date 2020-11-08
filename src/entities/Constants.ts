@@ -1,6 +1,6 @@
 import {Color} from './Color'
-import {Element, Image, Text} from "./Elements"
-import {ElementType} from "./Elements"
+import {Element, ElementType, ImageElement, Text} from "./Elements"
+import {deepCopy} from "deep-copy-ts"
 
 export {
     WHITE,
@@ -10,7 +10,8 @@ export {
     DEFAULT_RECTANGLE,
     DEFAULT_TRIANGLE,
     DEFAULT_ELLIPSE,
-    DEFAULT_TEXT
+    DEFAULT_TEXT,
+    DEFAULT_IMAGE
 }
 
 const WHITE: Color = {
@@ -118,7 +119,7 @@ const DEFAULT_TEXT: Text = {
     },
     borderWidth: 1,
     backgroundColor: BLACK,
-    text: 'ТЕст',
+    text: '',
     textStyle: {
         font: 'Arial',
         sizeFont: 16,
@@ -134,25 +135,40 @@ const DEFAULT_TEXT: Text = {
     type: ElementType.text
 }
 
-export function IMAGE(base64: string | ArrayBuffer) {
-    return {
-        id: '',
-        base64: base64,
-        center: {
-            x: 5,
-            y: 8.89
-        },
-        topLeftPoint: {
-            x: 0,
-            y: 0
-        },
-        bottomRightPoint: {
-            x: 10,
-            y: 17.77
-        },
-        borderColor: WHITE,
-        borderWidth: 0,
-        backgroundColor: WHITE,
-        type: ElementType.image
-    } as Image
+const DEFAULT_IMAGE: ImageElement = {
+    id: '',
+    base64: '',
+    center: {
+        x: 0,
+        y: 0
+    },
+    topLeftPoint: {
+        x: 0,
+        y: 0
+    },
+    bottomRightPoint: {
+        x: 0,
+        y: 0
+    },
+    borderColor: WHITE,
+    borderWidth: 0,
+    backgroundColor: WHITE,
+    type: ElementType.image
+}
+
+function changeImageData(image: ImageElement, img: HTMLImageElement) {
+    image.bottomRightPoint.x = img.width
+    image.bottomRightPoint.y = img.height
+    return image
+}
+
+export function getImage(constImage: ImageElement, base64: string) {
+    let copyImage = deepCopy(constImage)
+    let img = new Image()
+    img.setAttribute('src', base64)
+    img.onload = async () => await changeImageData(copyImage, img)
+    copyImage.base64 = base64
+    console.log(img.width)
+
+    return copyImage
 }

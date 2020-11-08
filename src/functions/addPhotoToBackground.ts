@@ -1,11 +1,11 @@
 import {Editor} from '../entities/Editor'
-import {Image} from '../entities/Elements'
+import {ImageElement} from '../entities/Elements'
 
 export {
     addPhotoToBackground
 }
 
-function addPhotoToBackground(editor: Editor, img: Image): Editor {
+function addPhotoToBackground(editor: Editor, img: ImageElement): Editor {
     return {
         ...editor,
         presentation: {

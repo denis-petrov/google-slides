@@ -5,7 +5,7 @@ import {Color} from './Color'
 export type {
     Element,
     Text,
-    Image
+    ImageElement
 }
 
 enum ElementType {
@@ -38,7 +38,7 @@ type Text = Element & {
     type: ElementType.text,
 }
 
-type Image = Element & {
+type ImageElement = Element & {
     base64: string,
     type: ElementType.image
 }

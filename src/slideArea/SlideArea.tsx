@@ -1,10 +1,10 @@
 import React from 'react'
 import './slideArea.css'
 import {dispatch, getEditor} from '../stateManager/StateManager'
-import {ElementType, Text} from '../entities/Elements'
+import {ElementType, ImageElement, Text} from '../entities/Elements'
 import {Slide} from "../entities/Slide"
 import {chooseElements} from "../functions/chooseElements"
-import {isColor} from "../entities/Color";
+import {isColor} from "../entities/Color"
 
 export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget
@@ -124,7 +124,18 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
             //проверить нужен ли viewBox для svg с текстом
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width} height={height} preserveAspectRatio="none" key={e.id}>
-                <text x="0" y="20" data-elem-id={e.id} data-path-id={pathId} fill={textColor} style={{font: font}} onClick={(evt) => selectElements(evt, e.id)}>Тест</text>
+                <text x="0" y="20" data-elem-id={e.id} data-path-id={pathId} fill={textColor}
+                      style={{font: font}} onClick={(evt) => selectElements(evt, e.id)}>{(e as Text).text}</text>
+                <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
+                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
+            </svg>
+        } else if (e.type === ElementType.image) {
+            const image = (e as ImageElement).base64
+
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
+                        width={e.bottomRightPoint.x} height={e.bottomRightPoint.y} preserveAspectRatio="none" key={e.id}>
+                <image data-elem-id={e.id} data-path-id={pathId} href={image} x="0" y="0"
+                        onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
             </svg>

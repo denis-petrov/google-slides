@@ -1,6 +1,6 @@
 import {isSlideBackground} from './SlideBackground'
 import {Color} from './Color'
-import {Element, Image} from './Elements'
+import {Element, ImageElement} from './Elements'
 
 export type {
     Slide
@@ -12,7 +12,7 @@ export {
 type Slide = {
     id: string,
     elements: Array<Element>,
-    background: Color | Image,
+    background: Color | ImageElement,
     selectionElementsId: Array<string>
 }
 

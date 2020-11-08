@@ -1,6 +1,6 @@
 import React from 'react'
 import {addSomeElement} from "./addSomeElement"
-import {IMAGE} from "../entities/Constants"
+import {getImage, DEFAULT_IMAGE} from "../entities/Constants"
 
 
 export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>) {
@@ -12,7 +12,7 @@ export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>) {
         fileReader.readAsDataURL(file)
         fileReader.onload = function () {
             if (fileReader.result != null) {
-                addSomeElement(IMAGE(fileReader.result))
+                addSomeElement(getImage(DEFAULT_IMAGE, fileReader.result as string))
             }
         }
         fileReader.onerror = function (error) {
