@@ -1,7 +1,6 @@
 import {Editor} from '../entities/Editor'
 
 export function deleteElements(editor: Editor): Editor {
-    console.log(editor)
     return {
         ...editor,
         presentation: {

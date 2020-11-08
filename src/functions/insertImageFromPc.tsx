@@ -19,15 +19,29 @@ export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>) {
                 img.onload = () => {
                     let imgWidth = 0
                     let imgHeight = 0
-                    if (img.width >= img.height) {
+                    if (img.width > img.height) {
                         if(img.width > 1000) {
-                            imgWidth = 100
-                            imgHeight =
+                            imgWidth = img.width
+                            imgHeight = img.height
+                        } else {
+                            if(Math.floor(img.height/9*16/img.width*100)/100 > 1) {
+                                imgWidth = img.width/10
+                                imgHeight = img.height/10
+                            } else {
+                                imgWidth = img.width/10
+                                imgHeight = Math.floor(img.height/9*16/10*100)/100
+                            }
+                        }
+                    } else {
+                        if(img.height/9*16 > 1000) {
+                            imgWidth = img.width
+                            imgHeight = img.height
                         } else {
                             imgWidth = img.width/10
-                            imgHeight = img.height/10
+                            imgHeight = Math.floor(img.height/9*16/10*100)/100
                         }
                     }
+
                     copyImage.bottomRightPoint.x = imgWidth
                     copyImage.bottomRightPoint.y = imgHeight
                     copyImage.link = fileReader.result as string

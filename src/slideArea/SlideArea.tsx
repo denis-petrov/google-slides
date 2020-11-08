@@ -60,8 +60,8 @@ export function selectElements(event: any, id: string) {
 
 export function getElements(s: Slide, isIdNeeded: boolean = true) {
     return s.elements.map(e => {
-        let width = e.bottomRightPoint.x - e.topLeftPoint.x + '%'
-        let height = e.bottomRightPoint.y - e.topLeftPoint.y + '%'
+        let width = e.bottomRightPoint.x - e.topLeftPoint.x
+        let height = e.bottomRightPoint.y - e.topLeftPoint.y
         let borderColor = `rgb(${e.borderColor.red},${e.borderColor.green},${e.borderColor.blue}`
         let backgroundColor = 'rgb(255, 255, 255)'
         if (e.backgroundColor) {
@@ -79,7 +79,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         }
 
         let viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
-        const d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
+        let d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
         if (isIdNeeded) {
             pathId = 'slide_' + s.id + '_element_' + e.id
         }
@@ -90,7 +90,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
         if (e.type === ElementType.rectangle) {
 
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width} height={height} preserveAspectRatio="none" key={e.id}>
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <path data-elem-id={e.id} data-path-id={pathId} d={d} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                        strokeLinecap="square" fill={backgroundColor}
                       onClick={(evt) => selectElements(evt, e.id)} />
@@ -100,7 +100,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         } else if (e.type === ElementType.ellipse) {
             const ellipsePoints = `M 1,${viewBoxHeight/2} A ${viewBoxWidth/2 - 1},${viewBoxHeight/2 - 1} 0 1, 1 1,${viewBoxHeight/2 + 0.1}`
 
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width} height={height} preserveAspectRatio="none" key={e.id}>
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <path data-elem-id={e.id} data-path-id={pathId} d={ellipsePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill={backgroundColor}
                       onClick={(evt) => selectElements(evt, e.id)} />
@@ -110,7 +110,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         } else if (e.type === ElementType.triangle) {
             const trianglePoints = `M ${viewBoxWidth/2} 0, L ${viewBoxWidth} ${viewBoxHeight - 1}, L 0 ${viewBoxHeight - 1}, L ${viewBoxWidth/2} 0`
 
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width} height={height} preserveAspectRatio="none" key={e.id}>
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <path data-elem-id={e.id} data-path-id={pathId} d={trianglePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill={backgroundColor}
                       onClick={(evt) => selectElements(evt, e.id)} />
@@ -123,7 +123,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
 
             //проверить нужен ли viewBox для svg с текстом
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width} height={height} preserveAspectRatio="none" key={e.id}>
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <text x="0" y="20" data-elem-id={e.id} data-path-id={pathId} fill={textColor}
                       style={{font: font}} onClick={(evt) => selectElements(evt, e.id)}>{(e as Text).text}</text>
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
@@ -131,12 +131,38 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             </svg>
         } else if (e.type === ElementType.image) {
             const image = (e as ImageElement).link
+            if (width > height) {
+                if (width >= 100) {
+                    viewBoxWidth = width
+                    d = `M 0, 0 H ${viewBoxWidth} V ${height} H 0 V 0`
+                    viewBoxHeight = width/16*9
+                    width = 100
+                    height = 100
+                } else {
+                    width = Math.floor(width*10/16*9/10*100)/100
+                    viewBoxHeight = Math.floor(height*10)
+                    d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
+                }
+            } else {
+                if (height >= 100) {
+                    viewBoxWidth = width/9*16*2
+                    viewBoxHeight = height
+                    d = `M 0, 0 H ${width} V ${viewBoxHeight} H 0 V 0`
+                    width = 100
+                    height = 100
+                } else {
+                    viewBoxHeight = Math.floor(height*10/16*9*100)/100
+                    d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
+                }
+            }
+
+            viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
-                        width={e.bottomRightPoint.x} height={e.bottomRightPoint.y} preserveAspectRatio="none" key={e.id}>
+                        width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <image data-elem-id={e.id} data-path-id={pathId} href={image} x="0" y="0"
                         onClick={(evt) => selectElements(evt, e.id)} />
-                <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
+                <path id={pathId} d={d} stroke="blue" strokeWidth="20"  strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
             </svg>
         }
