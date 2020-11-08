@@ -137,7 +137,7 @@ const DEFAULT_TEXT: Text = {
 
 const DEFAULT_IMAGE: ImageElement = {
     id: '',
-    base64: '',
+    link: '',
     center: {
         x: 0,
         y: 0
@@ -154,21 +154,4 @@ const DEFAULT_IMAGE: ImageElement = {
     borderWidth: 0,
     backgroundColor: WHITE,
     type: ElementType.image
-}
-
-function changeImageData(image: ImageElement, img: HTMLImageElement) {
-    image.bottomRightPoint.x = img.width
-    image.bottomRightPoint.y = img.height
-    return image
-}
-
-export function getImage(constImage: ImageElement, base64: string) {
-    let copyImage = deepCopy(constImage)
-    let img = new Image()
-    img.setAttribute('src', base64)
-    img.onload = async () => await changeImageData(copyImage, img)
-    copyImage.base64 = base64
-    console.log(img.width)
-
-    return copyImage
 }

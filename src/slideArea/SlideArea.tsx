@@ -130,7 +130,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
             </svg>
         } else if (e.type === ElementType.image) {
-            const image = (e as ImageElement).base64
+            const image = (e as ImageElement).link
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={e.bottomRightPoint.x} height={e.bottomRightPoint.y} preserveAspectRatio="none" key={e.id}>

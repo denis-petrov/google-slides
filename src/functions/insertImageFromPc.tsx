@@ -1,6 +1,7 @@
 import React from 'react'
 import {addSomeElement} from "./addSomeElement"
-import {getImage, DEFAULT_IMAGE} from "../entities/Constants"
+import {DEFAULT_IMAGE} from "../entities/Constants"
+import {deepCopy} from "deep-copy-ts";
 
 
 export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>) {
@@ -12,7 +13,26 @@ export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>) {
         fileReader.readAsDataURL(file)
         fileReader.onload = function () {
             if (fileReader.result != null) {
-                addSomeElement(getImage(DEFAULT_IMAGE, fileReader.result as string))
+                let copyImage = deepCopy(DEFAULT_IMAGE)
+                let img = new Image()
+                img.setAttribute('src', fileReader.result as string)
+                img.onload = () => {
+                    let imgWidth = 0
+                    let imgHeight = 0
+                    if (img.width >= img.height) {
+                        if(img.width > 1000) {
+                            imgWidth = 100
+                            imgHeight =
+                        } else {
+                            imgWidth = img.width/10
+                            imgHeight = img.height/10
+                        }
+                    }
+                    copyImage.bottomRightPoint.x = imgWidth
+                    copyImage.bottomRightPoint.y = imgHeight
+                    copyImage.link = fileReader.result as string
+                    addSomeElement(copyImage)
+                }
             }
         }
         fileReader.onerror = function (error) {

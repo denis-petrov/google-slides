@@ -1,6 +1,6 @@
 import React from 'react'
 import {addSomeElement} from './addSomeElement'
-import {getImage, DEFAULT_IMAGE} from '../entities/Constants'
+import {DEFAULT_IMAGE} from '../entities/Constants'
 
 
 export function insertImageByURL(URL: string) {
@@ -12,7 +12,7 @@ export function insertImageByURL(URL: string) {
         fileReader.onloadend = function() {
             console.log(fileReader.result)
             if (fileReader.result != null) {
-                addSomeElement(getImage(DEFAULT_IMAGE, fileReader.result as string))
+                //addSomeElement(getImage(DEFAULT_IMAGE, fileReader.result as string))
             }
         }
         fileReader.readAsDataURL(xhr.response)
