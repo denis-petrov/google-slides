@@ -1,17 +1,16 @@
 import React from 'react'
-import {addSomeElement} from "./addSomeElement"
 import {DEFAULT_IMAGE} from "../entities/Constants"
-import {deepCopy} from "deep-copy-ts";
-import {imageInitAfterOnload} from "./imageInitAfterOnload";
+import {deepCopy} from "deep-copy-ts"
+import {imageInitAfterOnload} from "./imageInitAfterOnload"
+import {dispatch} from "../stateManager/StateManager"
 
 
-export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>) {
+export function insertImageFromPc<F extends Function>(e: React.ChangeEvent<HTMLInputElement>, fn: F) {
     let fileReader: FileReader
 
     const handleFileChosen = (file: File) => {
         fileReader = new FileReader()
-
-        fileReader.readAsDataURL(file as Blob)
+        fileReader.readAsDataURL(file)
         fileReader.onload = function () {
             if (fileReader.result != null) {
                 let copyImage = deepCopy(DEFAULT_IMAGE)
@@ -20,7 +19,7 @@ export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>) {
                 img.onload = () => {
                     copyImage = imageInitAfterOnload(img, copyImage)
                     copyImage.link = fileReader.result as string
-                    addSomeElement(copyImage)
+                    dispatch(fn, copyImage)
                 }
             }
         }
