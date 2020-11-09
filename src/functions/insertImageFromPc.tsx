@@ -11,7 +11,7 @@ export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>) {
     const handleFileChosen = (file: File) => {
         fileReader = new FileReader()
 
-        fileReader.readAsDataURL(file)
+        fileReader.readAsDataURL(file as Blob)
         fileReader.onload = function () {
             if (fileReader.result != null) {
                 let copyImage = deepCopy(DEFAULT_IMAGE)

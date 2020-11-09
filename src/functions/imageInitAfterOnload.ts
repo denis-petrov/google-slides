@@ -8,12 +8,12 @@ export function imageInitAfterOnload(img: HTMLImageElement, copyImage: ImageElem
             imgWidth = img.width
             imgHeight = img.height
         } else {
-            if (Math.floor(img.height / 9 * 16 / img.width * 100) / 100 > 1) {
-                imgWidth = img.width / 10
-                imgHeight = img.height / 10
-            } else {
+            if (Math.floor(img.height / 9 * 16 / img.width * 100) / 100 >= 1) {
                 imgWidth = img.width / 10
                 imgHeight = Math.floor(img.height / 9 * 16 / 10 * 100) / 100
+            } else {
+                imgWidth = img.width / 10
+                imgHeight = img.height / 10
             }
         }
     } else {
