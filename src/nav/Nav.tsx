@@ -11,6 +11,7 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
 import TextFieldsIcon from '@material-ui/icons/TextFields'
 import CropOriginalIcon from '@material-ui/icons/CropOriginal'
 import GetAppRoundedIcon from '@material-ui/icons/GetAppRounded'
+import FormatColorFillRoundedIcon from '@material-ui/icons/FormatColorFillRounded'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {addEmptySlide} from '../functions/addEmptySlide'
@@ -24,10 +25,13 @@ import {Editor} from "../entities/Editor"
 import {addSomeElement} from "../functions/addSomeElement"
 import {insertImageFromPc} from "../functions/insertImageFromPc"
 import FormDialog from "./FomDialog"
+import {addToBackground} from "../functions/addToBackground"
+import {addElement} from "../functions/addElement"
 
 
 const fileField = React.createRef<HTMLInputElement>()
 const imageFiled = React.createRef<HTMLInputElement>()
+const imageToBackFiled = React.createRef<HTMLInputElement>()
 
 export default function Nav() {
     return (
@@ -193,16 +197,60 @@ export default function Nav() {
                                     id="myImage"
                                     name="myImage"
                                     accept="image/*"
-                                    onChange={(e) => insertImageFromPc(e)}
+                                    onChange={(e) => insertImageFromPc(e, addElement)}
                                     ref={imageFiled}
                                     type="file"
                                 />
                             </div>
                             <div>
-                                <FormDialog />
+                                <FormDialog isBackground={false} />
                             </div>
                         </Dropdown.Menu>
                     </Dropdown>
+
+                    <div className="vertical_separator">&nbsp;</div>
+
+                    <Dropdown>
+                        <Dropdown.Toggle className="btn-light btn-sm dropbox__insert dropbox__button"
+                                         variant="success" id="dropdown-insert">
+                            Background
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <div>
+                                <label htmlFor="myImage" className="btn-sm button__onclick dropbox_image__item">
+                                    <FormatColorFillRoundedIcon /> Select color
+                                </label>
+                                <input
+                                    className="dropbox__open_button"
+                                    id="myImage"
+                                    name="myImage"
+                                    accept="image/*"
+                                    /*onChange={(e) => insertImageFromPc(e)}*/
+                                    ref={imageFiled}
+                                    type="file"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="myBackImage" className="btn-sm button__onclick dropbox_image__item">
+                                    <GetAppRoundedIcon /> Insert from computer
+                                </label>
+                                <input
+                                    className="dropbox__open_button"
+                                    id="myBackImage"
+                                    name="myBackImage"
+                                    accept="image/*"
+                                    onChange={(e) => insertImageFromPc(e, addToBackground)}
+                                    ref={imageToBackFiled}
+                                    type="file"
+                                />
+                            </div>
+                            <div>
+                                <FormDialog isBackground={true} />
+                            </div>
+                        </Dropdown.Menu>
+                    </Dropdown>
+
                 </Toolbar>
             </AppBar>
             <hr className="second_nav__hr"/>
