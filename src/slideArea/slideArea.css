@@ -37,3 +37,7 @@
 .elem-path.elem-path_active {
     display: block;
 }
+
+svg {
+    overflow: visible;
+}
