@@ -4,7 +4,7 @@ import {dispatch, getEditor} from '../stateManager/StateManager'
 import {ElementType, ImageElement, Text} from '../entities/Elements'
 import {Slide} from "../entities/Slide"
 import {chooseElements} from "../functions/chooseElements"
-import {isColor} from "../entities/Color"
+import {Color, isColor} from "../entities/Color"
 
 export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget
@@ -178,8 +178,10 @@ export function getSlideBackground() {
     let currentSlide = editor.presentation.slides.filter(s => editor.selectionSlidesId.includes(s.id))[0]
     let slideBack
     if (isColor(currentSlide.background)) {
-        let slideBackColor = currentSlide.background
+        let slideBackColor = currentSlide.background as Color
         slideBack = `rgb(${slideBackColor.red},${slideBackColor.green},${slideBackColor.blue}`
+    } else {
+        slideBack = `url(${currentSlide.background as string})`
     }
 
     return slideBack
@@ -196,7 +198,7 @@ export default function SlideArea() {
 
     return (
         <div id="slide-area" className='slide-area'>
-            <svg className={'workspace'} style={{background: getSlideBackground()}}>
+            <svg className={'workspace'} style={{background: `0 0 / cover ${getSlideBackground()}`}}>
                 { elements }
             </svg>
         </div>
