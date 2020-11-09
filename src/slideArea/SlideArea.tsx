@@ -130,6 +130,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
             </svg>
         } else if (e.type === ElementType.image) {
+            let strokeWidth = '.5%'
             const image = (e as ImageElement).link
             if (width > height) {
                 if (width >= 100) {
@@ -139,18 +140,20 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                     width = 100
                     height = 100
                 } else {
+                    strokeWidth = '1%'
                     width = Math.floor(width*10/16*9/10*100)/100
                     viewBoxHeight = Math.floor(height*10)
                     d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
                 }
             } else {
                 if (height >= 100) {
-                    viewBoxWidth = width/9*16*2
+                    viewBoxWidth = Math.floor(height/9*16*100)/100
                     viewBoxHeight = height
                     d = `M 0, 0 H ${width} V ${viewBoxHeight} H 0 V 0`
                     width = 100
                     height = 100
                 } else {
+                    strokeWidth = '1%'
                     viewBoxHeight = Math.floor(height*10/16*9*100)/100
                     d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
                 }
@@ -162,8 +165,8 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                         width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <image data-elem-id={e.id} data-path-id={pathId} href={image} x="0" y="0"
                         onClick={(evt) => selectElements(evt, e.id)} />
-                <path id={pathId} d={d} stroke="blue" strokeWidth="20"  strokeLinejoin="miter"
-                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
+                <path id={pathId} d={d} stroke="blue" strokeWidth={strokeWidth} strokeLinejoin="miter"
+                      strokeLinecap="square" fill="none" className="elem-path" />
             </svg>
         }
         return e
