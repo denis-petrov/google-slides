@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded"
-import {insertImageByURL} from "../functions/insertImageByURL";
+import {insertImageByURL} from "../functions/insertImageByURL"
 
 export default function FormDialog() {
     const [open, setOpen] = React.useState(false)
@@ -21,6 +21,13 @@ export default function FormDialog() {
     }
 
     let userURL: string
+
+    window.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.keyCode === 13) {
+            insertImageByURL(userURL)
+            handleClose()
+        }
+    })
 
     return (
         <>
