@@ -21,6 +21,7 @@ import {Element} from "../entities/Elements"
 import {DEFAULT_ELLIPSE, DEFAULT_RECTANGLE, DEFAULT_TEXT, DEFAULT_TRIANGLE} from "../entities/Constants"
 import {deleteSlides} from "../functions/deleteSlides"
 import {Editor} from "../entities/Editor"
+import {createPdf} from "../functions/createPdf";
 
 const fileField = React.createRef<HTMLInputElement>()
 
@@ -67,7 +68,11 @@ export default function Nav() {
                                     <Dropdown.Item href="#/action-2" className="btn-sm button__onclick" onClick={() => {
                                         savePresentationToPc(getEditor())
                                     }}>Save</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" className="btn-sm button__onclick">Export</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3" className="btn-sm button__onclick" onClick={async () => {
+                                        await createPdf();
+                                    }}>
+                                        Export
+                                    </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
 
