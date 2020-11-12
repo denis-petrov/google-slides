@@ -149,3 +149,7 @@ nav__menu:hover {
 .dropbox_image__item_no_bottom_margin {
     margin-bottom: 0;
 }
+
+.dropbox_color_picker__button {
+    margin-bottom: 8px;
+}

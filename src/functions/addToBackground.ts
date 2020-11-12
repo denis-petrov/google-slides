@@ -1,11 +1,12 @@
 import {Editor} from '../entities/Editor'
-import {Color} from "../entities/Color"
+import {Color, isColor} from "../entities/Color"
+import {ImageElement} from "../entities/Elements"
 
 export {
     addToBackground
 }
 
-function addToBackground(editor: Editor, data: string | Color): Editor {
+function addToBackground(editor: Editor, elem: ImageElement | Color): Editor {
     return <Editor>{
         ...editor,
         presentation: {
@@ -14,7 +15,7 @@ function addToBackground(editor: Editor, data: string | Color): Editor {
                 if (editor.selectionSlidesId.includes(s.id)) {
                     return {
                         ...s,
-                        background: data,
+                        background: isColor(elem)? elem: (elem as ImageElement).link,
                     }
                 }
                 return s

@@ -11,7 +11,6 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
 import TextFieldsIcon from '@material-ui/icons/TextFields'
 import CropOriginalIcon from '@material-ui/icons/CropOriginal'
 import GetAppRoundedIcon from '@material-ui/icons/GetAppRounded'
-import FormatColorFillRoundedIcon from '@material-ui/icons/FormatColorFillRounded'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {addEmptySlide} from '../functions/addEmptySlide'
@@ -27,6 +26,7 @@ import {insertImageFromPc} from "../functions/insertImageFromPc"
 import FormDialog from "./FomDialog"
 import {addToBackground} from "../functions/addToBackground"
 import {addElement} from "../functions/addElement"
+import ColorPickerLol from "./ColorPicker"
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -218,18 +218,7 @@ export default function Nav() {
 
                         <Dropdown.Menu>
                             <div>
-                                <label htmlFor="myImage" className="btn-sm button__onclick dropbox_image__item">
-                                    <FormatColorFillRoundedIcon /> Select color
-                                </label>
-                                <input
-                                    className="dropbox__open_button"
-                                    id="myImage"
-                                    name="myImage"
-                                    accept="image/*"
-                                    /*onChange={(e) => insertImageFromPc(e)}*/
-                                    ref={imageFiled}
-                                    type="file"
-                                />
+                                <ColorPickerLol />
                             </div>
                             <div>
                                 <label htmlFor="myBackImage" className="btn-sm button__onclick dropbox_image__item">
