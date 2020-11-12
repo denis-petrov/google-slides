@@ -11,7 +11,9 @@ export {
     DEFAULT_TRIANGLE,
     DEFAULT_ELLIPSE,
     DEFAULT_TEXT,
-    DEFAULT_IMAGE
+    DEFAULT_IMAGE,
+    PAGE_HEIGHT,
+    PAGE_WIDTH
 }
 
 const WHITE: Color = {
@@ -81,19 +83,19 @@ const DEFAULT_TRIANGLE: Element = {
 const DEFAULT_ELLIPSE: Element = {
     id: '',
     center: {
-        x: 5,
-        y: 8.89
+        x: 50,
+        y: 50
     },
     topLeftPoint: {
-        x: 0,
-        y: 0
+        x: 45,
+        y: 40
     },
     bottomRightPoint: {
-        x: 10,
-        y: 17.77
+        x: 55,
+        y: 60
     },
     borderColor: BLACK,
-    borderWidth: 1,
+    borderWidth: 5,
     backgroundColor: WHITE,
     type: ElementType.ellipse
 }
@@ -155,3 +157,6 @@ const DEFAULT_IMAGE: ImageElement = {
     backgroundColor: WHITE,
     type: ElementType.image
 }
+
+const PAGE_WIDTH = 1920
+const PAGE_HEIGHT = 1080
