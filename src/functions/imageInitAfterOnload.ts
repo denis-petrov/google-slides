@@ -29,24 +29,5 @@ export function imageInitAfterOnload(img: HTMLImageElement, copyImage: ImageElem
     copyImage.bottomRightPoint.x = imgWidth
     copyImage.bottomRightPoint.y = imgHeight
 
-    /*let width = copyImage.bottomRightPoint.x - copyImage.topLeftPoint.x
-    let height = copyImage.bottomRightPoint.y - copyImage.topLeftPoint.y
-    if (width > height) {
-        if (width >= 100) {
-            width = 100
-            height = 100
-        } else {
-            width = Math.floor(width*10/16*9/10*100)/100
-        }
-    } else {
-        if (height >= 100) {
-            width = 100
-            height = 100
-        }
-    }
-
-    copyImage.bottomRightPoint.x = width + copyImage.topLeftPoint.x
-    copyImage.bottomRightPoint.y = height + copyImage.topLeftPoint.y*/
-
     return copyImage
 }

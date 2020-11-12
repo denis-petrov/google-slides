@@ -5,7 +5,6 @@ import {ElementType, ImageElement, Text} from '../entities/Elements'
 import {Slide} from "../entities/Slide"
 import {chooseElements} from "../functions/chooseElements"
 import {Color, isColor} from "../entities/Color"
-import {changePositionOfElements} from "../functions/changePositionOfElements";
 
 export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget

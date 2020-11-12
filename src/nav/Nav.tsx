@@ -27,6 +27,7 @@ import FormDialog from "./FomDialog"
 import {addToBackground} from "../functions/addToBackground"
 import {addElement} from "../functions/addElement"
 import ColorPickerLol from "./ColorPicker"
+import {createPdf} from "../functions/createPdf";
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -72,7 +73,9 @@ export default function Nav() {
                                     <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
                                         savePresentationToPc(getEditor())
                                     }}>Save</Dropdown.Item>
-                                    <Dropdown.Item className="btn-sm button__onclick">Export</Dropdown.Item>
+                                    <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
+                                        createPdf().save(getEditor().presentation.name)
+                                    }}>Export</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
 
