@@ -5,6 +5,7 @@ import {ElementType, ImageElement, Text} from '../entities/Elements'
 import {Slide} from "../entities/Slide"
 import {chooseElements} from "../functions/chooseElements"
 import {Color, isColor} from "../entities/Color"
+import {changePositionOfElements} from "../functions/changePositionOfElements";
 
 export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget
@@ -94,8 +95,11 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 <path data-elem-id={e.id} data-path-id={pathId} d={d} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                        strokeLinecap="square" fill={backgroundColor}
                       onClick={(evt) => selectElements(evt, e.id)} />
-                <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
+                <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
+                      {/* поменять атрибут d у точек */}
+                <path d="M 0, 0 H 5 V 5 H 0 V 0" stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue" /*className="elem-path"*/ />
             </svg>
         } else if (e.type === ElementType.ellipse) {
             const ellipsePoints = `M 1,${viewBoxHeight/2} A ${viewBoxWidth/2 - 1},${viewBoxHeight/2 - 1} 0 1, 1 1,${viewBoxHeight/2 + 0.1}`
@@ -136,7 +140,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 if (width >= 100) {
                     viewBoxWidth = width
                     d = `M 0, 0 H ${viewBoxWidth} V ${height} H 0 V 0`
-                    viewBoxHeight = width/16*9
+                    viewBoxHeight = Math.floor(width/16*9*100)/100
                     width = 100
                     height = 100
                 } else {

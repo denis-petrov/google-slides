@@ -1,6 +1,5 @@
 import {Color} from './Color'
 import {Element, ElementType, ImageElement, Text} from "./Elements"
-import {deepCopy} from "deep-copy-ts"
 
 export {
     WHITE,

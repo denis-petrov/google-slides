@@ -1,12 +1,13 @@
 import {Editor} from '../entities/Editor'
 import {Point} from '../entities/Point'
+import {getEditor} from "../stateManager/StateManager";
 
 export {
     changePositionOfElements
 }
 
-function changePositionOfElements(editor: Editor, elementsId: Array<string>, newCenter: Point,
-                                  newTopLeftPoint: Point, newBottomRightPoint: Point): Editor {
+function changePositionOfElements(editor: Editor, payload: any): Editor {
+
     return {
         ...editor,
         presentation: {
@@ -16,16 +17,12 @@ function changePositionOfElements(editor: Editor, elementsId: Array<string>, new
                     return {
                         ...s,
                         elements: s.elements.filter((element) => {
-                            if (elementsId.includes(element.id)) {
+                            if (payload.elementsId.includes(element.id)) {
                                 return {
                                     ...element,
-                                    position: {
-                                        ...element.center,
-                                        x: element.center.x += newCenter.x,
-                                        y: element.center.y += newCenter.y,
-                                    },
-                                    topLeftPoint: element.topLeftPoint = newTopLeftPoint,
-                                    bottomRightPoint: element.bottomRightPoint = newBottomRightPoint
+                                    center: element.center = payload.newCenter,
+                                    topLeftPoint: element.topLeftPoint = payload.newTopLeftPoint,
+                                    bottomRightPoint: element.bottomRightPoint = payload.newBottomRightPoint
                                 }
                             }
                             return element
