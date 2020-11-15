@@ -31,7 +31,6 @@ export function dispatch<F extends Function>(fn: F, payload: any, isNeedToHistor
     }
 
     editor = fn(deepCopy(editor), payload)
-    console.log(editor)
 
     if ((editor.selectionSlidesId.length === 0) && (editor.presentation.slides[0] != null)) {
         editor.selectionSlidesId.push(editor.presentation.slides[0].id)

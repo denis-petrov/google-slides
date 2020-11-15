@@ -86,15 +86,15 @@ const DEFAULT_ELLIPSE: Element = {
         y: 50
     },
     topLeftPoint: {
-        x: 45,
-        y: 40
+        x: 0,
+        y: 0
     },
     bottomRightPoint: {
-        x: 55,
-        y: 60
+        x: 10,
+        y: 17.77
     },
     borderColor: BLACK,
-    borderWidth: 5,
+    borderWidth: 1,
     backgroundColor: WHITE,
     type: ElementType.ellipse
 }

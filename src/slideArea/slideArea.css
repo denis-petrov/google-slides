@@ -41,3 +41,11 @@
 svg {
     overflow: visible;
 }
+
+.points_container {
+    visibility: hidden;
+}
+
+.points_container.points_container_active {
+    visibility: visible;
+}

@@ -6,13 +6,17 @@ import {Slide} from "../entities/Slide"
 import {chooseElements} from "../functions/chooseElements"
 import {Color, isColor} from "../entities/Color"
 import {changeVisibilityTextStyleMenu} from "../functions/changeVisibilityTextStyleMenu";
+import {getSelectedPoints} from "../functions/getSelectedPoints";
 
 export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget
     let elemPathId = clickedElem.getAttribute('data-path-id')
+    let elemPointsId = clickedElem.getAttribute('data-points-id')
     let elemPath = document.getElementById(elemPathId)
+    let elemPoints = document.getElementById(elemPointsId)
     let elemClassName = 'element_choosed'
     let pathClassName = 'elem-path_active'
+    let pointsClassName = 'points_container_active'
     if (event.ctrlKey) {
         if (clickedElem.getAttribute('data-path-id')) {
             if (clickedElem.classList.contains(elemClassName)) {
@@ -20,17 +24,25 @@ export function selectElements(event: any, id: string) {
                     elemPath.classList.remove(pathClassName)
                 }
 
+                if (elemPoints) {
+                    elemPoints.classList.remove(pointsClassName)
+                }
+
                 clickedElem.classList.remove(elemClassName)
             } else {
                 if (elemPath) {
                     elemPath.classList.add(pathClassName)
                 }
+
+                if (elemPoints) {
+                    elemPoints.classList.add(pointsClassName)
+                }
+
                 clickedElem.classList.add(elemClassName)
             }
 
             let selectedElems = new Array<string>()
             let allSelectedElems = document.getElementsByClassName(elemClassName)
-            console.log()
             for (let i = 0; i < allSelectedElems.length; i++) {
                 if (allSelectedElems[i].classList.contains(elemClassName)) {
                     let selectedElemId = allSelectedElems[i].getAttribute('data-elem-id')
@@ -56,6 +68,10 @@ export function selectElements(event: any, id: string) {
             elemPath.classList.add(pathClassName)
         }
 
+        if (elemPoints) {
+            elemPoints.classList.add(pointsClassName)
+        }
+
         if (clickedElem.tagName === 'text') {
             changeVisibilityTextStyleMenu(true)
         } else {
@@ -75,6 +91,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         }
 
         let pathId
+        let pointsId
         let viewBoxWidth = (e.bottomRightPoint.x - e.topLeftPoint.x) * 10
         let viewBoxHeight = Math.floor(Math.abs(((e.bottomRightPoint.y - e.topLeftPoint.y) -
             Math.floor((e.bottomRightPoint.x - e.topLeftPoint.x)/9*16*100)/100) * 10) * 100) / 100
@@ -88,43 +105,108 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         let d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
         if (isIdNeeded) {
             pathId = 'slide_' + s.id + '_element_' + e.id
+            pointsId = 'slide_' + s.id + '_points_' + e.id
         }
 
         if (e.backgroundColor) {
             backgroundColor = 'rgb(' + e.backgroundColor.red + ', ' + e.backgroundColor.green + ', ' + e.backgroundColor.blue +')'
         }
 
+       /* const pointWidth = 10
+        const pointHeight = Math.floor(width/9*16/height*viewBoxHeight/width*100)/100
+        const middlePointX = viewBoxWidth/2 - pointWidth/2
+        const middlePointY = viewBoxHeight/2 - pointHeight/2
+        const lastPointX = viewBoxWidth - pointWidth
+        const lastPointY = viewBoxHeight - pointHeight
+        const d1 = `M 0, 0 H ${pointWidth} V ${pointHeight} H 0 V 0`
+        const d2 = `M ${middlePointX}, 0 H ${middlePointX + pointWidth} V ${pointHeight} H ${middlePointX} V 0`
+        const d3 = `M ${lastPointX}, 0 H ${viewBoxWidth} V ${pointHeight} H ${lastPointX} V 0`
+        const d4 = `M 0, ${middlePointY} H ${pointWidth} V ${middlePointY + pointHeight} H 0 V ${middlePointY}`
+        const d5 = `M ${lastPointX}, ${middlePointY} H ${viewBoxWidth} V ${middlePointY + pointHeight} H ${lastPointX} V ${middlePointY}`
+        const d6 = `M 0, ${lastPointY} H ${pointWidth} V ${viewBoxHeight} H 0 V ${lastPointY}`
+        const d7 = `M ${middlePointX}, ${lastPointY} H ${middlePointX + pointWidth} V ${viewBoxHeight} H ${middlePointX} V ${lastPointY}`
+        const d8 = `M ${lastPointX}, ${lastPointY} H ${viewBoxWidth} V ${viewBoxHeight} H ${lastPointX} V ${lastPointY}`
+        let selectedPoints = [
+            <path d={d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>
+        ]*/
+        let selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
+        let points = [
+            <path d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>,
+            <path d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="blue"/>
+        ]
+
         if (e.type === ElementType.rectangle) {
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <path data-elem-id={e.id} data-path-id={pathId} d={d} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
+                <path data-elem-id={e.id} data-path-id={pathId} data-points-id={pointsId} d={d} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                        strokeLinecap="square" fill={backgroundColor}
                       onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
-                      {/* поменять атрибут d у точек */}
-                <path d="M 0, 0 H 5 V 5 H 0 V 0" stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue" /*className="elem-path"*/ />
+                <svg id={pointsId} className="points_container">
+                    {points.map((point) => {
+                        return point
+                    })}
+                </svg>
             </svg>
         } else if (e.type === ElementType.ellipse) {
             const ellipsePoints = `M 1,${viewBoxHeight/2} A ${viewBoxWidth/2 - 1},${viewBoxHeight/2 - 1} 0 1, 1 1,${viewBoxHeight/2 + 0.1}`
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <path data-elem-id={e.id} data-path-id={pathId} d={ellipsePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
+                <path data-elem-id={e.id} data-path-id={pathId} data-points-id={pointsId} d={ellipsePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill={backgroundColor}
                       onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
+                <svg id={pointsId} className="points_container">
+                    {points.map((point) => {
+                        return point
+                    })}
+                </svg>
             </svg>
         } else if (e.type === ElementType.triangle) {
             const trianglePoints = `M ${viewBoxWidth/2} 0, L ${viewBoxWidth} ${viewBoxHeight - 1}, L 0 ${viewBoxHeight - 1}, L ${viewBoxWidth/2} 0`
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <path data-elem-id={e.id} data-path-id={pathId} d={trianglePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
+                <path data-elem-id={e.id} data-path-id={pathId} data-points-id={pointsId} d={trianglePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill={backgroundColor}
                       onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
+                <svg id={pointsId} className="points_container">
+                    {points.map((point) => {
+                        return point
+                    })}
+                </svg>
             </svg>
         } else if (e.type === ElementType.text) {
             const textStyle = (e as Text).textStyle
@@ -133,7 +215,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
             //проверить нужен ли viewBox для svg с текстом
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <text x="0" y="20" data-elem-id={e.id} data-path-id={pathId} fill={textColor}
+                <text x="0" y="20" data-elem-id={e.id} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
                       style={{font: font}} onClick={(evt) => selectElements(evt, e.id)}>{(e as Text).text}</text>
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
@@ -169,13 +251,37 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             }
 
             viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
+            selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
+            points = [
+                <path d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>
+            ]
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <image data-elem-id={e.id} data-path-id={pathId} href={image} x="0" y="0"
+                <image data-elem-id={e.id} data-path-id={pathId} data-points-id={pointsId} href={image} x="0" y="0"
                         onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth={strokeWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill="none" className="elem-path" />
+                <svg id={pointsId} className="points_container">
+                    {points.map((point) => {
+                        return point
+                    })}
+                </svg>
             </svg>
         }
         return e
