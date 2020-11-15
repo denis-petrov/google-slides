@@ -11,6 +11,7 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
 import TextFieldsIcon from '@material-ui/icons/TextFields'
 import CropOriginalIcon from '@material-ui/icons/CropOriginal'
 import GetAppRoundedIcon from '@material-ui/icons/GetAppRounded'
+import SlideshowRoundedIcon from '@material-ui/icons/SlideshowRounded'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {addEmptySlide} from '../functions/addEmptySlide'
@@ -27,7 +28,7 @@ import FormDialog from "./FomDialog"
 import {addToBackground} from "../functions/addToBackground"
 import {addElement} from "../functions/addElement"
 import ColorPickerLol from "./ColorPicker"
-import {createPdf} from "../functions/createPdf";
+import {createPdf} from "../functions/createPdf"
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -37,96 +38,105 @@ const imageToBackFiled = React.createRef<HTMLInputElement>()
 export default function Nav() {
     return (
         <div>
-            <AppBar position="static" className="nav">
-                <Toolbar variant="dense">
-                    <img src="/nav__logo.png" alt="logo" className="nav__file_icon" />
+            <div className="row nav__first_line">
+                <AppBar position="static" className="nav col col-lg-10">
+                    <Toolbar variant="dense">
+                        <img src="/nav__logo.png" alt="logo" className="nav__file_icon" />
 
-                    <div className="container-fluid">
-                        <div className="row">
-                            <input type="text" className="form-control nav__presentation_name" id="presentationName"
-                                   aria-describedby="emailHelp" placeholder="NEW PRESENTATION" value={getEditor().presentation.name}
-                                   onChange={(e) =>
-                                       dispatch(changeNamePresentation, e.target.value)
-                                   }
-                            />
+                        <div className="container-fluid">
+                            <div className="row">
+                                <input type="text" className="form-control nav__presentation_name" id="presentationName"
+                                       aria-describedby="emailHelp" placeholder="NEW PRESENTATION" value={getEditor().presentation.name}
+                                       onChange={(e) =>
+                                           dispatch(changeNamePresentation, e.target.value)
+                                       }
+                                />
+                            </div>
+                            <div className="row nav__menu_dropbox">
+                                <Dropdown>
+                                    <Dropdown.Toggle className="btn-light btn-sm dropbox__file dropbox__button" variant="success" id="dropdown-file">
+                                        File
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                        <div>
+                                            <label htmlFor="myfile" className="dropbox__open_data btn-sm button__onclick">Open</label>
+                                            <input
+                                                className="dropbox__open_button"
+                                                id="myfile"
+                                                name="myfile"
+                                                accept=".json"
+                                                onChange={(e) => openPresentationFromPc(e)}
+                                                ref={fileField}
+                                                type="file"
+                                            />
+                                        </div>
+
+                                        <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
+                                            savePresentationToPc(getEditor())
+                                        }}>Save</Dropdown.Item>
+                                        <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
+                                            createPdf().save(getEditor().presentation.name)
+                                        }}>Export to PDF</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+
+                                <Dropdown>
+                                    <Dropdown.Toggle className="btn-light btn-sm dropbox__insert dropbox__button"
+                                                     variant="success" id="dropdown-insert">
+                                        Insert
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item className="btn-sm button__onclick"
+                                                       onClick={() => {addSomeElement(DEFAULT_TRIANGLE)}}>
+                                            Triangle
+                                        </Dropdown.Item>
+                                        <Dropdown.Item className="btn-sm button__onclick"
+                                                       onClick={() => {addSomeElement(DEFAULT_ELLIPSE)}}>
+                                            Ellipse
+                                        </Dropdown.Item>
+                                        <Dropdown.Item className="btn-sm button__onclick"
+                                                       onClick={() => {addSomeElement(DEFAULT_RECTANGLE)}}>
+                                            Rectangle
+                                        </Dropdown.Item>
+                                        <Dropdown.Item className="btn-sm button__onclick"
+                                                       onClick={() => {addSomeElement(DEFAULT_TEXT)}}>
+                                            Text
+                                        </Dropdown.Item>
+                                        <Dropdown.Item className="btn-sm button__onclick">Image</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+
+                                <Dropdown>
+                                    <Dropdown.Toggle className="btn-light btn-sm dropbox__slide dropbox__button"
+                                                     variant="success" id="dropdown-slide">
+                                        Slide
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
+                                            dispatch(addEmptySlide, {})
+                                        }}>New slide</Dropdown.Item>
+                                        <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
+                                            dispatch(deleteSlides, {})
+                                        }}>
+                                            Delete slide
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
                         </div>
-                        <div className="row nav__menu_dropbox">
-                            <Dropdown>
-                                <Dropdown.Toggle className="btn-light btn-sm dropbox__file dropbox__button" variant="success" id="dropdown-file">
-                                    File
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    <div>
-                                        <label htmlFor="myfile" className="dropbox__open_data btn-sm button__onclick">Open</label>
-                                        <input
-                                            className="dropbox__open_button"
-                                            id="myfile"
-                                            name="myfile"
-                                            accept=".json"
-                                            onChange={(e) => openPresentationFromPc(e)}
-                                            ref={fileField}
-                                            type="file"
-                                        />
-                                    </div>
-
-                                    <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                        savePresentationToPc(getEditor())
-                                    }}>Save</Dropdown.Item>
-                                    <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                        createPdf().save(getEditor().presentation.name)
-                                    }}>Export</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-                            <Dropdown>
-                                <Dropdown.Toggle className="btn-light btn-sm dropbox__insert dropbox__button"
-                                                 variant="success" id="dropdown-insert">
-                                    Insert
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    <Dropdown.Item className="btn-sm button__onclick"
-                                                   onClick={() => {addSomeElement(DEFAULT_TRIANGLE)}}>
-                                        Triangle
-                                    </Dropdown.Item>
-                                    <Dropdown.Item className="btn-sm button__onclick"
-                                                   onClick={() => {addSomeElement(DEFAULT_ELLIPSE)}}>
-                                        Ellipse
-                                    </Dropdown.Item>
-                                    <Dropdown.Item className="btn-sm button__onclick"
-                                                   onClick={() => {addSomeElement(DEFAULT_RECTANGLE)}}>
-                                        Rectangle
-                                    </Dropdown.Item>
-                                    <Dropdown.Item className="btn-sm button__onclick"
-                                                   onClick={() => {addSomeElement(DEFAULT_TEXT)}}>
-                                        Text
-                                    </Dropdown.Item>
-                                    <Dropdown.Item className="btn-sm button__onclick">Image</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-                            <Dropdown>
-                                <Dropdown.Toggle className="btn-light btn-sm dropbox__slide dropbox__button"
-                                                 variant="success" id="dropdown-slide">
-                                    Slide
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                        dispatch(addEmptySlide, {})
-                                    }}>New slide</Dropdown.Item>
-                                    <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                        dispatch(deleteSlides, {})
-                                    }}>
-                                        Delete slide
-                                    </Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
-                    </div>
-                </Toolbar>
-            </AppBar>
+                    </Toolbar>
+                </AppBar>
+                <div className="col col-lg-2 text-center">
+                    <button type="button" className="btn btn-sm button__onclick dropbox__button button__show" onClick={() => {
+                        createPdf().save(getEditor().presentation.name)
+                    }}>
+                        <SlideshowRoundedIcon /> Show
+                    </button>
+                </div>
+            </div>
             <hr className="nav__hr"/>
             <AppBar position="static" className="nav">
                 <Toolbar variant="dense">
