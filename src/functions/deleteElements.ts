@@ -1,4 +1,6 @@
 import {Editor} from '../entities/Editor'
+import {changeVisibilityTextStyleMenu} from "./changeVisibilityTextStyleMenu";
+import {ElementType} from "../entities/Elements";
 
 export function deleteElements(editor: Editor): Editor {
     return {
@@ -10,7 +12,11 @@ export function deleteElements(editor: Editor): Editor {
                 {
                     return {
                         ...s,
-                        elements: s.elements.filter(elem => {return !s.selectionElementsId.includes(elem.id)}),
+                        elements: s.elements.filter(elem => {
+                            if (elem.type == ElementType.text) {
+                                changeVisibilityTextStyleMenu(false)
+                            }
+                            return !s.selectionElementsId.includes(elem.id)}),
                         selectionElementsId: []
                     }
                 }

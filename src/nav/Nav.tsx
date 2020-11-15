@@ -12,6 +12,7 @@ import TextFieldsIcon from '@material-ui/icons/TextFields'
 import CropOriginalIcon from '@material-ui/icons/CropOriginal'
 import GetAppRoundedIcon from '@material-ui/icons/GetAppRounded'
 import SlideshowRoundedIcon from '@material-ui/icons/SlideshowRounded'
+import ArrowDropDownRoundedIcon from '@material-ui/icons/ArrowDropDownRounded'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {addEmptySlide} from '../functions/addEmptySlide'
@@ -38,7 +39,7 @@ const imageToBackFiled = React.createRef<HTMLInputElement>()
 export default function Nav() {
     return (
         <div>
-            <div className="row nav__first_line">
+            <div className="row nav__line">
                 <AppBar position="static" className="nav col col-lg-10">
                     <Toolbar variant="dense">
                         <img src="/nav__logo.png" alt="logo" className="nav__file_icon" />
@@ -137,7 +138,9 @@ export default function Nav() {
                     </button>
                 </div>
             </div>
+
             <hr className="nav__hr"/>
+
             <AppBar position="static" className="nav">
                 <Toolbar variant="dense">
                     <button type="button" className="btn btn-sm button__onclick dropbox__button" onClick={() => {
@@ -253,6 +256,29 @@ export default function Nav() {
                         </Dropdown.Menu>
                     </Dropdown>
 
+                    <div className="vertical_separator">&nbsp;</div>
+
+                    <div id="edit_style_text" className="hidden">
+                        <Dropdown>
+                            <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                             variant="success" id="dropdown-slide">
+                                Font <ArrowDropDownRoundedIcon />
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
+                                    dispatch(addEmptySlide, {})
+                                }}>
+                                    Times New Roman
+                                </Dropdown.Item>
+                                <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
+                                    dispatch(deleteSlides, {})
+                                }}>
+                                    Delete slide
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
                 </Toolbar>
             </AppBar>
             <hr className="second_nav__hr"/>

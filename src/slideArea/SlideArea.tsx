@@ -5,6 +5,7 @@ import {ElementType, ImageElement, Text} from '../entities/Elements'
 import {Slide} from "../entities/Slide"
 import {chooseElements} from "../functions/chooseElements"
 import {Color, isColor} from "../entities/Color"
+import {changeVisibilityTextStyleMenu} from "../functions/changeVisibilityTextStyleMenu";
 
 export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget
@@ -53,7 +54,12 @@ export function selectElements(event: any, id: string) {
         clickedElem.classList.toggle(elemClassName)
         if (elemPath) {
             elemPath.classList.add(pathClassName)
+        }
 
+        if (clickedElem.tagName === 'text') {
+            changeVisibilityTextStyleMenu(true)
+        } else {
+            changeVisibilityTextStyleMenu(false)
         }
     }
 }

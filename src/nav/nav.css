@@ -3,7 +3,7 @@
     box-shadow: none !important;
 }
 
-.nav__first_line {
+.nav__line {
     margin-right: 0 !important;
     margin-left: 0 !important;
 }
@@ -167,4 +167,12 @@ nav__menu:hover {
 
 .dropbox_color_picker__button {
     margin-bottom: 8px;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
 }
