@@ -223,6 +223,8 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         } else if (e.type === ElementType.image) {
             let strokeWidth = '.5%'
             const image = (e as ImageElement).link
+            let prevWidth = width
+            let prevHeight = height
             if (width > height) {
                 if (width >= 100) {
                     viewBoxWidth = width
@@ -251,7 +253,12 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             }
 
             viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
-            selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
+            if (width >= 100 || height >= 100) {
+                selectedPoints = getSelectedPoints(width, height, prevWidth, prevHeight)
+            } else {
+                selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
+            }
+
             points = [
                 <path d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" fill="blue"/>,

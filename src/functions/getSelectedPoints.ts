@@ -1,8 +1,12 @@
 import React from "react";
 
 export function getSelectedPoints(width: number, height: number, viewBoxWidth: number, viewBoxHeight: number) {
-    const pointWidth = 10
     const pointHeight = Math.floor(width/9*16/height*viewBoxHeight/width*100)/100
+    let pointWidth = 10
+    if ((width >= 100 || height >= 100) || (viewBoxHeight/9*16 < viewBoxWidth)) {
+        pointWidth = pointHeight
+    }
+
     const middlePointX = viewBoxWidth/2 - pointWidth/2
     const middlePointY = viewBoxHeight/2 - pointHeight/2
     const lastPointX = viewBoxWidth - pointWidth
