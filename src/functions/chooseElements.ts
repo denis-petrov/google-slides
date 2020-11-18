@@ -1,10 +1,6 @@
 import {Editor} from '../entities/Editor'
 
-export {
-    chooseElements
-}
-
-function chooseElements(editor: Editor, listElementsId: Array<string>): Editor {
+export function chooseElements(editor: Editor, listElementsId: Array<string>): Editor {
     return {
         ...editor,
         presentation: {

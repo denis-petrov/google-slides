@@ -30,6 +30,7 @@ import {addToBackground} from "../functions/addToBackground"
 import {addElement} from "../functions/addElement"
 import ColorPickerLol from "./ColorPicker"
 import {createPdf} from "../functions/createPdf"
+import {changeTextFont} from "../functions/changeTextFont";
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -262,23 +263,76 @@ export default function Nav() {
                         <Dropdown>
                             <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
                                              variant="success" id="dropdown-slide">
-                                Font <ArrowDropDownRoundedIcon />
+                                <div className="edit_style_text__font" id="edit_style_text__font">Font <ArrowDropDownRoundedIcon /></div>
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                    dispatch(addEmptySlide, {})
+                                <Dropdown.Item className="btn-sm button__onclick edit_style_text__time_new_roman" onClick={() => {
+                                    dispatch(changeTextFont, 'Times New Roman')
                                 }}>
                                     Times New Roman
                                 </Dropdown.Item>
-                                <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                    dispatch(deleteSlides, {})
+                                <Dropdown.Item className="btn-sm button__onclick edit_style_text__roboto" onClick={() => {
+                                    dispatch(changeTextFont, 'Roboto')
                                 }}>
-                                    Delete slide
+                                    Roboto
+                                </Dropdown.Item>
+                                <Dropdown.Item className="btn-sm button__onclick edit_style_text__arial" onClick={() => {
+                                    dispatch(changeTextFont, 'Arial')
+                                }}>
+                                    Arial
+                                </Dropdown.Item>
+                                <Dropdown.Item className="btn-sm button__onclick edit_style_text__cambria" onClick={() => {
+                                    dispatch(changeTextFont, 'Cambria')
+                                }}>
+                                    Cambria
+                                </Dropdown.Item>
+                                <Dropdown.Item className="btn-sm button__onclick edit_style_text__samanata" onClick={() => {
+                                    dispatch(changeTextFont, 'Samanata')
+                                }}>
+                                    Samanata
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <div className="vertical_separator">&nbsp;</div>
+                    </div>
+                    <div id="edit_style_text" className="hidden">
+                        <Dropdown>
+                            <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                             variant="success" id="dropdown-slide">
+                                <div className="edit_style_text__font" id="edit_style_text__font">Font <ArrowDropDownRoundedIcon /></div>
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item className="btn-sm button__onclick edit_style_text__time_new_roman" onClick={() => {
+                                    dispatch(changeTextFont, 'Times New Roman')
+                                }}>
+                                    Times New Roman
+                                </Dropdown.Item>
+                                <Dropdown.Item className="btn-sm button__onclick edit_style_text__roboto" onClick={() => {
+                                    dispatch(changeTextFont, 'Roboto')
+                                }}>
+                                    Roboto
+                                </Dropdown.Item>
+                                <Dropdown.Item className="btn-sm button__onclick edit_style_text__arial" onClick={() => {
+                                    dispatch(changeTextFont, 'Arial')
+                                }}>
+                                    Arial
+                                </Dropdown.Item>
+                                <Dropdown.Item className="btn-sm button__onclick edit_style_text__cambria" onClick={() => {
+                                    dispatch(changeTextFont, 'Cambria')
+                                }}>
+                                    Cambria
+                                </Dropdown.Item>
+                                <Dropdown.Item className="btn-sm button__onclick edit_style_text__samanata" onClick={() => {
+                                    dispatch(changeTextFont, 'Samanata')
+                                }}>
+                                    Samanata
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
+
                 </Toolbar>
             </AppBar>
             <hr className="second_nav__hr"/>
