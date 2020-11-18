@@ -56,6 +56,20 @@ export function selectElements(event: any, id: string) {
         }
     } else {
         dispatch(chooseElements, [id], false)
+        let allSelectedElemsPaths = document.getElementsByClassName(pathClassName)
+        while(allSelectedElemsPaths[0]) {
+            if (allSelectedElemsPaths[0].classList.contains(pathClassName)) {
+                allSelectedElemsPaths[0].classList.remove(pathClassName)
+            }
+        }
+
+        let allSelectedElemsPoints = document.getElementsByClassName(pointsClassName)
+        while(allSelectedElemsPoints[0]) {
+            if (allSelectedElemsPoints[0].classList.contains(pointsClassName)) {
+                allSelectedElemsPoints[0].classList.remove(pointsClassName)
+            }
+        }
+
         let allSelectedElems = document.getElementsByClassName(elemClassName)
         while(allSelectedElems[0]) {
             if (allSelectedElems[0].classList.contains(elemClassName)) {
