@@ -35,7 +35,7 @@ export function removeSelectOfElement(evt: any) {
             }
         }
 
-        dispatch(chooseElements, new Array<number>())
+        dispatch(chooseElements, new Array<number>(), false)
         changeVisibilityTextStyleMenu(false)
     }
 
