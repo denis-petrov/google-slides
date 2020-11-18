@@ -2,7 +2,7 @@ import {dispatch} from "../stateManager/StateManager";
 import {chooseElements} from "./chooseElements";
 import {changeVisibilityTextStyleMenu} from "./changeVisibilityTextStyleMenu";
 
-export function removeSelectOfElement(evt: MouseEvent) {
+export function removeSelectOfElement(evt: any) {
     let clickedElem = evt.target as HTMLElement
     let slideArea = document.getElementById('slide-area')
     let pathClassName = 'elem-path_active'

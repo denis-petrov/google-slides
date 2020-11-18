@@ -80,10 +80,36 @@ export function selectElements(event: any, id: string) {
     }
 }
 
+export function moveElements(event: any) {
+    let isMoveElements = false
+    let editor = getEditor()
+    editor.presentation.slides.map(s => {
+        if (editor.selectionSlidesId.includes(s.id)) {
+            let selectedElements = []
+            for (let i = 0; i < s.selectionElementsId.length; i++) {
+                selectedElements.push(document.getElementById(s.selectionElementsId[i]))
+            }
+
+            let itsSelectedElements = []
+            for (let i = 0; i < selectedElements.length; i++) {
+                if (selectedElements[i]) {
+                    itsSelectedElements.push(event.target === selectedElements[i] || (selectedElements[i] as HTMLElement).contains(event.target as Node))
+                }
+            }
+
+            if (itsSelectedElements.includes(true)) {
+                isMoveElements = true
+            }
+        }
+    })
+
+    return isMoveElements
+}
+
 export function getElements(s: Slide, isIdNeeded: boolean = true) {
     return s.elements.map(e => {
-        let width = e.bottomRightPoint.x - e.topLeftPoint.x
-        let height = e.bottomRightPoint.y - e.topLeftPoint.y
+        let width = Math.round((e.bottomRightPoint.x - e.topLeftPoint.x)*100)/100
+        let height = Math.round((e.bottomRightPoint.y - e.topLeftPoint.y)*100)/100
         let borderColor = `rgb(${e.borderColor.red},${e.borderColor.green},${e.borderColor.blue}`
         let backgroundColor = 'rgb(255, 255, 255)'
         if (e.backgroundColor) {
@@ -92,6 +118,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
         let pathId
         let pointsId
+        let elemId
         let viewBoxWidth = (e.bottomRightPoint.x - e.topLeftPoint.x) * 10
         let viewBoxHeight = Math.floor(Math.abs(((e.bottomRightPoint.y - e.topLeftPoint.y) -
             Math.floor((e.bottomRightPoint.x - e.topLeftPoint.x)/9*16*100)/100) * 10) * 100) / 100
@@ -104,6 +131,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         let viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
         let d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
         if (isIdNeeded) {
+            elemId = e.id
             pathId = 'slide_' + s.id + '_element_' + e.id
             pointsId = 'slide_' + s.id + '_points_' + e.id
         }
@@ -112,38 +140,6 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             backgroundColor = 'rgb(' + e.backgroundColor.red + ', ' + e.backgroundColor.green + ', ' + e.backgroundColor.blue +')'
         }
 
-       /* const pointWidth = 10
-        const pointHeight = Math.floor(width/9*16/height*viewBoxHeight/width*100)/100
-        const middlePointX = viewBoxWidth/2 - pointWidth/2
-        const middlePointY = viewBoxHeight/2 - pointHeight/2
-        const lastPointX = viewBoxWidth - pointWidth
-        const lastPointY = viewBoxHeight - pointHeight
-        const d1 = `M 0, 0 H ${pointWidth} V ${pointHeight} H 0 V 0`
-        const d2 = `M ${middlePointX}, 0 H ${middlePointX + pointWidth} V ${pointHeight} H ${middlePointX} V 0`
-        const d3 = `M ${lastPointX}, 0 H ${viewBoxWidth} V ${pointHeight} H ${lastPointX} V 0`
-        const d4 = `M 0, ${middlePointY} H ${pointWidth} V ${middlePointY + pointHeight} H 0 V ${middlePointY}`
-        const d5 = `M ${lastPointX}, ${middlePointY} H ${viewBoxWidth} V ${middlePointY + pointHeight} H ${lastPointX} V ${middlePointY}`
-        const d6 = `M 0, ${lastPointY} H ${pointWidth} V ${viewBoxHeight} H 0 V ${lastPointY}`
-        const d7 = `M ${middlePointX}, ${lastPointY} H ${middlePointX + pointWidth} V ${viewBoxHeight} H ${middlePointX} V ${lastPointY}`
-        const d8 = `M ${lastPointX}, ${lastPointY} H ${viewBoxWidth} V ${viewBoxHeight} H ${lastPointX} V ${lastPointY}`
-        let selectedPoints = [
-            <path d={d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
-            <path d={d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
-            <path d={d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
-            <path d={d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
-            <path d={d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
-            <path d={d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
-            <path d={d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
-            <path d={d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>
-        ]*/
         let selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
         let points = [
             <path d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
@@ -167,7 +163,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         if (e.type === ElementType.rectangle) {
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <path data-elem-id={e.id} data-path-id={pathId} data-points-id={pointsId} d={d} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
+                <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={d} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                        strokeLinecap="square" fill={backgroundColor}
                       onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
@@ -182,7 +178,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const ellipsePoints = `M 1,${viewBoxHeight/2} A ${viewBoxWidth/2 - 1},${viewBoxHeight/2 - 1} 0 1, 1 1,${viewBoxHeight/2 + 0.1}`
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <path data-elem-id={e.id} data-path-id={pathId} data-points-id={pointsId} d={ellipsePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
+                <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={ellipsePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill={backgroundColor}
                       onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
@@ -197,7 +193,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const trianglePoints = `M ${viewBoxWidth/2} 0, L ${viewBoxWidth} ${viewBoxHeight - 1}, L 0 ${viewBoxHeight - 1}, L ${viewBoxWidth/2} 0`
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <path data-elem-id={e.id} data-path-id={pathId} data-points-id={pointsId} d={trianglePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
+                <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={trianglePoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill={backgroundColor}
                       onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
@@ -215,7 +211,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
             //проверить нужен ли viewBox для svg с текстом
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <text x="0" y="20" data-elem-id={e.id} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
+                <text x="0" y="20" id={elemId} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
                       style={{font: font}} onClick={(evt) => selectElements(evt, e.id)}>{(e as Text).text}</text>
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
@@ -280,7 +276,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <image data-elem-id={e.id} data-path-id={pathId} data-points-id={pointsId} href={image} x="0" y="0"
+                <image id={elemId} data-path-id={pathId} data-points-id={pointsId} href={image} x="0" y="0"
                         onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth={strokeWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill="none" className="elem-path" />

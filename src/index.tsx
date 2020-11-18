@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import {dispatch, reDo, unDo} from './stateManager/StateManager'
+import {dispatch, getEditor, reDo, unDo} from './stateManager/StateManager'
 import {deleteElements} from "./functions/deleteElements"
 import {removeSelectOfElement} from "./functions/removeSelectOfElements"
+import {moveElements} from "./slideArea/SlideArea";
+import {changePositionOfElements} from "./functions/changePositionOfElements";
+import {mouseMoveElements} from "./functions/mouseMoveElements";
+import {endMoveElements} from "./functions/endMoveElements";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -28,6 +32,28 @@ window.addEventListener('keydown', (e: KeyboardEvent) => {
 
 window.addEventListener('click', (evt) => {
     removeSelectOfElement(evt)
+})
+
+let isMoveElements: boolean
+let firstPosX: number
+let firstPosY: number
+
+window.addEventListener('mousedown', (evt) => {
+    firstPosX = evt.clientX
+    firstPosY = evt.clientY
+    isMoveElements = moveElements(evt)
+})
+
+window.addEventListener('mousemove', (evt) => {
+    if (isMoveElements) {
+        mouseMoveElements(evt, firstPosX, firstPosY)
+    }
+});
+
+window.addEventListener('mouseup', (evt) => {
+    if (isMoveElements) {
+        isMoveElements = endMoveElements(isMoveElements)
+    }
 })
 
 

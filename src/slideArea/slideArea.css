@@ -12,6 +12,7 @@
 }
 
 .workspace {
+    overflow: hidden;
     width: 60vw;
     height: 33.75vw;
     margin: auto 0;
@@ -28,6 +29,7 @@
 
 .element_choosed {
     stroke: #007bff;
+    cursor: move;
 }
 
 .elem-path {
