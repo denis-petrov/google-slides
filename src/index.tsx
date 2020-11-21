@@ -32,11 +32,11 @@ let firstPosX: number
 let firstPosY: number
 
 window.addEventListener('mousedown', (evt) => {
-    removeSelectOfElement(evt)
-
     firstPosX = evt.clientX
     firstPosY = evt.clientY
     isMoveElements = moveElements(evt)
+
+    removeSelectOfElement(evt)
 })
 
 window.addEventListener('mousemove', (evt) => {

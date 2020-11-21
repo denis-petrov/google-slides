@@ -45,7 +45,7 @@ export function selectElements(event: any, id: string) {
             let allSelectedElems = document.getElementsByClassName(elemClassName)
             for (let i = 0; i < allSelectedElems.length; i++) {
                 if (allSelectedElems[i].classList.contains(elemClassName)) {
-                    let selectedElemId = allSelectedElems[i].getAttribute('data-elem-id')
+                    let selectedElemId = allSelectedElems[i].id
                     if (selectedElemId) {
                         selectedElems.push(selectedElemId)
                     }
@@ -55,41 +55,44 @@ export function selectElements(event: any, id: string) {
             dispatch(chooseElements, selectedElems, false)
         }
     } else {
-        dispatch(chooseElements, [id], false)
-        let allSelectedElemsPaths = document.getElementsByClassName(pathClassName)
-        while (allSelectedElemsPaths[0]) {
-            if (allSelectedElemsPaths[0].classList.contains(pathClassName)) {
-                allSelectedElemsPaths[0].classList.remove(pathClassName)
+        if (!clickedElem.classList.contains(elemClassName)) {
+            let allSelectedElemsPaths = document.getElementsByClassName(pathClassName)
+            while (allSelectedElemsPaths[0]) {
+                if (allSelectedElemsPaths[0].classList.contains(pathClassName)) {
+                    allSelectedElemsPaths[0].classList.remove(pathClassName)
+                }
             }
-        }
 
-        let allSelectedElemsPoints = document.getElementsByClassName(pointsClassName)
-        while (allSelectedElemsPoints[0]) {
-            if (allSelectedElemsPoints[0].classList.contains(pointsClassName)) {
-                allSelectedElemsPoints[0].classList.remove(pointsClassName)
+            let allSelectedElemsPoints = document.getElementsByClassName(pointsClassName)
+            while (allSelectedElemsPoints[0]) {
+                if (allSelectedElemsPoints[0].classList.contains(pointsClassName)) {
+                    allSelectedElemsPoints[0].classList.remove(pointsClassName)
+                }
             }
-        }
 
-        let allSelectedElems = document.getElementsByClassName(elemClassName)
-        while (allSelectedElems[0]) {
-            if (allSelectedElems[0].classList.contains(elemClassName)) {
-                allSelectedElems[0].classList.remove(elemClassName)
+            let allSelectedElements = document.getElementsByClassName(elemClassName)
+            while (allSelectedElements[0]) {
+                if (allSelectedElements[0].classList.contains(elemClassName)) {
+                    allSelectedElements[0].classList.remove(elemClassName)
+                }
             }
-        }
 
-        clickedElem.classList.toggle(elemClassName)
-        if (elemPath) {
-            elemPath.classList.add(pathClassName)
-        }
+            clickedElem.classList.toggle(elemClassName)
+            if (elemPath) {
+                elemPath.classList.add(pathClassName)
+            }
 
-        if (elemPoints) {
-            elemPoints.classList.add(pointsClassName)
-        }
+            if (elemPoints) {
+                elemPoints.classList.add(pointsClassName)
+            }
 
-        if (clickedElem.tagName === 'text') {
-            changeTextStyleMenu(true)
-        } else {
-            changeTextStyleMenu(false)
+            if (clickedElem.tagName === 'text') {
+                changeTextStyleMenu(true)
+            } else {
+                changeTextStyleMenu(false)
+            }
+
+            dispatch(chooseElements, [id], false)
         }
     }
 }
@@ -270,7 +273,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 <image id={elemId} data-path-id={pathId} data-points-id={pointsId} href={image} x="0" y="0"
                        onClick={(evt) => selectElements(evt, e.id)}/>
                 <path id={pathId} d={d} stroke="blue" strokeWidth={strokeWidth} strokeLinejoin="miter"
-                      strokeLinecap="square" fill="none" className="elem-path"/>
+                      strokeLinecap="square" strokeDasharray="5%, 5%" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
                         return point
