@@ -1,6 +1,6 @@
-import {dispatch} from "../stateManager/StateManager";
-import {chooseElements} from "./chooseElements";
-import {changeVisibilityTextStyleMenu} from "./changeVisibilityTextStyleMenu";
+import {dispatch} from "../stateManager/StateManager"
+import {chooseElements} from "./chooseElements"
+import {changeTextStyleMenu} from "./changeTextStyleMenu"
 
 export function removeSelectOfElement(evt: any) {
     let clickedElem = evt.target as HTMLElement
@@ -36,8 +36,6 @@ export function removeSelectOfElement(evt: any) {
         }
 
         dispatch(chooseElements, new Array<number>(), false)
-        changeVisibilityTextStyleMenu(false)
+        changeTextStyleMenu(false)
     }
-
-
 }

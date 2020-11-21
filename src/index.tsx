@@ -3,18 +3,15 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import {dispatch, getEditor, reDo, unDo} from './stateManager/StateManager'
+import {dispatch, reDo, unDo} from './stateManager/StateManager'
 import {deleteElements} from "./functions/deleteElements"
 import {removeSelectOfElement} from "./functions/removeSelectOfElements"
-import {moveElements} from "./slideArea/SlideArea";
-import {changePositionOfElements} from "./functions/changePositionOfElements";
-import {mouseMoveElements} from "./functions/mouseMoveElements";
-import {endMoveElements} from "./functions/endMoveElements";
+import {moveElements} from "./slideArea/SlideArea"
+import {mouseMoveElements} from "./functions/mouseMoveElements"
+import {endMoveElements} from "./functions/endMoveElements"
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
+    <App/>,
     document.getElementById('root')
 )
 

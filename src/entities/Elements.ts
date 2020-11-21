@@ -1,4 +1,3 @@
-import {TextStyle} from './TextStyle'
 import {Point} from './Point'
 import {Color} from './Color'
 
@@ -36,6 +35,15 @@ type Text = Element & {
     text: string,
     textStyle: TextStyle,
     type: ElementType.text,
+}
+
+type TextStyle = {
+    font: string,
+    sizeFont: number,
+    color: Color,
+    align: string,
+    isBold: boolean,
+    isCurve: boolean
 }
 
 type ImageElement = Element & {

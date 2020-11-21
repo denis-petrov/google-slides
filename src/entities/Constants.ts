@@ -123,10 +123,10 @@ const DEFAULT_TEXT: Text = {
     text: 'Text',
     textStyle: {
         font: 'Arial',
-        sizeFont: 16,
+        sizeFont: 40,
         color: {
             red: 0,
-            green: 255,
+            green: 0,
             blue: 0
         },
         align: 'Left',

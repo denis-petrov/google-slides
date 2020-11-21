@@ -5,8 +5,8 @@ import {ElementType, ImageElement, Text} from '../entities/Elements'
 import {Slide} from "../entities/Slide"
 import {chooseElements} from "../functions/chooseElements"
 import {Color, isColor} from "../entities/Color"
-import {changeVisibilityTextStyleMenu} from "../functions/changeVisibilityTextStyleMenu";
-import {getSelectedPoints} from "../functions/getSelectedPoints";
+import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
+import {getSelectedPoints} from "../functions/getSelectedPoints"
 
 export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget
@@ -57,21 +57,21 @@ export function selectElements(event: any, id: string) {
     } else {
         dispatch(chooseElements, [id], false)
         let allSelectedElemsPaths = document.getElementsByClassName(pathClassName)
-        while(allSelectedElemsPaths[0]) {
+        while (allSelectedElemsPaths[0]) {
             if (allSelectedElemsPaths[0].classList.contains(pathClassName)) {
                 allSelectedElemsPaths[0].classList.remove(pathClassName)
             }
         }
 
         let allSelectedElemsPoints = document.getElementsByClassName(pointsClassName)
-        while(allSelectedElemsPoints[0]) {
+        while (allSelectedElemsPoints[0]) {
             if (allSelectedElemsPoints[0].classList.contains(pointsClassName)) {
                 allSelectedElemsPoints[0].classList.remove(pointsClassName)
             }
         }
 
         let allSelectedElems = document.getElementsByClassName(elemClassName)
-        while(allSelectedElems[0]) {
+        while (allSelectedElems[0]) {
             if (allSelectedElems[0].classList.contains(elemClassName)) {
                 allSelectedElems[0].classList.remove(elemClassName)
             }
@@ -87,9 +87,9 @@ export function selectElements(event: any, id: string) {
         }
 
         if (clickedElem.tagName === 'text') {
-            changeVisibilityTextStyleMenu(true)
+            changeTextStyleMenu(true)
         } else {
-            changeVisibilityTextStyleMenu(false)
+            changeTextStyleMenu(false)
         }
     }
 }
@@ -122,8 +122,8 @@ export function moveElements(event: any) {
 
 export function getElements(s: Slide, isIdNeeded: boolean = true) {
     return s.elements.map(e => {
-        let width = Math.round((e.bottomRightPoint.x - e.topLeftPoint.x)*100)/100
-        let height = Math.round((e.bottomRightPoint.y - e.topLeftPoint.y)*100)/100
+        let width = Math.round((e.bottomRightPoint.x as number - e.topLeftPoint.x as number) * 100) / 100
+        let height = Math.round((e.bottomRightPoint.y - e.topLeftPoint.y) * 100) / 100
         let borderColor = `rgb(${e.borderColor.red},${e.borderColor.green},${e.borderColor.blue}`
         let backgroundColor = 'rgb(255, 255, 255)'
         if (e.backgroundColor) {
@@ -135,10 +135,10 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         let elemId
         let viewBoxWidth = (e.bottomRightPoint.x - e.topLeftPoint.x) * 10
         let viewBoxHeight = Math.floor(Math.abs(((e.bottomRightPoint.y - e.topLeftPoint.y) -
-            Math.floor((e.bottomRightPoint.x - e.topLeftPoint.x)/9*16*100)/100) * 10) * 100) / 100
+            Math.floor((e.bottomRightPoint.x - e.topLeftPoint.x) / 9 * 16 * 100) / 100) * 10) * 100) / 100
         if (viewBoxHeight === 0) {
             viewBoxHeight = viewBoxWidth
-        } else if ((e.bottomRightPoint.x - e.topLeftPoint.x)/9*16 < (e.bottomRightPoint.y - e.topLeftPoint.y)) {
+        } else if ((e.bottomRightPoint.x - e.topLeftPoint.x) / 9 * 16 < (e.bottomRightPoint.y - e.topLeftPoint.y)) {
             viewBoxHeight += viewBoxWidth
         }
 
@@ -152,7 +152,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         }
 
         if (e.backgroundColor) {
-            backgroundColor = 'rgb(' + e.backgroundColor.red + ', ' + e.backgroundColor.green + ', ' + e.backgroundColor.blue +')'
+            backgroundColor = 'rgb(' + e.backgroundColor.red + ', ' + e.backgroundColor.green + ', ' + e.backgroundColor.blue + ')'
         }
 
         let selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
@@ -200,11 +200,12 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
 
             //проверить нужен ли viewBox для svg с текстом
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width + '%'} height={height + '%'}
+                        preserveAspectRatio="none" key={e.id}>
                 <text x="0" y="20" id={elemId} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
                       style={{font: font}} onClick={(evt) => selectElements(evt, e.id)}>{(e as Text).text}</text>
-                <path id={pathId} d={d} stroke="blue" strokeWidth="1"  strokeLinejoin="miter"
-                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
+                <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
             </svg>
         } else if (e.type === ElementType.image) {
             let strokeWidth = '.5%'
@@ -215,25 +216,25 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 if (width >= 100) {
                     viewBoxWidth = width
                     d = `M 0, 0 H ${viewBoxWidth} V ${height} H 0 V 0`
-                    viewBoxHeight = Math.floor(width/16*9*100)/100
+                    viewBoxHeight = Math.floor(width / 16 * 9 * 100) / 100
                     width = 100
                     height = 100
                 } else {
                     strokeWidth = '1%'
-                    width = Math.floor(width*10/16*9/10*100)/100
-                    viewBoxHeight = Math.floor(height*10)
+                    width = Math.floor(width * 10 / 16 * 9 / 10 * 100) / 100
+                    viewBoxHeight = Math.floor(height * 10)
                     d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
                 }
             } else {
                 if (height >= 100) {
-                    viewBoxWidth = Math.floor(height/9*16*100)/100
+                    viewBoxWidth = Math.floor(height / 9 * 16 * 100) / 100
                     viewBoxHeight = height
                     d = `M 0, 0 H ${width} V ${viewBoxHeight} H 0 V 0`
                     width = 100
                     height = 100
                 } else {
                     strokeWidth = '1%'
-                    viewBoxHeight = Math.floor(height*10/16*9*100)/100
+                    viewBoxHeight = Math.floor(height * 10 / 16 * 9 * 100) / 100
                     d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
                 }
             }
@@ -267,9 +268,9 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <image id={elemId} data-path-id={pathId} data-points-id={pointsId} href={image} x="0" y="0"
-                        onClick={(evt) => selectElements(evt, e.id)} />
+                       onClick={(evt) => selectElements(evt, e.id)}/>
                 <path id={pathId} d={d} stroke="blue" strokeWidth={strokeWidth} strokeLinejoin="miter"
-                      strokeLinecap="square" fill="none" className="elem-path" />
+                      strokeLinecap="square" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
                         return point
@@ -307,7 +308,7 @@ export default function SlideArea() {
     return (
         <div id="slide-area" className='slide-area'>
             <svg className={'workspace'} style={{background: `0 0 / cover ${getSlideBackground()}`}}>
-                { elements }
+                {elements}
             </svg>
         </div>
     )

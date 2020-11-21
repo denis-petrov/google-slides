@@ -1,5 +1,5 @@
 import React from 'react'
-import {AppBar, Toolbar} from '@material-ui/core'
+import {AppBar, TextField, Toolbar} from '@material-ui/core'
 import {Dropdown} from 'react-bootstrap'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
@@ -30,6 +30,10 @@ import {addToBackground} from "../functions/addToBackground"
 import {addElement} from "../functions/addElement"
 import ColorPickerLol from "./ColorPicker"
 import {createPdf} from "../functions/createPdf"
+import {changeTextFont} from "../functions/changeTextFont"
+import {changeTextSize} from "../functions/changeTextSize"
+import ColorPicker from "react-pick-color"
+import {changeTextColor} from "../functions/changeTextColor"
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -37,6 +41,10 @@ const imageFiled = React.createRef<HTMLInputElement>()
 const imageToBackFiled = React.createRef<HTMLInputElement>()
 
 export default function Nav() {
+    const [font, setFont] = React.useState('Arial')
+    const [size, setSize] = React.useState('40')
+    const [color, setColor] = React.useState('#000000')
+
     return (
         <div>
             <div className="row nav__line">
@@ -256,29 +264,89 @@ export default function Nav() {
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    <div className="vertical_separator">&nbsp;</div>
+                    {/* separator */}
+                    <div id="edit_style_text_sep_0" className="vertical_separator hidden">&nbsp;</div>
 
-                    <div id="edit_style_text" className="hidden">
-                        <Dropdown>
-                            <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
-                                             variant="success" id="dropdown-slide">
-                                Font <ArrowDropDownRoundedIcon />
-                            </Dropdown.Toggle>
+                    {/* font */}
+                    <Dropdown id="edit_style_text_font" className="hidden">
+                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                         variant="success" id="dropdown-slide">
+                            <div id="font_text" className="edit_style_text__font">{font} <ArrowDropDownRoundedIcon /></div>
+                        </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
-                                <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                    dispatch(addEmptySlide, {})
-                                }}>
-                                    Times New Roman
-                                </Dropdown.Item>
-                                <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                    dispatch(deleteSlides, {})
-                                }}>
-                                    Delete slide
-                                </Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <Dropdown.Menu>
+                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__time_new_roman" onClick={() => {
+                                setFont('Times New Roman')
+                                dispatch(changeTextFont, 'Times New Roman')
+                            }}>
+                                Times New Roman
+                            </Dropdown.Item>
+                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__roboto" onClick={() => {
+                                setFont('Roboto')
+                                dispatch(changeTextFont, 'Roboto')
+                            }}>
+                                Roboto
+                            </Dropdown.Item>
+                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__arial" onClick={() => {
+                                setFont('Arial')
+                                dispatch(changeTextFont, 'Arial')
+                            }}>
+                                Arial
+                            </Dropdown.Item>
+                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__cambria" onClick={() => {
+                                setFont('Cambria')
+                                dispatch(changeTextFont, 'Cambria')
+                            }}>
+                                Cambria
+                            </Dropdown.Item>
+                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__samanata" onClick={() => {
+                                setFont('Samanata')
+                                dispatch(changeTextFont, 'Samanata')
+                            }}>
+                                Samanata
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+
+                    {/* separator */}
+                    <div id="edit_style_text_sep_1" className="vertical_separator hidden">&nbsp;</div>
+
+                    {/* Size */}
+                    <div id="edit_style_text_size" className="hidden edit_style_text_size">
+                        <TextField
+                            size="small"
+                            inputProps={{min: 0, style: { textAlign: 'center' }}}
+                            placeholder={size}
+                            type="number"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            onChange={(e) => {
+                                setSize(e.target.value + 'px')
+                                dispatch(changeTextSize, e.target.value)
+                            }}
+                        />
                     </div>
+
+                    {/* separator */}
+                    <div id="edit_style_text_sep_2" className="vertical_separator hidden">&nbsp;</div>
+
+                    {/*Text color*/}
+                    <Dropdown id="edit_style_text_color" className="hidden">
+                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                         variant="success" id="dropdown-slide">
+                            <div id="font_text" className="edit_style_text__font">
+                               <div className="rect_color" style={{backgroundColor: color}} /> <ArrowDropDownRoundedIcon />
+                            </div>
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <ColorPicker color={color} onChange={(color) => {
+                                setColor(color.hex)
+                                dispatch(changeTextColor, color.hex)
+                            }} hideAlpha={true} hideInputs={true} />
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </Toolbar>
             </AppBar>
             <hr className="second_nav__hr"/>

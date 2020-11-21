@@ -2,11 +2,8 @@ import {Editor} from '../entities/Editor'
 import {Color, isColor} from "../entities/Color"
 import {ImageElement} from "../entities/Elements"
 
-export {
-    addToBackground
-}
 
-function addToBackground(editor: Editor, elem: ImageElement | Color): Editor {
+export function addToBackground(editor: Editor, elem: ImageElement | Color): Editor {
     return <Editor>{
         ...editor,
         presentation: {
