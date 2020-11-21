@@ -121,8 +121,6 @@ export function moveElements(event: any) {
 }
 
 export function getElements(s: Slide, isIdNeeded: boolean = true) {
-    console.log(s)
-    console.log(s.elements)
     return s.elements.map(e => {
         let width = Math.round((e.bottomRightPoint.x as number - e.topLeftPoint.x as number) * 100) / 100
         let height = Math.round((e.bottomRightPoint.y - e.topLeftPoint.y) * 100) / 100
@@ -318,7 +316,6 @@ export function getSlideBackground() {
     let editor = getEditor()
     let currentSlide = editor.presentation.slides.filter(s => editor.selectionSlidesId.includes(s.id))[0]
     let slideBack
-    console.log(editor)
     if (isColor(currentSlide.background)) {
         let slideBackColor = currentSlide.background as Color
         slideBack = `rgb(${slideBackColor.red},${slideBackColor.green},${slideBackColor.blue}`

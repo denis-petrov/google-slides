@@ -2,11 +2,7 @@ import {Editor} from '../entities/Editor'
 import {ElementType, Text} from "../entities/Elements"
 
 
-export function changeTextFont(editor: Editor, font: string): Editor {
-    let element = document.getElementById('font_text')
-    if (element) {
-        element.style.fontFamily = font
-    }
+export function changeTextSize(editor: Editor, size: number): Editor {
     return <Editor>{
         ...editor,
         presentation: {
@@ -18,7 +14,7 @@ export function changeTextFont(editor: Editor, font: string): Editor {
                         elements: s.elements.map(elem => {
                             if (s.selectionElementsId.includes(elem.id)) {
                                 if (elem.type === ElementType.text) {
-                                    (elem as Text).textStyle.font = font
+                                    (elem as Text).textStyle.sizeFont = size
                                     return elem
                                 }
                                 return elem

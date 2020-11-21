@@ -17,6 +17,6 @@ export function hexToRgb(hex: string) {
         : {
             red: 255,
             green: 255,
-            white: 255
+            blue: 255
         }
 }

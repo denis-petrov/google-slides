@@ -177,6 +177,17 @@ nav__menu:hover {
     visibility: hidden;
 }
 
+.edit_style_text__font {
+    font-family: "Arial", serif;
+}
+
+.edit_style_text_size {
+    max-width: 4rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    text-align: center;
+}
+
 .edit_style_text__time_new_roman {
     font-family: "Times New Roman", serif;
 }
@@ -195,4 +206,10 @@ nav__menu:hover {
 
 .edit_style_text__samanata {
     font-family: "Samanata", serif;
+}
+
+.rect_color {
+    width: 20px;
+    height: 20px;
+    float: left;
 }
