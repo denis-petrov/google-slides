@@ -4,9 +4,9 @@ import {dispatch, getEditor} from '../stateManager/StateManager'
 import {ElementType, ImageElement, Text} from '../entities/Elements'
 import {Slide} from "../entities/Slide"
 import {chooseElements} from "../functions/chooseElements"
-import {Color, isColor} from "../entities/Color"
 import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
 import {getSelectedPoints} from "../functions/getSelectedPoints"
+import {getSlideBackground} from "../functions/getSlideBackground"
 
 export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget
@@ -280,20 +280,6 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         }
         return e
     })
-}
-
-export function getSlideBackground() {
-    let editor = getEditor()
-    let currentSlide = editor.presentation.slides.filter(s => editor.selectionSlidesId.includes(s.id))[0]
-    let slideBack
-    if (isColor(currentSlide.background)) {
-        let slideBackColor = currentSlide.background as Color
-        slideBack = `rgb(${slideBackColor.red},${slideBackColor.green},${slideBackColor.blue}`
-    } else {
-        slideBack = `url(${currentSlide.background as string})`
-    }
-
-    return slideBack
 }
 
 export default function SlideArea() {
