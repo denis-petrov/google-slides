@@ -166,7 +166,9 @@ export default function Nav() {
                     </button>
 
                     <button type="button" className="btn btn-sm button__onclick dropbox__button" onClick={() => {
-                        dispatch(deleteSlides, {})
+                        if (getEditor().presentation.slides.length > 1) {
+                            dispatch(deleteSlides, {})
+                        }
                     }}>
                         <RemoveIcon />
                     </button>
