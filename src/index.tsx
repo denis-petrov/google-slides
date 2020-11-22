@@ -27,10 +27,6 @@ window.addEventListener('keydown', (e: KeyboardEvent) => {
     }
 })
 
-window.addEventListener('click', (evt) => {
-    removeSelectOfElement(evt)
-})
-
 let isMoveElements: boolean
 let firstPosX: number
 let firstPosY: number
@@ -39,11 +35,19 @@ window.addEventListener('mousedown', (evt) => {
     firstPosX = evt.clientX
     firstPosY = evt.clientY
     isMoveElements = moveElements(evt)
+
+    removeSelectOfElement(evt)
 })
 
 window.addEventListener('mousemove', (evt) => {
     if (isMoveElements) {
         mouseMoveElements(evt, firstPosX, firstPosY)
+        let slideArea = document.getElementById('slide-area')
+        if (slideArea) {
+            slideArea.onmouseout = function(evt) {
+                isMoveElements = endMoveElements(isMoveElements)
+            }
+        }
     }
 });
 
