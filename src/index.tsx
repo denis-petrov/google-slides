@@ -42,12 +42,6 @@ window.addEventListener('mousedown', (evt) => {
 window.addEventListener('mousemove', (evt) => {
     if (isMoveElements) {
         mouseMoveElements(evt, firstPosX, firstPosY)
-        let slideArea = document.getElementById('slide-area')
-        if (slideArea) {
-            slideArea.onmouseout = function(evt) {
-                isMoveElements = endMoveElements(isMoveElements)
-            }
-        }
     }
 });
 
