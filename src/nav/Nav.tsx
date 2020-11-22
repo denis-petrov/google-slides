@@ -13,6 +13,10 @@ import CropOriginalIcon from '@material-ui/icons/CropOriginal'
 import GetAppRoundedIcon from '@material-ui/icons/GetAppRounded'
 import SlideshowRoundedIcon from '@material-ui/icons/SlideshowRounded'
 import ArrowDropDownRoundedIcon from '@material-ui/icons/ArrowDropDownRounded'
+import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded'
+import FormatBoldRoundedIcon from '@material-ui/icons/FormatBoldRounded'
+import FormatItalicRoundedIcon from '@material-ui/icons/FormatItalicRounded'
+import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {addEmptySlide} from '../functions/addEmptySlide'
@@ -33,7 +37,11 @@ import {createPdf} from "../functions/createPdf"
 import {changeTextFont} from "../functions/changeTextFont"
 import {changeTextSize} from "../functions/changeTextSize"
 import ColorPicker from "react-pick-color"
-import {changeTextColor} from "../functions/changeTextColor"
+import {changeElementColor} from "../functions/changeElementColor"
+import {deleteElements} from "../functions/deleteElements"
+import {changeTextBold} from "../functions/changeTextBold"
+import {changeTextItalic} from "../functions/changeTextItalic"
+import {changeTextUnderline} from "../functions/changeTextUnderline"
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -50,12 +58,13 @@ export default function Nav() {
             <div className="row nav__line">
                 <AppBar position="static" className="nav col col-lg-10">
                     <Toolbar variant="dense">
-                        <img src="/nav__logo.png" alt="logo" className="nav__file_icon" />
+                        <img src="/nav__logo.png" alt="logo" className="nav__file_icon"/>
 
                         <div className="container-fluid">
                             <div className="row">
                                 <input type="text" className="form-control nav__presentation_name" id="presentationName"
-                                       aria-describedby="emailHelp" placeholder="NEW PRESENTATION" value={getEditor().presentation.name}
+                                       aria-describedby="emailHelp" placeholder="NEW PRESENTATION"
+                                       value={getEditor().presentation.name}
                                        onChange={(e) =>
                                            dispatch(changeNamePresentation, e.target.value)
                                        }
@@ -63,13 +72,15 @@ export default function Nav() {
                             </div>
                             <div className="row nav__menu_dropbox">
                                 <Dropdown>
-                                    <Dropdown.Toggle className="btn-light btn-sm dropbox__file dropbox__button" variant="success" id="dropdown-file">
+                                    <Dropdown.Toggle className="btn-light btn-sm dropbox__file dropbox__button"
+                                                     variant="success" id="dropdown-file">
                                         File
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
                                         <div>
-                                            <label htmlFor="myfile" className="dropbox__open_data btn-sm button__onclick">Open</label>
+                                            <label htmlFor="myfile"
+                                                   className="dropbox__open_data btn-sm button__onclick">Open</label>
                                             <input
                                                 className="dropbox__open_button"
                                                 id="myfile"
@@ -98,19 +109,27 @@ export default function Nav() {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => {addSomeElement(DEFAULT_TRIANGLE)}}>
+                                                       onClick={() => {
+                                                           addSomeElement(DEFAULT_TRIANGLE)
+                                                       }}>
                                             Triangle
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => {addSomeElement(DEFAULT_ELLIPSE)}}>
+                                                       onClick={() => {
+                                                           addSomeElement(DEFAULT_ELLIPSE)
+                                                       }}>
                                             Ellipse
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => {addSomeElement(DEFAULT_RECTANGLE)}}>
+                                                       onClick={() => {
+                                                           addSomeElement(DEFAULT_RECTANGLE)
+                                                       }}>
                                             Rectangle
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => {addSomeElement(DEFAULT_TEXT)}}>
+                                                       onClick={() => {
+                                                           addSomeElement(DEFAULT_TEXT)
+                                                       }}>
                                             Text
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick">Image</Dropdown.Item>
@@ -139,10 +158,11 @@ export default function Nav() {
                     </Toolbar>
                 </AppBar>
                 <div className="col col-lg-2 text-center">
-                    <button type="button" className="btn btn-sm button__onclick dropbox__button button__show" onClick={() => {
-                        createPdf().save(getEditor().presentation.name)
-                    }}>
-                        <SlideshowRoundedIcon /> Show
+                    <button type="button" className="btn btn-sm button__onclick dropbox__button button__show"
+                            onClick={() => {
+                                createPdf().save(getEditor().presentation.name)
+                            }}>
+                        <SlideshowRoundedIcon/> Show
                     </button>
                 </div>
             </div>
@@ -162,7 +182,7 @@ export default function Nav() {
                             dispatch(addEmptySlide, {})
                         }
                     }}>
-                        <AddIcon />
+                        <AddIcon/>
                     </button>
 
                     <button type="button" className="btn btn-sm button__onclick dropbox__button" onClick={() => {
@@ -170,53 +190,63 @@ export default function Nav() {
                             dispatch(deleteSlides, {})
                         }
                     }}>
-                        <RemoveIcon />
+                        <RemoveIcon/>
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button" onClick={() => {
-                        unDo()
-                    }}>
-                        <UndoIcon />
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                            onClick={() => {
+                                unDo()
+                            }}>
+                        <UndoIcon/>
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button" onClick={() => {
-                        reDo()
-                    }}>
-                        <RedoIcon />
+                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                            onClick={() => {
+                                reDo()
+                            }}>
+                        <RedoIcon/>
                     </button>
 
                     <div className="vertical_separator">&nbsp;</div>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => {addSomeElement(DEFAULT_TRIANGLE)}}>
-                        <ChangeHistoryIcon />
+                            onClick={() => {
+                                addSomeElement(DEFAULT_TRIANGLE)
+                            }}>
+                        <ChangeHistoryIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => {addSomeElement(DEFAULT_ELLIPSE)}}>
-                        <RadioButtonUncheckedIcon />
+                            onClick={() => {
+                                addSomeElement(DEFAULT_ELLIPSE)
+                            }}>
+                        <RadioButtonUncheckedIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => {addSomeElement(DEFAULT_RECTANGLE)}}>
-                        <CheckBoxOutlineBlankIcon />
+                            onClick={() => {
+                                addSomeElement(DEFAULT_RECTANGLE)
+                            }}>
+                        <CheckBoxOutlineBlankIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => {addSomeElement(DEFAULT_TEXT)}}>
-                        <TextFieldsIcon />
+                            onClick={() => {
+                                addSomeElement(DEFAULT_TEXT)
+                            }}>
+                        <TextFieldsIcon/>
                     </button>
 
                     <Dropdown>
                         <Dropdown.Toggle className="btn-light btn-sm dropbox__insert dropbox__button"
                                          variant="success" id="dropdown-insert">
-                            <CropOriginalIcon />
+                            <CropOriginalIcon/>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
                             <div>
                                 <label htmlFor="myImage" className="btn-sm button__onclick dropbox_image__item">
-                                    <GetAppRoundedIcon /> Insert from computer
+                                    <GetAppRoundedIcon/> Insert from computer
                                 </label>
                                 <input
                                     className="dropbox__open_button"
@@ -229,7 +259,7 @@ export default function Nav() {
                                 />
                             </div>
                             <div>
-                                <FormDialog isBackground={false} />
+                                <FormDialog isBackground={false}/>
                             </div>
                         </Dropdown.Menu>
                     </Dropdown>
@@ -244,11 +274,11 @@ export default function Nav() {
 
                         <Dropdown.Menu>
                             <div>
-                                <ColorPickerLol />
+                                <ColorPickerLol/>
                             </div>
                             <div>
                                 <label htmlFor="myBackImage" className="btn-sm button__onclick dropbox_image__item">
-                                    <GetAppRoundedIcon /> Insert from computer
+                                    <GetAppRoundedIcon/> Insert from computer
                                 </label>
                                 <input
                                     className="dropbox__open_button"
@@ -261,7 +291,7 @@ export default function Nav() {
                                 />
                             </div>
                             <div>
-                                <FormDialog isBackground={true} />
+                                <FormDialog isBackground={true}/>
                             </div>
                         </Dropdown.Menu>
                     </Dropdown>
@@ -269,18 +299,79 @@ export default function Nav() {
                     {/* separator */}
                     <div id="edit_style_text_sep_0" className="vertical_separator hidden">&nbsp;</div>
 
+                    {/*delete element*/}
+                    <button id="edit_style_text_delete" type="button"
+                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() => {
+                        dispatch(deleteElements, {})
+                    }}>
+                        <DeleteRoundedIcon/>
+                    </button>
+
+                    {/* separator */}
+                    <div id="edit_style_text_sep_1" className="vertical_separator hidden">&nbsp;</div>
+
+                    {/*Text color*/}
+                    <Dropdown id="edit_style_element_color" className="hidden">
+                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                         variant="success" id="dropdown-slide">
+                            <div id="font_text" className="edit_style_text__font">
+                                <div className="rect_color" style={{backgroundColor: color}}/>
+                                <ArrowDropDownRoundedIcon/>
+                            </div>
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <ColorPicker color={color} onChange={(color) => {
+                                setColor(color.hex)
+                                dispatch(changeElementColor, color.hex)
+                            }} hideAlpha={true} hideInputs={true}/>
+                        </Dropdown.Menu>
+                    </Dropdown>
+
+                    {/* separator */}
+                    <div id="edit_style_text_sep_2" className="vertical_separator hidden">&nbsp;</div>
+
+                    {/*bold text*/}
+                    <button id="edit_style_text_bold" type="button"
+                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() => {
+                        dispatch(changeTextBold, {})
+                    }}>
+                        <FormatBoldRoundedIcon/>
+                    </button>
+
+                    {/*italic text*/}
+                    <button id="edit_style_text_italic" type="button"
+                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() => {
+                        dispatch(changeTextItalic, {})
+                    }}>
+                        <FormatItalicRoundedIcon/>
+                    </button>
+
+                    {/*italic text*/}
+                    <button id="edit_style_text_underline" type="button"
+                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() => {
+                        dispatch(changeTextUnderline, {})
+                    }}>
+                        <FormatUnderlinedIcon/>
+                    </button>
+
+                    {/* separator 2*/}
+                    <div id="edit_style_text_sep_3" className="vertical_separator hidden">&nbsp;</div>
+
                     {/* font */}
                     <Dropdown id="edit_style_text_font" className="hidden">
                         <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
                                          variant="success" id="dropdown-slide">
-                            <div id="font_text" className="edit_style_text__font">{font} <ArrowDropDownRoundedIcon /></div>
+                            <div id="font_text" className="edit_style_text__font">{font} <ArrowDropDownRoundedIcon/>
+                            </div>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__time_new_roman" onClick={() => {
-                                setFont('Times New Roman')
-                                dispatch(changeTextFont, 'Times New Roman')
-                            }}>
+                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__time_new_roman"
+                                           onClick={() => {
+                                               setFont('Times New Roman')
+                                               dispatch(changeTextFont, 'Times New Roman')
+                                           }}>
                                 Times New Roman
                             </Dropdown.Item>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__roboto" onClick={() => {
@@ -311,13 +402,13 @@ export default function Nav() {
                     </Dropdown>
 
                     {/* separator */}
-                    <div id="edit_style_text_sep_1" className="vertical_separator hidden">&nbsp;</div>
+                    <div id="edit_style_text_sep_4" className="vertical_separator hidden">&nbsp;</div>
 
                     {/* Size */}
                     <div id="edit_style_text_size" className="hidden edit_style_text_size">
                         <TextField
                             size="small"
-                            inputProps={{min: 0, style: { textAlign: 'center' }}}
+                            inputProps={{min: 0, style: {textAlign: 'center'}}}
                             placeholder={size}
                             type="number"
                             InputLabelProps={{
@@ -330,25 +421,6 @@ export default function Nav() {
                         />
                     </div>
 
-                    {/* separator */}
-                    <div id="edit_style_text_sep_2" className="vertical_separator hidden">&nbsp;</div>
-
-                    {/*Text color*/}
-                    <Dropdown id="edit_style_text_color" className="hidden">
-                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
-                                         variant="success" id="dropdown-slide">
-                            <div id="font_text" className="edit_style_text__font">
-                               <div className="rect_color" style={{backgroundColor: color}} /> <ArrowDropDownRoundedIcon />
-                            </div>
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <ColorPicker color={color} onChange={(color) => {
-                                setColor(color.hex)
-                                dispatch(changeTextColor, color.hex)
-                            }} hideAlpha={true} hideInputs={true} />
-                        </Dropdown.Menu>
-                    </Dropdown>
                 </Toolbar>
             </AppBar>
             <hr className="second_nav__hr"/>

@@ -61,17 +61,19 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
         if (e.type === ElementType.rectangle || e.type === ElementType.ellipse || e.type === ElementType.triangle) {
             if (e.type === ElementType.ellipse) {
-                elementPoints = `M 1,${viewBoxHeight/2} A ${viewBoxWidth/2 - 1},${viewBoxHeight/2 - 1} 0 1, 1 1,${viewBoxHeight/2 + 0.0001}`
+                elementPoints = `M 1,${viewBoxHeight / 2} A ${viewBoxWidth / 2 - 1},${viewBoxHeight / 2 - 1} 0 1, 1 1,${viewBoxHeight / 2 + 0.0001}`
             } else if (e.type === ElementType.triangle) {
-                elementPoints = `M ${viewBoxWidth/2} 0, L ${viewBoxWidth} ${viewBoxHeight - 1}, L 0 ${viewBoxHeight - 1}, L ${viewBoxWidth/2} 0`
+                elementPoints = `M ${viewBoxWidth / 2} 0, L ${viewBoxWidth} ${viewBoxHeight - 1}, L 0 ${viewBoxHeight - 1}, L ${viewBoxWidth / 2} 0`
             }
 
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={elementPoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
+                        height={height + '%'} preserveAspectRatio="none" key={e.id}>
+                <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={elementPoints} stroke={borderColor}
+                      strokeWidth={e.borderWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill={backgroundColor}
-                      onClick={(evt) => selectElements(evt, e.id)} />
+                      onClick={(evt) => selectElements(evt, e.id)}/>
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
+                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
                         return point
@@ -81,16 +83,23 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         } else if (e.type === ElementType.text) {
             const textStyle = (e as Text).textStyle
             const font = `${textStyle.isBold ? 'bold' : ''} ${textStyle.isCurve ? 'italic' : ''} ${textStyle.sizeFont}px ${textStyle.font}`
+            const underline = `${textStyle.isUnderline ? 'underline' : 'none'}`
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
 
             //проверить нужен ли viewBox для svg с текстом
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} width={width + '%'} height={height + '%'}
-                        preserveAspectRatio="none" key={e.id}>
-                <text x="0" y="20" id={elemId} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
-                      style={{font: font}} onClick={(evt) => selectElements(evt, e.id)}>{(e as Text).text}</text>
-                <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
-            </svg>
+            return <foreignObject width={width + '%'} height={height + '%'}>
+                 <div contentEditable="true" style={{outline: 'none'}}>
+                     <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'}
+                          preserveAspectRatio="none" key={e.id}>
+                         <text x="0" y="40" id={elemId} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
+                               style={{font: font, textDecoration: underline}} onClick={(evt) => selectElements(evt, e.id)}>
+                             {(e as Text).text}
+                         </text>
+                         <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                               strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
+                     </svg>
+                 </div>
+            </foreignObject>
         } else if (e.type === ElementType.image) {
             let strokeWidth = '.5%'
             const image = (e as ImageElement).link

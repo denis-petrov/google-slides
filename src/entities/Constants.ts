@@ -130,8 +130,9 @@ const DEFAULT_TEXT: Text = {
             blue: 0
         },
         align: 'Left',
-        isBold: true,
-        isCurve: true
+        isBold: false,
+        isCurve: false,
+        isUnderline: false,
     },
     type: ElementType.text
 }

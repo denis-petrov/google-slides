@@ -1,6 +1,7 @@
 import {Editor} from '../entities/Editor'
 import {changeTextStyleMenu} from "./changeTextStyleMenu"
 import {ElementType} from "../entities/Elements"
+import {changePrimitiveStyleMenu} from "./changePrimitiveStyleMenu"
 
 export function deleteElements(editor: Editor): Editor {
     return {
@@ -15,6 +16,8 @@ export function deleteElements(editor: Editor): Editor {
                         elements: s.elements.filter(elem => {
                             if (elem.type == ElementType.text) {
                                 changeTextStyleMenu(false)
+                            } else {
+                                changePrimitiveStyleMenu(false)
                             }
                             return !s.selectionElementsId.includes(elem.id)}),
                         selectionElementsId: []

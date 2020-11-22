@@ -5,6 +5,7 @@ import {chooseElements} from "../functions/chooseElements"
 import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
 import {getSlideBackground} from "../functions/getSlideBackground"
 import {getElements} from "../functions/getElements"
+import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu";
 
 export function selectElements(event: any, id: string) {
     let clickedElem = event.currentTarget
@@ -85,9 +86,11 @@ export function selectElements(event: any, id: string) {
             }
 
             if (clickedElem.tagName === 'text') {
+                changePrimitiveStyleMenu(false)
                 changeTextStyleMenu(true)
             } else {
                 changeTextStyleMenu(false)
+                changePrimitiveStyleMenu(true)
             }
 
             dispatch(chooseElements, [id], false)

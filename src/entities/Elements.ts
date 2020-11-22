@@ -43,7 +43,8 @@ type TextStyle = {
     color: Color,
     align: string,
     isBold: boolean,
-    isCurve: boolean
+    isCurve: boolean,
+    isUnderline: boolean
 }
 
 type ImageElement = Element & {

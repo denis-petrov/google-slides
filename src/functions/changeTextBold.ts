@@ -1,9 +1,8 @@
 import {Editor} from '../entities/Editor'
 import {ElementType, Text} from "../entities/Elements"
-import {hexToRgb} from "./hexToRgb"
 
 
-export function changeTextColor(editor: Editor, color: string): Editor {
+export function changeTextBold(editor: Editor): Editor {
     return <Editor>{
         ...editor,
         presentation: {
@@ -15,7 +14,7 @@ export function changeTextColor(editor: Editor, color: string): Editor {
                         elements: s.elements.map(elem => {
                             if (s.selectionElementsId.includes(elem.id)) {
                                 if (elem.type === ElementType.text) {
-                                    (elem as Text).textStyle.color = hexToRgb(color)
+                                    (elem as Text).textStyle.isBold = !(elem as Text).textStyle.isBold
                                     return elem
                                 }
                                 return elem
