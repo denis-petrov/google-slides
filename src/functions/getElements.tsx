@@ -28,6 +28,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
         let viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
         let d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
+        let elementPoints = d
         if (isIdNeeded) {
             elemId = e.id
             pathId = 'slide_' + s.id + '_element_' + e.id
@@ -58,50 +59,19 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                   strokeLinecap="square" fill="blue"/>
         ]
 
-        if (e.type === ElementType.rectangle) {
+        if (e.type === ElementType.rectangle || e.type === ElementType.ellipse || e.type === ElementType.triangle) {
+            if (e.type === ElementType.ellipse) {
+                elementPoints = `M 1,${viewBoxHeight/2} A ${viewBoxWidth/2 - 1},${viewBoxHeight/2 - 1} 0 1, 1 1,${viewBoxHeight/2 + 0.0001}`
+            } else if (e.type === ElementType.triangle) {
+                elementPoints = `M ${viewBoxWidth/2} 0, L ${viewBoxWidth} ${viewBoxHeight - 1}, L 0 ${viewBoxHeight - 1}, L ${viewBoxWidth/2} 0`
+            }
 
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
-                        height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={d} stroke={borderColor}
-                      strokeWidth={e.borderWidth} strokeLinejoin="miter"
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
+                <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={elementPoints} stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill={backgroundColor}
-                      onClick={(evt) => selectElements(evt, e.id)}/>
+                      onClick={(evt) => selectElements(evt, e.id)} />
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
-                <svg id={pointsId} className="points_container">
-                    {points.map((point) => {
-                        return point
-                    })}
-                </svg>
-            </svg>
-        } else if (e.type === ElementType.ellipse) {
-            const ellipsePoints = `M 1,${viewBoxHeight / 2} A ${viewBoxWidth / 2 - 1},${viewBoxHeight / 2 - 1} 0 1, 1 1,${viewBoxHeight / 2 + 0.1}`
-
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
-                        height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={ellipsePoints} stroke={borderColor}
-                      strokeWidth={e.borderWidth} strokeLinejoin="miter"
-                      strokeLinecap="square" fill={backgroundColor}
-                      onClick={(evt) => selectElements(evt, e.id)}/>
-                <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
-                <svg id={pointsId} className="points_container">
-                    {points.map((point) => {
-                        return point
-                    })}
-                </svg>
-            </svg>
-        } else if (e.type === ElementType.triangle) {
-            const trianglePoints = `M ${viewBoxWidth / 2} 0, L ${viewBoxWidth} ${viewBoxHeight - 1}, L 0 ${viewBoxHeight - 1}, L ${viewBoxWidth / 2} 0`
-
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
-                        height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={trianglePoints}
-                      stroke={borderColor} strokeWidth={e.borderWidth} strokeLinejoin="miter"
-                      strokeLinecap="square" fill={backgroundColor}
-                      onClick={(evt) => selectElements(evt, e.id)}/>
-                <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
+                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path" />
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
                         return point
@@ -184,7 +154,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 <image id={elemId} data-path-id={pathId} data-points-id={pointsId} href={image} x="0" y="0"
                        onClick={(evt) => selectElements(evt, e.id)}/>
                 <path id={pathId} d={d} stroke="blue" strokeWidth={strokeWidth} strokeLinejoin="miter"
-                      strokeLinecap="square" fill="none" className="elem-path"/>
+                      strokeLinecap="square" strokeDasharray="5%, 5%" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
                         return point
