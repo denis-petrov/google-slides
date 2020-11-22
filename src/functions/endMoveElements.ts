@@ -5,6 +5,7 @@ export function endMoveElements(isMoveElements: boolean) {
     isMoveElements = false
     let editor = getEditor()
     let payload = new Map()
+    let isMoved = true
     editor.presentation.slides.map(s => {
         let selectedElements = []
         let elements = new Map()
@@ -47,6 +48,9 @@ export function endMoveElements(isMoveElements: boolean) {
                     newPos.set('newBottomRightPoint', newBottomRightPoint)
                     newPos.set('newCenter', newCenter)
                     elements.set(e.id, newPos)
+                    if (topLeftPointX === e.topLeftPoint.x && topLeftPointY === e.topLeftPoint.y) {
+                        isMoved = false
+                    }
                 }
             })
         }
@@ -54,6 +58,9 @@ export function endMoveElements(isMoveElements: boolean) {
         payload.set('elements', elements)
     })
 
-    dispatch(changePositionOfElements, payload)
+    if (isMoved) {
+        dispatch(changePositionOfElements, payload)
+    }
+
     return isMoveElements
 }

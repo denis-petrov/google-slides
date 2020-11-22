@@ -9,6 +9,8 @@ import {removeSelectOfElement} from "./functions/removeSelectOfElements"
 import {moveElements} from "./slideArea/SlideArea"
 import {mouseMoveElements} from "./functions/mouseMoveElements"
 import {endMoveElements} from "./functions/endMoveElements"
+import {moveElementPoint, resizeElement} from "./functions/resizeElement";
+import {changePositionOfElements} from "./functions/changePositionOfElements";
 
 ReactDOM.render(
     <App/>,
@@ -31,10 +33,17 @@ let isMoveElements: boolean
 let firstPosX: number
 let firstPosY: number
 
+let isResize: boolean
+let pointIndex: number
+let payload: any
+
 window.addEventListener('mousedown', (evt) => {
     firstPosX = evt.clientX
     firstPosY = evt.clientY
     isMoveElements = moveElements(evt)
+
+    pointIndex = resizeElement(evt, pointIndex)
+    isResize = pointIndex >= 0
 
     removeSelectOfElement(evt)
 })
@@ -43,11 +52,23 @@ window.addEventListener('mousemove', (evt) => {
     if (isMoveElements) {
         mouseMoveElements(evt, firstPosX, firstPosY)
     }
+
+    if (isResize) {
+        payload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
+    }
 });
 
 window.addEventListener('mouseup', (evt) => {
     if (isMoveElements) {
         isMoveElements = endMoveElements(isMoveElements)
+    }
+
+    if (isResize) {
+        isResize = false
+        pointIndex = -1
+        if (payload.size > 0) {
+            dispatch(changePositionOfElements, payload)
+        }
     }
 })
 

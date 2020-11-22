@@ -18,12 +18,12 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         let pointsId
         let elemId
         let viewBoxWidth = (e.bottomRightPoint.x - e.topLeftPoint.x) * 10
-        let viewBoxHeight = Math.floor(Math.abs(((e.bottomRightPoint.y - e.topLeftPoint.y) -
-            Math.floor((e.bottomRightPoint.x - e.topLeftPoint.x) / 9 * 16 * 100) / 100) * 10) * 100) / 100
-        if (viewBoxHeight === 0) {
-            viewBoxHeight = viewBoxWidth
-        } else if ((e.bottomRightPoint.x - e.topLeftPoint.x) / 9 * 16 < (e.bottomRightPoint.y - e.topLeftPoint.y)) {
-            viewBoxHeight += viewBoxWidth
+        let viewBoxHeight
+
+        if (width > height) {
+            viewBoxHeight = Math.floor(height * 10)
+        } else {
+            viewBoxHeight = Math.floor(height * 10 / 16 * 9 * 100) / 100
         }
 
         let viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
@@ -41,21 +41,21 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
         let selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
         let points = [
-            <path d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                   strokeLinecap="square" fill="blue"/>,
-            <path d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                   strokeLinecap="square" fill="blue"/>,
-            <path d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                   strokeLinecap="square" fill="blue"/>,
-            <path d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                   strokeLinecap="square" fill="blue"/>,
-            <path d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                   strokeLinecap="square" fill="blue"/>,
-            <path d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                   strokeLinecap="square" fill="blue"/>,
-            <path d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                   strokeLinecap="square" fill="blue"/>,
-            <path d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                   strokeLinecap="square" fill="blue"/>
         ]
 
@@ -134,27 +134,27 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
             viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
             if (width >= 100 || height >= 100) {
-                selectedPoints = getSelectedPoints(width, height, prevWidth, prevHeight)
+                selectedPoints = getSelectedPoints(width, height, prevWidth, prevHeight, true)
             } else {
-                selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
+                selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight, true)
             }
 
             points = [
-                <path d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                <path data-value="point" d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" fill="blue"/>,
-                <path d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                <path data-value="point" d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" fill="blue"/>,
-                <path d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                <path data-value="point" d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" fill="blue"/>,
-                <path d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                <path data-value="point" d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" fill="blue"/>,
-                <path d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                <path data-value="point" d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" fill="blue"/>,
-                <path d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                <path data-value="point" d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" fill="blue"/>,
-                <path d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                <path data-value="point" d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" fill="blue"/>,
-                <path d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                <path data-value="point" d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" fill="blue"/>
             ]
 

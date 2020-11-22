@@ -8,11 +8,16 @@ export function removeSelectOfElement(evt: any) {
     let pathClassName = 'elem-path_active'
     let pointsClassName = 'points_container_active'
     let itsSlideArea = null
+    let itsClickedElem = null
     if (slideArea) {
         itsSlideArea = evt.target === slideArea || slideArea.contains(evt.target as Node)
     }
 
-    if (itsSlideArea && !(clickedElem.getAttribute('data-path-id')) && !(clickedElem.getAttribute('data-points-id'))) {
+    if (clickedElem) {
+        itsClickedElem = clickedElem.getAttribute('data-path-id') || clickedElem.getAttribute('data-value')
+    }
+
+    if (itsSlideArea && !itsClickedElem) {
         let className = 'element_choosed'
         let allSelectedElems = document.getElementsByClassName(className)
         while(allSelectedElems[0]) {

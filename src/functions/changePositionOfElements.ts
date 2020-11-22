@@ -1,6 +1,4 @@
 import {Editor} from '../entities/Editor'
-import {Point} from '../entities/Point'
-import {getEditor} from "../stateManager/StateManager";
 
 export {
     changePositionOfElements
