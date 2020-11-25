@@ -37,11 +37,15 @@ import {createPdf} from "../functions/createPdf"
 import {changeTextFont} from "../functions/changeTextFont"
 import {changeTextSize} from "../functions/changeTextSize"
 import ColorPicker from "react-pick-color"
-import {changeElementColor} from "../functions/changeElementColor"
+import {changeElementFillColor} from "../functions/changeElementFillColor"
 import {deleteElements} from "../functions/deleteElements"
 import {changeTextBold} from "../functions/changeTextBold"
 import {changeTextItalic} from "../functions/changeTextItalic"
 import {changeTextUnderline} from "../functions/changeTextUnderline"
+import {changeElementBorderColor} from "../functions/changeElementBorderColor"
+import {getSelectedElement} from "../functions/getSelectedElement"
+import {ElementType, Text} from "../entities/Elements"
+import {changeBorderWidth} from "../functions/changeBorderWidth"
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -49,10 +53,27 @@ const imageFiled = React.createRef<HTMLInputElement>()
 const imageToBackFiled = React.createRef<HTMLInputElement>()
 
 export default function Nav() {
-    const [font, setFont] = React.useState('Arial')
-    const [size, setSize] = React.useState('40')
-    const [color, setColor] = React.useState('#000000')
-
+    const elem = getSelectedElement()
+    let fillColor
+    let borderColor
+    let borderSizeView
+    let font
+    let fontSize
+    if ((elem !== undefined) && (elem != null)) {
+        borderColor = `rgb(${elem.borderColor.red},${elem.borderColor.green},${elem.borderColor.blue})`
+        borderSizeView = `${elem.borderWidth}`
+        if (elem.type === ElementType.text) {
+            const textStyle = (elem as Text).textStyle
+            fillColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
+            font = textStyle.font
+            fontSize = textStyle.sizeFont
+        } else {
+            if (elem.backgroundColor != null) {
+                fillColor = `rgb(${elem.backgroundColor.red},${elem.backgroundColor.green},${elem.backgroundColor.blue})`
+            }
+        }
+    }
+    console.log(borderSizeView)
     return (
         <div>
             <div className="row nav__line">
@@ -310,23 +331,62 @@ export default function Nav() {
                     {/* separator */}
                     <div id="edit_style_text_sep_1" className="vertical_separator hidden">&nbsp;</div>
 
-                    {/*Text color*/}
-                    <Dropdown id="edit_style_element_color" className="hidden">
+                    {/*Fill backgroundColor*/}
+                    <Dropdown id="edit_style_element_fill_color" className="hidden">
                         <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
                                          variant="success" id="dropdown-slide">
                             <div id="font_text" className="edit_style_text__font">
-                                <div className="rect_color" style={{backgroundColor: color}}/>
+                                <div style={{float: 'left'}}>
+                                    Fill &zwj;
+                                </div>
+                                <div className="rect_color" style={{backgroundColor: fillColor}}/>
                                 <ArrowDropDownRoundedIcon/>
                             </div>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <ColorPicker color={color} onChange={(color) => {
-                                setColor(color.hex)
-                                dispatch(changeElementColor, color.hex)
+                            <ColorPicker color={fillColor} onChange={(color) => {
+                                dispatch(changeElementFillColor, color.hex)
                             }} hideAlpha={true} hideInputs={true}/>
                         </Dropdown.Menu>
                     </Dropdown>
+
+                    {/*Border color*/}
+                    <Dropdown id="edit_style_element_border_color" className="hidden">
+                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                         variant="success" id="dropdown-slide">
+                            <div id="font_text" className="edit_style_text__font">
+                                <div style={{float: 'left'}}>
+                                    Border &zwj;
+                                </div>
+                                <div className="rect_color" style={{backgroundColor: borderColor}}/>
+                                <ArrowDropDownRoundedIcon/>
+                            </div>
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <ColorPicker color={borderColor} onChange={(color) => {
+                                dispatch(changeElementBorderColor, color.hex)
+                            }} hideAlpha={true} hideInputs={true}/>
+                        </Dropdown.Menu>
+                    </Dropdown>
+
+                    {/* Border size */}
+                    <div id="edit_style_border_size" className="hidden edit_style_text_size">
+                        <TextField
+                            size="small"
+                            label="border-size"
+                            inputProps={{min: 0, style: {textAlign: 'center'}}}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            value={borderSizeView}
+                            type="number"
+                            onChange={(e) => {
+                                dispatch(changeBorderWidth, e.target.value)
+                            }}
+                        />
+                    </div>
 
                     {/* separator */}
                     <div id="edit_style_text_sep_2" className="vertical_separator hidden">&nbsp;</div>
@@ -369,31 +429,26 @@ export default function Nav() {
                         <Dropdown.Menu>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__time_new_roman"
                                            onClick={() => {
-                                               setFont('Times New Roman')
                                                dispatch(changeTextFont, 'Times New Roman')
                                            }}>
                                 Times New Roman
                             </Dropdown.Item>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__roboto" onClick={() => {
-                                setFont('Roboto')
                                 dispatch(changeTextFont, 'Roboto')
                             }}>
                                 Roboto
                             </Dropdown.Item>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__arial" onClick={() => {
-                                setFont('Arial')
                                 dispatch(changeTextFont, 'Arial')
                             }}>
                                 Arial
                             </Dropdown.Item>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__cambria" onClick={() => {
-                                setFont('Cambria')
                                 dispatch(changeTextFont, 'Cambria')
                             }}>
                                 Cambria
                             </Dropdown.Item>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__samanata" onClick={() => {
-                                setFont('Samanata')
                                 dispatch(changeTextFont, 'Samanata')
                             }}>
                                 Samanata
@@ -404,18 +459,18 @@ export default function Nav() {
                     {/* separator */}
                     <div id="edit_style_text_sep_4" className="vertical_separator hidden">&nbsp;</div>
 
-                    {/* Size */}
+                    {/* Font size */}
                     <div id="edit_style_text_size" className="hidden edit_style_text_size">
                         <TextField
                             size="small"
+                            label="font-size"
                             inputProps={{min: 0, style: {textAlign: 'center'}}}
-                            placeholder={size}
+                            value={fontSize}
                             type="number"
                             InputLabelProps={{
                                 shrink: true,
                             }}
                             onChange={(e) => {
-                                setSize(e.target.value + 'px')
                                 dispatch(changeTextSize, e.target.value)
                             }}
                         />

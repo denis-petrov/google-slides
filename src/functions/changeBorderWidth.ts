@@ -1,9 +1,6 @@
 import {Editor} from '../entities/Editor'
-import {ElementType, Text} from "../entities/Elements"
-import {hexToRgb} from "./hexToRgb"
 
-
-export function changeElementColor(editor: Editor, color: string): Editor {
+export function changeBorderWidth(editor: Editor, width: number): Editor {
     return <Editor>{
         ...editor,
         presentation: {
@@ -14,12 +11,7 @@ export function changeElementColor(editor: Editor, color: string): Editor {
                         ...s,
                         elements: s.elements.map(elem => {
                             if (s.selectionElementsId.includes(elem.id)) {
-                                if (elem.type === ElementType.text) {
-                                    (elem as Text).textStyle.color = hexToRgb(color)
-                                    return elem
-                                } else {
-                                    elem.backgroundColor = hexToRgb(color)
-                                }
+                                elem.borderWidth = width
                                 return elem
                             }
                             return elem

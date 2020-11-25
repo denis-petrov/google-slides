@@ -85,20 +85,27 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const font = `${textStyle.isBold ? 'bold' : ''} ${textStyle.isCurve ? 'italic' : ''} ${textStyle.sizeFont}px ${textStyle.font}`
             const underline = `${textStyle.isUnderline ? 'underline' : 'none'}`
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
+            const borderWidth = e.borderWidth
 
             //проверить нужен ли viewBox для svg с текстом
             return <foreignObject width={width + '%'} height={height + '%'}>
-                 <div contentEditable="true" style={{outline: 'none'}}>
-                     <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'}
-                          preserveAspectRatio="none" key={e.id}>
-                         <text x="0" y="40" id={elemId} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
-                               style={{font: font, textDecoration: underline}} onClick={(evt) => selectElements(evt, e.id)}>
-                             {(e as Text).text}
-                         </text>
-                         <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                               strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
-                     </svg>
-                 </div>
+                <div style={{outline: 'none'}}>
+                    <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'}
+                         preserveAspectRatio="none" key={e.id}>
+                        <text x="0" y="40" id={elemId} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
+                              style={{
+                                  font: font,
+                                  textDecoration: underline,
+                                  stroke: borderColor,
+                                  borderWidth: borderWidth
+                              }}
+                              onClick={(evt) => selectElements(evt, e.id)}>
+                            {(e as Text).text}
+                        </text>
+                        <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                              strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
+                    </svg>
+                </div>
             </foreignObject>
         } else if (e.type === ElementType.image) {
             let strokeWidth = '.5%'

@@ -9,9 +9,9 @@ import {removeSelectOfElement} from "./functions/removeSelectOfElements"
 import {moveElements} from "./slideArea/SlideArea"
 import {mouseMoveElements} from "./functions/mouseMoveElements"
 import {endMoveElements} from "./functions/endMoveElements"
-import {moveElementPoint, resizeElement} from "./functions/resizeElement";
-import {changePositionOfElements} from "./functions/changePositionOfElements";
-import {endResizeElement} from "./functions/endResizeElement";
+import {moveElementPoint, resizeElement} from "./functions/resizeElement"
+import {changePositionOfElements} from "./functions/changePositionOfElements"
+import {endResizeElement} from "./functions/endResizeElement"
 
 ReactDOM.render(
     <App/>,

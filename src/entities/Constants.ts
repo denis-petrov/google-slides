@@ -114,9 +114,9 @@ const DEFAULT_TEXT: Text = {
         y: 17.77
     },
     borderColor: {
-        red: 255,
-        green: 255,
-        blue: 255
+        red: 0,
+        green: 0,
+        blue: 0
     },
     borderWidth: 1,
     backgroundColor: BLACK,

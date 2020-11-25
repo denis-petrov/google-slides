@@ -1,5 +1,5 @@
 import {getEditor} from "../stateManager/StateManager"
-import {ElementType, ImageElement} from "../entities/Elements";
+import {ElementType, ImageElement} from "../entities/Elements"
 
 export function resizeElement(event: any, pointIndex: number) {
     let point = event.target
@@ -28,8 +28,8 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
                     if (event.clientX !== firstPosX || event.clientY !== firstPosY) {
                         stepX = event.clientX - firstPosX
                         stepY = event.clientY - firstPosY
-                        let X = Math.floor(stepX/(slide.clientWidth)*100*100)/100
-                        let Y = Math.floor(stepY/(slide.clientHeight)*100*100)/100
+                        let X = Math.floor(stepX / (slide.clientWidth) * 100 * 100) / 100
+                        let Y = Math.floor(stepY / (slide.clientHeight) * 100 * 100) / 100
 
                         let elements = new Map()
                         let newPos = new Map()
