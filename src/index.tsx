@@ -67,9 +67,11 @@ window.addEventListener('mouseup', (evt) => {
     if (isResize) {
         isResize = false
         pointIndex = -1
-        endResizeElement(payload)
-        if (!payload.get('small')) {
-            dispatch(changePositionOfElements, payload)
+        if (payload.size > 0) {
+            endResizeElement(payload)
+            if (!payload.get('small')) {
+                dispatch(changePositionOfElements, payload)
+            }
         }
     }
 })
