@@ -80,25 +80,99 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
 
                         let prevWidth = Math.round((e.bottomRightPoint.x - e.topLeftPoint.x) * 100) / 100
                         let prevHeight = Math.round((e.bottomRightPoint.y - e.topLeftPoint.y) * 100) / 100
-                        let viewBoxWidth = Math.round((bottomRightPointX - topLeftPointX) * 10 * 100) / 100
                         let width = Math.round((bottomRightPointX - topLeftPointX) * 100) / 100
+                        let viewBoxWidth = Math.round(width * 10 * 100) / 100
                         let height = Math.round((bottomRightPointY - topLeftPointY) * 100) / 100
-                        let viewBoxHeight = Math.round(height * 10 * 100) / 100
+                        let viewBoxHeight
                         if (prevWidth > prevHeight) {
                             viewBoxHeight = Math.round(height * 10 * 100) / 100
                         } else {
                             viewBoxHeight = Math.round(height * 10 / 16 * 9 * 100) / 100
                         }
 
+                        let startVieBoxX = 0
+                        let startVieBoxY = 0
                         if (e.type === ElementType.image) {
                             let image = e as ImageElement
-                            viewBoxWidth = image.viewBox.width * (width / prevWidth)
-                            viewBoxHeight = image.viewBox.height * (height / prevHeight)
+                            viewBoxWidth = image.viewBox.width
+                            viewBoxHeight = image.viewBox.height
+                            switch (pointIndex) {
+                                case 0:
+                                    startVieBoxX = image.viewBox.width - image.viewBox.width * (width / prevWidth)
+                                    startVieBoxY = image.viewBox.height - image.viewBox.height * (height / prevHeight)
+                                    break
+                                case 1:
+                                    startVieBoxY = image.viewBox.height - image.viewBox.height * (height / prevHeight)
+                                    break
+                                case 2:
+                                    startVieBoxY = image.viewBox.height - image.viewBox.height * (height / prevHeight)
+                                    viewBoxWidth = image.viewBox.width * (width / prevWidth)
+                                    break
+                                case 3:
+                                    startVieBoxX = image.viewBox.width - image.viewBox.width * (width / prevWidth)
+                                    break
+                                case 4:
+                                    viewBoxWidth = image.viewBox.width * (width / prevWidth)
+                                    break
+                                case 5:
+                                    startVieBoxX = image.viewBox.width - image.viewBox.width * (width / prevWidth)
+                                    viewBoxHeight = image.viewBox.height * (height / prevHeight)
+                                    break
+                                case 6:
+                                    viewBoxWidth = image.viewBox.width
+                                    viewBoxHeight = image.viewBox.height * (height / prevHeight)
+                                    break
+                                case 7:
+                                    viewBoxWidth = image.viewBox.width * (width / prevWidth)
+                                    viewBoxHeight = image.viewBox.height * (height / prevHeight)
+                                    break
+                            }
+                        } else {
+                            switch (pointIndex) {
+                                case 0:
+                                    viewBoxWidth = Math.round(prevWidth * 10 * 100) / 100
+                                    if (prevWidth > prevHeight) {
+                                        viewBoxHeight = Math.round(prevHeight * 10 * 100) / 100
+                                    } else {
+                                        viewBoxHeight = Math.round(prevHeight * 10 / 16 * 9 * 100) / 100
+                                    }
+
+                                    startVieBoxX = viewBoxWidth - (width / prevWidth) * viewBoxWidth
+                                    startVieBoxY = viewBoxHeight - (height / prevHeight) * viewBoxHeight
+                                    break
+                                case 1:
+                                    if (prevWidth > prevHeight) {
+                                        viewBoxHeight = Math.round(prevHeight * 10 * 100) / 100
+                                    } else {
+                                        viewBoxHeight = Math.round(prevHeight * 10 / 16 * 9 * 100) / 100
+                                    }
+
+                                    startVieBoxY = viewBoxHeight - (height / prevHeight) * viewBoxHeight
+                                    break
+                                case 2:
+                                    if (prevWidth > prevHeight) {
+                                        viewBoxHeight = Math.round(prevHeight * 10 * 100) / 100
+                                    } else {
+                                        viewBoxHeight = Math.round(prevHeight * 10 / 16 * 9 * 100) / 100
+                                    }
+
+                                    startVieBoxY = viewBoxHeight - (height / prevHeight) * viewBoxHeight
+                                    break
+                                case 3:
+                                    startVieBoxX = (prevWidth - prevWidth * (width / prevWidth)) * 10
+                                    viewBoxWidth = Math.round(prevWidth * 10 * 100) / 100
+                                    break
+                                case 5:
+                                    viewBoxWidth = Math.round(prevWidth * 10 * 100) / 100
+                                    startVieBoxX = (prevWidth - prevWidth * (width / prevWidth)) * 10
+                                    break
+                            }
                         }
+
 
                         let elementPathId = (document.getElementById(e.id) as HTMLElement).getAttribute('data-path-id')
                         let elementBorder = document.getElementById(elementPathId as string)
-                        let d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
+                        let d = `M ${startVieBoxX}, ${startVieBoxY} H ${viewBoxWidth} V ${viewBoxHeight} H ${startVieBoxX} V ${startVieBoxY}`
                         if (elementBorder) {
                             elementBorder.setAttribute('d', d)
                         }

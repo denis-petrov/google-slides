@@ -1,5 +1,4 @@
 import {ImageElement} from "../entities/Elements"
-import {heIL} from "@material-ui/core/locale";
 
 export function imageInitAfterOnload(img: HTMLImageElement, copyImage: ImageElement): ImageElement {
     let imgWidth: number
@@ -25,10 +24,11 @@ export function imageInitAfterOnload(img: HTMLImageElement, copyImage: ImageElem
             }
         }
     } else {
-        imgWidth = Math.round(img.width / (img.height / 9 * 16) * 100 * 100) / 100
         if (img.height / 9 * 16 >= 1000) {
+            imgWidth = Math.round(img.width / (img.height / 9 * 16) * 100 * 100) / 100
             imgHeight = 100
         } else {
+            imgWidth = Math.round(img.width /10 * 100) / 100
             imgHeight = Math.round(img.height / 9 * 16 / 10 * 100) / 100
         }
     }
