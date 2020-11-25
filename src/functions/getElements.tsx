@@ -6,7 +6,7 @@ import {selectElements} from "../slideArea/SlideArea"
 
 export function getElements(s: Slide, isIdNeeded: boolean = true) {
     return s.elements.map(e => {
-        let width = Math.round((e.bottomRightPoint.x as number - e.topLeftPoint.x as number) * 100) / 100
+        let width = Math.round((e.bottomRightPoint.x - e.topLeftPoint.x) * 100) / 100
         let height = Math.round((e.bottomRightPoint.y - e.topLeftPoint.y) * 100) / 100
         let borderColor = `rgb(${e.borderColor.red},${e.borderColor.green},${e.borderColor.blue}`
         let backgroundColor = 'rgb(255, 255, 255)'
@@ -17,13 +17,13 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         let pathId
         let pointsId
         let elemId
-        let viewBoxWidth = (e.bottomRightPoint.x - e.topLeftPoint.x) * 10
+        let viewBoxWidth = Math.round((e.bottomRightPoint.x - e.topLeftPoint.x) * 10 * 100) / 100
         let viewBoxHeight
 
         if (width > height) {
-            viewBoxHeight = Math.floor(height * 10)
+            viewBoxHeight = Math.round(height * 10 * 100) / 100
         } else {
-            viewBoxHeight = Math.floor(height * 10 / 16 * 9 * 100) / 100
+            viewBoxHeight = Math.round(height * 10 / 16 * 9 * 100) / 100
         }
 
         let viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
@@ -102,42 +102,11 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             </foreignObject>
         } else if (e.type === ElementType.image) {
             let strokeWidth = '.5%'
-            const image = (e as ImageElement).link
-            let prevWidth = width
-            let prevHeight = height
-            if (width > height) {
-                if (width >= 100) {
-                    viewBoxWidth = width
-                    d = `M 0, 0 H ${viewBoxWidth} V ${height} H 0 V 0`
-                    viewBoxHeight = Math.floor(width / 16 * 9 * 100) / 100
-                    width = 100
-                    height = 100
-                } else {
-                    strokeWidth = '1%'
-                    width = Math.floor(width * 10 / 16 * 9 / 10 * 100) / 100
-                    viewBoxHeight = Math.floor(height * 10)
-                    d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
-                }
-            } else {
-                if (height >= 100) {
-                    viewBoxWidth = Math.floor(height / 9 * 16 * 100) / 100
-                    viewBoxHeight = height
-                    d = `M 0, 0 H ${width} V ${viewBoxHeight} H 0 V 0`
-                    width = 100
-                    height = 100
-                } else {
-                    strokeWidth = '1%'
-                    viewBoxHeight = Math.floor(height * 10 / 16 * 9 * 100) / 100
-                    d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
-                }
-            }
-
-            viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
-            if (width >= 100 || height >= 100) {
-                selectedPoints = getSelectedPoints(width, height, prevWidth, prevHeight, true)
-            } else {
-                selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight, true)
-            }
+            const image = e as ImageElement
+            d = `M 0, 0 H ${image.viewBox.width} V ${image.viewBox.height} H 0 V 0`
+            console.log(d)
+            viewBox = `0 0, ${image.viewBox.width}, ${image.viewBox.height}`
+            selectedPoints = getSelectedPoints(width, height, image.viewBox.width, image.viewBox.height, true)
 
             points = [
                 <path data-value="point" d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
@@ -160,7 +129,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <image id={elemId} data-path-id={pathId} data-points-id={pointsId} href={image} x="0" y="0"
+                <image id={elemId} data-path-id={pathId} data-points-id={pointsId} href={image.link} x="0" y="0"
                        onClick={(evt) => selectElements(evt, e.id)}/>
                 <path id={pathId} d={d} stroke="blue" strokeWidth={strokeWidth} strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5%, 5%" fill="none" className="elem-path"/>

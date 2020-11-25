@@ -11,6 +11,7 @@ import {mouseMoveElements} from "./functions/mouseMoveElements"
 import {endMoveElements} from "./functions/endMoveElements"
 import {moveElementPoint, resizeElement} from "./functions/resizeElement";
 import {changePositionOfElements} from "./functions/changePositionOfElements";
+import {endResizeElement} from "./functions/endResizeElement";
 
 ReactDOM.render(
     <App/>,
@@ -66,7 +67,8 @@ window.addEventListener('mouseup', (evt) => {
     if (isResize) {
         isResize = false
         pointIndex = -1
-        if (payload.size > 0) {
+        endResizeElement(payload)
+        if (!payload.get('small')) {
             dispatch(changePositionOfElements, payload)
         }
     }

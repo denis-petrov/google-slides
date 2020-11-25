@@ -49,5 +49,9 @@ type TextStyle = {
 
 type ImageElement = Element & {
     link: string,
+    viewBox: {
+        width: number,
+        height: number,
+    },
     type: ElementType.image
 }

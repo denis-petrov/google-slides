@@ -4,9 +4,7 @@ export function getSelectedPoints(width: number, height: number, viewBoxWidth: n
     const pointHeight = Math.floor(width/9*16/height*viewBoxHeight/width*100)/100
     let pointWidth = 10
     if (isImage) {
-        if ((width >= 100 || height >= 100) || (viewBoxHeight/9*16 < viewBoxWidth)) {
-            pointWidth = pointHeight
-        }
+        pointWidth = Math.round(height / width * viewBoxWidth / height * 100) / 100
     }
 
     const middlePointX = viewBoxWidth/2 - pointWidth/2

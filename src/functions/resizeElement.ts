@@ -1,4 +1,5 @@
 import {getEditor} from "../stateManager/StateManager"
+import {ElementType, ImageElement} from "../entities/Elements";
 
 export function resizeElement(event: any, pointIndex: number) {
     let point = event.target
@@ -23,7 +24,7 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
     editor.presentation.slides.map(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
             s.elements.filter(e => {
-                if (s.selectionElementsId.includes(e.id)) {
+                if (s.selectionElementsId.includes(e.id) && s.selectionElementsId.length <= 1) {
                     if (event.clientX !== firstPosX || event.clientY !== firstPosY) {
                         stepX = event.clientX - firstPosX
                         stepY = event.clientY - firstPosY
@@ -77,6 +78,31 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
                         bottomRightPointX = Math.round(bottomRightPointX * 100) / 100
                         bottomRightPointY = Math.round(bottomRightPointY * 100) / 100
 
+                        let prevWidth = Math.round((e.bottomRightPoint.x - e.topLeftPoint.x) * 100) / 100
+                        let prevHeight = Math.round((e.bottomRightPoint.y - e.topLeftPoint.y) * 100) / 100
+                        let viewBoxWidth = Math.round((bottomRightPointX - topLeftPointX) * 10 * 100) / 100
+                        let width = Math.round((bottomRightPointX - topLeftPointX) * 100) / 100
+                        let height = Math.round((bottomRightPointY - topLeftPointY) * 100) / 100
+                        let viewBoxHeight = Math.round(height * 10 * 100) / 100
+                        if (prevWidth > prevHeight) {
+                            viewBoxHeight = Math.round(height * 10 * 100) / 100
+                        } else {
+                            viewBoxHeight = Math.round(height * 10 / 16 * 9 * 100) / 100
+                        }
+
+                        if (e.type === ElementType.image) {
+                            let image = e as ImageElement
+                            viewBoxWidth = image.viewBox.width * (width / prevWidth)
+                            viewBoxHeight = image.viewBox.height * (height / prevHeight)
+                        }
+
+                        let elementPathId = (document.getElementById(e.id) as HTMLElement).getAttribute('data-path-id')
+                        let elementBorder = document.getElementById(elementPathId as string)
+                        let d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
+                        if (elementBorder) {
+                            elementBorder.setAttribute('d', d)
+                        }
+
                         newTopLeftPoint.set('x', topLeftPointX)
                         newTopLeftPoint.set('y', topLeftPointY)
                         newBottomRightPoint.set('x', bottomRightPointX)
@@ -89,8 +115,9 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
                         elements.set(e.id, newPos)
                         let elemWidth = bottomRightPointX - topLeftPointX
                         let elemHeight = bottomRightPointY - topLeftPointY
-                        if (elemWidth > 5 && elemHeight > 5) {
-                            payload.set('elements', elements)
+                        payload.set('elements', elements)
+                        if (elemWidth < 5 || elemHeight < 5) {
+                            payload.set('small', true)
                         }
                     }
                 }

@@ -5,7 +5,6 @@ import {Element, ElementType, ImageElement, Text} from "../entities/Elements";
 import {Slide} from "../entities/Slide";
 import {PAGE_HEIGHT, PAGE_WIDTH, WHITE} from "../entities/Constants";
 import {Color} from "../entities/Color";
-import {getImageProportions} from "./getImageProportions";
 
 export function drawElement(pdfDocument: jsPDF, element: Element) {
     let backgroundColor: Color = (element.backgroundColor === null) ? WHITE : (element.backgroundColor as Color)
@@ -43,10 +42,6 @@ export function drawElement(pdfDocument: jsPDF, element: Element) {
         let img = element as ImageElement;
         let width = Math.abs(img.bottomRightPoint.x - img.topLeftPoint.x) / 100 * PAGE_WIDTH;
         let height = Math.abs(img.bottomRightPoint.y - img.topLeftPoint.y) / 100 * PAGE_HEIGHT;
-
-        let imgProportions = getImageProportions(img, width, height)
-        width = imgProportions.imgWidth
-        height = imgProportions.imgHeight
 
         pdfDocument.addImage(
             img.link,

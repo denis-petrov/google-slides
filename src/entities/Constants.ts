@@ -155,6 +155,10 @@ const DEFAULT_IMAGE: ImageElement = {
     borderColor: WHITE,
     borderWidth: 0,
     backgroundColor: WHITE,
+    viewBox: {
+        width: 0,
+        height: 0,
+    },
     type: ElementType.image
 }
 
