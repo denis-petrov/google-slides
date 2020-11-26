@@ -37,6 +37,7 @@ let firstPosY: number
 let isResize: boolean
 let pointIndex: number
 let payload: any
+let resized = false
 
 window.addEventListener('mousedown', (evt) => {
     firstPosX = evt.clientX
@@ -55,6 +56,8 @@ window.addEventListener('mousemove', (evt) => {
     }
 
     if (isResize) {
+        resized = true
+        console.log(firstPosX, firstPosY, pointIndex)
         payload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
     }
 });
@@ -67,7 +70,7 @@ window.addEventListener('mouseup', (evt) => {
     if (isResize) {
         isResize = false
         pointIndex = -1
-        if (payload.size > 0) {
+        if (resized) {
             endResizeElement(payload)
             if (!payload.get('small')) {
                 dispatch(changePositionOfElements, payload)
