@@ -73,7 +73,6 @@ export default function Nav() {
             }
         }
     }
-    console.log(borderSizeView)
     return (
         <div>
             <div className="row nav__line">

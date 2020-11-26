@@ -107,7 +107,7 @@ const DEFAULT_TEXT: Text = {
     },
     topLeftPoint: {
         x: 0,
-        y: 5
+        y: 0
     },
     bottomRightPoint: {
         x: 10,

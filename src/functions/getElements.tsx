@@ -87,31 +87,30 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
             const borderWidth = e.borderWidth
 
-            //проверить нужен ли viewBox для svg с текстом
-            return <foreignObject width={width + '%'} height={height + '%'}>
-                <div style={{outline: 'none'}}>
-                    <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'}
-                         preserveAspectRatio="none" key={e.id}>
-                        <text x="0" y="40" id={elemId} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
-                              style={{
-                                  font: font,
-                                  textDecoration: underline,
-                                  stroke: borderColor,
-                                  borderWidth: borderWidth
-                              }}
-                              onClick={(evt) => selectElements(evt, e.id)}>
-                            {(e as Text).text}
-                        </text>
-                        <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                              strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
-                    </svg>
-                </div>
-            </foreignObject>
+            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
+                        height={height + '%'} preserveAspectRatio="none" key={e.id}>
+                <text x="0" y="40" id={elemId} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
+                      style={{
+                          font: font,
+                          textDecoration: underline,
+                          stroke: borderColor,
+                          borderWidth: borderWidth
+                      }}
+                      onClick={(evt) => selectElements(evt, e.id)}>
+                    {(e as Text).text}
+                </text>
+                <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                                         strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
+                <svg id={pointsId} className="points_container">
+                    {points.map((point) => {
+                        return point
+                    })}
+                </svg>
+            </svg>
         } else if (e.type === ElementType.image) {
             let strokeWidth = '.5%'
             const image = e as ImageElement
             d = `M 0, 0 H ${image.viewBox.width} V ${image.viewBox.height} H 0 V 0`
-            console.log(d)
             viewBox = `0 0, ${image.viewBox.width}, ${image.viewBox.height}`
             selectedPoints = getSelectedPoints(width, height, image.viewBox.width, image.viewBox.height, true)
 
