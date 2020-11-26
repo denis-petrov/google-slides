@@ -4,7 +4,19 @@ import {jsPDF} from "jspdf"
 import {Element, ElementType, ImageElement, Text} from "../entities/Elements";
 import {Slide} from "../entities/Slide";
 import {PAGE_HEIGHT, PAGE_WIDTH, WHITE} from "../entities/Constants";
-import {Color} from "../entities/Color";
+import {Color, isColor} from "../entities/Color";
+import html2canvas from "html2canvas";
+import {SlideBackground} from "../entities/SlideBackground";
+
+export function createImageFromText(text: Element) {
+    let elemUuid = text.id
+
+    html2canvas(document.querySelector(`#slide-area text[id="${elemUuid}]"`) as HTMLElement, {
+
+    }).then(function canvas(canvas) {
+         console.log(canvas.toDataURL())
+    });
+}
 
 export function drawElement(pdfDocument: jsPDF, element: Element) {
     let backgroundColor: Color = (element.backgroundColor === null) ? WHITE : (element.backgroundColor as Color)
@@ -54,17 +66,30 @@ export function drawElement(pdfDocument: jsPDF, element: Element) {
     } else if (element.type === ElementType.text) {
         let text = element as Text
         let textStyle = text.textStyle
+        let maxLineWidth = Math.abs(element.topLeftPoint.x - element.bottomRightPoint.x) / 100 * PAGE_WIDTH
 
-
+        pdfDocument.setFontSize(textStyle.sizeFont * 100 / 60)
         pdfDocument.text(
-            text.text,
-            text.topLeftPoint.x,
-            text.topLeftPoint.y,
+            pdfDocument.splitTextToSize(text.text, maxLineWidth),
+            text.topLeftPoint.x / 100 * PAGE_WIDTH,
+            text.topLeftPoint.y / 100 * PAGE_HEIGHT,
         )
     }
 }
 
+export function drawBackground(pdfDocument: jsPDF, background: Color | string) {
+    if (isColor(background)) {
+        let color = background as Color;
+        pdfDocument.setFillColor(color.red, color.green, color.blue)
+        pdfDocument.rect(0, 0, PAGE_WIDTH, PAGE_HEIGHT, 'DF')
+    } else {
+        let imageLink = background as string;
+        pdfDocument.addImage(imageLink, 'JPEG', 0, 0, PAGE_WIDTH, PAGE_HEIGHT);
+    }
+}
+
 export function drawSlide(pdfDocument: jsPDF, slide: Slide) {
+    drawBackground(pdfDocument, slide.background)
     for (let i = 0; i < slide.elements.length; i++) {
         let currElement = slide.elements[i]
         drawElement(pdfDocument, currElement)

@@ -181,7 +181,11 @@ export default function Nav() {
                 <div className="col col-lg-2 text-center">
                     <button type="button" className="btn btn-sm button__onclick dropbox__button button__show"
                             onClick={() => {
-                                createPdf().save(getEditor().presentation.name)
+                                let newWindow = window.open('/loading.html') as Window
+                                newWindow.onload = () => {
+                                    newWindow.location.href = URL.createObjectURL(createPdf().output('blob'))
+                                };
+
                             }}>
                         <SlideshowRoundedIcon/> Show
                     </button>
