@@ -3,6 +3,8 @@ import {getSelectedPoints} from "./getSelectedPoints"
 import {ElementType, ImageElement, Text} from "../entities/Elements"
 import React from "react"
 import {selectElements} from "../slideArea/SlideArea"
+import {changeTextValue} from "./changeTextElement"
+import {dispatch} from "../stateManager/StateManager"
 
 export function getElements(s: Slide, isIdNeeded: boolean = true) {
     return s.elements.map(e => {
@@ -66,6 +68,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 elementPoints = `M ${viewBoxWidth / 2} 0, L ${viewBoxWidth} ${viewBoxHeight - 1}, L 0 ${viewBoxHeight - 1}, L ${viewBoxWidth / 2} 0`
             }
 
+
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={elementPoints} stroke={borderColor}
@@ -86,25 +89,26 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const underline = `${textStyle.isUnderline ? 'underline' : 'none'}`
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
             const borderWidth = e.borderWidth
-            let textPosY = '0'
-            if (isIdNeeded) {
-                textPosY = '40'
-            }
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
-                        height={height + '%'} preserveAspectRatio="none" style={{overflowWrap: "break-word"}} key={e.id}>
+                        height={height + '%'} preserveAspectRatio="none" style={{overflowWrap: "break-word"}}
+                        key={e.id}>
                 <foreignObject width={'100%'} height={'100%'}>
-                    <p contentEditable={true} suppressContentEditableWarning={true} id={elemId} data-path-id={pathId} data-points-id={pointsId}
+                    <p contentEditable={true} suppressContentEditableWarning={true} id={elemId} data-path-id={pathId}
+                       data-points-id={pointsId}
                        style={{
-                        font: font,
-                        textDecoration: underline,
-                        stroke: borderColor,
-                        borderWidth: borderWidth,
-                        overflowWrap: "break-word",
-                        color: `${textColor}`,
-                    }}
-                    onClick={(evt) => selectElements(evt, e.id)}
-                    onBlur={(evt) => {console.log(evt.target.textContent)}}
+                           font: font,
+                           textDecoration: underline,
+                           stroke: borderColor,
+                           borderWidth: borderWidth,
+                           overflowWrap: "break-word",
+                           color: `${textColor}`,
+                           outline: 'none'
+                       }}
+                       onClick={(evt) => selectElements(evt, e.id)}
+                       onBlur={(evt) => {
+                           dispatch(changeTextValue, {id: e.id, value: evt.target.textContent})
+                       }}
                     >
                         {(e as Text).text}
                     </p>
@@ -121,6 +125,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             let strokeWidth = '.5%'
             const image = e as ImageElement
             d = `M 0, 0 H ${image.viewBox.width} V ${image.viewBox.height} H 0 V 0`
+            console.log(d)
             viewBox = `0 0, ${image.viewBox.width}, ${image.viewBox.height}`
             selectedPoints = getSelectedPoints(width, height, image.viewBox.width, image.viewBox.height, true)
 
