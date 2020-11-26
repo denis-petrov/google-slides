@@ -86,21 +86,31 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const underline = `${textStyle.isUnderline ? 'underline' : 'none'}`
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
             const borderWidth = e.borderWidth
+            let textPosY = '0'
+            if (isIdNeeded) {
+                textPosY = '40'
+            }
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
-                        height={height + '%'} preserveAspectRatio="none" key={e.id}>
-                <text x="0" y="40" id={elemId} data-path-id={pathId} data-points-id={pointsId} fill={textColor}
-                      style={{
-                          font: font,
-                          textDecoration: underline,
-                          stroke: borderColor,
-                          borderWidth: borderWidth
-                      }}
-                      onClick={(evt) => selectElements(evt, e.id)}>
-                    {(e as Text).text}
-                </text>
+                        height={height + '%'} preserveAspectRatio="none" style={{overflowWrap: "break-word"}} key={e.id}>
+                <foreignObject width={'100%'} height={'100%'}>
+                    <p contentEditable={true} suppressContentEditableWarning={true} id={elemId} data-path-id={pathId} data-points-id={pointsId}
+                       style={{
+                        font: font,
+                        textDecoration: underline,
+                        stroke: borderColor,
+                        borderWidth: borderWidth,
+                        overflowWrap: "break-word",
+                        color: `${textColor}`,
+                    }}
+                    onClick={(evt) => selectElements(evt, e.id)}
+                    onBlur={(evt) => {console.log(evt.target.textContent)}}
+                    >
+                        {(e as Text).text}
+                    </p>
+                </foreignObject>
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                                         strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
+                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
                         return point
