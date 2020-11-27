@@ -74,7 +74,11 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={elementPoints} stroke={borderColor}
                       strokeWidth={e.borderWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill={backgroundColor}
-                      onClick={(evt) => selectElements(evt, e.id)}/>
+                      onClick={(evt) => {
+                          if (isIdNeeded) {
+                              selectElements(evt, e.id)
+                          }
+                      }}/>
                 <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
@@ -105,9 +109,15 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                            color: `${textColor}`,
                            outline: 'none'
                        }}
-                       onClick={(evt) => selectElements(evt, e.id)}
+                       onClick={(evt) => {
+                           if (isIdNeeded) {
+                               selectElements(evt, e.id)
+                           }
+                       }}
                        onBlur={(evt) => {
-                           dispatch(changeTextValue, {id: e.id, value: evt.target.textContent})
+                           if (isIdNeeded) {
+                               dispatch(changeTextValue, {id: e.id, value: evt.target.textContent})
+                           }
                        }}
                     >
                         {(e as Text).text}
@@ -125,7 +135,6 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             let strokeWidth = '.5%'
             const image = e as ImageElement
             d = `M 0, 0 H ${image.viewBox.width} V ${image.viewBox.height} H 0 V 0`
-            console.log(d)
             viewBox = `0 0, ${image.viewBox.width}, ${image.viewBox.height}`
             selectedPoints = getSelectedPoints(width, height, image.viewBox.width, image.viewBox.height, true)
 
@@ -151,7 +160,11 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <image id={elemId} data-path-id={pathId} data-points-id={pointsId} href={image.link} x="0" y="0"
-                       onClick={(evt) => selectElements(evt, e.id)}/>
+                       onClick={(evt) => {
+                           if (isIdNeeded) {
+                               selectElements(evt, e.id)
+                           }
+                       }}/>
                 <path id={pathId} d={d} stroke="blue" strokeWidth={strokeWidth} strokeLinejoin="miter"
                       strokeLinecap="square" strokeDasharray="5%, 5%" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">

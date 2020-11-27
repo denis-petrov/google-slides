@@ -20,7 +20,6 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
     let stepX
     let stepY
     let payload = new Map()
-    console.log('test')
     let slide = document.getElementsByClassName('workspace')[0]
     editor.presentation.slides.map(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
@@ -190,7 +189,6 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
                     let elemWidth = bottomRightPointX - topLeftPointX
                     let elemHeight = bottomRightPointY - topLeftPointY
                     payload.set('elements', elements)
-                    console.log(payload)
                     if (elemWidth < 5 || elemHeight < 5) {
                         payload.set('small', true)
                     }

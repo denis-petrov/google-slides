@@ -57,7 +57,6 @@ window.addEventListener('mousemove', (evt) => {
 
     if (isResize) {
         resized = true
-        console.log(firstPosX, firstPosY, pointIndex)
         payload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
     }
 });

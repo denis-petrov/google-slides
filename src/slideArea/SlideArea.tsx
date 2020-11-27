@@ -85,7 +85,7 @@ export function selectElements(event: any, id: string) {
                 elemPoints.classList.add(pointsClassName)
             }
 
-            if (clickedElem.tagName == 'P') {
+            if (clickedElem.tagName === 'P') {
                 changePrimitiveStyleMenu(false)
                 changeTextStyleMenu(true)
             } else {
