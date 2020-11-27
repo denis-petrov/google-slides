@@ -93,6 +93,30 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const underline = `${textStyle.isUnderline ? 'underline' : 'none'}`
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
             const borderWidth = e.borderWidth
+            const cursor = isIdNeeded ? 'auto' : 'default'
+            viewBoxHeight = Math.round(height * 10 / 16 * 9 * 100) / 100
+            viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
+            d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
+            selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
+
+            points = [
+                <path data-value="point" d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path data-value="point" d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path data-value="point" d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path data-value="point" d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path data-value="point" d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path data-value="point" d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path data-value="point" d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>,
+                <path data-value="point" d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="blue"/>
+            ]
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" style={{overflowWrap: "break-word"}}
@@ -107,7 +131,8 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                            borderWidth: borderWidth,
                            overflowWrap: "break-word",
                            color: `${textColor}`,
-                           outline: 'none'
+                           outline: 'none',
+                           cursor: cursor
                        }}
                        onClick={(evt) => {
                            if (isIdNeeded) {
