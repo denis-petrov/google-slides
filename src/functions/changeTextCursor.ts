@@ -4,12 +4,12 @@ export function changeTextCursor(event: any) {
         let parent = element.parentNode as HTMLElement
         let shiftX = event.pageX - element.getBoundingClientRect().left;
         let shiftY = event.pageY - element.getBoundingClientRect().top;
-        let cursorPos = {
-            X: shiftX/parent.getBoundingClientRect().width * 100,
-            Y: shiftY/parent.getBoundingClientRect().height * 100
+        let parentSize = {
+            width: parent.getBoundingClientRect().width,
+            height: parent.getBoundingClientRect().height
         }
 
-        if (cursorPos.X >= 95 || (cursorPos.Y >= 95 && cursorPos.Y <= 100) || cursorPos.X <= 5 || cursorPos.Y <= 5) {
+        if (parentSize.width - shiftX <= 5 || parentSize.height - shiftY <= 5 || shiftX <= 5 || shiftY <= 5) {
             element.style.cursor = 'move'
         } else {
             element.style.cursor = 'text'

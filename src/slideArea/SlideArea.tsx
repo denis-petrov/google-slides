@@ -121,14 +121,14 @@ export function moveElements(event: any) {
                 if (element) {
                     if (element.tagName === 'P') {
                         let parent = element.parentNode as HTMLElement
-                        let shiftX = event.pageX - element.getBoundingClientRect().left;
-                        let shiftY = event.pageY - element.getBoundingClientRect().top;
-                        let cursorPos = {
-                            X: shiftX/parent.getBoundingClientRect().width * 100,
-                            Y: shiftY/parent.getBoundingClientRect().height * 100
+                        let shiftX = event.pageX - element.getBoundingClientRect().left
+                        let shiftY = event.pageY - element.getBoundingClientRect().top
+                        let parentSize = {
+                            width: parent.getBoundingClientRect().width,
+                            height: parent.getBoundingClientRect().height
                         }
 
-                        itsSelectedElements.push(event.target === parent || cursorPos.X >= 95 || cursorPos.Y >= 95 || cursorPos.X <= 5 || cursorPos.Y <= 5)
+                        itsSelectedElements.push(event.target === parent || (!event.target.getAttribute('data-value') && (parentSize.width - shiftX <= 5 || parentSize.height - shiftY <= 5 || shiftX <= 5 || shiftY <= 5)))
                     } else {
                         itsSelectedElements.push(event.target === selectedElements[i] || (selectedElements[i] as HTMLElement).contains(event.target as Node))
                     }
