@@ -1,6 +1,7 @@
 import {dispatch} from "../stateManager/StateManager"
 import {chooseElements} from "./chooseElements"
 import {changeTextStyleMenu} from "./changeTextStyleMenu"
+import {deleteElements} from "./deleteElements";
 
 export function removeSelectOfElement(evt: any) {
     let clickedElem = evt.target as HTMLElement

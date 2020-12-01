@@ -107,13 +107,14 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
             const borderWidth = e.borderWidth
             const cursor = isIdNeeded ? 'auto' : 'default'
+            const placeholder = isIdNeeded ? 'Insert text here' : ''
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" style={{overflowWrap: "break-word"}}
                         key={e.id}>
                 <foreignObject width={'100%'} height={'100%'} overflow={'visible'}>
                     <p contentEditable={true} suppressContentEditableWarning={true} id={elemId} data-path-id={pathId}
-                       data-points-id={pointsId}
+                       data-points-id={pointsId} data-placeholder={placeholder}
                        style={{
                            font: font,
                            textDecoration: underline,
@@ -123,6 +124,11 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                            color: `${textColor}`,
                            outline: 'none',
                            cursor: cursor
+                       }}
+                       onFocus={(evt) => {
+                           if (isIdNeeded) {
+                               selectElements(evt, e.id)
+                           }
                        }}
                        onClick={(evt) => {
                            if (isIdNeeded) {

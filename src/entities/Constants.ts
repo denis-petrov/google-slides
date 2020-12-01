@@ -120,7 +120,7 @@ const DEFAULT_TEXT: Text = {
     },
     borderWidth: 1,
     backgroundColor: BLACK,
-    text: 'Text',
+    text: '',
     textStyle: {
         font: 'Arial',
         sizeFont: 40,

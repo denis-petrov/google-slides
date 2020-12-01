@@ -1,5 +1,5 @@
 import {getEditor} from "../stateManager/StateManager"
-import {ElementType, ImageElement} from "../entities/Elements"
+import {Element, ElementType, ImageElement} from "../entities/Elements"
 
 export function resizeElement(event: any, pointIndex: number) {
     let point = event.target
@@ -13,6 +13,14 @@ export function resizeElement(event: any, pointIndex: number) {
     }
 
     return pointIndex
+}
+
+function changeVieBoxHeight(e: Element, prevWidth: number, prevHeight: number, height: number): number {
+    if (prevWidth > prevHeight && e.type !== ElementType.text) {
+        return Math.round(height * 10 * 100) / 100
+    } else {
+        return Math.round(height * 10 / 16 * 9 * 100) / 100
+    }
 }
 
 export function moveElementPoint(event: any, firstPosX: number, firstPosY: number, pointIndex: number) {
@@ -82,12 +90,8 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
                     let width = Math.round((bottomRightPointX - topLeftPointX) * 100) / 100
                     let viewBoxWidth = Math.round(width * 10 * 100) / 100
                     let height = Math.round((bottomRightPointY - topLeftPointY) * 100) / 100
-                    let viewBoxHeight
-                    if (prevWidth > prevHeight) {
-                        viewBoxHeight = Math.round(height * 10 * 100) / 100
-                    } else {
-                        viewBoxHeight = Math.round(height * 10 / 16 * 9 * 100) / 100
-                    }
+                    let viewBoxHeight: number
+                    viewBoxHeight = changeVieBoxHeight(e, prevWidth, prevHeight, height)
 
                     let startVieBoxX = 0
                     let startVieBoxY = 0
@@ -130,31 +134,16 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
                         switch (pointIndex) {
                             case 0:
                                 viewBoxWidth = Math.round(prevWidth * 10 * 100) / 100
-                                if (prevWidth > prevHeight) {
-                                    viewBoxHeight = Math.round(prevHeight * 10 * 100) / 100
-                                } else {
-                                    viewBoxHeight = Math.round(prevHeight * 10 / 16 * 9 * 100) / 100
-                                }
-
+                                viewBoxHeight = changeVieBoxHeight(e, prevWidth, prevHeight, prevHeight)
                                 startVieBoxX = viewBoxWidth - (width / prevWidth) * viewBoxWidth
                                 startVieBoxY = viewBoxHeight - (height / prevHeight) * viewBoxHeight
                                 break
                             case 1:
-                                if (prevWidth > prevHeight) {
-                                    viewBoxHeight = Math.round(prevHeight * 10 * 100) / 100
-                                } else {
-                                    viewBoxHeight = Math.round(prevHeight * 10 / 16 * 9 * 100) / 100
-                                }
-
+                                viewBoxHeight = changeVieBoxHeight(e, prevWidth, prevHeight, prevHeight)
                                 startVieBoxY = viewBoxHeight - (height / prevHeight) * viewBoxHeight
                                 break
                             case 2:
-                                if (prevWidth > prevHeight) {
-                                    viewBoxHeight = Math.round(prevHeight * 10 * 100) / 100
-                                } else {
-                                    viewBoxHeight = Math.round(prevHeight * 10 / 16 * 9 * 100) / 100
-                                }
-
+                                viewBoxHeight = changeVieBoxHeight(e, prevWidth, prevHeight, prevHeight)
                                 startVieBoxY = viewBoxHeight - (height / prevHeight) * viewBoxHeight
                                 break
                             case 3:
