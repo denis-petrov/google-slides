@@ -128,7 +128,7 @@ export function moveElements(event: any) {
                             height: parent.getBoundingClientRect().height
                         }
 
-                        itsSelectedElements.push(event.target === parent || (!event.target.getAttribute('data-value') && (parentSize.width - shiftX <= 5 || parentSize.height - shiftY <= 5 || shiftX <= 5 || shiftY <= 5)))
+                        itsSelectedElements.push(event.target === parent || (event.target.tagName === 'P' && (parentSize.width - shiftX <= 5 || parentSize.height - shiftY <= 5 || shiftX <= 5 || shiftY <= 5)))
                     } else {
                         itsSelectedElements.push(event.target === selectedElements[i] || (selectedElements[i] as HTMLElement).contains(event.target as Node))
                     }
