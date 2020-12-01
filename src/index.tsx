@@ -12,6 +12,7 @@ import {endMoveElements} from "./functions/endMoveElements"
 import {moveElementPoint, resizeElement} from "./functions/resizeElement"
 import {changePositionOfElements} from "./functions/changePositionOfElements"
 import {endResizeElement} from "./functions/endResizeElement"
+import {changeTextCursor} from "./functions/changeTextCursor";
 
 ReactDOM.render(
     <App/>,
@@ -51,6 +52,8 @@ window.addEventListener('mousedown', (evt) => {
 })
 
 window.addEventListener('mousemove', (evt) => {
+    changeTextCursor(evt)
+
     if (isMoveElements) {
         mouseMoveElements(evt, firstPosX, firstPosY)
     }

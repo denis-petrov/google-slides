@@ -14,7 +14,7 @@ export function removeSelectOfElement(evt: any) {
     }
 
     if (clickedElem) {
-        itsClickedElem = clickedElem.getAttribute('data-path-id') || clickedElem.getAttribute('data-value')
+        itsClickedElem = clickedElem.getAttribute('data-path-id') || clickedElem.getAttribute('data-value') || clickedElem.tagName === 'foreignObject'
     }
 
     if (itsSlideArea && !itsClickedElem) {
@@ -22,6 +22,10 @@ export function removeSelectOfElement(evt: any) {
         let allSelectedElems = document.getElementsByClassName(className)
         while(allSelectedElems[0]) {
             if (allSelectedElems[0].classList.contains(className)) {
+                if (allSelectedElems[0].tagName === 'P') {
+                    (allSelectedElems[0].parentNode as HTMLElement).style.cursor = 'default'
+                }
+
                 allSelectedElems[0].classList.remove(className)
             }
         }

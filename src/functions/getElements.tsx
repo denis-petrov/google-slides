@@ -42,23 +42,36 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         }
 
         let selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
+
+        if (e.type === ElementType.text) {
+            viewBoxHeight = Math.round(height * 10 / 16 * 9 * 100) / 100
+            viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
+            d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
+            selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
+        } else if (e.type === ElementType.image) {
+            const image = e as ImageElement
+            d = `M 0, 0 H ${image.viewBox.width} V ${image.viewBox.height} H 0 V 0`
+            viewBox = `0 0, ${image.viewBox.width}, ${image.viewBox.height}`
+            selectedPoints = getSelectedPoints(width, height, image.viewBox.width, image.viewBox.height, true)
+        }
+
         let points = [
             <path data-value="point" d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
+                  strokeLinecap="square" fill="blue" style={{cursor: 'nwse-resize'}}/>,
             <path data-value="point" d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
+                  strokeLinecap="square" fill="blue" style={{cursor: 'ns-resize'}}/>,
             <path data-value="point" d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
+                  strokeLinecap="square" fill="blue" style={{cursor: 'nesw-resize'}}/>,
             <path data-value="point" d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
+                  strokeLinecap="square" fill="blue" style={{cursor: 'ew-resize'}}/>,
             <path data-value="point" d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
+                  strokeLinecap="square" fill="blue" style={{cursor: 'ew-resize'}}/>,
             <path data-value="point" d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
+                  strokeLinecap="square" fill="blue" style={{cursor: 'nesw-resize'}}/>,
             <path data-value="point" d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>,
+                  strokeLinecap="square" fill="blue" style={{cursor: 'ns-resize'}}/>,
             <path data-value="point" d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue"/>
+                  strokeLinecap="square" fill="blue" style={{cursor: 'nwse-resize'}}/>
         ]
 
         if (e.type === ElementType.rectangle || e.type === ElementType.ellipse || e.type === ElementType.triangle) {
@@ -94,34 +107,11 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
             const borderWidth = e.borderWidth
             const cursor = isIdNeeded ? 'auto' : 'default'
-            viewBoxHeight = Math.round(height * 10 / 16 * 9 * 100) / 100
-            viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
-            d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
-            selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
-
-            points = [
-                <path data-value="point" d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>
-            ]
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" style={{overflowWrap: "break-word"}}
                         key={e.id}>
-                <foreignObject width={'100%'} height={'100%'}>
+                <foreignObject width={'100%'} height={'100%'} overflow={'visible'}>
                     <p contentEditable={true} suppressContentEditableWarning={true} id={elemId} data-path-id={pathId}
                        data-points-id={pointsId}
                        style={{
@@ -159,28 +149,6 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         } else if (e.type === ElementType.image) {
             let strokeWidth = '.5%'
             const image = e as ImageElement
-            d = `M 0, 0 H ${image.viewBox.width} V ${image.viewBox.height} H 0 V 0`
-            viewBox = `0 0, ${image.viewBox.width}, ${image.viewBox.height}`
-            selectedPoints = getSelectedPoints(width, height, image.viewBox.width, image.viewBox.height, true)
-
-            points = [
-                <path data-value="point" d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>,
-                <path data-value="point" d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="blue"/>
-            ]
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>

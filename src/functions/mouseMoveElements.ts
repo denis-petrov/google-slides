@@ -19,6 +19,10 @@ export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number
                 let elem = selectedElements[i]
                 if (elem) {
                     let parent = elem.parentNode as HTMLElement
+                    if (elem.tagName === 'P') {
+                        parent = parent.parentNode as HTMLElement
+                    }
+
                     let prevXAttribute
                     let prevYAttribute
 

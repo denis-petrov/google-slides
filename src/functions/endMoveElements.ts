@@ -21,6 +21,10 @@ export function endMoveElements(isMoveElements: boolean) {
                     let topLeftPointY = 0
                     if (elem && e.id === elem.id) {
                         let parent = elem.parentNode as HTMLElement
+                        if (elem.tagName === 'P') {
+                            parent = parent.parentNode as HTMLElement
+                        }
+
                         let X = parent.getAttribute('x')
                         let Y = parent.getAttribute('y')
                         if (X !== null && X !== undefined) {

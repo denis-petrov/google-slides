@@ -28,6 +28,9 @@ export function selectElements(event: any, id: string) {
                 }
 
                 clickedElem.classList.remove(elemClassName)
+                if (clickedElem.tagName === 'P') {
+                    (clickedElem.parentNode as HTMLElement).style.cursor = 'default'
+                }
             } else {
                 if (elemPath) {
                     elemPath.classList.add(pathClassName)
@@ -38,6 +41,9 @@ export function selectElements(event: any, id: string) {
                 }
 
                 clickedElem.classList.add(elemClassName)
+                if (clickedElem.tagName === 'P') {
+                    (clickedElem.parentNode as HTMLElement).style.cursor = 'move'
+                }
             }
 
             let selectedElems = new Array<string>()
@@ -86,6 +92,7 @@ export function selectElements(event: any, id: string) {
             }
 
             if (clickedElem.tagName === 'P') {
+                (clickedElem.parentNode as HTMLElement).style.cursor = 'move'
                 changePrimitiveStyleMenu(false)
                 changeTextStyleMenu(true)
             } else {
@@ -110,8 +117,21 @@ export function moveElements(event: any) {
 
             let itsSelectedElements = []
             for (let i = 0; i < selectedElements.length; i++) {
-                if (selectedElements[i]) {
-                    itsSelectedElements.push(event.target === selectedElements[i] || (selectedElements[i] as HTMLElement).contains(event.target as Node))
+                let element = selectedElements[i]
+                if (element) {
+                    if (element.tagName === 'P') {
+                        let parent = element.parentNode as HTMLElement
+                        let shiftX = event.pageX - element.getBoundingClientRect().left;
+                        let shiftY = event.pageY - element.getBoundingClientRect().top;
+                        let cursorPos = {
+                            X: shiftX/parent.getBoundingClientRect().width * 100,
+                            Y: shiftY/parent.getBoundingClientRect().height * 100
+                        }
+
+                        itsSelectedElements.push(event.target === parent || cursorPos.X >= 95 || cursorPos.Y >= 95 || cursorPos.X <= 5 || cursorPos.Y <= 5)
+                    } else {
+                        itsSelectedElements.push(event.target === selectedElements[i] || (selectedElements[i] as HTMLElement).contains(event.target as Node))
+                    }
                 }
             }
 
