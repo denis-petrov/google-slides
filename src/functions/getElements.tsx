@@ -18,7 +18,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
 
         let pathId
         let pointsId
-        let elemId
+        let elemId: string | undefined
         let viewBoxWidth = Math.round((e.bottomRightPoint.x - e.topLeftPoint.x) * 10 * 100) / 100
         let viewBoxHeight
 
@@ -124,11 +124,6 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                            color: `${textColor}`,
                            outline: 'none',
                            cursor: cursor
-                       }}
-                       onFocus={(evt) => {
-                           if (isIdNeeded) {
-                               selectElements(evt, e.id)
-                           }
                        }}
                        onClick={(evt) => {
                            if (isIdNeeded) {

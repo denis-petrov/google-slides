@@ -51,7 +51,12 @@ svg {
     visibility: visible;
 }
 
-svg p:empty:not(:focus)::before {
+svg p::before {
+    content: '';
+    cursor: text;
+}
+
+svg p:empty:not(.element_choosed)::before {
     content: attr(data-placeholder);
     color: #FFFFFF;
     text-shadow: 0 1px 0 #000000, 0 -1px 0 #000000, 1px 0 0 #000000, -1px 0 0 #000000, 1px 1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, -1px -1px 0 #000000;
