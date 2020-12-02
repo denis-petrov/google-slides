@@ -23,8 +23,6 @@ export function showPresentation() {
         root.style.backgroundColor = '#222222'
     }
 
-    document.documentElement.requestFullscreen()
-
     let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
     if (workspace) {
         workspace.style.width = '100vw'

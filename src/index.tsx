@@ -36,7 +36,7 @@ window.addEventListener('keydown', (evt: KeyboardEvent) => {
         dispatch(deleteElements, {})
     }
 
-    if (evt.keyCode === 81) {
+    if (evt.keyCode === 27) {
         stopShowPresentation()
     }
 

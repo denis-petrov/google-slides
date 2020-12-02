@@ -10,7 +10,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
     return s.elements.map(e => {
         let width = Math.round((e.bottomRightPoint.x - e.topLeftPoint.x) * 100) / 100
         let height = Math.round((e.bottomRightPoint.y - e.topLeftPoint.y) * 100) / 100
-        let borderColor = `rgb(${e.borderColor.red},${e.borderColor.green},${e.borderColor.blue}`
+        let borderColor = `rgb(${e.borderColor.red},${e.borderColor.green},${e.borderColor.blue})`
         let backgroundColor = 'rgb(255, 255, 255)'
         if (e.backgroundColor) {
             backgroundColor = `rgb(${e.backgroundColor.red},${e.backgroundColor.green},${e.backgroundColor.blue}`
@@ -78,9 +78,8 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             if (e.type === ElementType.ellipse) {
                 elementPoints = `M 1,${viewBoxHeight / 2} A ${viewBoxWidth / 2 - 1},${viewBoxHeight / 2 - 1} 0 1, 1 1,${viewBoxHeight / 2 + 0.0001}`
             } else if (e.type === ElementType.triangle) {
-                elementPoints = `M ${viewBoxWidth / 2} 0, L ${viewBoxWidth} ${viewBoxHeight - 1}, L 0 ${viewBoxHeight - 1}, L ${viewBoxWidth / 2} 0`
+                elementPoints = `M ${viewBoxWidth / 2}, 0 L ${viewBoxWidth} ${viewBoxHeight - 1} L 0 ${viewBoxHeight - 1} L ${viewBoxWidth / 2} 0`
             }
-
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" key={e.id}>
