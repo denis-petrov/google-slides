@@ -17,7 +17,6 @@ import {stopShowPresentation} from "./functions/showPresentation";
 import {SelectSlide} from "./functions/SelectSlide";
 import {getElements} from "./functions/getElements";
 import {getSlideIndex} from "./functions/getSlideIndex";
-import {changeTextCursor} from "./functions/changeTextCursor"
 import {moveSlides} from "./functions/moveSlides"
 import {endMoveSlides} from "./functions/endMoveSlides"
 
