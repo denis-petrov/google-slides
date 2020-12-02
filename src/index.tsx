@@ -13,6 +13,7 @@ import {moveElementPoint, resizeElement} from "./functions/resizeElement"
 import {changePositionOfElements} from "./functions/changePositionOfElements"
 import {endResizeElement} from "./functions/endResizeElement"
 import {changeTextCursor} from "./functions/changeTextCursor";
+import {stopShowPresentation} from "./functions/showPresentation";
 
 ReactDOM.render(
     <App/>,
@@ -28,6 +29,11 @@ window.addEventListener('keydown', (e: KeyboardEvent) => {
 
     if (e.keyCode === 46) {
         dispatch(deleteElements, {})
+    }
+
+    if (e.keyCode === 81) {
+        console.log('ewe')
+        stopShowPresentation()
     }
 })
 

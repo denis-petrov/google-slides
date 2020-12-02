@@ -46,6 +46,7 @@ import {changeElementBorderColor} from "../functions/changeElementBorderColor"
 import {getSelectedElement} from "../functions/getSelectedElement"
 import {ElementType, Text} from "../entities/Elements"
 import {changeBorderWidth} from "../functions/changeBorderWidth"
+import {showPresentation} from "../functions/showPresentation";
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -179,14 +180,7 @@ export default function Nav() {
                     </Toolbar>
                 </AppBar>
                 <div className="col col-lg-2 text-center">
-                    <button type="button" className="btn btn-sm button__onclick dropbox__button button__show"
-                            onClick={() => {
-                                let newWindow = window.open('/loading.html') as Window
-                                newWindow.onload = () => {
-                                    newWindow.location.href = URL.createObjectURL(createPdf().output('blob'))
-                                };
-
-                            }}>
+                    <button type="button" className="btn btn-sm button__onclick dropbox__button button__show" onClick={() => showPresentation()}>
                         <SlideshowRoundedIcon/> Show
                     </button>
                 </div>
