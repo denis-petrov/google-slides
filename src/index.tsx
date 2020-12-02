@@ -12,6 +12,8 @@ import {endMoveElements} from "./functions/endMoveElements"
 import {moveElementPoint, resizeElement} from "./functions/resizeElement"
 import {changePositionOfElements} from "./functions/changePositionOfElements"
 import {endResizeElement} from "./functions/endResizeElement"
+import {changeTextCursor} from "./functions/changeTextCursor";
+import {stopShowPresentation} from "./functions/showPresentation";
 import {changeTextCursor} from "./functions/changeTextCursor"
 import {moveSlides} from "./functions/moveSlides"
 import {endMoveSlides} from "./functions/endMoveSlides"
@@ -30,6 +32,11 @@ window.addEventListener('keydown', (e: KeyboardEvent) => {
 
     if (e.keyCode === 46) {
         dispatch(deleteElements, {})
+    }
+
+    if (e.keyCode === 81) {
+        console.log('ewe')
+        stopShowPresentation()
     }
 })
 
@@ -68,7 +75,7 @@ window.addEventListener('mousemove', (evt) => {
         resized = true
         payload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
     }
-})
+});
 
 window.addEventListener('mouseup', (evt) => {
     if (isMoveElements) {
