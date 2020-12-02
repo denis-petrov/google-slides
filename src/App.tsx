@@ -11,6 +11,7 @@ function App() {
             <div className="main-block">
                 <SlideMenu />
                 <SlideArea />
+                <div id='slide-mask'/>
             </div>
         </div>
     )

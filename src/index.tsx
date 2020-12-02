@@ -13,9 +13,8 @@ import {moveElementPoint, resizeElement} from "./functions/resizeElement"
 import {changePositionOfElements} from "./functions/changePositionOfElements"
 import {endResizeElement} from "./functions/endResizeElement"
 import {changeTextCursor} from "./functions/changeTextCursor";
-import {stopShowPresentation} from "./functions/showPresentation";
+import {changeSlideSize, stopShowPresentation} from "./functions/showPresentation";
 import {SelectSlide} from "./functions/SelectSlide";
-import {getElements} from "./functions/getElements";
 import {getSlideIndex} from "./functions/getSlideIndex";
 import {moveSlides} from "./functions/moveSlides"
 import {endMoveSlides} from "./functions/endMoveSlides"
@@ -24,6 +23,13 @@ ReactDOM.render(
     <App/>,
     document.getElementById('root')
 )
+
+window.addEventListener('resize', () => {
+    let slideMask = document.getElementById('slide-mask') as HTMLElement
+    if (Number(slideMask.style.zIndex) > 0) {
+        changeSlideSize()
+    }
+})
 
 window.addEventListener('keydown', (evt: KeyboardEvent) => {
     if (evt.ctrlKey && evt.shiftKey && evt.keyCode === 90) {

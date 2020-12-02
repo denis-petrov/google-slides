@@ -1,3 +1,23 @@
+import {Simulate} from "react-dom/test-utils";
+
+export function changeSlideSize() {
+    let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
+    if (workspace) {
+        let windowWidth = window.innerWidth
+        let windowHeight = window.innerHeight
+        let slideArea = document.getElementById('slide-area') as HTMLElement
+        if (windowWidth / windowHeight > 16 / 9) {
+            workspace.style.width = 'calc(100vh / 9 * 16)'
+            workspace.style.height = '100vh'
+            slideArea.style.width = '100vw'
+        } else {
+            workspace.style.width = '100vw'
+            workspace.style.height = 'calc(100vw / 16 * 9)'
+            slideArea.style.height = '100vh'
+        }
+    }
+}
+
 export function showPresentation() {
     let wrapper = document.getElementsByClassName('wrapper')[0] as HTMLElement
     if (wrapper) {
@@ -23,10 +43,11 @@ export function showPresentation() {
         root.style.backgroundColor = '#222222'
     }
 
-    let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
-    if (workspace) {
-        workspace.style.width = '100vw'
-        workspace.style.height = '100vh'
+    changeSlideSize()
+
+    let slideMask = document.getElementById('slide-mask') as HTMLElement
+    if (slideMask) {
+        slideMask.style.zIndex = '1000'
     }
 }
 
@@ -57,7 +78,15 @@ export function stopShowPresentation() {
 
     let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
     if (workspace) {
+        let slideArea = document.getElementById('slide-area') as HTMLElement
         workspace.style.width = ''
         workspace.style.height = ''
+        slideArea.style.width = ''
+        slideArea.style.height = ''
+    }
+
+    let slideMask = document.getElementById('slide-mask') as HTMLElement
+    if (slideMask) {
+        slideMask.style.zIndex = ''
     }
 }
