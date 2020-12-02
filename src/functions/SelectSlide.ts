@@ -9,7 +9,7 @@ export function SelectSlide(event: any, slideId: string, isDispatch: boolean = t
     let currSlideElement = document.getElementById(currSlideDomElementId)
     let allSlides = document.getElementsByClassName(slideClass)
 
-    if (event.shiftKey) {
+    if ((event != null) && (event.shiftKey)) {
         if (currSlideElement != null) {
             let previousAttributeValue = currSlideElement.getAttribute(attributeName)
             currSlideElement.setAttribute(attributeName, previousAttributeValue === 'true' ? 'false' : 'true')

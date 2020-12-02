@@ -17,6 +17,9 @@ import {stopShowPresentation} from "./functions/showPresentation";
 import {SelectSlide} from "./functions/SelectSlide";
 import {getElements} from "./functions/getElements";
 import {getSlideIndex} from "./functions/getSlideIndex";
+import {changeTextCursor} from "./functions/changeTextCursor"
+import {moveSlides} from "./functions/moveSlides"
+import {endMoveSlides} from "./functions/endMoveSlides"
 
 ReactDOM.render(
     <App/>,
@@ -64,8 +67,10 @@ window.addEventListener('keydown', (evt: KeyboardEvent) => {
 let isMoveElements: boolean
 let firstPosX: number
 let firstPosY: number
-
 let isResize: boolean
+
+let isMoveSlides: boolean
+
 let pointIndex: number
 let payload: any
 let resized = false
@@ -74,6 +79,8 @@ window.addEventListener('mousedown', (evt) => {
     firstPosX = evt.clientX
     firstPosY = evt.clientY
     isMoveElements = moveElements(evt)
+
+    isMoveSlides = moveSlides(evt)
 
     pointIndex = resizeElement(evt, pointIndex)
     isResize = pointIndex >= 0
@@ -97,6 +104,16 @@ window.addEventListener('mousemove', (evt) => {
 window.addEventListener('mouseup', (evt) => {
     if (isMoveElements) {
         isMoveElements = endMoveElements(isMoveElements)
+    }
+
+    if (isMoveSlides) {
+        let selectedSlide = getEditor().selectionSlidesId[0]
+
+        let elem = evt.target as HTMLElement
+
+        let shiftY = evt.pageY - elem.getBoundingClientRect().top
+
+        dispatch(endMoveSlides, {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
     }
 
     if (isResize) {

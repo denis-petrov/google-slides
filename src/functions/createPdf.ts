@@ -1,20 +1,17 @@
-import {getEditor} from "../stateManager/StateManager";
-import {Editor} from "../entities/Editor";
+import {getEditor} from "../stateManager/StateManager"
+import {Editor} from "../entities/Editor"
 import {jsPDF} from "jspdf"
-import {Element, ElementType, ImageElement, Text} from "../entities/Elements";
-import {Slide} from "../entities/Slide";
-import {PAGE_HEIGHT, PAGE_WIDTH, WHITE} from "../entities/Constants";
-import {Color, isColor} from "../entities/Color";
-import html2canvas from "html2canvas";
-import {SlideBackground} from "../entities/SlideBackground";
+import {Element, ElementType, ImageElement, Text} from "../entities/Elements"
+import {Slide} from "../entities/Slide"
+import {PAGE_HEIGHT, PAGE_WIDTH, WHITE} from "../entities/Constants"
+import {Color, isColor} from "../entities/Color"
+import html2canvas from "html2canvas"
 
 export function createImageFromText(text: Element) {
     let elemUuid = text.id
 
-    html2canvas(document.querySelector(`#slide-area text[id="${elemUuid}]"`) as HTMLElement, {
-
-    }).then(function canvas(canvas) {
-         console.log(canvas.toDataURL())
+    html2canvas(document.querySelector(`#slide-area text[id="${elemUuid}]"`) as HTMLElement, {}).then(function canvas(canvas) {
+        console.log(canvas.toDataURL())
     });
 }
 
@@ -84,7 +81,7 @@ export function drawBackground(pdfDocument: jsPDF, background: Color | string) {
         pdfDocument.rect(0, 0, PAGE_WIDTH, PAGE_HEIGHT, 'DF')
     } else {
         let imageLink = background as string;
-        pdfDocument.addImage(imageLink, 'JPEG', 0, 0, PAGE_WIDTH, PAGE_HEIGHT);
+        pdfDocument.addImage(imageLink, 'JPEG', 0, 0, PAGE_WIDTH, PAGE_HEIGHT)
     }
 }
 
@@ -100,8 +97,10 @@ export function createPdf(): jsPDF {
     const pageSizeFormat = [PAGE_WIDTH, PAGE_HEIGHT]
 
     let editor: Editor = getEditor()
-    let pdfDocument = new jsPDF('landscape', 'px', pageSizeFormat);
-
+    /* !заранее задать шрифты в jsPDF! */
+    let pdfDocument = new jsPDF('landscape', 'px', pageSizeFormat)
+    /* !заранее задать шрифты в jsPDF! */
+    
     for (let i = 0; i < editor.presentation.slides.length; ++i) {
         let currSlide = editor.presentation.slides[i]
         drawSlide(pdfDocument, currSlide)

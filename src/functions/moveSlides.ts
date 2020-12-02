@@ -1,24 +1,31 @@
-import {Editor} from '../entities/Editor'
+import {getEditor} from "../stateManager/StateManager"
 
-export {
-    moveSlides
-}
+export function moveSlides(event: any) {
+    let isMoveSlides = false
+    let editor = getEditor()
+    editor.presentation.slides.map(s => {
+        if (editor.selectionSlidesId.includes(s.id)) {
+            let selectedSlides = []
+            for (let i = 0; i < editor.selectionSlidesId.length; i++) {
+                selectedSlides.push(document.getElementById(editor.selectionSlidesId[i]))
+            }
 
-function moveSlides(editor: Editor, listSlides: Array<string>, slideInsertId: string): Editor {
-    if (listSlides.includes(slideInsertId)) {
-        throw new Error('"slideInsertId" cannot be in "listSlides"')
-    }
-    let movedSlides = editor.presentation.slides.filter(slide => listSlides.includes(slide.id));
-    let slidesWithoutMovedSlides = editor.presentation.slides
-        .filter(slide => !listSlides.includes(slide.id));
-    let slideMovePoint = slidesWithoutMovedSlides.findIndex(slide => slide.id === slideInsertId) + 1;
-    let slidesBeforeInsertSlide = slidesWithoutMovedSlides.slice(0, slideMovePoint)
-    let slidesAfterInsertSlide = slidesWithoutMovedSlides.slice(slideMovePoint)
-    return {
-        ...editor,
-        presentation: {
-            ...editor.presentation,
-            slides: slidesBeforeInsertSlide.concat(movedSlides).concat(slidesAfterInsertSlide)
+            let itSelectedSlides = []
+            for (let i = 0; i < selectedSlides.length; i++) {
+                let slide = selectedSlides[i]
+                if (slide) {
+                    itSelectedSlides.push(
+                        event.target === selectedSlides[i]
+                        || (selectedSlides[i] as HTMLElement).contains(event.target as Node)
+                    )
+                }
+            }
+
+            if (itSelectedSlides.includes(true)) {
+                isMoveSlides = true
+            }
         }
-    }
-}   
+    })
+
+    return isMoveSlides
+}
