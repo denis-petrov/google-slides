@@ -23,9 +23,13 @@ export function showPresentation() {
         root.style.backgroundColor = '#222222'
     }
 
-    //здесь будет расширение слайда по экрану в зависимости от размеров экрана
-
     document.documentElement.requestFullscreen()
+
+    let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
+    if (workspace) {
+        workspace.style.width = '100vw'
+        workspace.style.height = '100vh'
+    }
 }
 
 export function stopShowPresentation() {
@@ -51,5 +55,11 @@ export function stopShowPresentation() {
     let root = document.getElementById('root') as HTMLElement
     if (root) {
         root.style.backgroundColor = '#FFFFFF'
+    }
+
+    let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
+    if (workspace) {
+        workspace.style.width = ''
+        workspace.style.height = ''
     }
 }

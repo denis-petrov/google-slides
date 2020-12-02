@@ -16,6 +16,7 @@ import {changeTextCursor} from "./functions/changeTextCursor";
 import {stopShowPresentation} from "./functions/showPresentation";
 import {SelectSlide} from "./functions/SelectSlide";
 import {getElements} from "./functions/getElements";
+import {getSlideIndex} from "./functions/getSlideIndex";
 
 ReactDOM.render(
     <App/>,
@@ -40,17 +41,10 @@ window.addEventListener('keydown', (evt: KeyboardEvent) => {
     if (evt.keyCode === 39) {
         let slide = document.getElementsByClassName('workspace')[0]
         if (slide) {
-            let slideId = slide.id.split('slide_area_')[1]
+            let slideIndex = getSlideIndex(slide)
             let editor = getEditor()
-            let slideIndex = 0
-            editor.presentation.slides.map(s => {
-                if (s.id === slideId) {
-                    slideIndex = editor.presentation.slides.indexOf(s) + 1
-                }
-            })
-
-            if (slideIndex < editor.presentation.slides.length) {
-                SelectSlide(evt,  editor.presentation.slides[slideIndex].id)
+            if (slideIndex + 1 < editor.presentation.slides.length) {
+                SelectSlide(evt,  editor.presentation.slides[slideIndex + 1].id)
             }
         }
     }
@@ -58,17 +52,10 @@ window.addEventListener('keydown', (evt: KeyboardEvent) => {
     if (evt.keyCode === 37) {
         let slide = document.getElementsByClassName('workspace')[0]
         if (slide) {
-            let slideId = slide.id.split('slide_area_')[1]
+            let slideIndex = getSlideIndex(slide)
             let editor = getEditor()
-            let slideIndex = 0
-            editor.presentation.slides.map(s => {
-                if (s.id === slideId) {
-                    slideIndex = editor.presentation.slides.indexOf(s) - 1
-                }
-            })
-
-            if (slideIndex >= 0) {
-                SelectSlide(evt,  editor.presentation.slides[slideIndex].id)
+            if (slideIndex - 1 >= 0) {
+                SelectSlide(evt,  editor.presentation.slides[slideIndex - 1].id)
             }
         }
     }
