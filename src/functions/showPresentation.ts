@@ -18,6 +18,11 @@ export function showPresentation() {
         sidebar.style.display = 'none'
     }
 
+    let root = document.getElementById('root') as HTMLElement
+    if (root) {
+        root.style.backgroundColor = '#222222'
+    }
+
     //здесь будет расширение слайда по экрану в зависимости от размеров экрана
 
     document.documentElement.requestFullscreen()
@@ -41,5 +46,10 @@ export function stopShowPresentation() {
     let sidebar = document.getElementsByClassName('sidebar')[0] as HTMLElement
     if (sidebar) {
         sidebar.style.display = 'block'
+    }
+
+    let root = document.getElementById('root') as HTMLElement
+    if (root) {
+        root.style.backgroundColor = '#FFFFFF'
     }
 }

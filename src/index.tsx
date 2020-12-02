@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import {dispatch, reDo, unDo} from './stateManager/StateManager'
+import {dispatch, getEditor, reDo, unDo} from './stateManager/StateManager'
 import {deleteElements} from "./functions/deleteElements"
 import {removeSelectOfElement} from "./functions/removeSelectOfElements"
 import {moveElements} from "./slideArea/SlideArea"
@@ -14,26 +14,63 @@ import {changePositionOfElements} from "./functions/changePositionOfElements"
 import {endResizeElement} from "./functions/endResizeElement"
 import {changeTextCursor} from "./functions/changeTextCursor";
 import {stopShowPresentation} from "./functions/showPresentation";
+import {SelectSlide} from "./functions/SelectSlide";
+import {getElements} from "./functions/getElements";
 
 ReactDOM.render(
     <App/>,
     document.getElementById('root')
 )
 
-window.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.ctrlKey && e.shiftKey && e.keyCode === 90) {
+window.addEventListener('keydown', (evt: KeyboardEvent) => {
+    if (evt.ctrlKey && evt.shiftKey && evt.keyCode === 90) {
         reDo()
-    } else if (e.ctrlKey && e.keyCode === 90) {
+    } else if (evt.ctrlKey && evt.keyCode === 90) {
         unDo()
     }
 
-    if (e.keyCode === 46) {
+    if (evt.keyCode === 46) {
         dispatch(deleteElements, {})
     }
 
-    if (e.keyCode === 81) {
-        console.log('ewe')
+    if (evt.keyCode === 81) {
         stopShowPresentation()
+    }
+
+    if (evt.keyCode === 39) {
+        let slide = document.getElementsByClassName('workspace')[0]
+        if (slide) {
+            let slideId = slide.id.split('slide_area_')[1]
+            let editor = getEditor()
+            let slideIndex = 0
+            editor.presentation.slides.map(s => {
+                if (s.id === slideId) {
+                    slideIndex = editor.presentation.slides.indexOf(s) + 1
+                }
+            })
+
+            if (slideIndex < editor.presentation.slides.length) {
+                SelectSlide(evt,  editor.presentation.slides[slideIndex].id)
+            }
+        }
+    }
+
+    if (evt.keyCode === 37) {
+        let slide = document.getElementsByClassName('workspace')[0]
+        if (slide) {
+            let slideId = slide.id.split('slide_area_')[1]
+            let editor = getEditor()
+            let slideIndex = 0
+            editor.presentation.slides.map(s => {
+                if (s.id === slideId) {
+                    slideIndex = editor.presentation.slides.indexOf(s) - 1
+                }
+            })
+
+            if (slideIndex >= 0) {
+                SelectSlide(evt,  editor.presentation.slides[slideIndex].id)
+            }
+        }
     }
 })
 
