@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import {dispatch, reDo, unDo} from './stateManager/StateManager'
+import {dispatch, getEditor, reDo, unDo} from './stateManager/StateManager'
 import {deleteElements} from "./functions/deleteElements"
 import {removeSelectOfElement} from "./functions/removeSelectOfElements"
 import {moveElements} from "./slideArea/SlideArea"
@@ -12,7 +12,9 @@ import {endMoveElements} from "./functions/endMoveElements"
 import {moveElementPoint, resizeElement} from "./functions/resizeElement"
 import {changePositionOfElements} from "./functions/changePositionOfElements"
 import {endResizeElement} from "./functions/endResizeElement"
-import {changeTextCursor} from "./functions/changeTextCursor";
+import {changeTextCursor} from "./functions/changeTextCursor"
+import {moveSlides} from "./functions/moveSlides"
+import {endMoveSlides} from "./functions/endMoveSlides"
 
 ReactDOM.render(
     <App/>,
@@ -34,8 +36,10 @@ window.addEventListener('keydown', (e: KeyboardEvent) => {
 let isMoveElements: boolean
 let firstPosX: number
 let firstPosY: number
-
 let isResize: boolean
+
+let isMoveSlides: boolean
+
 let pointIndex: number
 let payload: any
 let resized = false
@@ -44,6 +48,8 @@ window.addEventListener('mousedown', (evt) => {
     firstPosX = evt.clientX
     firstPosY = evt.clientY
     isMoveElements = moveElements(evt)
+
+    isMoveSlides = moveSlides(evt)
 
     pointIndex = resizeElement(evt, pointIndex)
     isResize = pointIndex >= 0
@@ -62,11 +68,21 @@ window.addEventListener('mousemove', (evt) => {
         resized = true
         payload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
     }
-});
+})
 
 window.addEventListener('mouseup', (evt) => {
     if (isMoveElements) {
         isMoveElements = endMoveElements(isMoveElements)
+    }
+
+    if (isMoveSlides) {
+        let selectedSlide = getEditor().selectionSlidesId[0]
+
+        let elem = evt.target as HTMLElement
+
+        let shiftY = evt.pageY - elem.getBoundingClientRect().top
+
+        dispatch(endMoveSlides, {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
     }
 
     if (isResize) {

@@ -2,8 +2,8 @@ export function changeTextCursor(event: any) {
     let element = event.target as HTMLElement
     if (element.tagName === 'P' && element.classList.contains('element_choosed')) {
         let parent = element.parentNode as HTMLElement
-        let shiftX = event.pageX - element.getBoundingClientRect().left;
-        let shiftY = event.pageY - element.getBoundingClientRect().top;
+        let shiftX = event.pageX - element.getBoundingClientRect().left
+        let shiftY = event.pageY - element.getBoundingClientRect().top
         let parentSize = {
             width: parent.getBoundingClientRect().width,
             height: parent.getBoundingClientRect().height

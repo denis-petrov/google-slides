@@ -5,6 +5,7 @@ import {Element} from './Elements'
 export type {
     Slide
 }
+
 export {
     isSlide
 }

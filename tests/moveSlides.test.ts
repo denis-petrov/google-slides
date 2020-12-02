@@ -4,7 +4,7 @@ import {ElementType, Triangle} from '../src/entities/Elements'
 import {Text} from '../src/entities/Elements'
 import {Point} from '../src/entities/Point'
 import {RED, WHITE} from '../src/entities/Constants'
-import {moveSlides} from '../src/functions/moveSlides'
+import {endMoveSlides} from '../src/functions/endMoveSlides'
 
 describe('moveSlides', () => {
     test('Move before element in the middle, Successfully moved elements', () => {
@@ -224,7 +224,7 @@ describe('moveSlides', () => {
         let slideInsertId = 1
 
         // Act
-        let actualEditor = moveSlides(initialEditor, listSlides, slideInsertId);
+        let actualEditor = endMoveSlides(initialEditor, listSlides, slideInsertId);
 
         // Assert
         expect(actualEditor).toStrictEqual(expectedEditor)
@@ -447,7 +447,7 @@ describe('moveSlides', () => {
         let slideInsertId = 4
 
         // Act
-        let actualEditor = moveSlides(initialEditor, listSlides, slideInsertId);
+        let actualEditor = endMoveSlides(initialEditor, listSlides, slideInsertId);
 
         // Assert
         expect(actualEditor).toStrictEqual(expectedEditor)
@@ -565,7 +565,7 @@ describe('moveSlides', () => {
         let slideInsertId = 2
 
         // Act
-        let callingFunction = () => moveSlides(initialEditor, listSlides, slideInsertId);
+        let callingFunction = () => endMoveSlides(initialEditor, listSlides, slideInsertId);
 
         // Assert
         expect(callingFunction).toThrow('"slideInsertId" cannot be in "listSlides"')

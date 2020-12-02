@@ -165,10 +165,20 @@ export default function Nav() {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                            dispatch(addEmptySlide, {})
+                                            let newWindow = window.open('/loading.html') as Window
+                                            newWindow.onload = () => {
+                                                newWindow.location.href = URL.createObjectURL(createPdf().output('blob'))
+                                            }
                                         }}>New slide</Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
                                             dispatch(deleteSlides, {})
+                                            if (getEditor().presentation.slides.length === 0) {
+                                                dispatch((editorInput: Editor) => {
+                                                    let newEditorOneSlide: Editor = addEmptySlide(editorInput)
+                                                    newEditorOneSlide.selectionSlidesId.push(newEditorOneSlide.presentation.slides[0].id)
+                                                    return newEditorOneSlide
+                                                }, {})
+                                            }
                                         }}>
                                             Delete slide
                                         </Dropdown.Item>
@@ -184,8 +194,7 @@ export default function Nav() {
                                 let newWindow = window.open('/loading.html') as Window
                                 newWindow.onload = () => {
                                     newWindow.location.href = URL.createObjectURL(createPdf().output('blob'))
-                                };
-
+                                }
                             }}>
                         <SlideshowRoundedIcon/> Show
                     </button>
@@ -211,8 +220,13 @@ export default function Nav() {
                     </button>
 
                     <button type="button" className="btn btn-sm button__onclick dropbox__button" onClick={() => {
-                        if (getEditor().presentation.slides.length > 1) {
-                            dispatch(deleteSlides, {})
+                        dispatch(deleteSlides, {})
+                        if (getEditor().presentation.slides.length === 0) {
+                            dispatch((editorInput: Editor) => {
+                                let newEditorOneSlide: Editor = addEmptySlide(editorInput)
+                                newEditorOneSlide.selectionSlidesId.push(newEditorOneSlide.presentation.slides[0].id)
+                                return newEditorOneSlide
+                            }, {})
                         }
                     }}>
                         <RemoveIcon/>
@@ -339,7 +353,7 @@ export default function Nav() {
                     <Dropdown id="edit_style_element_fill_color" className="hidden">
                         <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
                                          variant="success" id="dropdown-slide">
-                            <div id="font_text" className="edit_style_text__font">
+                            <div id="fill_element" className="edit_style_text__font">
                                 <div style={{float: 'left'}}>
                                     Fill &zwj;
                                 </div>
@@ -359,7 +373,7 @@ export default function Nav() {
                     <Dropdown id="edit_style_element_border_color" className="hidden">
                         <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
                                          variant="success" id="dropdown-slide">
-                            <div id="font_text" className="edit_style_text__font">
+                            <div id="border_element" className="edit_style_text__font">
                                 <div style={{float: 'left'}}>
                                     Border &zwj;
                                 </div>
