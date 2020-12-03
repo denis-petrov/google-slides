@@ -6,14 +6,14 @@ import {deleteElements} from "./deleteElements";
 export function removeSelectOfElement(evt: any) {
     let clickedElem = evt.target as HTMLElement
     let navBar = document.getElementById('nav_bar')
-    let showPresentationBtn = document.getElementById('show_presentation_btn')
+    let showPresentationBtn = document.getElementsByClassName('show_inline')[0]
     let pathClassName = 'elem-path_active'
     let pointsClassName = 'points_container_active'
     let itsNavBar = null
     let itsShowPresentationBtn = null
     let itsClickedElem = false
     if (showPresentationBtn) {
-        itsShowPresentationBtn = evt.target === showPresentationBtn || showPresentationBtn.contains(evt.target as Node)
+        itsShowPresentationBtn = showPresentationBtn.contains(evt.target as Node)
     }
 
     if (navBar) {

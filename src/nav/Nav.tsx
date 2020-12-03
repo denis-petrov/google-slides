@@ -190,37 +190,38 @@ export default function Nav() {
                         </div>
                     </Toolbar>
                 </AppBar>
-                <div className="col col-lg-2 text-center show_inline">
-                    <button id='show_presentation_btn' type="button"
-                            className="btn btn-sm button__onclick dropbox__button button__show"
-                            onClick={() => showPresentation()}>
-                        <SlideshowRoundedIcon/> Show
-                    </button>
-                    <Dropdown>
-                        <Dropdown.Toggle
-                            className="btn btn-sm button__onclick dropbox__button button__show button__show_arrow"
-                            variant="success" id="dropdown-insert">
-                            <ArrowDropDownIcon/>
-                        </Dropdown.Toggle>
+                <div className="col col-lg-2 text-center">
+                    <div className='show_inline'>
+                        <button id='show_presentation_btn' type="button"
+                                className="btn btn-sm button__onclick dropbox__button button__show"
+                                onClick={() => showPresentation()}>
+                            <SlideshowRoundedIcon/> Show
+                        </button>
+                        <Dropdown>
+                            <Dropdown.Toggle
+                                className="btn btn-sm button__onclick dropbox__button button__show button__show_arrow"
+                                variant="success" id="dropdown-insert">
+                                <ArrowDropDownIcon/>
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item className="btn-sm button__onclick"
-                                   onClick={() => {
-                                       let editor = getEditor()
-                                       setEditor({
-                                               ...editor,
-                                               selectionSlidesId: [editor.presentation.slides[0].id]})
-                                       showPresentation()
-                                   }}>
-                                From first slide
-                            </Dropdown.Item>
-                            <Dropdown.Item className="btn-sm button__onclick"
-                                           onClick={() => showPresentation()}>
-                                From current slide
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-
+                            <Dropdown.Menu>
+                                <Dropdown.Item className="btn-sm button__onclick"
+                                               onClick={() => {
+                                                   let editor = getEditor()
+                                                   setEditor({
+                                                       ...editor,
+                                                       selectionSlidesId: [editor.presentation.slides[0].id]})
+                                                   showPresentation()
+                                               }}>
+                                    From first slide
+                                </Dropdown.Item>
+                                <Dropdown.Item className="btn-sm button__onclick"
+                                               onClick={() => showPresentation()}>
+                                    From current slide
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
                 </div>
             </div>
 

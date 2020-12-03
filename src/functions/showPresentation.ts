@@ -131,6 +131,9 @@ export function showNextSlide(evt: any) {
         let editor = getEditor()
         if (slideIndex + 1 < editor.presentation.slides.length) {
             SelectSlide(evt, editor.presentation.slides[slideIndex + 1].id)
+        } else {
+            let slideMask = document.getElementById('slide-mask') as HTMLElement
+            slideMask.style.backgroundColor = '#000'
         }
     }
 
