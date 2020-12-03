@@ -17,11 +17,12 @@ import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded'
 import FormatBoldRoundedIcon from '@material-ui/icons/FormatBoldRounded'
 import FormatItalicRoundedIcon from '@material-ui/icons/FormatItalicRounded'
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {addEmptySlide} from '../functions/addEmptySlide'
 import {savePresentationToPc} from '../functions/savePresentationToPc'
-import {dispatch, getEditor, reDo, unDo} from '../stateManager/StateManager'
+import {dispatch, getEditor, reDo, setEditor, unDo} from '../stateManager/StateManager'
 import {openPresentationFromPc} from '../functions/openPresentationFromPc'
 import {changeNamePresentation} from '../functions/changeNamePresentation'
 import {DEFAULT_ELLIPSE, DEFAULT_RECTANGLE, DEFAULT_TEXT, DEFAULT_TRIANGLE} from "../entities/Constants"
@@ -189,12 +190,37 @@ export default function Nav() {
                         </div>
                     </Toolbar>
                 </AppBar>
-                <div className="col col-lg-2 text-center">
+                <div className="col col-lg-2 text-center show_inline">
                     <button id='show_presentation_btn' type="button"
                             className="btn btn-sm button__onclick dropbox__button button__show"
                             onClick={() => showPresentation()}>
                         <SlideshowRoundedIcon/> Show
                     </button>
+                    <Dropdown>
+                        <Dropdown.Toggle
+                            className="btn btn-sm button__onclick dropbox__button button__show button__show_arrow"
+                            variant="success" id="dropdown-insert">
+                            <ArrowDropDownIcon/>
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item className="btn-sm button__onclick"
+                                   onClick={() => {
+                                       let editor = getEditor()
+                                       setEditor({
+                                               ...editor,
+                                               selectionSlidesId: [editor.presentation.slides[0].id]})
+                                       showPresentation()
+                                   }}>
+                                From first slide
+                            </Dropdown.Item>
+                            <Dropdown.Item className="btn-sm button__onclick"
+                                           onClick={() => showPresentation()}>
+                                From current slide
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+
                 </div>
             </div>
 

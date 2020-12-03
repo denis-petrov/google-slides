@@ -2,7 +2,7 @@ import {showNextSlide} from "../functions/showPresentation"
 
 let timerId: any
 
-export function slideShow(evt:any, timer: boolean) {
+export function slideShow(evt: any, timer: boolean) {
     let playBtn = document.getElementById('start_slide_show') as HTMLElement
     let stopBtn = document.getElementById('stop_slide_show') as HTMLElement
     if (timer) {

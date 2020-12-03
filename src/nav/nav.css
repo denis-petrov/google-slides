@@ -131,14 +131,24 @@ nav__menu:hover {
     background-color: #f8f9fa !important;
 }
 
+.show_inline {
+    display: flex;
+}
+
 .button__show {
     border-radius: 4px;
     border: 1px solid #dadce0 !important;
     color: #202124;
     padding: 9px 11px 10px 12px;
+    margin-right: 0 !important;
     margin-top: 1rem;
     width: 7rem;
     height: 3rem;
+}
+
+.button__show_arrow {
+    padding-left: 0;
+    max-width: 24px;
 }
 
 .nav__hr {
