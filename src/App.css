@@ -63,6 +63,16 @@
   opacity: 1;
 }
 
-.presentation_panel span {
-  padding: 0 5px 0 10px;
+.presentation_panel :first-child {
+  display: inline-block;
+  padding: 0 15px 0 5px;
+  border-right: 2px solid #fff;
+  margin-right: 10px;
+}
+
+.presentation_panel :last-child {
+  display: inline-block;
+  border-left: 2px solid #fff;
+  padding: 0 5px 0 15px;
+  margin-left: 10px;
 }
