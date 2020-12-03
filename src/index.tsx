@@ -23,6 +23,7 @@ import {
 } from "./functions/showPresentation"
 import {moveSlides} from "./functions/moveSlides"
 import {endMoveSlides} from "./functions/endMoveSlides"
+import {slideShow} from "./slideShowPanel/slideShow";
 
 
 ReactDOM.render(
@@ -50,6 +51,7 @@ window.addEventListener('keydown', (evt: KeyboardEvent) => {
     }
 
     if (evt.keyCode === 27) {
+        slideShow(evt, true)
         stopShowPresentation()
     }
 

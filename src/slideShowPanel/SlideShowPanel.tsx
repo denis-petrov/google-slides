@@ -14,16 +14,16 @@ export default function SlideShowPanel() {
                 <KeyboardArrowLeftIcon onClick={(evt) => {
                     showLastSlide(evt)
                 }}/>
-                <PlayArrowIcon id='start_slide_show' onClick={() => {
-                    slideShow(false)
+                <PlayArrowIcon id='start_slide_show' onClick={(evt) => {
+                    slideShow(evt, false)
                 }}/>
-                <PauseIcon id='stop_slide_show' style={{display: 'none'}} onClick={() => {
-                    slideShow(true)
+                <PauseIcon id='stop_slide_show' style={{display: 'none'}} onClick={(evt) => {
+                    slideShow(evt, true)
                 }}/>
                 <KeyboardArrowRightIcon onClick={(evt) => {
                     showNextSlide(evt)
                 }}/>
-                <span onClick={() => {slideShow(true); stopShowPresentation()}}>Close</span>
+                <span onClick={(evt) => {slideShow(evt,true); stopShowPresentation()}}>Close</span>
             </div>
         </div>
     )

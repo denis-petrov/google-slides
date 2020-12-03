@@ -5,7 +5,6 @@ import SlideArea from './slideArea/SlideArea'
 import SlideMenu from './slideMenu/SlideMenu'
 import SlideShowPanel from './slideShowPanel/SlideShowPanel'
 
-
 function App() {
     return (
         <div className="wrapper">
