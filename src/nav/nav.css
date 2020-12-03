@@ -161,6 +161,10 @@ nav__menu:hover {
     height: 2.5rem;
 }
 
+.show_dropdown {
+    z-index: 1200;
+}
+
 .button__show_arrow {
     padding-left: 0;
     max-width: 24px;
