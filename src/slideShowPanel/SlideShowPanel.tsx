@@ -1,5 +1,5 @@
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft"
-import {showLastSlide, showNextSlide, stopShowPresentation} from "../functions/showPresentation"
+import {showPrevSlide, showNextSlide, stopShowPresentation} from "../functions/showPresentation"
 import PlayArrowIcon from "@material-ui/icons/PlayArrow"
 import PauseIcon from "@material-ui/icons/Pause"
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight"
@@ -21,8 +21,8 @@ export default function SlideShowPanel() {
         <div id='slide-mask'>
             <div className='presentation_panel'>
                 <div>Slide {slidesNumber}</div>
-                <KeyboardArrowLeftIcon onClick={(evt) => {
-                    showLastSlide(evt)
+                <KeyboardArrowLeftIcon id='show-prev-slide' onClick={(evt) => {
+                    showPrevSlide(evt)
                 }}/>
                 <PlayArrowIcon id='start_slide_show' onClick={(evt) => {
                     slideShow(evt, false)
@@ -30,7 +30,7 @@ export default function SlideShowPanel() {
                 <PauseIcon id='stop_slide_show' style={{display: 'none'}} onClick={(evt) => {
                     slideShow(evt, true)
                 }}/>
-                <KeyboardArrowRightIcon onClick={(evt) => {
+                <KeyboardArrowRightIcon id='show-next-slide' onClick={(evt) => {
                     showNextSlide(evt)
                 }}/>
                 <div onClick={(evt) => {slideShow(evt,true); stopShowPresentation()}}>Close</div>

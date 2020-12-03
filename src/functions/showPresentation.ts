@@ -60,6 +60,7 @@ export function showPresentation() {
     timerId = setTimeout(() => document.documentElement.style.cursor = 'none', 2000)
 
     isShowCurrentlyPresentation = true
+    changeArrowColor()
 }
 
 export function stopShowPresentation() {
@@ -109,7 +110,7 @@ export function stopShowPresentation() {
     isShowCurrentlyPresentation = false
 }
 
-export function showLastSlide(evt: any) {
+export function showPrevSlide(evt: any) {
     let slide = document.getElementsByClassName('workspace')[0]
     if (slide) {
         let slideIndex = getSlideIndex(slide)
@@ -122,6 +123,8 @@ export function showLastSlide(evt: any) {
     if (isShowCurrentlyPresentation) {
         changeTextPlaceholder('')
     }
+
+    changeArrowColor()
 }
 
 export function showNextSlide(evt: any) {
@@ -131,15 +134,14 @@ export function showNextSlide(evt: any) {
         let editor = getEditor()
         if (slideIndex + 1 < editor.presentation.slides.length) {
             SelectSlide(evt, editor.presentation.slides[slideIndex + 1].id)
-        } else {
-            let slideMask = document.getElementById('slide-mask') as HTMLElement
-            slideMask.style.backgroundColor = '#000'
         }
     }
 
     if (isShowCurrentlyPresentation) {
         changeTextPlaceholder('')
     }
+
+    changeArrowColor()
 }
 
 
@@ -169,4 +171,37 @@ export function changeTextPlaceholder(placeholder: string) {
             texts[i].setAttribute('data-placeholder', placeholder)
         }
     }
+}
+
+export function changeArrowColor() {
+    let prevArrow = document.getElementById('show-prev-slide')
+    let nextArrow = document.getElementById('show-next-slide')
+    let editor = getEditor()
+    editor.presentation.slides.map(s => {
+        if (s.id === editor.selectionSlidesId[0]) {
+            if (editor.presentation.slides.indexOf(s) === 0) {
+                if (prevArrow) {
+                    prevArrow.style.color = '#8e8e8e'
+                    prevArrow.style.cursor = 'default'
+                }
+            } else {
+                if (prevArrow) {
+                    prevArrow.style.color = '#fff'
+                    prevArrow.style.cursor = 'pointer'
+                }
+            }
+
+            if (editor.presentation.slides.indexOf(s) === editor.presentation.slides.length - 1) {
+                if (nextArrow) {
+                    nextArrow.style.color = '#8e8e8e'
+                    nextArrow.style.cursor = 'default'
+                }
+            } else {
+                if (nextArrow) {
+                    nextArrow.style.color = '#fff'
+                    nextArrow.style.cursor = 'pointer'
+                }
+            }
+        }
+    })
 }

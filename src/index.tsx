@@ -16,7 +16,7 @@ import {changeTextCursor} from "./functions/changeTextCursor"
 import {
     changeSlideSize,
     isShowCurrentlyPresentation,
-    showLastSlide,
+    showPrevSlide,
     showNextSlide,
     showSlideShowPanel,
     stopShowPresentation
@@ -63,7 +63,7 @@ window.addEventListener('keydown', (evt: KeyboardEvent) => {
         }
 
         if (evt.keyCode === 37) {
-            showLastSlide(evt)
+            showPrevSlide(evt)
         }
     }
 })

@@ -63,7 +63,8 @@
   opacity: 1;
 }
 
-.presentation_panel :first-child {
+.presentation_panel div:first-child {
+  cursor: default;
   display: inline-block;
   padding: 0 15px 0 5px;
   border-right: 2px solid #fff;
