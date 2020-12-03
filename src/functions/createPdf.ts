@@ -7,15 +7,7 @@ import {PAGE_HEIGHT, PAGE_WIDTH, WHITE} from "../entities/Constants"
 import {Color, isColor} from "../entities/Color"
 import html2canvas from "html2canvas"
 
-export function createImageFromText(text: Element) {
-    let elemUuid = text.id
-
-    html2canvas(document.querySelector(`#slide-area text[id="${elemUuid}]"`) as HTMLElement, {}).then(function canvas(canvas) {
-        console.log(canvas.toDataURL())
-    })
-}
-
-export function drawElement(pdfDocument: jsPDF, element: Element) {
+export async function drawElement(pdfDocument: jsPDF, element: Element) {
     let backgroundColor: Color = (element.backgroundColor === null) ? WHITE : (element.backgroundColor as Color)
     let borderColor: Color = element.borderColor
     let borderWidth: number = element.borderWidth
@@ -33,6 +25,33 @@ export function drawElement(pdfDocument: jsPDF, element: Element) {
             (element.bottomRightPoint.x + element.topLeftPoint.x) / 2 / 100 * PAGE_WIDTH,
             element.topLeftPoint.y / 100 * PAGE_HEIGHT,
             'DF')
+    } else if (element.type === ElementType.text) {
+        const canvasScalingFactor = 2
+
+        let textDomElement = document.querySelector(`#slide-area p[id='${element.id}']`) as HTMLElement
+        let canvas = await html2canvas(
+            textDomElement,
+            {
+                scale: canvasScalingFactor,
+                backgroundColor: null
+            })
+        let base64Image = canvas.toDataURL('img/png')
+
+        let slideAreaWidth = (document.getElementById('slide-area') as HTMLElement).offsetWidth
+        let slideAreaHeight = (document.getElementById('slide-area') as HTMLElement).offsetHeight
+        let elementWidth = canvas.width / canvasScalingFactor
+        let elementHeight = canvas.height / canvasScalingFactor
+        let width = elementWidth * PAGE_WIDTH / slideAreaWidth
+        let height = elementHeight * PAGE_HEIGHT / slideAreaHeight
+
+        pdfDocument.addImage(
+            base64Image,
+            'png',
+            element.topLeftPoint.x / 100 * PAGE_WIDTH,
+            element.topLeftPoint.y / 100 * PAGE_HEIGHT,
+            width,
+            height
+        )
     } else if (element.type === ElementType.ellipse) {
         pdfDocument.ellipse(
             (element.topLeftPoint.x + element.bottomRightPoint.x) / 2 / 100 * PAGE_WIDTH,
@@ -60,17 +79,6 @@ export function drawElement(pdfDocument: jsPDF, element: Element) {
             width,
             height,
         )
-    } else if (element.type === ElementType.text) {
-        let text = element as Text
-        let textStyle = text.textStyle
-        let maxLineWidth = Math.abs(element.topLeftPoint.x - element.bottomRightPoint.x) / 100 * PAGE_WIDTH
-
-        pdfDocument.setFontSize(textStyle.sizeFont * 100 / 60)
-        pdfDocument.text(
-            pdfDocument.splitTextToSize(text.text, maxLineWidth),
-            text.topLeftPoint.x / 100 * PAGE_WIDTH,
-            text.topLeftPoint.y / 100 * PAGE_HEIGHT,
-        )
     }
 }
 
@@ -85,15 +93,15 @@ export function drawBackground(pdfDocument: jsPDF, background: Color | string) {
     }
 }
 
-export function drawSlide(pdfDocument: jsPDF, slide: Slide) {
+export async function drawSlide(pdfDocument: jsPDF, slide: Slide) {
     drawBackground(pdfDocument, slide.background)
     for (let i = 0; i < slide.elements.length; i++) {
         let currElement = slide.elements[i]
-        drawElement(pdfDocument, currElement)
+        await drawElement(pdfDocument, currElement)
     }
 }
 
-export function createPdf(): jsPDF {
+export async function createPdf(): Promise<jsPDF> {
     const pageSizeFormat = [PAGE_WIDTH, PAGE_HEIGHT]
 
     let editor: Editor = getEditor()
@@ -103,7 +111,7 @@ export function createPdf(): jsPDF {
 
     for (let i = 0; i < editor.presentation.slides.length; ++i) {
         let currSlide = editor.presentation.slides[i]
-        drawSlide(pdfDocument, currSlide)
+        await drawSlide(pdfDocument, currSlide)
 
         if (i < editor.presentation.slides.length - 1) {
             pdfDocument.addPage(pageSizeFormat)

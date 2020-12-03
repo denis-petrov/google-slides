@@ -118,8 +118,8 @@ export default function Nav() {
                                         <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
                                             savePresentationToPc(getEditor())
                                         }}>Save</Dropdown.Item>
-                                        <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                            createPdf().save(getEditor().presentation.name)
+                                        <Dropdown.Item className="btn-sm button__onclick" onClick={async () => {
+                                            (await createPdf()).save(getEditor().presentation.name)
                                         }}>Export to PDF</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
@@ -168,8 +168,8 @@ export default function Nav() {
                                     <Dropdown.Menu>
                                         <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
                                             let newWindow = window.open('/loading.html') as Window
-                                            newWindow.onload = () => {
-                                                newWindow.location.href = URL.createObjectURL(createPdf().output('blob'))
+                                            newWindow.onload = async () => {
+                                                newWindow.location.href = URL.createObjectURL((await createPdf()).output('blob'))
                                             }
                                         }}>New slide</Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
