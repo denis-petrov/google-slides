@@ -23,7 +23,9 @@ import {
 } from "./functions/showPresentation"
 import {moveSlides} from "./functions/moveSlides"
 import {endMoveSlides} from "./functions/endMoveSlides"
-import {slideShow} from "./slideShowPanel/slideShow";
+import {slideShow} from "./slideShowPanel/slideShow"
+import {changeVisibilitySlideHr} from "./slideMenu/changeVisibilitySlideHr";
+import {clearAllSlideHr} from "./slideMenu/clearAllSlideHr";
 
 
 ReactDOM.render(
@@ -102,6 +104,18 @@ window.addEventListener('mousemove', (evt) => {
         mouseMoveElements(evt, firstPosX, firstPosY)
     }
 
+    if (isMoveSlides) {
+        let selectedSlide = getEditor().selectionSlidesId[0]
+
+        let elem = evt.target as HTMLElement
+
+        let shiftY = evt.pageY - elem.getBoundingClientRect().top
+
+        if (selectedSlide != elem.id) {
+            changeVisibilitySlideHr(getEditor(), {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
+        }
+    }
+
     if (isResize) {
         resized = true
         payload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
@@ -116,12 +130,15 @@ window.addEventListener('mouseup', (evt) => {
 
     if (isMoveSlides) {
         let selectedSlide = getEditor().selectionSlidesId[0]
-
         let elem = evt.target as HTMLElement
 
         let shiftY = evt.pageY - elem.getBoundingClientRect().top
 
+        console.log(shiftY)
         dispatch(endMoveSlides, {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
+        clearAllSlideHr()
+
+        isMoveSlides = false
     }
 
     if (isResize) {

@@ -196,7 +196,7 @@ export default function Nav() {
                             onClick={() => showPresentation()}>
                         <SlideshowRoundedIcon/> Show
                     </button>
-                    <Dropdown>
+                    <Dropdown className="show_dropdown">
                         <Dropdown.Toggle
                             className="btn btn-sm button__onclick dropbox__button button__show button__show_arrow"
                             variant="success" id="dropdown-insert">
