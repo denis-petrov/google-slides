@@ -12,7 +12,7 @@ export function createImageFromText(text: Element) {
 
     html2canvas(document.querySelector(`#slide-area text[id="${elemUuid}]"`) as HTMLElement, {}).then(function canvas(canvas) {
         console.log(canvas.toDataURL())
-    });
+    })
 }
 
 export function drawElement(pdfDocument: jsPDF, element: Element) {
@@ -100,7 +100,7 @@ export function createPdf(): jsPDF {
     /* !заранее задать шрифты в jsPDF! */
     let pdfDocument = new jsPDF('landscape', 'px', pageSizeFormat)
     /* !заранее задать шрифты в jsPDF! */
-    
+
     for (let i = 0; i < editor.presentation.slides.length; ++i) {
         let currSlide = editor.presentation.slides[i]
         drawSlide(pdfDocument, currSlide)

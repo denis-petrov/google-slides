@@ -12,29 +12,31 @@ import {endMoveElements} from "./functions/endMoveElements"
 import {moveElementPoint, resizeElement} from "./functions/resizeElement"
 import {changePositionOfElements} from "./functions/changePositionOfElements"
 import {endResizeElement} from "./functions/endResizeElement"
-import {changeTextCursor} from "./functions/changeTextCursor";
+import {changeTextCursor} from "./functions/changeTextCursor"
 import {
-    changeSlideSize, changeTextPlaceholder,
+    changeSlideSize,
+    isShowCurrentlyPresentation,
     showLastSlide,
     showNextSlide,
     showSlideShowPanel,
     stopShowPresentation
-} from "./functions/showPresentation";
+} from "./functions/showPresentation"
 import {moveSlides} from "./functions/moveSlides"
 import {endMoveSlides} from "./functions/endMoveSlides"
+
 
 ReactDOM.render(
     <App/>,
     document.getElementById('root')
 )
 
+
 window.addEventListener('resize', () => {
-    let slideMask = document.getElementById('slide-mask') as HTMLElement
-    //это услоие костыльное
-    if (slideMask.style.visibility === 'visible') {
+    if (isShowCurrentlyPresentation) {
         changeSlideSize()
     }
 })
+
 
 window.addEventListener('keydown', (evt: KeyboardEvent) => {
     if (evt.ctrlKey && evt.shiftKey && evt.keyCode === 90) {
@@ -51,9 +53,7 @@ window.addEventListener('keydown', (evt: KeyboardEvent) => {
         stopShowPresentation()
     }
 
-    let slideMask = document.getElementById('slide-mask') as HTMLElement
-    //это услоие костыльное
-    if (slideMask.style.visibility === 'visible') {
+    if (isShowCurrentlyPresentation) {
         if (evt.keyCode === 39) {
             showNextSlide(evt)
         }
@@ -63,6 +63,7 @@ window.addEventListener('keydown', (evt: KeyboardEvent) => {
         }
     }
 })
+
 
 let isMoveElements: boolean
 let firstPosX: number
@@ -74,6 +75,7 @@ let isMoveSlides: boolean
 let pointIndex: number
 let payload: any
 let resized = false
+
 
 window.addEventListener('mousedown', (evt) => {
     firstPosX = evt.clientX
@@ -88,6 +90,7 @@ window.addEventListener('mousedown', (evt) => {
     removeSelectOfElement(evt)
 })
 
+
 window.addEventListener('mousemove', (evt) => {
     document.documentElement.style.cursor = ''
     showSlideShowPanel(evt)
@@ -101,7 +104,8 @@ window.addEventListener('mousemove', (evt) => {
         resized = true
         payload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
     }
-});
+})
+
 
 window.addEventListener('mouseup', (evt) => {
     if (isMoveElements) {

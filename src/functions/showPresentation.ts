@@ -1,9 +1,10 @@
-import {Simulate} from "react-dom/test-utils";
-import {getSlideIndex} from "./getSlideIndex";
-import {getEditor} from "../stateManager/StateManager";
-import {SelectSlide} from "./SelectSlide";
+import {getSlideIndex} from "./getSlideIndex"
+import {getEditor} from "../stateManager/StateManager"
+import {SelectSlide} from "./SelectSlide"
 
-let timerId: any
+let timerId: NodeJS.Timeout
+
+export let isShowCurrentlyPresentation: boolean
 
 export function changeSlideSize() {
     let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
@@ -57,6 +58,8 @@ export function showPresentation() {
 
     changeTextPlaceholder('')
     timerId = setTimeout(() => document.documentElement.style.cursor = 'none', 2000)
+
+    isShowCurrentlyPresentation = true
 }
 
 export function stopShowPresentation() {
@@ -101,7 +104,9 @@ export function stopShowPresentation() {
     changeTextPlaceholder('Insert text here')
 
     document.documentElement.style.cursor = ''
-    clearInterval(timerId)
+    clearTimeout(timerId)
+
+    isShowCurrentlyPresentation = false
 }
 
 export function showLastSlide(evt: any) {
@@ -110,13 +115,11 @@ export function showLastSlide(evt: any) {
         let slideIndex = getSlideIndex(slide)
         let editor = getEditor()
         if (slideIndex - 1 >= 0) {
-            SelectSlide(evt,  editor.presentation.slides[slideIndex - 1].id)
+            SelectSlide(evt, editor.presentation.slides[slideIndex - 1].id)
         }
     }
 
-    let slideMask = document.getElementById('slide-mask') as HTMLElement
-    //это услоие костыльное
-    if (slideMask.style.visibility === 'visible') {
+    if (isShowCurrentlyPresentation) {
         changeTextPlaceholder('')
     }
 }
@@ -127,13 +130,11 @@ export function showNextSlide(evt: any) {
         let slideIndex = getSlideIndex(slide)
         let editor = getEditor()
         if (slideIndex + 1 < editor.presentation.slides.length) {
-            SelectSlide(evt,  editor.presentation.slides[slideIndex + 1].id)
+            SelectSlide(evt, editor.presentation.slides[slideIndex + 1].id)
         }
     }
 
-    let slideMask = document.getElementById('slide-mask') as HTMLElement
-    //это услоие костыльное
-    if (slideMask.style.visibility === 'visible') {
+    if (isShowCurrentlyPresentation) {
         changeTextPlaceholder('')
     }
 }
@@ -142,9 +143,7 @@ export function showNextSlide(evt: any) {
 let slidePanelTimerId: any
 
 export function showSlideShowPanel(event: any) {
-    let slideMask = document.getElementById('slide-mask') as HTMLElement
-    //это услоие костыльное
-    if (slideMask.style.visibility === 'visible') {
+    if (isShowCurrentlyPresentation) {
         let presentationPanel = document.getElementsByClassName('presentation_panel')[0] as HTMLElement
         if (slidePanelTimerId) {
             clearTimeout(slidePanelTimerId)

@@ -1,6 +1,6 @@
 import {getEditor} from "../stateManager/StateManager"
 
-export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number)  {
+export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number) {
     let editor = getEditor()
     let stepX
     let stepY
@@ -35,12 +35,12 @@ export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number
 
                     let X = '0%'
                     let Y = '0%'
-                    if (prevXAttribute !== null && prevXAttribute !== undefined) {
-                        X = Math.floor(stepX/(slide.clientWidth)*100*100)/100 + prevXAttribute + '%'
+                    if (prevXAttribute !== undefined) {
+                        X = Math.floor(stepX / (slide.clientWidth) * 100 * 100) / 100 + '%'
                     }
 
-                    if (prevYAttribute !== null && prevYAttribute !== undefined) {
-                        Y = Math.floor(stepY/(slide.clientHeight)*100*100)/100 + prevYAttribute + '%'
+                    if (prevYAttribute !== undefined) {
+                        Y = Math.floor(stepY / (slide.clientHeight) * 100 * 100) / 100 + '%'
                     }
 
                     if (parent) {

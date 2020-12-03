@@ -46,7 +46,7 @@ import {changeElementBorderColor} from "../functions/changeElementBorderColor"
 import {getSelectedElement} from "../functions/getSelectedElement"
 import {ElementType, Text} from "../entities/Elements"
 import {changeBorderWidth} from "../functions/changeBorderWidth"
-import {showPresentation} from "../functions/showPresentation";
+import {showPresentation} from "../functions/showPresentation"
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -190,7 +190,9 @@ export default function Nav() {
                     </Toolbar>
                 </AppBar>
                 <div className="col col-lg-2 text-center">
-                    <button id='show_presentation_btn' type="button" className="btn btn-sm button__onclick dropbox__button button__show" onClick={() => showPresentation()}>
+                    <button id='show_presentation_btn' type="button"
+                            className="btn btn-sm button__onclick dropbox__button button__show"
+                            onClick={() => showPresentation()}>
                         <SlideshowRoundedIcon/> Show
                     </button>
                 </div>

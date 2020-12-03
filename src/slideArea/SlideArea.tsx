@@ -157,7 +157,8 @@ export default function SlideArea() {
 
     return (
         <div id="slide-area" className='slide-area'>
-            <svg className={'workspace'} id={'slide_area_' + slideId} style={{background: `0 0 / cover ${getSlideBackground()}`}}>
+            <svg className={'workspace'} id={'slide_area_' + slideId}
+                 style={{background: `0 0 / cover ${getSlideBackground()}`}}>
                 {elements}
             </svg>
         </div>
