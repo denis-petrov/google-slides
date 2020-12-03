@@ -76,7 +76,7 @@ export default function Nav() {
     }
 
     return (
-        <div>
+        <div id='nav_bar'>
             <div className="row nav__line">
                 <AppBar position="static" className="nav col col-lg-10">
                     <Toolbar variant="dense">
@@ -190,7 +190,7 @@ export default function Nav() {
                     </Toolbar>
                 </AppBar>
                 <div className="col col-lg-2 text-center">
-                    <button type="button" className="btn btn-sm button__onclick dropbox__button button__show" onClick={() => showPresentation()}>
+                    <button id='show_presentation_btn' type="button" className="btn btn-sm button__onclick dropbox__button button__show" onClick={() => showPresentation()}>
                         <SlideshowRoundedIcon/> Show
                     </button>
                 </div>

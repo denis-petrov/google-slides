@@ -1,4 +1,9 @@
 import {Simulate} from "react-dom/test-utils";
+import {getSlideIndex} from "./getSlideIndex";
+import {getEditor} from "../stateManager/StateManager";
+import {SelectSlide} from "./SelectSlide";
+
+let timerId: any
 
 export function changeSlideSize() {
     let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
@@ -47,8 +52,11 @@ export function showPresentation() {
 
     let slideMask = document.getElementById('slide-mask') as HTMLElement
     if (slideMask) {
-        slideMask.style.zIndex = '1000'
+        slideMask.style.visibility = 'visible'
     }
+
+    changeTextPlaceholder('')
+    timerId = setTimeout(() => document.documentElement.style.cursor = 'none', 2000)
 }
 
 export function stopShowPresentation() {
@@ -87,6 +95,76 @@ export function stopShowPresentation() {
 
     let slideMask = document.getElementById('slide-mask') as HTMLElement
     if (slideMask) {
-        slideMask.style.zIndex = ''
+        slideMask.style.visibility = ''
+    }
+
+    changeTextPlaceholder('Insert text here')
+
+    document.documentElement.style.cursor = ''
+    clearInterval(timerId)
+}
+
+export function showLastSlide(evt: any) {
+    let slide = document.getElementsByClassName('workspace')[0]
+    if (slide) {
+        let slideIndex = getSlideIndex(slide)
+        let editor = getEditor()
+        if (slideIndex - 1 >= 0) {
+            SelectSlide(evt,  editor.presentation.slides[slideIndex - 1].id)
+        }
+    }
+
+    let slideMask = document.getElementById('slide-mask') as HTMLElement
+    //это услоие костыльное
+    if (slideMask.style.visibility === 'visible') {
+        changeTextPlaceholder('')
+    }
+}
+
+export function showNextSlide(evt: any) {
+    let slide = document.getElementsByClassName('workspace')[0]
+    if (slide) {
+        let slideIndex = getSlideIndex(slide)
+        let editor = getEditor()
+        if (slideIndex + 1 < editor.presentation.slides.length) {
+            SelectSlide(evt,  editor.presentation.slides[slideIndex + 1].id)
+        }
+    }
+
+    let slideMask = document.getElementById('slide-mask') as HTMLElement
+    //это услоие костыльное
+    if (slideMask.style.visibility === 'visible') {
+        changeTextPlaceholder('')
+    }
+}
+
+
+let slidePanelTimerId: any
+
+export function showSlideShowPanel(event: any) {
+    let slideMask = document.getElementById('slide-mask') as HTMLElement
+    //это услоие костыльное
+    if (slideMask.style.visibility === 'visible') {
+        let presentationPanel = document.getElementsByClassName('presentation_panel')[0] as HTMLElement
+        if (slidePanelTimerId) {
+            clearTimeout(slidePanelTimerId)
+        }
+
+        clearTimeout(timerId)
+        if (window.innerHeight - event.clientY <= 100) {
+            presentationPanel.style.opacity = '1'
+        } else {
+            slidePanelTimerId = setTimeout(() => presentationPanel.style.opacity = '0', 1500)
+            timerId = setTimeout(() => document.documentElement.style.cursor = 'none', 2000)
+        }
+    }
+}
+
+export function changeTextPlaceholder(placeholder: string) {
+    let texts = document.getElementsByTagName('p')
+    for (let i = 0; i < texts.length; i++) {
+        if (texts[i].getAttribute('data-path-id')) {
+            texts[i].setAttribute('data-placeholder', placeholder)
+        }
     }
 }

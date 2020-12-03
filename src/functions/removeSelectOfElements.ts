@@ -5,20 +5,26 @@ import {deleteElements} from "./deleteElements";
 
 export function removeSelectOfElement(evt: any) {
     let clickedElem = evt.target as HTMLElement
-    let slideArea = document.getElementById('slide-area')
+    let navBar = document.getElementById('nav_bar')
+    let showPresentationBtn = document.getElementById('show_presentation_btn')
     let pathClassName = 'elem-path_active'
     let pointsClassName = 'points_container_active'
-    let itsSlideArea = null
-    let itsClickedElem = null
-    if (slideArea) {
-        itsSlideArea = evt.target === slideArea || slideArea.contains(evt.target as Node)
+    let itsNavBar = null
+    let itsShowPresentationBtn = null
+    let itsClickedElem = false
+    if (showPresentationBtn) {
+        itsShowPresentationBtn = evt.target === showPresentationBtn || showPresentationBtn.contains(evt.target as Node)
     }
 
-    if (clickedElem) {
-        itsClickedElem = clickedElem.getAttribute('data-path-id') || clickedElem.getAttribute('data-value') || clickedElem.tagName === 'foreignObject'
+    if (navBar) {
+        itsNavBar = evt.target === navBar || (navBar.contains(evt.target as Node) && !itsShowPresentationBtn)
     }
 
-    if (itsSlideArea && !itsClickedElem) {
+    if (clickedElem.getAttribute('data-path-id') || clickedElem.getAttribute('data-value') || clickedElem.tagName === 'foreignObject') {
+        itsClickedElem = true
+    }
+
+    if ((!itsNavBar && !itsClickedElem) || itsShowPresentationBtn) {
         let className = 'element_choosed'
         let allSelectedElems = document.getElementsByClassName(className)
         while(allSelectedElems[0]) {

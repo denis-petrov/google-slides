@@ -13,9 +13,13 @@ import {moveElementPoint, resizeElement} from "./functions/resizeElement"
 import {changePositionOfElements} from "./functions/changePositionOfElements"
 import {endResizeElement} from "./functions/endResizeElement"
 import {changeTextCursor} from "./functions/changeTextCursor";
-import {changeSlideSize, stopShowPresentation} from "./functions/showPresentation";
-import {SelectSlide} from "./functions/SelectSlide";
-import {getSlideIndex} from "./functions/getSlideIndex";
+import {
+    changeSlideSize, changeTextPlaceholder,
+    showLastSlide,
+    showNextSlide,
+    showSlideShowPanel,
+    stopShowPresentation
+} from "./functions/showPresentation";
 import {moveSlides} from "./functions/moveSlides"
 import {endMoveSlides} from "./functions/endMoveSlides"
 
@@ -26,7 +30,8 @@ ReactDOM.render(
 
 window.addEventListener('resize', () => {
     let slideMask = document.getElementById('slide-mask') as HTMLElement
-    if (Number(slideMask.style.zIndex) > 0) {
+    //это услоие костыльное
+    if (slideMask.style.visibility === 'visible') {
         changeSlideSize()
     }
 })
@@ -46,25 +51,15 @@ window.addEventListener('keydown', (evt: KeyboardEvent) => {
         stopShowPresentation()
     }
 
-    if (evt.keyCode === 39) {
-        let slide = document.getElementsByClassName('workspace')[0]
-        if (slide) {
-            let slideIndex = getSlideIndex(slide)
-            let editor = getEditor()
-            if (slideIndex + 1 < editor.presentation.slides.length) {
-                SelectSlide(evt,  editor.presentation.slides[slideIndex + 1].id)
-            }
+    let slideMask = document.getElementById('slide-mask') as HTMLElement
+    //это услоие костыльное
+    if (slideMask.style.visibility === 'visible') {
+        if (evt.keyCode === 39) {
+            showNextSlide(evt)
         }
-    }
 
-    if (evt.keyCode === 37) {
-        let slide = document.getElementsByClassName('workspace')[0]
-        if (slide) {
-            let slideIndex = getSlideIndex(slide)
-            let editor = getEditor()
-            if (slideIndex - 1 >= 0) {
-                SelectSlide(evt,  editor.presentation.slides[slideIndex - 1].id)
-            }
+        if (evt.keyCode === 37) {
+            showLastSlide(evt)
         }
     }
 })
@@ -94,6 +89,8 @@ window.addEventListener('mousedown', (evt) => {
 })
 
 window.addEventListener('mousemove', (evt) => {
+    document.documentElement.style.cursor = ''
+    showSlideShowPanel(evt)
     changeTextCursor(evt)
 
     if (isMoveElements) {

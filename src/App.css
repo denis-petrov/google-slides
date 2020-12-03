@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+
+#slide-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  visibility: hidden;
+}
+
+.presentation_panel {
+  position: absolute;
+  bottom: 30px;
+  left: 50px;
+  padding: 15px 20px;
+  background-color: #444444;
+  color: #FFFFFF;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: opacity .5s ease-in;
+}
+
+.presentation_panel:hover {
+  opacity: 1;
+}
+
+.presentation_panel span {
+  padding: 0 5px 0 10px;
+}
