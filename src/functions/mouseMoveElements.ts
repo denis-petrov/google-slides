@@ -23,8 +23,8 @@ export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number
                         parent = parent.parentNode as HTMLElement
                     }
 
-                    let prevXAttribute
-                    let prevYAttribute
+                    let prevXAttribute = 0
+                    let prevYAttribute = 0
 
                     s.elements.map(e => {
                         if (elem && e.id === elem.id) {
@@ -33,14 +33,14 @@ export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number
                         }
                     })
 
-                    let X = '0%'
-                    let Y = '0%'
+                    let X = prevXAttribute + '%'
+                    let Y = prevYAttribute + '%'
                     if (prevXAttribute !== undefined) {
-                        X = Math.floor(stepX / (slide.clientWidth) * 100 * 100) / 100 + '%'
+                        X = Math.floor(stepX / (slide.clientWidth) * 100 * 100) / 100 + prevXAttribute + '%'
                     }
 
                     if (prevYAttribute !== undefined) {
-                        Y = Math.floor(stepY / (slide.clientHeight) * 100 * 100) / 100 + '%'
+                        Y = Math.floor(stepY / (slide.clientHeight) * 100 * 100) / 100 + prevYAttribute + '%'
                     }
 
                     if (parent) {
