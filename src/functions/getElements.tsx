@@ -75,17 +75,23 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         ]
 
         if (e.type === ElementType.rectangle || e.type === ElementType.ellipse || e.type === ElementType.triangle) {
+            let strokeLinecap: "round" | "inherit" | "square" | "butt" | undefined = "square"
+            let strokeLinejoin: "round" | "miter" | "bevel" | "inherit" | undefined = "miter"
             if (e.type === ElementType.ellipse) {
+                strokeLinecap = "round"
+                strokeLinejoin = "round"
                 elementPoints = `M 1,${viewBoxHeight / 2} A ${viewBoxWidth / 2 - 1},${viewBoxHeight / 2 - 1} 0 1, 1 1,${viewBoxHeight / 2 + 0.0001}`
             } else if (e.type === ElementType.triangle) {
+                strokeLinecap = "round"
+                strokeLinejoin = "round"
                 elementPoints = `M ${viewBoxWidth / 2}, 0 L ${viewBoxWidth} ${viewBoxHeight - 1} L 0 ${viewBoxHeight - 1} L ${viewBoxWidth / 2} 0`
             }
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={elementPoints} stroke={borderColor}
-                      strokeWidth={e.borderWidth} strokeLinejoin="miter"
-                      strokeLinecap="square" fill={backgroundColor}
+                      strokeWidth={e.borderWidth} strokeLinejoin={strokeLinejoin}
+                      strokeLinecap={strokeLinecap} fill={backgroundColor}
                       onClick={(evt) => {
                           if (isIdNeeded) {
                               selectElements(evt, e.id)
