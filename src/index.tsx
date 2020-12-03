@@ -134,7 +134,6 @@ window.addEventListener('mouseup', (evt) => {
 
         let shiftY = evt.pageY - elem.getBoundingClientRect().top
 
-        console.log(shiftY)
         dispatch(endMoveSlides, {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
         clearAllSlideHr()
 
