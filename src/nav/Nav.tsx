@@ -210,7 +210,8 @@ export default function Nav() {
                                                    let editor = getEditor()
                                                    setEditor({
                                                        ...editor,
-                                                       selectionSlidesId: [editor.presentation.slides[0].id]})
+                                                       selectionSlidesId: [editor.presentation.slides[0].id]
+                                                   })
                                                    showPresentation()
                                                }}>
                                     From first slide
@@ -316,7 +317,13 @@ export default function Nav() {
                                     id="myImage"
                                     name="myImage"
                                     accept="image/*"
-                                    onChange={(e) => insertImageFromPc(e, addElement)}
+                                    onChange={(e: any) => {
+                                        if (e.target.files !== null) {
+                                            insertImageFromPc(e, addElement)
+
+                                            e.target.value = null
+                                        }
+                                    }}
                                     ref={imageFiled}
                                     type="file"
                                 />
@@ -344,13 +351,19 @@ export default function Nav() {
                                     <GetAppRoundedIcon/> Insert from computer
                                 </label>
                                 <input
+                                    type="file"
                                     className="dropbox__open_button"
                                     id="myBackImage"
                                     name="myBackImage"
                                     accept="image/*"
-                                    onChange={(e) => insertImageFromPc(e, addToBackground)}
+                                    onChange={(e: any) => {
+                                        if (e.target.files !== null) {
+                                            insertImageFromPc(e, addToBackground)
+
+                                            e.target.value = null
+                                        }
+                                    }}
                                     ref={imageToBackFiled}
-                                    type="file"
                                 />
                             </div>
                             <div>

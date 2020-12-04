@@ -30,6 +30,7 @@ import {clearAllSlideHr} from "./slideMenu/clearAllSlideHr";
 
 ReactDOM.render(
     <App/>,
+    /*получить useRef от window и вызываем хук */
     document.getElementById('root')
 )
 
@@ -80,6 +81,7 @@ let pointIndex: number
 let payload: any
 let resized = false
 
+let isMouseMove = false
 
 window.addEventListener('mousedown', (evt) => {
     firstPosX = evt.clientX
@@ -111,8 +113,9 @@ window.addEventListener('mousemove', (evt) => {
 
         let shiftY = evt.pageY - elem.getBoundingClientRect().top
 
-        if (selectedSlide != elem.id) {
+        if (elem.id !== undefined && selectedSlide !== elem.id) {
             changeVisibilitySlideHr(getEditor(), {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
+            isMouseMove = true
         }
     }
 
@@ -134,7 +137,10 @@ window.addEventListener('mouseup', (evt) => {
 
         let shiftY = evt.pageY - elem.getBoundingClientRect().top
 
-        dispatch(endMoveSlides, {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
+        if (isMouseMove && elem.id !== '' && elem.id !== undefined  && selectedSlide !== elem.id) {
+            dispatch(endMoveSlides, {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
+            isMouseMove = false
+        }
         clearAllSlideHr()
 
         isMoveSlides = false
