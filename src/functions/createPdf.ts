@@ -6,6 +6,7 @@ import {Slide} from "../entities/Slide"
 import {PAGE_HEIGHT, PAGE_WIDTH, WHITE} from "../entities/Constants"
 import {Color, isColor} from "../entities/Color"
 import html2canvas from "html2canvas"
+import {changeTextPlaceholder} from "./showPresentation";
 
 export async function drawElement(pdfDocument: jsPDF, element: Element) {
     let backgroundColor: Color = (element.backgroundColor === null) ? WHITE : (element.backgroundColor as Color)
@@ -103,6 +104,7 @@ export async function drawSlide(pdfDocument: jsPDF, slide: Slide) {
 
 export async function createPdf(): Promise<jsPDF> {
     const pageSizeFormat = [PAGE_WIDTH, PAGE_HEIGHT]
+    changeTextPlaceholder('')
 
     let editor: Editor = getEditor()
     /* !заранее задать шрифты в jsPDF! */
@@ -117,5 +119,7 @@ export async function createPdf(): Promise<jsPDF> {
             pdfDocument.addPage(pageSizeFormat)
         }
     }
+    changeTextPlaceholder('Insert text here')
+
     return pdfDocument
 }
