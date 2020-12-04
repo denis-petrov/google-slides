@@ -12,6 +12,15 @@ export function resizeElement(event: any, pointIndex: number) {
         }
     }
 
+    let editor = getEditor()
+    editor.presentation.slides.map(s => {
+        if (editor.selectionSlidesId.includes(s.id)) {
+            if (s.selectionElementsId.length > 1) {
+                pointIndex = -1
+            }
+        }
+    })
+
     return pointIndex
 }
 
