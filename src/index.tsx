@@ -29,9 +29,11 @@ import {clearAllSlideHr} from "./slideMenu/clearAllSlideHr";
 
 
 ReactDOM.render(
-    <App/>,
-    /*получить useRef от window и вызываем хук */
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
     document.getElementById('root')
+    /*получить useRef от window и вызываем хук */
 )
 
 

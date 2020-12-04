@@ -13,6 +13,7 @@ import {addElement} from "../functions/addElement"
 
 export default function FormDialog(props: any) {
     const [open, setOpen] = React.useState(false)
+    const [userUrl, setUserUrl] = React.useState('')
 
     const handleClickOpen = () => {
         setOpen(true)
@@ -24,11 +25,9 @@ export default function FormDialog(props: any) {
 
     let isBackground = props.isBackground
 
-    let userURL: string
-
     window.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.keyCode === 13) {
-            insertImageByURL(userURL, addElement)
+            insertImageByURL(userUrl, addElement)
             handleClose()
         }
     })
@@ -38,14 +37,14 @@ export default function FormDialog(props: any) {
             <div onClick={handleClickOpen}>
                 <label className="btn-sm button__onclick dropbox_image__item
                                     dropbox_image__item_no_bottom_margin">
-                    <SearchRoundedIcon /> Insert by URL
+                    <SearchRoundedIcon/> Insert by URL
                 </label>
             </div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Insert by URL</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                            To insert image by URL , please enter your URL here.
+                        To insert image by URL , please enter your URL here.
                     </DialogContentText>
                     <TextField
                         autoFocus
@@ -54,7 +53,7 @@ export default function FormDialog(props: any) {
                         label="URL"
                         type="text"
                         fullWidth
-                        onChange={(e) => (userURL = e.target.value)}
+                        onChange={(e) => (setUserUrl(e.target.value))}
                     />
                 </DialogContent>
                 <DialogActions>
@@ -64,10 +63,10 @@ export default function FormDialog(props: any) {
                     <Button onClick={
                         () => {
                             if (isBackground) {
-                                insertImageByURL(userURL, addToBackground)
+                                insertImageByURL(userUrl, addToBackground)
                                 handleClose()
                             } else {
-                                insertImageByURL(userURL, addElement)
+                                insertImageByURL(userUrl, addElement)
                                 handleClose()
                             }
                         }
