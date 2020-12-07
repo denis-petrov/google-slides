@@ -2,9 +2,9 @@ import {Slide} from "../entities/Slide"
 import {getSelectedPoints} from "./getSelectedPoints"
 import {ElementType, ImageElement, Text} from "../entities/Elements"
 import React from "react"
-import {selectElements} from "../slideArea/SlideArea"
 import {changeTextValue} from "./changeTextElement"
 import {dispatch} from "../stateManager/StateManager"
+import {selectElements} from "../slideArea/selectElements";
 
 export function getElements(s: Slide, isIdNeeded: boolean = true) {
     return s.elements.map(e => {
