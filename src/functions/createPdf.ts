@@ -103,6 +103,7 @@ export async function drawSlide(pdfDocument: jsPDF, slide: Slide) {
 }
 
 export async function createPdf(): Promise<jsPDF> {
+    showLoadingCircle(true)
     const pageSizeFormat = [PAGE_WIDTH, PAGE_HEIGHT]
     changeTextPlaceholder('')
 
@@ -120,6 +121,34 @@ export async function createPdf(): Promise<jsPDF> {
         }
     }
     changeTextPlaceholder('Insert text here')
+    showLoadingCircle(false)
 
     return pdfDocument
+}
+
+export function showLoadingCircle(show: boolean) {
+    let slideMask = document.getElementById('slide-mask') as HTMLElement
+    if (show) {
+        slideMask.style.visibility = 'visible'
+        slideMask.style.backgroundColor = 'rgba(0, 0, 0, .5)'
+        slideMask.style.zIndex = '99999'
+    } else {
+        slideMask.style.visibility = ''
+        slideMask.style.backgroundColor = ''
+        slideMask.style.zIndex = ''
+    }
+
+    let presentationPanel = document.getElementsByClassName('presentation_panel')[0] as HTMLElement
+    if (show) {
+        presentationPanel.style.visibility = 'hidden'
+    } else {
+        presentationPanel.style.visibility = ''
+    }
+
+    let loadingCircle = document.getElementById('loading-circle') as HTMLElement
+    if (show) {
+        loadingCircle.style.visibility = 'visible'
+    } else {
+        loadingCircle.style.visibility = ''
+    }
 }

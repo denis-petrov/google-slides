@@ -56,22 +56,22 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         }
 
         let points = [
-            <path data-value="point" d={selectedPoints.d1} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue" style={{cursor: 'nwse-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d2} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue" style={{cursor: 'ns-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d3} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue" style={{cursor: 'nesw-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d4} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue" style={{cursor: 'ew-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d5} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue" style={{cursor: 'ew-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d6} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue" style={{cursor: 'nesw-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d7} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue" style={{cursor: 'ns-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d8} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="blue" style={{cursor: 'nwse-resize'}}/>
+            <path data-value="point" d={selectedPoints.d1} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="#165a80" style={{cursor: 'nwse-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d2} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="#165a80" style={{cursor: 'ns-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d3} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="#165a80" style={{cursor: 'nesw-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d4} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="#165a80" style={{cursor: 'ew-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d5} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="#165a80" style={{cursor: 'ew-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d6} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="#165a80" style={{cursor: 'nesw-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d7} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="#165a80" style={{cursor: 'ns-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d8} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="#165a80" style={{cursor: 'nwse-resize'}}/>
         ]
 
         if (e.type === ElementType.rectangle || e.type === ElementType.ellipse || e.type === ElementType.triangle) {
@@ -97,8 +97,8 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                               selectElements(evt, e.id)
                           }
                       }}/>
-                <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
+                <path id={pathId} d={d} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
                         return point
@@ -144,8 +144,8 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                         {(e as Text).text}
                     </p>
                 </foreignObject>
-                <path id={pathId} d={d} stroke="blue" strokeWidth="1" strokeLinejoin="miter"
-                      strokeLinecap="square" strokeDasharray="5, 5" fill="none" className="elem-path"/>
+                <path id={pathId} d={d} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                      strokeLinecap="square" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
                         return point
@@ -153,8 +153,11 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 </svg>
             </svg>
         } else if (e.type === ElementType.image) {
-            let strokeWidth = '.5%'
             const image = e as ImageElement
+            let strokeWidth = '1%'
+            if (width >= 100 || height >= 100) {
+                strokeWidth = '.5%'
+            }
 
             return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
@@ -164,8 +167,8 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                                selectElements(evt, e.id)
                            }
                        }}/>
-                <path id={pathId} d={d} stroke="blue" strokeWidth={strokeWidth} strokeLinejoin="miter"
-                      strokeLinecap="square" strokeDasharray="5%, 5%" fill="none" className="elem-path"/>
+                <path id={pathId} d={d} stroke="#28c9bc" strokeWidth={strokeWidth} strokeLinejoin="miter"
+                      strokeLinecap="square" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
                         return point

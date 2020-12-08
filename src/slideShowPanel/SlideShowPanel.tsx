@@ -19,6 +19,19 @@ export default function SlideShowPanel() {
 
     return (
         <div id='slide-mask'>
+            <div id="loading-circle" className="lds-roller-block">
+                <div className="lds-roller">
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                </div>
+                <div className="loading_msg">Please, wait</div>
+            </div>
             <div className='presentation_panel'>
                 <div>Slide {slidesNumber}</div>
                 <KeyboardArrowLeftIcon id='show-prev-slide' onClick={(evt) => {
