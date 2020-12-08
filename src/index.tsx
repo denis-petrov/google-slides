@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
@@ -10,11 +10,12 @@ import {
     isShowCurrentlyPresentation,
     showNextSlide,
     showPrevSlide,
+    showSlideShowPanel,
     stopShowPresentation
 } from "./functions/showPresentation"
 import {slideShow} from "./slideShowPanel/slideShow"
 import {useDragAndDrop} from "./useDragAndDrop"
-
+import {changeTextCursor} from "./functions/changeTextCursor"
 
 
 ReactDOM.render(
@@ -58,6 +59,12 @@ window.addEventListener('keydown', (evt: KeyboardEvent) => {
             showPrevSlide(evt)
         }
     }
+})
+
+window.addEventListener('mousemove', (evt) => {
+    document.documentElement.style.cursor = ''
+    showSlideShowPanel(evt)
+    changeTextCursor(evt)
 })
 
 

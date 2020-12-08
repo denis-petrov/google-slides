@@ -5,7 +5,7 @@ import SlideArea from './slideArea/SlideArea'
 import SlideMenu from './slideMenu/SlideMenu'
 import SlideShowPanel from './slideShowPanel/SlideShowPanel'
 
-function App() {
+export default function App() {
     return (
         <div className="wrapper">
             <NavbarApp/>
@@ -17,5 +17,3 @@ function App() {
         </div>
     )
 }
-
-export default App;

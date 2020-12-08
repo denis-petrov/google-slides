@@ -156,8 +156,10 @@ export function showSlideShowPanel(event: any) {
 
         clearTimeout(timerId)
         if (window.innerHeight - event.clientY <= 100) {
+            console.log('TRUe')
             presentationPanel.style.opacity = '1'
         } else {
+            console.log('False')
             slidePanelTimerId = setTimeout(() => presentationPanel.style.opacity = '0', 1500)
             timerId = setTimeout(() => document.documentElement.style.cursor = 'none', 2000)
         }

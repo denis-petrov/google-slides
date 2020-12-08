@@ -56,22 +56,22 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         }
 
         let points = [
-            <path data-value="point" d={selectedPoints.d1} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="#165a80" style={{cursor: 'nwse-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d2} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="#165a80" style={{cursor: 'ns-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d3} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="#165a80" style={{cursor: 'nesw-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d4} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="#165a80" style={{cursor: 'ew-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d5} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="#165a80" style={{cursor: 'ew-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d6} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="#165a80" style={{cursor: 'nesw-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d7} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="#165a80" style={{cursor: 'ns-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d8} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
-                  strokeLinecap="square" fill="#165a80" style={{cursor: 'nwse-resize'}}/>
+            <path data-value="point" d={selectedPoints.d1} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d2} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ns-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d3} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nesw-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d4} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ew-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d5} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ew-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d6} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nesw                 -resize'}}/>,
+            <path data-value="point" d={selectedPoints.d7} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ns-resize'}}/>,
+            <path data-value="point" d={selectedPoints.d8} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+                  strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>
         ]
 
         if (e.type === ElementType.rectangle || e.type === ElementType.ellipse || e.type === ElementType.triangle) {
@@ -97,7 +97,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                               selectElements(evt, e.id)
                           }
                       }}/>
-                <path id={pathId} d={d} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                <path id={pathId} d={d} stroke="rgb(26, 115, 232)" strokeWidth="2" strokeLinejoin="miter"
                       strokeLinecap="square" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
@@ -144,7 +144,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                         {(e as Text).text}
                     </p>
                 </foreignObject>
-                <path id={pathId} d={d} stroke="#28c9bc" strokeWidth="2" strokeLinejoin="miter"
+                <path id={pathId} d={d} stroke="rgb(26, 115, 232)" strokeWidth="2" strokeLinejoin="miter"
                       strokeLinecap="square" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {
@@ -167,7 +167,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                                selectElements(evt, e.id)
                            }
                        }}/>
-                <path id={pathId} d={d} stroke="#28c9bc" strokeWidth={strokeWidth} strokeLinejoin="miter"
+                <path id={pathId} d={d} stroke="rgb(26, 115, 232)" strokeWidth={strokeWidth} strokeLinejoin="miter"
                       strokeLinecap="square" fill="none" className="elem-path"/>
                 <svg id={pointsId} className="points_container">
                     {points.map((point) => {

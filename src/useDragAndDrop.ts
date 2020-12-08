@@ -1,5 +1,3 @@
-import {showSlideShowPanel} from "./functions/showPresentation"
-import {changeTextCursor} from "./functions/changeTextCursor"
 import {mouseMoveElements} from "./functions/mouseMoveElements"
 import {dispatch, getEditor} from "./stateManager/StateManager"
 import {changeVisibilitySlideHr} from "./slideMenu/changeVisibilitySlideHr"
@@ -42,6 +40,7 @@ export function useDragAndDrop() {
 
         if (isResize || isMoveElements || isMoveSlides) {
             window.addEventListener('mousemove', handleMouseMove)
+            window.addEventListener('mouseup', handleMouseUp)
         }
     }
     window.addEventListener('mousedown', handleMouseDown)
@@ -49,10 +48,6 @@ export function useDragAndDrop() {
 
 
     let handleMouseMove = (evt: MouseEvent) => {
-        document.documentElement.style.cursor = ''
-        showSlideShowPanel(evt)
-        changeTextCursor(evt)
-
         if (isMoveElements) {
             mouseMoveElements(evt, firstPosX, firstPosY)
         }
@@ -74,7 +69,6 @@ export function useDragAndDrop() {
             resized = true
             payload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
         }
-        window.addEventListener('mouseup', handleMouseUp)
     }
 
 
