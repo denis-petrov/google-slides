@@ -1,4 +1,4 @@
-import {dispatch} from "../stateManager/StateManager"
+import {dispatch, getEditor} from "../stateManager/StateManager"
 import {chooseElements} from "./chooseElements"
 import {changeTextStyleMenu} from "./changeTextStyleMenu"
 import {deleteElements} from "./deleteElements";
@@ -25,6 +25,16 @@ export function removeSelectOfElement(evt: any) {
     }
 
     if ((!itsNavBar && !itsClickedElem) || itsShowPresentationBtn) {
+        let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
+        let editor = getEditor()
+        editor.presentation.slides.map(s => {
+            if (editor.selectionSlidesId.includes(s.id)) {
+                for (let i = 0; i < s.elements.length; i++) {
+                    workspace.appendChild(document.getElementById(`svg_${s.elements[i].id}`) as HTMLElement)
+                }
+            }
+        })
+
         let className = 'element_choosed'
         let allSelectedElems = document.getElementsByClassName(className)
         while(allSelectedElems[0]) {

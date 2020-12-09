@@ -12,6 +12,7 @@ export function changeSlideSize() {
         let windowWidth = window.innerWidth
         let windowHeight = window.innerHeight
         let slideArea = document.getElementById('slide-area') as HTMLElement
+        workspace.style.overflow = 'hidden'
         if (windowWidth / windowHeight > 16 / 9) {
             workspace.style.width = 'calc(100vh / 9 * 16)'
             workspace.style.height = '100vh'
@@ -93,6 +94,7 @@ export function stopShowPresentation() {
         let slideArea = document.getElementById('slide-area') as HTMLElement
         workspace.style.width = ''
         workspace.style.height = ''
+        workspace.style.overflow = ''
         slideArea.style.width = ''
         slideArea.style.height = ''
     }
@@ -129,11 +131,16 @@ export function showPrevSlide(evt: any) {
 
 export function showNextSlide(evt: any) {
     let slide = document.getElementsByClassName('workspace')[0]
+    let isLastPage = false
     if (slide) {
         let slideIndex = getSlideIndex(slide)
         let editor = getEditor()
         if (slideIndex + 1 < editor.presentation.slides.length) {
             SelectSlide(evt, editor.presentation.slides[slideIndex + 1].id)
+        }
+
+        if (slideIndex + 2 === editor.presentation.slides.length) {
+            isLastPage = true
         }
     }
 
@@ -142,6 +149,8 @@ export function showNextSlide(evt: any) {
     }
 
     changeArrowColor()
+
+    return isLastPage
 }
 
 
@@ -156,10 +165,8 @@ export function showSlideShowPanel(event: any) {
 
         clearTimeout(timerId)
         if (window.innerHeight - event.clientY <= 100) {
-            console.log('TRUe')
             presentationPanel.style.opacity = '1'
         } else {
-            console.log('False')
             slidePanelTimerId = setTimeout(() => presentationPanel.style.opacity = '0', 1500)
             timerId = setTimeout(() => document.documentElement.style.cursor = 'none', 2000)
         }
@@ -178,6 +185,7 @@ export function changeTextPlaceholder(placeholder: string) {
 export function changeArrowColor() {
     let prevArrow = document.getElementById('show-prev-slide')
     let nextArrow = document.getElementById('show-next-slide')
+    let playBtn = document.getElementById('start-slide-show')
     let editor = getEditor()
     editor.presentation.slides.map(s => {
         if (s.id === editor.selectionSlidesId[0]) {
@@ -194,14 +202,18 @@ export function changeArrowColor() {
             }
 
             if (editor.presentation.slides.indexOf(s) === editor.presentation.slides.length - 1) {
-                if (nextArrow) {
+                if (nextArrow && playBtn) {
                     nextArrow.style.color = '#8e8e8e'
                     nextArrow.style.cursor = 'default'
+                    playBtn.style.color = '#8e8e8e'
+                    playBtn.style.cursor = 'default'
                 }
             } else {
-                if (nextArrow) {
+                if (nextArrow && playBtn) {
                     nextArrow.style.color = '#fff'
                     nextArrow.style.cursor = 'pointer'
+                    playBtn.style.color = '#fff'
+                    playBtn.style.cursor = 'pointer'
                 }
             }
         }

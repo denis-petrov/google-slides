@@ -13,17 +13,22 @@
 }
 
 .workspace {
-    width: 60vw;
-    height: 33.75vw;
     margin: auto 0;
     background-color: #FFFFFF;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (min-width: 1401px) {
     .workspace {
-        width: calc(95vw - 230px);
-        height: 40.5vw;
+        width: 1104px;
+        height: 621px;
+    }
+}
+
+@media screen and (min-height: 822px) {
+    .workspace {
+        width: 1104px;
+        height: 621px;
     }
 }
 

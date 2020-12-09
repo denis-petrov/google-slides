@@ -1,4 +1,4 @@
-import {dispatch} from "../stateManager/StateManager"
+import {dispatch, getEditor} from "../stateManager/StateManager"
 import {chooseElements} from "../functions/chooseElements"
 import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu"
 import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
@@ -12,6 +12,7 @@ export function selectElements(event: any, id: string) {
     let elemClassName = 'element_choosed'
     let pathClassName = 'elem-path_active'
     let pointsClassName = 'points_container_active'
+    let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
     if (event.ctrlKey) {
         if (clickedElem.getAttribute('data-path-id')) {
             if (clickedElem.classList.contains(elemClassName)) {
@@ -57,6 +58,15 @@ export function selectElements(event: any, id: string) {
         }
     } else {
         if (!clickedElem.classList.contains(elemClassName)) {
+            let editor = getEditor()
+            editor.presentation.slides.map(s => {
+                if (editor.selectionSlidesId.includes(s.id)) {
+                    for (let i = 0; i < s.elements.length; i++) {
+                        //workspace.appendChild(document.getElementById(`svg_${s.elements[i].id}`) as HTMLElement)
+                    }
+                }
+            })
+
             let allSelectedElemsPaths = document.getElementsByClassName(pathClassName)
             while (allSelectedElemsPaths[0]) {
                 if (allSelectedElemsPaths[0].classList.contains(pathClassName)) {
@@ -99,4 +109,11 @@ export function selectElements(event: any, id: string) {
             dispatch(chooseElements, [id], false)
         }
     }
+
+    let clickedElemParent = clickedElem.parentNode as HTMLElement
+    if (clickedElem.tagName === 'P') {
+        clickedElemParent = clickedElemParent.parentNode as HTMLElement
+    }
+
+    workspace.appendChild(clickedElemParent)
 }

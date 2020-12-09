@@ -11,6 +11,7 @@ import {getEditor} from "../stateManager/StateManager";
 export default function SlideShowPanel() {
     let editor = getEditor()
     let slidesNumber = 1
+    let slidesCount = editor.presentation.slides.length
     editor.presentation.slides.map(s => {
         if (s.id === editor.selectionSlidesId[0]) {
             slidesNumber = editor.presentation.slides.indexOf(s) + 1
@@ -33,14 +34,15 @@ export default function SlideShowPanel() {
                 <div className="loading_msg">Please, wait</div>
             </div>
             <div className='presentation_panel'>
-                <div>Slide {slidesNumber}</div>
+                <div>Slide {slidesNumber} / {slidesCount}</div>
                 <KeyboardArrowLeftIcon id='show-prev-slide' onClick={(evt) => {
                     showPrevSlide(evt)
                 }}/>
-                <PlayArrowIcon id='start_slide_show' onClick={(evt) => {
-                    slideShow(evt, false)
+                <PlayArrowIcon id='start-slide-show' onClick={(evt) => {
+                    let timer = slidesNumber === slidesCount
+                    slideShow(evt, timer)
                 }}/>
-                <PauseIcon id='stop_slide_show' style={{display: 'none'}} onClick={(evt) => {
+                <PauseIcon id='stop-slide-show' style={{display: 'none'}} onClick={(evt) => {
                     slideShow(evt, true)
                 }}/>
                 <KeyboardArrowRightIcon id='show-next-slide' onClick={(evt) => {

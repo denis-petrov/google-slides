@@ -2,6 +2,7 @@ function changeVisibility(elementId: string, visibility: boolean) {
     let element = document.getElementById(elementId)
     if (element) {
         element.style.visibility = visibility ? 'visible' : 'hidden'
+        element.style.display = visibility ? 'block' : ''
     }
 }
 

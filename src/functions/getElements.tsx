@@ -19,6 +19,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         let pathId
         let pointsId
         let elemId: string | undefined
+        let elemParentId
         let viewBoxWidth = Math.round((e.bottomRightPoint.x - e.topLeftPoint.x) * 10 * 100) / 100
         let viewBoxHeight
 
@@ -35,6 +36,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             elemId = e.id
             pathId = 'slide_' + s.id + '_element_' + e.id
             pointsId = 'slide_' + s.id + '_points_' + e.id
+            elemParentId = `svg_${elemId}`
         }
 
         if (e.backgroundColor) {
@@ -87,7 +89,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 elementPoints = `M ${viewBoxWidth / 2}, 0 L ${viewBoxWidth} ${viewBoxHeight - 1} L 0 ${viewBoxHeight - 1} L ${viewBoxWidth / 2} 0`
             }
 
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
+            return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={elementPoints} stroke={borderColor}
                       strokeWidth={e.borderWidth} strokeLinejoin={strokeLinejoin}
@@ -114,7 +116,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const cursor = isIdNeeded ? 'auto' : 'default'
             const placeholder = isIdNeeded ? 'Insert text here' : ''
 
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
+            return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" style={{overflowWrap: "break-word"}}
                         key={e.id}>
                 <foreignObject width={'100%'} height={'100%'} overflow={'visible'}>
@@ -159,7 +161,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 strokeWidth = '.5%'
             }
 
-            return <svg x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
+            return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <image id={elemId} data-path-id={pathId} data-points-id={pointsId} href={image.link} x="0" y="0"
                        onClick={(evt) => {

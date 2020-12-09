@@ -16,6 +16,7 @@ import {
 import {slideShow} from "./slideShowPanel/slideShow"
 import {useDragAndDrop} from "./useDragAndDrop"
 import {changeTextCursor} from "./functions/changeTextCursor"
+import {changeWorkspaceSize} from "./functions/changeWorkspaceSize";
 
 
 ReactDOM.render(
@@ -30,6 +31,8 @@ useDragAndDrop()
 window.addEventListener('resize', () => {
     if (isShowCurrentlyPresentation) {
         changeSlideSize()
+    } else {
+        changeWorkspaceSize()
     }
 })
 

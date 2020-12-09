@@ -3,8 +3,8 @@ import {showNextSlide} from "../functions/showPresentation"
 let timerId: any
 
 export function slideShow(evt: any, timer: boolean) {
-    let playBtn = document.getElementById('start_slide_show') as HTMLElement
-    let stopBtn = document.getElementById('stop_slide_show') as HTMLElement
+    let playBtn = document.getElementById('start-slide-show') as HTMLElement
+    let stopBtn = document.getElementById('stop-slide-show') as HTMLElement
     if (timer) {
         playBtn.style.display = ''
         stopBtn.style.display = 'none'
@@ -13,7 +13,12 @@ export function slideShow(evt: any, timer: boolean) {
         playBtn.style.display = 'none'
         stopBtn.style.display = ''
         timerId = setInterval((evt) => {
-            showNextSlide(evt)
+            let isLastPage = showNextSlide(evt)
+            if (isLastPage) {
+                clearInterval(timerId)
+                playBtn.style.display = ''
+                stopBtn.style.display = 'none'
+            }
         }, 3000)
     }
 }
