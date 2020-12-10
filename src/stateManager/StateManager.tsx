@@ -3,36 +3,42 @@ import ReactDOM from 'react-dom'
 import React from 'react'
 import App from '../App'
 import {deepCopy} from 'deep-copy-ts'
-import {WHITE} from '../entities/Constants'
+import {LOCAL_STORAGE_EDITOR_KEY, WHITE} from '../entities/Constants'
 import { v4 as uuidv4 } from 'uuid'
 
 let firstSlideId = uuidv4()
 
-let editor: Editor = {
-    presentation: {
-        name: '',
-        slides: [
-            {
-                id: firstSlideId,
-                selectionElementsId: [],
-                elements: [],
-                background: WHITE
-            }
-        ]
-    },
-    selectionSlidesId: [firstSlideId]
-}
-let presentationHistory: Array<Editor> = [deepCopy(editor)]
+let presentationHistory: Array<Editor> = [getEditor()]
 let indexHistory: number = 0
 
+let ed = getEditor()
+if (Object.keys(ed).length == 0) {
+    setEditor({
+        presentation: {
+            name: '',
+            slides: [
+                {
+                    id: firstSlideId,
+                    selectionElementsId: [],
+                    elements: [],
+                    background: WHITE
+                }
+            ]
+        },
+        selectionSlidesId: [firstSlideId]
+    })
+    presentationHistory = [getEditor()]
+    indexHistory = 0
+}
 
 export function dispatch<F extends Function>(fn: F, payload: any, isNeedToHistory: boolean = true): void {
     if (indexHistory !== presentationHistory.length - 1) {
         presentationHistory.splice(indexHistory + 1)
     }
 
-    editor = fn(deepCopy(editor), payload)
+    setEditor(fn(getEditor(), payload))
 
+    let editor = getEditor();
     if ((editor.selectionSlidesId.length === 0) && (editor.presentation.slides[0] != null)) {
         editor.selectionSlidesId.push(editor.presentation.slides[0].id)
     }
@@ -51,17 +57,24 @@ export function dispatch<F extends Function>(fn: F, payload: any, isNeedToHistor
 }
 
 export function getEditor(): Editor {
-    return deepCopy(editor)
+    let localStorageEditor = localStorage.getItem(LOCAL_STORAGE_EDITOR_KEY)
+
+    if (localStorageEditor != null) {
+        console.log(localStorageEditor as string)
+        return deepCopy(JSON.parse(localStorageEditor as string) as Editor);
+    } else {
+        return {} as Editor;
+    }
 }
 
 export function setEditor(newEditor: Editor): void {
-    editor = deepCopy(newEditor)
+    localStorage.setItem(LOCAL_STORAGE_EDITOR_KEY, JSON.stringify(newEditor))
 }
 
 export function setEditorNewPresentation(newEditor: Editor): void {
-    editor = deepCopy(newEditor)
+    setEditor(newEditor)
 
-    presentationHistory = [deepCopy(editor)]
+    presentationHistory = [deepCopy(newEditor)]
     indexHistory = 0
 
     ReactDOM.render(
@@ -74,7 +87,7 @@ export function setEditorNewPresentation(newEditor: Editor): void {
 
 export function unDo(): void {
     if (indexHistory > 0) {
-        editor = presentationHistory[indexHistory - 1]
+        setEditor(presentationHistory[indexHistory - 1])
         indexHistory = indexHistory - 1
 
         ReactDOM.render(
@@ -88,7 +101,7 @@ export function unDo(): void {
 
 export function reDo(): void {
     if (indexHistory < presentationHistory.length - 1) {
-        editor = presentationHistory[indexHistory + 1]
+        setEditor(presentationHistory[indexHistory + 1])
         indexHistory = indexHistory + 1
 
         ReactDOM.render(
