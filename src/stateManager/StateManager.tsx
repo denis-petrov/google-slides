@@ -60,7 +60,6 @@ export function getEditor(): Editor {
     let localStorageEditor = localStorage.getItem(LOCAL_STORAGE_EDITOR_KEY)
 
     if (localStorageEditor != null) {
-        console.log(localStorageEditor as string)
         return deepCopy(JSON.parse(localStorageEditor as string) as Editor);
     } else {
         return {} as Editor;
