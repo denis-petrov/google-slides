@@ -1,8 +1,10 @@
 import {showNextSlide} from "../functions/showPresentation"
+import {Dispatch} from "react"
+import {Editor} from "../entities/Editor"
 
 let timerId: any
 
-export function slideShow(evt: any, timer: boolean) {
+export function slideShow(editor: Editor, dispatch: Dispatch<any>, evt: any, timer: boolean) {
     let playBtn = document.getElementById('start-slide-show') as HTMLElement
     let stopBtn = document.getElementById('stop-slide-show') as HTMLElement
     if (timer) {
@@ -13,7 +15,7 @@ export function slideShow(evt: any, timer: boolean) {
         playBtn.style.display = 'none'
         stopBtn.style.display = ''
         timerId = setInterval((evt) => {
-            let isLastPage = showNextSlide(evt)
+            let isLastPage = showNextSlide(editor, dispatch)
             if (isLastPage) {
                 clearInterval(timerId)
                 playBtn.style.display = ''

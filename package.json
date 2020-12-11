@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@gostgroup/redux-modus": "^1.0.2",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@react-pdf/pdfkit": "^1.5.0",
@@ -15,6 +16,7 @@
     "@types/react": "^16.9.0",
     "@types/react-color": "^3.0.4",
     "@types/react-dom": "^16.9.0",
+    "@types/react-redux": "^7.1.11",
     "@types/uuid": "^8.3.0",
     "babel": "^6.23.0",
     "bootstrap": "^4.5.2",
@@ -31,7 +33,10 @@
     "react-dom": "^16.13.1",
     "react-input-autosize": "^2.2.2",
     "react-pick-color": "^1.0.0",
+    "react-redux": "^7.2.2",
     "react-scripts": "3.4.3",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "ts-jest": "^26.4.1",
     "types": "^0.1.1",
     "typescript": "^4.0.3",
@@ -64,6 +69,8 @@
   "author": "denis <den11032001@mail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/redux": "^3.6.0",
+    "@types/redux-thunk": "^2.1.0",
     "eslint-plugin-react-hooks": "^4.2.0"
   }
 }

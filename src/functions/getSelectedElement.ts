@@ -1,7 +1,7 @@
-import {getEditor} from "../stateManager/StateManager"
+import {store} from "../stateManager/StateManager"
 
 export function getSelectedElement() {
-    const editor = getEditor()
+    const editor = store.getState()
     const selectedSlideId = editor.selectionSlidesId[0]
     const selectedSlide = editor.presentation.slides.filter((slide) => {
         if (slide.id === selectedSlideId) {

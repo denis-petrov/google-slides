@@ -3,11 +3,8 @@ import {Element} from '../entities/Elements'
 import {deepCopy} from "deep-copy-ts"
 import { v4 as uuidv4 } from 'uuid'
 
-export {
-    addElement
-}
 
-function addElement(editor: Editor, element: Element) {
+export function addElement(editor: Editor, element: Element): Editor {
     let copyElement = deepCopy(element)
 
     return {

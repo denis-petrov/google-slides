@@ -1,8 +1,8 @@
-import {getEditor} from "../stateManager/StateManager"
+import {store} from "../stateManager/StateManager"
 
 export function moveElements(event: any) {
     let isMoveElements = false
-    let editor = getEditor()
+    let editor = store.getState()
     editor.presentation.slides.map(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
             let selectedElements = []

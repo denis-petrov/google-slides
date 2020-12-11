@@ -1,6 +1,6 @@
 import {Editor} from '../entities/Editor'
 
-export function changeBorderWidth(editor: Editor, width: number): Editor {
+export function changeElementBorderWidth(editor: Editor, width: number): Editor {
     return <Editor>{
         ...editor,
         presentation: {

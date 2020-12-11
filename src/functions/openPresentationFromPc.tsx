@@ -1,11 +1,6 @@
-import React from 'react'
-import {setEditorNewPresentation} from '../stateManager/StateManager'
+import React, {Dispatch} from 'react'
 
-export {
-    openPresentationFromPc
-}
-
-function openPresentationFromPc(e: React.ChangeEvent<HTMLInputElement>) {
+export function openPresentationFromPc(e: React.ChangeEvent<HTMLInputElement>, dispatch: Dispatch<any>) {
     let fileReader: FileReader
 
     const handleFileChosen = (file: File) => {
@@ -17,7 +12,7 @@ function openPresentationFromPc(e: React.ChangeEvent<HTMLInputElement>) {
     const handleFileRead = () => {
         const content = fileReader.result
         if (typeof(content) === 'string') {
-            setEditorNewPresentation(JSON.parse(content))
+            dispatch({type: 'SET_EDITOR', payload: JSON.parse(content)})
         }
     }
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Dispatch} from 'react'
 import {AppBar, TextField, Toolbar} from '@material-ui/core'
 import {Dropdown} from 'react-bootstrap'
 import AddIcon from '@material-ui/icons/Add'
@@ -20,41 +20,37 @@ import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
-import {addEmptySlide} from '../functions/addEmptySlide'
 import {savePresentationToPc} from '../functions/savePresentationToPc'
-import {dispatch, getEditor, reDo, setEditor, unDo} from '../stateManager/StateManager'
+import {reDo, unDo} from '../stateManager/StateManager'
 import {openPresentationFromPc} from '../functions/openPresentationFromPc'
-import {changeNamePresentation} from '../functions/changeNamePresentation'
 import {DEFAULT_ELLIPSE, DEFAULT_RECTANGLE, DEFAULT_TEXT, DEFAULT_TRIANGLE} from "../entities/Constants"
-import {deleteSlides} from "../functions/deleteSlides"
 import {Editor} from "../entities/Editor"
-import {addSomeElement} from "../functions/addSomeElement"
 import {insertImageFromPc} from "../functions/insertImageFromPc"
 import FormDialog from "./FomDialog"
-import {addToBackground} from "../functions/addToBackground"
-import {addElement} from "../functions/addElement"
-import ColorPickerLol from "./ColorPicker"
+import ColorPickerOur from "./ColorPicker"
 import {createPdf} from "../functions/createPdf"
-import {changeTextFont} from "../functions/changeTextFont"
-import {changeTextSize} from "../functions/changeTextSize"
 import ColorPicker from "react-pick-color"
-import {changeElementFillColor} from "../functions/changeElementFillColor"
-import {deleteElements} from "../functions/deleteElements"
-import {changeTextBold} from "../functions/changeTextBold"
-import {changeTextItalic} from "../functions/changeTextItalic"
-import {changeTextUnderline} from "../functions/changeTextUnderline"
-import {changeElementBorderColor} from "../functions/changeElementBorderColor"
 import {getSelectedElement} from "../functions/getSelectedElement"
 import {ElementType, Text} from "../entities/Elements"
-import {changeBorderWidth} from "../functions/changeBorderWidth"
 import {showPresentation} from "../functions/showPresentation"
+import {connect, useDispatch} from "react-redux"
 
 
 const fileField = React.createRef<HTMLInputElement>()
 const imageFiled = React.createRef<HTMLInputElement>()
 const imageToBackFiled = React.createRef<HTMLInputElement>()
 
-export default function Nav() {
+
+const mapStateToProps = (state: Editor) => {
+    return {
+        state: state
+    }
+}
+
+function Nav(props: any) {
+    let editor = props.state
+    const dispatch: Dispatch<any> = useDispatch()
+
     const elem = getSelectedElement()
     let fillColor
     let borderColor
@@ -76,6 +72,8 @@ export default function Nav() {
         }
     }
 
+    console.log(editor)
+
     return (
         <div id='nav_bar'>
             <div className="row nav__line">
@@ -87,9 +85,9 @@ export default function Nav() {
                             <div className="row">
                                 <input type="text" className="form-control nav__presentation_name" id="presentationName"
                                        aria-describedby="emailHelp" placeholder="NEW PRESENTATION"
-                                       value={getEditor().presentation.name}
+                                       value={editor.presentation.name}
                                        onChange={(e) =>
-                                           dispatch(changeNamePresentation, e.target.value)
+                                           dispatch({type: 'CHANGE_PRESENTATION_NAME', payload: e.target.value})
                                        }
                                 />
                             </div>
@@ -109,17 +107,17 @@ export default function Nav() {
                                                 id="myfile"
                                                 name="myfile"
                                                 accept=".json"
-                                                onChange={(e) => openPresentationFromPc(e)}
+                                                onChange={(e) => openPresentationFromPc(e, dispatch)}
                                                 ref={fileField}
                                                 type="file"
                                             />
                                         </div>
 
                                         <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                            savePresentationToPc(getEditor())
+                                            savePresentationToPc(editor)
                                         }}>Save</Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick" onClick={async () => {
-                                            (await createPdf()).save(getEditor().presentation.name)
+                                            (await createPdf()).save(editor.presentation.name)
                                         }}>Export to PDF</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
@@ -132,27 +130,31 @@ export default function Nav() {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => {
-                                                           addSomeElement(DEFAULT_TRIANGLE)
-                                                       }}>
+                                                       onClick={() => dispatch({
+                                                           type: 'ADD_ELEMENT',
+                                                           payload: DEFAULT_TRIANGLE
+                                                       })}>
                                             Triangle
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => {
-                                                           addSomeElement(DEFAULT_ELLIPSE)
-                                                       }}>
+                                                       onClick={() => dispatch({
+                                                           type: 'ADD_ELEMENT',
+                                                           payload: DEFAULT_ELLIPSE
+                                                       })}>
                                             Ellipse
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => {
-                                                           addSomeElement(DEFAULT_RECTANGLE)
-                                                       }}>
+                                                       onClick={() => dispatch({
+                                                           type: 'ADD_ELEMENT',
+                                                           payload: DEFAULT_RECTANGLE
+                                                       })}>
                                             Rectangle
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => {
-                                                           addSomeElement(DEFAULT_TEXT)
-                                                       }}>
+                                                       onClick={() => dispatch({
+                                                           type: 'ADD_ELEMENT',
+                                                           payload: DEFAULT_TEXT
+                                                       })}>
                                             Text
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick">Image</Dropdown.Item>
@@ -166,22 +168,12 @@ export default function Nav() {
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
-                                        <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                            let newWindow = window.open('/loading.html') as Window
-                                            newWindow.onload = async () => {
-                                                newWindow.location.href = URL.createObjectURL((await createPdf()).output('blob'))
-                                            }
-                                        }}>New slide</Dropdown.Item>
-                                        <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
-                                            dispatch(deleteSlides, {})
-                                            if (getEditor().presentation.slides.length === 0) {
-                                                dispatch((editorInput: Editor) => {
-                                                    let newEditorOneSlide: Editor = addEmptySlide(editorInput)
-                                                    newEditorOneSlide.selectionSlidesId.push(newEditorOneSlide.presentation.slides[0].id)
-                                                    return newEditorOneSlide
-                                                }, {})
-                                            }
-                                        }}>
+                                        <Dropdown.Item className="btn-sm button__onclick"
+                                                       onClick={() => dispatch({type: 'ADD_EMPTY_SLIDE'})}>
+                                            New slide
+                                        </Dropdown.Item>
+                                        <Dropdown.Item className="btn-sm button__onclick"
+                                                       onClick={() => dispatch({type: 'DELETE_SLIDES'})}>
                                             Delete slide
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
@@ -194,7 +186,7 @@ export default function Nav() {
                     <div className='show_inline'>
                         <button id='show_presentation_btn' type="button"
                                 className="btn btn-sm button__onclick dropbox__button button__show"
-                                onClick={() => showPresentation()}>
+                                onClick={() => showPresentation(editor)}>
                             <SlideshowRoundedIcon/> Show
                         </button>
                         <Dropdown>
@@ -207,17 +199,19 @@ export default function Nav() {
                             <Dropdown.Menu>
                                 <Dropdown.Item className="btn-sm button__onclick"
                                                onClick={() => {
-                                                   let editor = getEditor()
-                                                   setEditor({
-                                                       ...editor,
-                                                       selectionSlidesId: [editor.presentation.slides[0].id]
+                                                   dispatch({
+                                                       type: 'SET_EDITOR',
+                                                       payload: {
+                                                           ...editor,
+                                                           selectionSlidesId: [editor.presentation.slides[0].id]
+                                                       }
                                                    })
-                                                   showPresentation()
+                                                   showPresentation(editor)
                                                }}>
                                     From first slide
                                 </Dropdown.Item>
                                 <Dropdown.Item className="btn-sm button__onclick"
-                                               onClick={() => showPresentation()}>
+                                               onClick={() => showPresentation(editor)}>
                                     From current slide
                                 </Dropdown.Item>
                             </Dropdown.Menu>
@@ -230,30 +224,13 @@ export default function Nav() {
 
             <AppBar position="static" className="nav">
                 <Toolbar variant="dense">
-                    <button type="button" className="btn btn-sm button__onclick dropbox__button" onClick={() => {
-                        if (getEditor().presentation.slides.length === 0) {
-                            dispatch((editorInput: Editor) => {
-                                let newEditorOneSlide: Editor = addEmptySlide(editorInput)
-                                newEditorOneSlide.selectionSlidesId.push(newEditorOneSlide.presentation.slides[0].id)
-                                return newEditorOneSlide
-                            }, {})
-                        } else {
-                            dispatch(addEmptySlide, {})
-                        }
-                    }}>
+                    <button type="button" className="btn btn-sm button__onclick dropbox__button"
+                            onClick={() => dispatch({type: 'ADD_EMPTY_SLIDE'})}>
                         <AddIcon/>
                     </button>
 
-                    <button type="button" className="btn btn-sm button__onclick dropbox__button" onClick={() => {
-                        dispatch(deleteSlides, {})
-                        if (getEditor().presentation.slides.length === 0) {
-                            dispatch((editorInput: Editor) => {
-                                let newEditorOneSlide: Editor = addEmptySlide(editorInput)
-                                newEditorOneSlide.selectionSlidesId.push(newEditorOneSlide.presentation.slides[0].id)
-                                return newEditorOneSlide
-                            }, {})
-                        }
-                    }}>
+                    <button type="button" className="btn btn-sm button__onclick dropbox__button"
+                            onClick={() => dispatch({type: 'DELETE_SLIDES'})}>
                         <RemoveIcon/>
                     </button>
 
@@ -274,30 +251,34 @@ export default function Nav() {
                     <div className="vertical_separator">&nbsp;</div>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => {
-                                addSomeElement(DEFAULT_TRIANGLE)
-                            }}>
+                            onClick={() => dispatch({
+                                type: 'ADD_ELEMENT',
+                                payload: DEFAULT_TRIANGLE
+                            })}>
                         <ChangeHistoryIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => {
-                                addSomeElement(DEFAULT_ELLIPSE)
-                            }}>
+                            onClick={() => dispatch({
+                                type: 'ADD_ELEMENT',
+                                payload: DEFAULT_ELLIPSE
+                            })}>
                         <RadioButtonUncheckedIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => {
-                                addSomeElement(DEFAULT_RECTANGLE)
-                            }}>
+                            onClick={() => dispatch({
+                                type: 'ADD_ELEMENT',
+                                payload: DEFAULT_RECTANGLE
+                            })}>
                         <CheckBoxOutlineBlankIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => {
-                                addSomeElement(DEFAULT_TEXT)
-                            }}>
+                            onClick={() => dispatch({
+                                type: 'ADD_ELEMENT',
+                                payload: DEFAULT_TEXT
+                            })}>
                         <TextFieldsIcon/>
                     </button>
 
@@ -319,7 +300,7 @@ export default function Nav() {
                                     accept="image/*"
                                     onChange={(e: any) => {
                                         if (e.target.files !== null) {
-                                            insertImageFromPc(e, addElement)
+                                            insertImageFromPc(e, 'ADD_ELEMENT', dispatch)
 
                                             e.target.value = null
                                         }
@@ -344,7 +325,7 @@ export default function Nav() {
 
                         <Dropdown.Menu>
                             <div>
-                                <ColorPickerLol/>
+                                <ColorPickerOur dispatch={dispatch}/>
                             </div>
                             <div>
                                 <label htmlFor="myBackImage" className="btn-sm button__onclick dropbox_image__item">
@@ -358,7 +339,7 @@ export default function Nav() {
                                     accept="image/*"
                                     onChange={(e: any) => {
                                         if (e.target.files !== null) {
-                                            insertImageFromPc(e, addToBackground)
+                                            insertImageFromPc(e, 'ADD_IMAGE_TO_BACKGROUND', dispatch)
 
                                             e.target.value = null
                                         }
@@ -377,9 +358,9 @@ export default function Nav() {
 
                     {/*delete element*/}
                     <button id="edit_style_text_delete" type="button"
-                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() => {
-                        dispatch(deleteElements, {})
-                    }}>
+                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
+                        dispatch({type: 'DELETE_ELEMENTS'})
+                    }>
                         <DeleteRoundedIcon/>
                     </button>
 
@@ -400,9 +381,9 @@ export default function Nav() {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <ColorPicker color={fillColor} onChange={(color) => {
-                                dispatch(changeElementFillColor, color.hex)
-                            }} hideAlpha={true} hideInputs={true}/>
+                            <ColorPicker color={fillColor} onChange={(color) =>
+                                dispatch({type: 'CHANGE_ELEMENT_FILL_COLOR', payload: color.hex})
+                            } hideAlpha={true} hideInputs={true}/>
                         </Dropdown.Menu>
                     </Dropdown>
 
@@ -421,7 +402,7 @@ export default function Nav() {
 
                         <Dropdown.Menu>
                             <ColorPicker color={borderColor} onChange={(color) => {
-                                dispatch(changeElementBorderColor, color.hex)
+                                dispatch({type: 'CHANGE_ELEMENT_BORDER_COLOR', payload: color.hex})
                             }} hideAlpha={true} hideInputs={true}/>
                         </Dropdown.Menu>
                     </Dropdown>
@@ -437,9 +418,9 @@ export default function Nav() {
                             }}
                             value={borderSizeView}
                             type="number"
-                            onChange={(e) => {
-                                dispatch(changeBorderWidth, e.target.value)
-                            }}
+                            onChange={(e) =>
+                                dispatch({type: 'CHANGE_ELEMENT_BORDER_WIDTH', payload: e.target.value})
+                            }
                         />
                     </div>
 
@@ -448,25 +429,25 @@ export default function Nav() {
 
                     {/*bold text*/}
                     <button id="edit_style_text_bold" type="button"
-                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() => {
-                        dispatch(changeTextBold, {})
-                    }}>
+                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
+                        dispatch({type: 'CHANGE_TEXT_BOLD'})
+                    }>
                         <FormatBoldRoundedIcon/>
                     </button>
 
                     {/*italic text*/}
                     <button id="edit_style_text_italic" type="button"
-                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() => {
-                        dispatch(changeTextItalic, {})
-                    }}>
+                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
+                        dispatch({type: 'CHANGE_TEXT_ITALIC'})
+                    }>
                         <FormatItalicRoundedIcon/>
                     </button>
 
                     {/*italic text*/}
                     <button id="edit_style_text_underline" type="button"
-                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() => {
-                        dispatch(changeTextUnderline, {})
-                    }}>
+                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
+                        dispatch({type: 'CHANGE_TEXT_UNDERLINE'})
+                    }>
                         <FormatUnderlinedIcon/>
                     </button>
 
@@ -483,29 +464,29 @@ export default function Nav() {
 
                         <Dropdown.Menu>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__time_new_roman"
-                                           onClick={() => {
-                                               dispatch(changeTextFont, 'Times New Roman')
-                                           }}>
+                                           onClick={() =>
+                                               dispatch({type: 'CHANGE_TEXT_FONT', payload: 'Times New Roman'})
+                                           }>
                                 Times New Roman
                             </Dropdown.Item>
-                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__roboto" onClick={() => {
-                                dispatch(changeTextFont, 'Roboto')
-                            }}>
+                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__roboto" onClick={() =>
+                                dispatch({type: 'CHANGE_TEXT_FONT', payload: 'Roboto'})
+                            }>
                                 Roboto
                             </Dropdown.Item>
-                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__arial" onClick={() => {
-                                dispatch(changeTextFont, 'Arial')
-                            }}>
+                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__arial" onClick={() =>
+                                dispatch({type: 'CHANGE_TEXT_FONT', payload: 'Arial'})
+                            }>
                                 Arial
                             </Dropdown.Item>
-                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__cambria" onClick={() => {
-                                dispatch(changeTextFont, 'Cambria')
-                            }}>
+                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__cambria" onClick={() =>
+                                dispatch({type: 'CHANGE_TEXT_FONT', payload: 'Cambria'})
+                            }>
                                 Cambria
                             </Dropdown.Item>
-                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__samanata" onClick={() => {
-                                dispatch(changeTextFont, 'Samanata')
-                            }}>
+                            <Dropdown.Item className="btn-sm button__onclick edit_style_text__samanata" onClick={() =>
+                                dispatch({type: 'CHANGE_TEXT_FONT', payload: 'Samanata'})
+                            }>
                                 Samanata
                             </Dropdown.Item>
                         </Dropdown.Menu>
@@ -525,9 +506,9 @@ export default function Nav() {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            onChange={(e) => {
-                                dispatch(changeTextSize, e.target.value)
-                            }}
+                            onChange={(e) =>
+                                dispatch({type: 'CHANGE_TEXT_SIZE', payload: e.target.value})
+                            }
                         />
                     </div>
 
@@ -537,3 +518,5 @@ export default function Nav() {
         </div>
     )
 }
+
+export default connect(mapStateToProps)(Nav)

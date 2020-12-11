@@ -1,11 +1,6 @@
 import {Editor} from '../entities/Editor'
 
-export {
-    changePositionOfElements
-}
-
-function changePositionOfElements(editor: Editor, payload: any): Editor {
-
+export function changePositionOfElements(editor: Editor, payload: any): Editor {
     return {
         ...editor,
         presentation: {

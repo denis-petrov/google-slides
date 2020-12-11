@@ -1,9 +1,10 @@
-import {dispatch, getEditor} from "../stateManager/StateManager";
-import {changePositionOfElements} from "./changePositionOfElements";
+import {Dispatch} from "react"
+import {store} from "../stateManager/StateManager"
 
-export function endMoveElements(isMoveElements: boolean) {
+export function endMoveElements(isMoveElements: boolean, dispatch: Dispatch<any>) {
+    let editor = store.getState()
+
     isMoveElements = false
-    let editor = getEditor()
     let payload = new Map()
     let isMoved = true
     editor.presentation.slides.map(s => {
@@ -65,7 +66,7 @@ export function endMoveElements(isMoveElements: boolean) {
     })
 
     if (isMoved) {
-        dispatch(changePositionOfElements, payload)
+        dispatch({type: 'END_MOVE_ELEMENTS', payload: payload})
     }
 
     return isMoveElements

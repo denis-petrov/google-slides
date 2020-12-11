@@ -1,12 +1,11 @@
 import {Slide} from "../entities/Slide"
 import {getSelectedPoints} from "./getSelectedPoints"
 import {ElementType, ImageElement, Text} from "../entities/Elements"
-import React from "react"
-import {changeTextValue} from "./changeTextElement"
-import {dispatch} from "../stateManager/StateManager"
-import {selectElements} from "../slideArea/selectElements";
+import React, {Dispatch} from "react"
+import {selectElements} from "../slideArea/selectElements"
 
-export function getElements(s: Slide, isIdNeeded: boolean = true) {
+
+export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boolean = true) {
     return s.elements.map(e => {
         let width = Math.round((e.bottomRightPoint.x - e.topLeftPoint.x) * 100) / 100
         let height = Math.round((e.bottomRightPoint.y - e.topLeftPoint.y) * 100) / 100
@@ -58,21 +57,29 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
         }
 
         let points = [
-            <path data-value="point" d={selectedPoints.d1} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d1} stroke="rgb(255, 255, 255)" strokeWidth="2"
+                  strokeLinejoin="miter"
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d2} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d2} stroke="rgb(255, 255, 255)" strokeWidth="2"
+                  strokeLinejoin="miter"
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ns-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d3} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d3} stroke="rgb(255, 255, 255)" strokeWidth="2"
+                  strokeLinejoin="miter"
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nesw-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d4} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d4} stroke="rgb(255, 255, 255)" strokeWidth="2"
+                  strokeLinejoin="miter"
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ew-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d5} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d5} stroke="rgb(255, 255, 255)" strokeWidth="2"
+                  strokeLinejoin="miter"
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ew-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d6} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d6} stroke="rgb(255, 255, 255)" strokeWidth="2"
+                  strokeLinejoin="miter"
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nesw                 -resize'}}/>,
-            <path data-value="point" d={selectedPoints.d7} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d7} stroke="rgb(255, 255, 255)" strokeWidth="2"
+                  strokeLinejoin="miter"
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ns-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d8} stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinejoin="miter"
+            <path data-value="point" d={selectedPoints.d8} stroke="rgb(255, 255, 255)" strokeWidth="2"
+                  strokeLinejoin="miter"
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>
         ]
 
@@ -89,14 +96,15 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 elementPoints = `M ${viewBoxWidth / 2}, 0 L ${viewBoxWidth} ${viewBoxHeight - 1} L 0 ${viewBoxHeight - 1} L ${viewBoxWidth / 2} 0`
             }
 
-            return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
+            return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
+                        width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" key={e.id}>
                 <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={elementPoints} stroke={borderColor}
                       strokeWidth={e.borderWidth} strokeLinejoin={strokeLinejoin}
                       strokeLinecap={strokeLinecap} fill={backgroundColor}
                       onClick={(evt) => {
                           if (isIdNeeded) {
-                              selectElements(evt, e.id)
+                              selectElements(evt, e.id, dispatch)
                           }
                       }}/>
                 <path id={pathId} d={d} stroke="rgb(26, 115, 232)" strokeWidth="2" strokeLinejoin="miter"
@@ -116,7 +124,8 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
             const cursor = isIdNeeded ? 'auto' : 'default'
             const placeholder = isIdNeeded ? 'Insert text here' : ''
 
-            return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox} width={width + '%'}
+            return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
+                        width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" style={{overflowWrap: "break-word"}}
                         key={e.id}>
                 <foreignObject width={'100%'} height={'100%'} overflow={'visible'}>
@@ -133,13 +142,14 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                            cursor: cursor
                        }}
                        onClick={(evt) => {
-                           if (isIdNeeded) {
-                               selectElements(evt, e.id)
+                           if (isIdNeeded && s.selectionElementsId[0] != e.id) {
+                               selectElements(evt, e.id, dispatch)
                            }
                        }}
+
                        onBlur={(evt) => {
                            if (isIdNeeded) {
-                               dispatch(changeTextValue, {id: e.id, value: evt.target.textContent})
+                               dispatch({type: 'CHANGE_TEXT_VALUE', payload: {id: e.id, value: evt.target.textContent}})
                            }
                        }}
                     >
@@ -166,7 +176,7 @@ export function getElements(s: Slide, isIdNeeded: boolean = true) {
                 <image id={elemId} data-path-id={pathId} data-points-id={pointsId} href={image.link} x="0" y="0"
                        onClick={(evt) => {
                            if (isIdNeeded) {
-                               selectElements(evt, e.id)
+                               selectElements(evt, e.id, dispatch)
                            }
                        }}/>
                 <path id={pathId} d={d} stroke="rgb(26, 115, 232)" strokeWidth={strokeWidth} strokeLinejoin="miter"

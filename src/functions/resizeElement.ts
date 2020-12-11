@@ -1,5 +1,5 @@
-import {getEditor} from "../stateManager/StateManager"
 import {Element, ElementType, ImageElement} from "../entities/Elements"
+import {store} from "../stateManager/StateManager"
 
 export function resizeElement(event: any, pointIndex: number) {
     let point = event.target
@@ -12,7 +12,7 @@ export function resizeElement(event: any, pointIndex: number) {
         }
     }
 
-    let editor = getEditor()
+    let editor = store.getState()
     editor.presentation.slides.map(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
             if (s.selectionElementsId.length > 1) {
@@ -33,7 +33,7 @@ function changeVieBoxHeight(e: Element, prevWidth: number, prevHeight: number, h
 }
 
 export function moveElementPoint(event: any, firstPosX: number, firstPosY: number, pointIndex: number) {
-    let editor = getEditor()
+    let editor = store.getState()
     let stepX
     let stepY
     let payload = new Map()

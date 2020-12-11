@@ -1,15 +1,15 @@
 import {mouseMoveElements} from "./functions/mouseMoveElements"
-import {dispatch, getEditor} from "./stateManager/StateManager"
 import {changeVisibilitySlideHr} from "./slideMenu/changeVisibilitySlideHr"
 import {moveElementPoint, resizeElement} from "./functions/resizeElement"
 import {endMoveElements} from "./functions/endMoveElements"
-import {endMoveSlides} from "./functions/endMoveSlides"
 import {clearAllSlideHr} from "./slideMenu/clearAllSlideHr"
 import {endResizeElement} from "./functions/endResizeElement"
-import {changePositionOfElements} from "./functions/changePositionOfElements"
 import {removeSelectOfElement} from "./functions/removeSelectOfElements"
 import {moveSlides} from "./functions/moveSlides"
 import {moveElements} from "./slideArea/moveElements"
+import {Dispatch} from "react"
+import {useDispatch} from "react-redux"
+import {store} from "./stateManager/StateManager"
 
 
 let isMoveElements: boolean
@@ -26,6 +26,10 @@ let resized = false
 let isMouseMove = false
 
 export function useDragAndDrop() {
+    const dispatch: Dispatch<any> = useDispatch()
+
+    let editor = store.getState()
+
     let handleMouseDown = (evt: MouseEvent) => {
         firstPosX = evt.clientX
         firstPosY = evt.clientY
@@ -36,7 +40,7 @@ export function useDragAndDrop() {
         pointIndex = resizeElement(evt, pointIndex)
         isResize = pointIndex >= 0
 
-        removeSelectOfElement(evt)
+        removeSelectOfElement(evt, store.dispatch)
 
         if (isResize || isMoveElements || isMoveSlides) {
             window.addEventListener('mousemove', handleMouseMove)
@@ -46,21 +50,20 @@ export function useDragAndDrop() {
     window.addEventListener('mousedown', handleMouseDown)
 
 
-
     let handleMouseMove = (evt: MouseEvent) => {
         if (isMoveElements) {
             mouseMoveElements(evt, firstPosX, firstPosY)
         }
 
         if (isMoveSlides) {
-            let selectedSlide = getEditor().selectionSlidesId[0]
+            let selectedSlide = editor.selectionSlidesId[0]
 
             let elem = evt.target as HTMLElement
 
             let shiftY = evt.pageY - elem.getBoundingClientRect().top
 
             if (elem.id !== undefined && selectedSlide !== elem.id) {
-                changeVisibilitySlideHr(getEditor(), {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
+                changeVisibilitySlideHr(editor, {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
                 isMouseMove = true
             }
         }
@@ -74,17 +77,17 @@ export function useDragAndDrop() {
 
     let handleMouseUp = (evt: MouseEvent) => {
         if (isMoveElements) {
-            isMoveElements = endMoveElements(isMoveElements)
+            isMoveElements = endMoveElements(isMoveElements, store.dispatch)
         }
 
         if (isMoveSlides) {
-            let selectedSlide = getEditor().selectionSlidesId[0]
+            let selectedSlide = editor.selectionSlidesId[0]
             let elem = evt.target as HTMLElement
 
             let shiftY = evt.pageY - elem.getBoundingClientRect().top
 
             if (isMouseMove && elem.id !== '' && elem.id !== undefined  && selectedSlide !== elem.id) {
-                dispatch(endMoveSlides, {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
+                dispatch({type: 'END_MOVE_SLIDES', payload: {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id}})
                 isMouseMove = false
             }
             clearAllSlideHr()
@@ -98,7 +101,7 @@ export function useDragAndDrop() {
             if (resized) {
                 endResizeElement(payload)
                 if (!payload.get('small')) {
-                    dispatch(changePositionOfElements, payload)
+                    dispatch({type: 'CHANGE_POSITION_OF_ELEMENTS', payload: payload})
                 }
             }
         }

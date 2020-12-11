@@ -1,11 +1,10 @@
-import React from 'react'
+import React, {Dispatch} from 'react'
 import {DEFAULT_IMAGE} from "../entities/Constants"
 import {deepCopy} from "deep-copy-ts"
 import {imageInitAfterOnload} from "./imageInitAfterOnload"
-import {dispatch} from "../stateManager/StateManager"
 
 
-export function insertImageFromPc<F extends Function>(e: React.ChangeEvent<HTMLInputElement>, fn: F) {
+export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>, type: string, dispatch: Dispatch<any>) {
     let fileReader: FileReader
 
     const handleFileChosen = (file: File) => {
@@ -19,7 +18,7 @@ export function insertImageFromPc<F extends Function>(e: React.ChangeEvent<HTMLI
                 img.onload = () => {
                     copyImage = imageInitAfterOnload(img, copyImage)
                     copyImage.link = fileReader.result as string
-                    dispatch(fn, copyImage)
+                    dispatch({type: type, payload: copyImage})
                 }
             }
         }

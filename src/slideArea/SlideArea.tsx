@@ -1,19 +1,28 @@
-import React from 'react'
+import React, {Dispatch} from 'react'
 import './slideArea.css'
-import {getEditor} from '../stateManager/StateManager'
 import {getSlideBackground} from "../functions/getSlideBackground"
 import {getElements} from "../functions/getElements"
+import {connect, useDispatch} from "react-redux"
+import {Editor} from "../entities/Editor"
 
 
-export default function SlideArea() {
-    let editor = getEditor()
+const mapStateToProps = (state: Editor) => {
+    return {
+        state: state
+    }
+}
+
+function SlideArea(props: any) {
+    const dispatch: Dispatch<any> = useDispatch()
+
+    let editor = props.state
     let slideId = ''
 
     // eslint-disable-next-line array-callback-return
-    let elements = editor.presentation.slides.map(s => {
+    let elements = editor.presentation.slides.map((s: any) => {
         if (editor.selectionSlidesId.includes(s.id)) {
             slideId = s.id
-            return getElements(s)
+            return getElements(s, dispatch)
         }
     })
 
@@ -26,3 +35,5 @@ export default function SlideArea() {
         </div>
     )
 }
+
+export default connect(mapStateToProps)(SlideArea)

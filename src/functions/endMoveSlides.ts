@@ -6,7 +6,7 @@ export function endMoveSlides(editor: Editor, payload: any): Editor {
     let startSlideId = payload.startSlideId
     let endSlideId = payload.endSlideId
 
-    if ((shift <= 95) && (shift >= 5) && (startSlideId != endSlideId)) {
+    if ((shift <= 95) && (shift >= 5) && (startSlideId !== endSlideId)) {
         let startSlide = editor.presentation.slides.filter((slide) => slide.id === startSlideId)[0]
         let startSlidePosition = editor.presentation.slides.indexOf(startSlide)
 

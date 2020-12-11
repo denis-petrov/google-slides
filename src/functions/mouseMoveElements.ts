@@ -1,7 +1,7 @@
-import {getEditor} from "../stateManager/StateManager"
+import {store} from "../stateManager/StateManager"
 
 export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number) {
-    let editor = getEditor()
+    let editor = store.getState()
     let stepX
     let stepY
     editor.presentation.slides.map(s => {

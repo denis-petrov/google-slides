@@ -1,12 +1,13 @@
-import {getEditor} from "../stateManager/StateManager"
 import {Editor} from "../entities/Editor"
 import {jsPDF} from "jspdf"
-import {Element, ElementType, ImageElement, Text} from "../entities/Elements"
+import {Element, ElementType, ImageElement} from "../entities/Elements"
 import {Slide} from "../entities/Slide"
 import {PAGE_HEIGHT, PAGE_WIDTH, WHITE} from "../entities/Constants"
 import {Color, isColor} from "../entities/Color"
 import html2canvas from "html2canvas"
-import {changeTextPlaceholder} from "./showPresentation";
+import {changeTextPlaceholder} from "./showPresentation"
+import {store} from "../stateManager/StateManager";
+
 
 export async function drawElement(pdfDocument: jsPDF, element: Element) {
     let backgroundColor: Color = (element.backgroundColor === null) ? WHITE : (element.backgroundColor as Color)
@@ -107,7 +108,7 @@ export async function createPdf(): Promise<jsPDF> {
     const pageSizeFormat = [PAGE_WIDTH, PAGE_HEIGHT]
     changeTextPlaceholder('')
 
-    let editor: Editor = getEditor()
+    let editor: Editor = store.getState()
     /* !заранее задать шрифты в jsPDF! */
     let pdfDocument = new jsPDF('landscape', 'px', pageSizeFormat)
     /* !заранее задать шрифты в jsPDF! */

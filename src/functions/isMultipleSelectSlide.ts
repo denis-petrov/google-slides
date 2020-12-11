@@ -1,7 +1,7 @@
-import {dispatch, getEditor} from "../stateManager/StateManager"
-import {chooseSlides} from "./chooseSlides"
+import {Editor} from "../entities/Editor"
 
-export function SelectSlide(event: any, slideId: string, isDispatch: boolean = true) {
+
+export function isMultipleSelectSlide(editor: Editor, event: any, slideId: string) {
     const attributeName = 'data-is-checked'
     const slideClass = 'slide'
 
@@ -14,8 +14,6 @@ export function SelectSlide(event: any, slideId: string, isDispatch: boolean = t
             let previousAttributeValue = currSlideElement.getAttribute(attributeName)
             currSlideElement.setAttribute(attributeName, previousAttributeValue === 'true' ? 'false' : 'true')
         }
-
-        let editor = getEditor()
 
         let firstSelectSlide = editor.presentation.slides.filter((slide) => editor.selectionSlidesId.includes(slide.id))[0]
         let firstSelectSlideId = editor.presentation.slides.indexOf(firstSelectSlide)
@@ -31,10 +29,7 @@ export function SelectSlide(event: any, slideId: string, isDispatch: boolean = t
             }
         }
 
-        console.log(editor)
-        if (isDispatch) {
-            dispatch(chooseSlides, editor.selectionSlidesId)
-        }
+        return true
     } else {
 
         for (let i = 0; i < allSlides.length; i++) {
@@ -46,8 +41,6 @@ export function SelectSlide(event: any, slideId: string, isDispatch: boolean = t
             currSlideElement.setAttribute(attributeName, previousAttributeValue === 'true' ? 'false' : 'true')
         }
 
-        if (isDispatch) {
-            dispatch(chooseSlides, [slideId])
-        }
+        return false
     }
 }

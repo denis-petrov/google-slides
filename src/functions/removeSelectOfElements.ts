@@ -1,9 +1,9 @@
-import {dispatch, getEditor} from "../stateManager/StateManager"
-import {chooseElements} from "./chooseElements"
 import {changeTextStyleMenu} from "./changeTextStyleMenu"
-import {deleteElements} from "./deleteElements";
+import {Dispatch} from "react"
+import {store} from "../stateManager/StateManager"
 
-export function removeSelectOfElement(evt: any) {
+
+export function removeSelectOfElement(evt: any, dispatch: Dispatch<any>) {
     let clickedElem = evt.target as HTMLElement
     let navBar = document.getElementById('nav_bar')
     let showPresentationBtn = document.getElementsByClassName('show_inline')[0]
@@ -26,18 +26,18 @@ export function removeSelectOfElement(evt: any) {
 
     if ((!itsNavBar && !itsClickedElem) || itsShowPresentationBtn) {
         let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
-        let editor = getEditor()
+        let editor = store.getState()
         editor.presentation.slides.map(s => {
             if (editor.selectionSlidesId.includes(s.id)) {
                 for (let i = 0; i < s.elements.length; i++) {
-                    workspace.appendChild(document.getElementById(`svg_${s.elements[i].id}`) as HTMLElement)
+                    //workspace.appendChild(document.getElementById(`svg_${s.elements[i].id}`) as HTMLElement)
                 }
             }
         })
 
         let className = 'element_choosed'
         let allSelectedElems = document.getElementsByClassName(className)
-        while(allSelectedElems[0]) {
+        while (allSelectedElems[0]) {
             if (allSelectedElems[0].classList.contains(className)) {
                 if (allSelectedElems[0].tagName === 'P') {
                     (allSelectedElems[0].parentNode as HTMLElement).style.cursor = 'default'
@@ -48,20 +48,20 @@ export function removeSelectOfElement(evt: any) {
         }
 
         let elemPathArray = document.getElementsByClassName(pathClassName)
-        while(elemPathArray[0]) {
+        while (elemPathArray[0]) {
             if (elemPathArray[0].classList.contains(pathClassName)) {
                 elemPathArray[0].classList.remove(pathClassName)
             }
         }
 
         let elemPointsArray = document.getElementsByClassName(pointsClassName)
-        while(elemPointsArray[0]) {
+        while (elemPointsArray[0]) {
             if (elemPointsArray[0].classList.contains(pointsClassName)) {
                 elemPointsArray[0].classList.remove(pointsClassName)
             }
         }
 
-        dispatch(chooseElements, new Array<number>(), false)
+        dispatch({type: 'CHOOSE_ELEMENTS', payload: new Array<string>()})
         changeTextStyleMenu(false)
     }
 }

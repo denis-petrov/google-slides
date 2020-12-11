@@ -1,9 +1,9 @@
-import {dispatch, getEditor} from "../stateManager/StateManager"
-import {chooseElements} from "../functions/chooseElements"
 import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu"
 import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
+import {Dispatch} from "react"
+import {store} from "../stateManager/StateManager"
 
-export function selectElements(event: any, id: string) {
+export function selectElements(event: any, id: string, dispatch: Dispatch<any>) {
     let clickedElem = event.currentTarget
     let elemPathId = clickedElem.getAttribute('data-path-id')
     let elemPointsId = clickedElem.getAttribute('data-points-id')
@@ -54,11 +54,11 @@ export function selectElements(event: any, id: string) {
                 }
             }
 
-            dispatch(chooseElements, selectedElems, false)
+            dispatch({type: 'CHOOSE_ELEMENTS', payload: selectedElems})
         }
     } else {
         if (!clickedElem.classList.contains(elemClassName)) {
-            let editor = getEditor()
+            let editor = store.getState()
             editor.presentation.slides.map(s => {
                 if (editor.selectionSlidesId.includes(s.id)) {
                     for (let i = 0; i < s.elements.length; i++) {
@@ -106,7 +106,7 @@ export function selectElements(event: any, id: string) {
                 changePrimitiveStyleMenu(true)
             }
 
-            dispatch(chooseElements, [id], false)
+            dispatch({type: 'CHOOSE_ELEMENTS', payload: [id]})
         }
     }
 

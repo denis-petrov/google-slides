@@ -1,8 +1,8 @@
-import {getEditor} from "../stateManager/StateManager";
-import {ElementType, ImageElement} from "../entities/Elements";
+import {ElementType, ImageElement} from "../entities/Elements"
+import {store} from "../stateManager/StateManager"
 
 export function endResizeElement(payload: any) {
-    let editor = getEditor()
+    let editor = store.getState()
     editor.presentation.slides.map(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
             s.elements.filter(e => {

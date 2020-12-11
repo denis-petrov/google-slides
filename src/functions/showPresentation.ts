@@ -1,6 +1,6 @@
 import {getSlideIndex} from "./getSlideIndex"
-import {getEditor} from "../stateManager/StateManager"
-import {SelectSlide} from "./SelectSlide"
+import {Editor} from "../entities/Editor"
+import {Dispatch} from "react"
 
 let timerId: NodeJS.Timeout
 
@@ -25,7 +25,7 @@ export function changeSlideSize() {
     }
 }
 
-export function showPresentation() {
+export function showPresentation(editor: Editor) {
     let wrapper = document.getElementsByClassName('wrapper')[0] as HTMLElement
     if (wrapper) {
         wrapper.style.display = 'block'
@@ -61,7 +61,7 @@ export function showPresentation() {
     timerId = setTimeout(() => document.documentElement.style.cursor = 'none', 2000)
 
     isShowCurrentlyPresentation = true
-    changeArrowColor()
+    changeArrowColor(editor)
 }
 
 export function stopShowPresentation() {
@@ -112,13 +112,12 @@ export function stopShowPresentation() {
     isShowCurrentlyPresentation = false
 }
 
-export function showPrevSlide(evt: any) {
+export function showPrevSlide(editor: Editor, dispatch: Dispatch<any>) {
     let slide = document.getElementsByClassName('workspace')[0]
     if (slide) {
-        let slideIndex = getSlideIndex(slide)
-        let editor = getEditor()
+        let slideIndex = getSlideIndex(editor, slide)
         if (slideIndex - 1 >= 0) {
-            SelectSlide(evt, editor.presentation.slides[slideIndex - 1].id)
+            dispatch({type: 'CHOOSE_SLIDES', payload: [editor.presentation.slides[slideIndex - 1].id]})
         }
     }
 
@@ -126,17 +125,16 @@ export function showPrevSlide(evt: any) {
         changeTextPlaceholder('')
     }
 
-    changeArrowColor()
+    changeArrowColor(editor)
 }
 
-export function showNextSlide(evt: any) {
+export function showNextSlide(editor: Editor, dispatch: Dispatch<any>) {
     let slide = document.getElementsByClassName('workspace')[0]
     let isLastPage = false
     if (slide) {
-        let slideIndex = getSlideIndex(slide)
-        let editor = getEditor()
+        let slideIndex = getSlideIndex(editor, slide)
         if (slideIndex + 1 < editor.presentation.slides.length) {
-            SelectSlide(evt, editor.presentation.slides[slideIndex + 1].id)
+            dispatch({type: 'CHOOSE_SLIDES', payload: [editor.presentation.slides[slideIndex + 1].id]})
         }
 
         if (slideIndex + 2 === editor.presentation.slides.length) {
@@ -148,7 +146,7 @@ export function showNextSlide(evt: any) {
         changeTextPlaceholder('')
     }
 
-    changeArrowColor()
+    changeArrowColor(editor)
 
     return isLastPage
 }
@@ -182,11 +180,10 @@ export function changeTextPlaceholder(placeholder: string) {
     }
 }
 
-export function changeArrowColor() {
+export function changeArrowColor(editor: Editor) {
     let prevArrow = document.getElementById('show-prev-slide')
     let nextArrow = document.getElementById('show-next-slide')
     let playBtn = document.getElementById('start-slide-show')
-    let editor = getEditor()
     editor.presentation.slides.map(s => {
         if (s.id === editor.selectionSlidesId[0]) {
             if (editor.presentation.slides.indexOf(s) === 0) {

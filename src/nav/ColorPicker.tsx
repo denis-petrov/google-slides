@@ -11,7 +11,9 @@ import {hexToRgb} from "../functions/hexToRgb"
 import {Color} from "../entities/Color"
 
 
-export default function ColorPickerLol() {
+export default function ColorPickerOur(props: any) {
+    const dispatch = props.dispatch
+
     const [color, setColor] = React.useState("#fff")
     const [open, setOpen] = React.useState(false)
 
@@ -28,14 +30,16 @@ export default function ColorPickerLol() {
             <div onClick={handleClickOpen}>
                 <label className="btn-sm button__onclick dropbox_image__item
                                     dropbox_color_picker__button">
-                    <FormatColorFillRoundedIcon /> Select color
+                    <FormatColorFillRoundedIcon/> Select color
                 </label>
             </div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Select background color</DialogTitle>
                 <DialogContent>
-                    <ColorPicker color={color} onChange={(color) => {setColor(color.hex)}} hideAlpha={true}
-                                 hideInputs={true} />
+                    <ColorPicker color={color} onChange={(color) => {
+                        setColor(color.hex)
+                    }} hideAlpha={true}
+                                 hideInputs={true}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
@@ -43,7 +47,7 @@ export default function ColorPickerLol() {
                     </Button>
                     <Button onClick={
                         () => {
-                            addSomeToBackground(hexToRgb(color) as Color)
+                            addSomeToBackground(hexToRgb(color) as Color, dispatch)
                             handleClose()
                         }
                     } style={{color: color}}>

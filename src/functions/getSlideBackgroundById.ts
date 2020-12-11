@@ -1,8 +1,7 @@
-import {getEditor} from "../stateManager/StateManager"
 import {Color, isColor} from "../entities/Color"
+import {Editor} from "../entities/Editor";
 
-export function getSlideBackgroundById(id: string) {
-    const editor = getEditor()
+export function getSlideBackgroundById(editor: Editor, id: string) {
     const currentSlide = editor.presentation.slides.filter(s => {
         if (s.id === id) {
             return s

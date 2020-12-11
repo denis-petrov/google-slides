@@ -1,10 +1,9 @@
-import React from 'react'
+import React, {Dispatch} from 'react'
 import {DEFAULT_IMAGE} from '../entities/Constants'
 import {deepCopy} from "deep-copy-ts"
 import {imageInitAfterOnload} from "./imageInitAfterOnload"
-import {dispatch} from "../stateManager/StateManager"
 
-export function insertImageByURL<F extends Function>(URL: string, fn: F) {
+export function insertImageByURL(URL: string, type: string, dispatch: Dispatch<any>) {
     let copyImage = deepCopy(DEFAULT_IMAGE)
     let img = new Image()
 
@@ -12,7 +11,7 @@ export function insertImageByURL<F extends Function>(URL: string, fn: F) {
     img.onload = () => {
         copyImage = imageInitAfterOnload(img, copyImage)
         copyImage.link = URL
-        dispatch(fn, copyImage)
+        dispatch({type: type, payload: copyImage})
     }
 }
 

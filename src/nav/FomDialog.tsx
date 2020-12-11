@@ -8,12 +8,12 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded"
 import {insertImageByURL} from "../functions/insertImageByURL"
-import {addToBackground} from "../functions/addToBackground"
-import {addElement} from "../functions/addElement"
 
 export default function FormDialog(props: any) {
     const [open, setOpen] = React.useState(false)
     const [userUrl, setUserUrl] = React.useState('')
+
+    const dispatch = props.dispatch
 
     const handleClickOpen = () => {
         setOpen(true)
@@ -27,7 +27,7 @@ export default function FormDialog(props: any) {
 
     window.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.keyCode === 13) {
-            insertImageByURL(userUrl, addElement)
+            insertImageByURL(userUrl, 'ADD_ELEMENT', dispatch)
             handleClose()
         }
     })
@@ -63,10 +63,10 @@ export default function FormDialog(props: any) {
                     <Button onClick={
                         () => {
                             if (isBackground) {
-                                insertImageByURL(userUrl, addToBackground)
+                                insertImageByURL(userUrl, 'ADD_TO_BACKGROUND', dispatch)
                                 handleClose()
                             } else {
-                                insertImageByURL(userUrl, addElement)
+                                insertImageByURL(userUrl, 'ADD_ELEMENT', dispatch)
                                 handleClose()
                             }
                         }

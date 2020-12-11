@@ -1,8 +1,7 @@
 import {ImageElement} from '../entities/Elements'
-import {dispatch} from '../stateManager/StateManager'
-import {addToBackground} from "./addToBackground"
 import {Color} from "../entities/Color"
+import {Dispatch} from "react"
 
-export function addSomeToBackground(elem: Color | ImageElement) {
-    dispatch(addToBackground, elem)
+export function addSomeToBackground(elem: Color | ImageElement, dispatch: Dispatch<any>) {
+    dispatch({type: 'ADD_TO_BACKGROUND', payload: elem})
 }
