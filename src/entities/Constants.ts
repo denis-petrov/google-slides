@@ -12,7 +12,8 @@ export {
     DEFAULT_TEXT,
     DEFAULT_IMAGE,
     PAGE_HEIGHT,
-    PAGE_WIDTH
+    PAGE_WIDTH,
+    LOCAL_STORAGE_EDITOR_KEY
 }
 
 const WHITE: Color = {
@@ -164,3 +165,4 @@ const DEFAULT_IMAGE: ImageElement = {
 
 const PAGE_WIDTH = 1920
 const PAGE_HEIGHT = 1080
+const LOCAL_STORAGE_EDITOR_KEY = "Editor"
