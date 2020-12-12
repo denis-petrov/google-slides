@@ -72,8 +72,6 @@ function Nav(props: any) {
         }
     }
 
-    console.log(editor)
-
     return (
         <div id='nav_bar'>
             <div className="row nav__line">

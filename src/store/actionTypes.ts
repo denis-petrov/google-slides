@@ -1,6 +1,8 @@
 /*editor*/
 export const SET_EDITOR = "SET_EDITOR"
 export const CHANGE_PRESENTATION_NAME = "CHANGE_PRESENTATION_NAME"
+export const UNDO = "UNDO"
+export const REDO = "REDO"
 
 /*slides*/
 export const ADD_EMPTY_SLIDE = "ADD_EMPTY_SLIDE"

@@ -23,9 +23,30 @@ import {changeTextItalic} from "../functions/changeTextItalic"
 import {changeTextUnderline} from "../functions/changeTextUnderline"
 import {changeTextFont} from "../functions/changeTextFont"
 import {changeTextSize} from "../functions/changeTextSize"
+import {deepCopy} from "deep-copy-ts";
+import {store} from "../stateManager/StateManager";
+import {State} from "../entities/State";
 
 
 let firstSlideId = uuidv4()
+/*const initialState: State = {
+    past: [],
+    present: {
+        presentation: {
+            name: '',
+            slides: [
+                {
+                    id: firstSlideId,
+                    selectionElementsId: [],
+                    elements: [],
+                    background: WHITE
+                }
+            ]
+        },
+        selectionSlidesId: [firstSlideId]
+    },
+    future: []
+}*/
 const initialState: Editor = {
     presentation: {
         name: '',
@@ -46,12 +67,31 @@ const reducer = (
     state: Editor = initialState,
     action: EditorAction
 ): Editor => {
+   /* const {past, present, future} = state*/
+
     switch (action.type) {
         /* editor */
         case actionTypes.SET_EDITOR:
             return setEditor(state)
         case actionTypes.CHANGE_PRESENTATION_NAME:
             return changeNamePresentation(state, action.payload)
+        /*case actionTypes.UNDO:
+            const previous = past[past.length - 1]
+            const newPast = past.slice(0, past.length - 1)
+            return {
+                past: newPast,
+                present: previous,
+                future: [present, ...future]
+            }
+        case actionTypes.REDO:
+            const next = future[0]
+            const newFuture = future.slice(1)
+            return {
+                past: [...past, present],
+                present: next,
+                future: newFuture
+            }*/
+
 
         /* slides */
         case actionTypes.ADD_EMPTY_SLIDE:
@@ -65,7 +105,7 @@ const reducer = (
 
 
         /* elements */
-            /* main */
+        /* main */
         case actionTypes.CHOOSE_ELEMENTS:
             return chooseElements(state, action.payload)
         case actionTypes.ADD_ELEMENT:
@@ -74,21 +114,21 @@ const reducer = (
             return deleteElements(state)
         case actionTypes.ADD_TO_BACKGROUND:
             return addToBackground(state, action.payload)
-            /* move */
+        /* move */
         case actionTypes.CHANGE_POSITION_OF_ELEMENTS:
             return changePositionOfElements(state, action.payload)
         case actionTypes.END_MOVE_ELEMENTS:
             return changePositionOfElements(state, action.payload)
         case actionTypes.CHANGE_TEXT_VALUE:
             return changeTextValue(state, action.payload)
-            /* styles */
+        /* styles */
         case actionTypes.CHANGE_ELEMENT_FILL_COLOR:
             return changeElementFillColor(state, action.payload)
         case actionTypes.CHANGE_ELEMENT_BORDER_COLOR:
             return changeElementBorderColor(state, action.payload)
         case actionTypes.CHANGE_ELEMENT_BORDER_WIDTH:
             return changeElementBorderWidth(state, action.payload)
-                /* style text */
+        /* style text */
         case actionTypes.CHANGE_TEXT_BOLD:
             return changeTextBold(state)
         case actionTypes.CHANGE_TEXT_ITALIC:

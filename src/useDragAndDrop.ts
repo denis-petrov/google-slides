@@ -7,7 +7,7 @@ import {endResizeElement} from "./functions/endResizeElement"
 import {removeSelectOfElement} from "./functions/removeSelectOfElements"
 import {moveSlides} from "./functions/moveSlides"
 import {moveElements} from "./slideArea/moveElements"
-import {Dispatch} from "react"
+import {Dispatch, useEffect, useRef} from "react"
 import {useDispatch} from "react-redux"
 import {store} from "./stateManager/StateManager"
 
@@ -41,13 +41,8 @@ export function useDragAndDrop() {
         isResize = pointIndex >= 0
 
         removeSelectOfElement(evt, store.dispatch)
-
-        if (isResize || isMoveElements || isMoveSlides) {
-            window.addEventListener('mousemove', handleMouseMove)
-            window.addEventListener('mouseup', handleMouseUp)
-        }
     }
-    window.addEventListener('mousedown', handleMouseDown)
+    useEventListener('mousedown', handleMouseDown)
 
 
     let handleMouseMove = (evt: MouseEvent) => {
@@ -73,6 +68,7 @@ export function useDragAndDrop() {
             payload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
         }
     }
+    useEventListener('mousemove', handleMouseMove)
 
 
     let handleMouseUp = (evt: MouseEvent) => {
@@ -86,8 +82,11 @@ export function useDragAndDrop() {
 
             let shiftY = evt.pageY - elem.getBoundingClientRect().top
 
-            if (isMouseMove && elem.id !== '' && elem.id !== undefined  && selectedSlide !== elem.id) {
-                dispatch({type: 'END_MOVE_SLIDES', payload: {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id}})
+            if (isMouseMove && elem.id !== '' && elem.id !== undefined && selectedSlide !== elem.id) {
+                dispatch({
+                    type: 'END_MOVE_SLIDES',
+                    payload: {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id}
+                })
                 isMouseMove = false
             }
             clearAllSlideHr()
@@ -105,7 +104,34 @@ export function useDragAndDrop() {
                 }
             }
         }
-        window.removeEventListener('mousemove', handleMouseMove)
-        window.removeEventListener('mouseup', handleMouseUp)
     }
+    useEventListener('mouseup', handleMouseUp)
+}
+
+function useEventListener(eventName: string, handler: any, element = window) {
+    const savedHandler = useRef<any>()
+
+    useEffect(() => {
+        savedHandler.current = handler
+    }, [handler])
+
+    useEffect(
+        () => {
+            const isSupported = element && element.addEventListener
+            if (!isSupported) return
+
+            const eventListener = (event: any) => {
+                if (event !== undefined) {
+                    savedHandler.current(event)
+                }
+            }
+
+            element.addEventListener(eventName, eventListener)
+
+            return () => {
+                element.removeEventListener(eventName, eventListener)
+            }
+        },
+        [eventName, element]
+    )
 }
