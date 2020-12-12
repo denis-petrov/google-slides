@@ -34,6 +34,7 @@ import {getSelectedElement} from "../functions/getSelectedElement"
 import {ElementType, Text} from "../entities/Elements"
 import {showPresentation} from "../functions/showPresentation"
 import {connect, useDispatch} from "react-redux"
+import {initialState} from "../store/reducer";
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -97,6 +98,11 @@ function Nav(props: any) {
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
+                                        <Dropdown.Item className="btn-sm button__onclick" onClick={() => dispatch({
+                                            type: 'SET_EDITOR',
+                                            payload: initialState
+                                        })}>New presentation</Dropdown.Item>
+
                                         <div>
                                             <label htmlFor="myfile"
                                                    className="dropbox__open_data btn-sm button__onclick">Open</label>
@@ -114,6 +120,7 @@ function Nav(props: any) {
                                         <Dropdown.Item className="btn-sm button__onclick" onClick={() => {
                                             savePresentationToPc(editor)
                                         }}>Save</Dropdown.Item>
+
                                         <Dropdown.Item className="btn-sm button__onclick" onClick={async () => {
                                             (await createPdf()).save(editor.presentation.name)
                                         }}>Export to PDF</Dropdown.Item>

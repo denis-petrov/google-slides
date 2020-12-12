@@ -1,4 +1,7 @@
 import {Editor} from '../entities/Editor'
+import {v4 as uuidv4} from "uuid"
+import {WHITE} from "../entities/Constants"
+import {Slide} from "../entities/Slide"
 
 export function deleteSlides(editor: Editor): Editor {
     let slidesId = editor.selectionSlidesId
@@ -18,12 +21,33 @@ export function deleteSlides(editor: Editor): Editor {
         return !isDeleted
     })
 
-    return {
-        ...editor,
-        presentation: {
-            name: editor.presentation.name,
-            slides: newSlides
-        },
-        selectionSlidesId: [newSlides[indexOfSelectedSlide].id]
+    if (editor.presentation.slides.length == 1) {
+        let slideId = uuidv4()
+        return {
+            ...editor,
+            presentation: {
+                name: editor.presentation.name,
+                slides: [{
+                    id: slideId,
+                    elements: [],
+                    background: WHITE,
+                    selectionElementsId: []
+                } as Slide]
+            },
+            selectionSlidesId: [slideId]
+        }
+    } else {
+        if (indexOfSelectedSlide == editor.presentation.slides.length - 1) {
+            indexOfSelectedSlide -= 1
+        }
+
+        return {
+            ...editor,
+            presentation: {
+                name: editor.presentation.name,
+                slides: newSlides
+            },
+            selectionSlidesId: [newSlides[indexOfSelectedSlide].id]
+        }
     }
 }

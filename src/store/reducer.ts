@@ -48,7 +48,7 @@ let firstSlideId = uuidv4()
     future: []
 }*/
 
-const initialState: Editor = {
+export const initialState: Editor = {
     presentation: {
         name: '',
         slides: [
@@ -73,7 +73,7 @@ const reducer = (
     switch (action.type) {
         /* editor */
         case actionTypes.SET_EDITOR:
-            return setEditor(state)
+            return setEditor(action.payload)
         case actionTypes.CHANGE_PRESENTATION_NAME:
             return changeNamePresentation(state, action.payload)
         /*case actionTypes.UNDO:

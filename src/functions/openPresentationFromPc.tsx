@@ -1,4 +1,5 @@
 import React, {Dispatch} from 'react'
+import {Editor} from "../entities/Editor";
 
 export function openPresentationFromPc(e: React.ChangeEvent<HTMLInputElement>, dispatch: Dispatch<any>) {
     let fileReader: FileReader
@@ -12,7 +13,7 @@ export function openPresentationFromPc(e: React.ChangeEvent<HTMLInputElement>, d
     const handleFileRead = () => {
         const content = fileReader.result
         if (typeof(content) === 'string') {
-            dispatch({type: 'SET_EDITOR', payload: JSON.parse(content)})
+            dispatch({type: 'SET_EDITOR', payload: JSON.parse(content) as Editor})
         }
     }
 

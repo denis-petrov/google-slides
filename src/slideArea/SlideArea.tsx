@@ -18,7 +18,6 @@ function SlideArea(props: any) {
     let editor = props.state
     let slideId = ''
 
-    // eslint-disable-next-line array-callback-return
     let elements = editor.presentation.slides.map((s: any) => {
         if (editor.selectionSlidesId.includes(s.id)) {
             slideId = s.id
