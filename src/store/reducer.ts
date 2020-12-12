@@ -1,4 +1,4 @@
-import {WHITE} from "../entities/Constants"
+import {LOCAL_STORAGE_EDITOR_KEY, WHITE} from "../entities/Constants"
 import {v4 as uuidv4} from 'uuid'
 import {Editor} from "../entities/Editor"
 import {EditorAction} from "../type"
@@ -47,6 +47,7 @@ let firstSlideId = uuidv4()
     },
     future: []
 }*/
+
 const initialState: Editor = {
     presentation: {
         name: '',
@@ -67,7 +68,7 @@ const reducer = (
     state: Editor = initialState,
     action: EditorAction
 ): Editor => {
-   /* const {past, present, future} = state*/
+    /* const {past, present, future} = state*/
 
     switch (action.type) {
         /* editor */
@@ -140,6 +141,7 @@ const reducer = (
         case actionTypes.CHANGE_TEXT_SIZE:
             return changeTextSize(state, action.payload)
     }
+
     return state
 }
 

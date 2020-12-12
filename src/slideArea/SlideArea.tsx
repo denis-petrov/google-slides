@@ -29,7 +29,7 @@ function SlideArea(props: any) {
     return (
         <div id="slide-area" className='slide-area'>
             <svg className={'workspace'} id={'slide_area_' + slideId}
-                 style={{background: `0 0 / cover ${getSlideBackground()}`}}>
+                 style={{background: `0 0 / cover ${getSlideBackground(editor)}`}}>
                 {elements}
             </svg>
         </div>

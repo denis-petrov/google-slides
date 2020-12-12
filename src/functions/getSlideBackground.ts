@@ -1,8 +1,7 @@
 import {Color, isColor} from "../entities/Color"
-import {store} from "../stateManager/StateManager"
+import {Editor} from "../entities/Editor"
 
-export function getSlideBackground() {
-    let editor = store.getState()
+export function getSlideBackground(editor: Editor) {
     let currentSlide = editor.presentation.slides.filter(s => editor.selectionSlidesId.includes(s.id))[0]
     let slideBack
     if (isColor(currentSlide.background)) {

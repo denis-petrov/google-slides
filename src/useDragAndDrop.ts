@@ -27,7 +27,6 @@ let isMouseMove = false
 
 export function useDragAndDrop() {
     const dispatch: Dispatch<any> = useDispatch()
-
     let editor = store.getState()
 
     let handleMouseDown = (evt: MouseEvent) => {
