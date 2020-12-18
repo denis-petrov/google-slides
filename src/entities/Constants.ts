@@ -119,7 +119,7 @@ const DEFAULT_TEXT: Text = {
         green: 0,
         blue: 0
     },
-    borderWidth: 1,
+    borderWidth: 0,
     backgroundColor: BLACK,
     text: '',
     textStyle: {

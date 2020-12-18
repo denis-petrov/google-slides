@@ -8,15 +8,18 @@ import html2canvas from "html2canvas"
 import {changeTextPlaceholder} from "./showPresentation"
 import {store} from "../stateManager/StateManager";
 
-
-export async function drawElement(pdfDocument: jsPDF, element: Element) {
+export async function drawElement(pdfDocument: jsPDF, element: Element, slide: Slide) {
     let backgroundColor: Color = (element.backgroundColor === null) ? WHITE : (element.backgroundColor as Color)
     let borderColor: Color = element.borderColor
     let borderWidth: number = element.borderWidth
 
     pdfDocument.setFillColor(backgroundColor.red, backgroundColor.green, backgroundColor.blue)
-    pdfDocument.setDrawColor(borderColor.red, borderColor.green, borderColor.blue)
-    pdfDocument.setLineWidth(borderWidth)
+    if (borderWidth != 0) {
+        pdfDocument.setDrawColor(borderColor.red, borderColor.green, borderColor.blue)
+        pdfDocument.setLineWidth(borderWidth)
+    } else {
+        pdfDocument.setDrawColor(backgroundColor.red, backgroundColor.green, backgroundColor.blue)
+    }
 
     if (element.type === ElementType.triangle) {
         pdfDocument.triangle(
@@ -29,7 +32,6 @@ export async function drawElement(pdfDocument: jsPDF, element: Element) {
             'DF')
     } else if (element.type === ElementType.text) {
         const canvasScalingFactor = 2
-
         let textDomElement = document.querySelector(`#slide-area p[id='${element.id}']`) as HTMLElement
         let canvas = await html2canvas(
             textDomElement,
@@ -39,8 +41,8 @@ export async function drawElement(pdfDocument: jsPDF, element: Element) {
             })
         let base64Image = canvas.toDataURL('img/png')
 
-        let slideAreaWidth = (document.getElementById('slide-area') as HTMLElement).offsetWidth
-        let slideAreaHeight = (document.getElementById('slide-area') as HTMLElement).offsetHeight
+        let slideAreaWidth = (document.getElementById(`slide_area_${slide.id}`) as HTMLElement).clientWidth
+        let slideAreaHeight = (document.getElementById(`slide_area_${slide.id}`) as HTMLElement).clientHeight
         let elementWidth = canvas.width / canvasScalingFactor
         let elementHeight = canvas.height / canvasScalingFactor
         let width = elementWidth * PAGE_WIDTH / slideAreaWidth
@@ -99,7 +101,7 @@ export async function drawSlide(pdfDocument: jsPDF, slide: Slide) {
     drawBackground(pdfDocument, slide.background)
     for (let i = 0; i < slide.elements.length; i++) {
         let currElement = slide.elements[i]
-        await drawElement(pdfDocument, currElement)
+        await drawElement(pdfDocument, currElement, slide)
     }
 }
 
