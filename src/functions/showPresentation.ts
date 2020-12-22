@@ -1,6 +1,7 @@
 import {getSlideIndex} from "./getSlideIndex"
 import {Editor} from "../entities/Editor"
 import {Dispatch} from "react"
+import {store} from "../store/store";
 
 let timerId: NodeJS.Timeout
 
@@ -125,7 +126,7 @@ export function showPrevSlide(editor: Editor, dispatch: Dispatch<any>) {
         changeTextPlaceholder('')
     }
 
-    changeArrowColor(editor)
+    changeArrowColor(store.getState())
 }
 
 export function showNextSlide(editor: Editor, dispatch: Dispatch<any>) {
@@ -146,7 +147,7 @@ export function showNextSlide(editor: Editor, dispatch: Dispatch<any>) {
         changeTextPlaceholder('')
     }
 
-    changeArrowColor(editor)
+    changeArrowColor(store.getState())
 
     return isLastPage
 }

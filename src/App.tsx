@@ -1,4 +1,4 @@
-import React, {Dispatch} from 'react'
+import React, {Dispatch, useEffect} from 'react'
 import './App.css'
 import Nav from './nav/Nav'
 import SlideArea from './slideArea/SlideArea'
@@ -9,7 +9,13 @@ import {connect} from "react-redux"
 import {initialState} from "./store/localStorage"
 import {Editor} from "./entities/Editor";
 import {canRedo, canUndo, canUndoKeyboard} from "./store/stateHistory"
-
+import {reDo, unDo} from "./stateManager/StateManager"
+import {useDispatch} from "react-redux"
+import {WHITE} from "./entities/Constants"
+import {v4 as uuidv4} from "uuid"
+import {changeSlideSize, isShowCurrentlyPresentation, showPresentation} from "./functions/showPresentation";
+import {changeWorkspaceSize} from "./functions/changeWorkspaceSize";
+import {store} from "./store/store";
 
 const mapStateToProps = (state: Editor) => {
     return {
@@ -31,6 +37,18 @@ function App(props: any) {
     }
 
     useDragAndDrop()
+
+    useEffect(() => {
+        if (window.innerWidth <= 1024 || window.innerHeight <= 768) {
+            setTimeout(() => {
+                showPresentation(store.getState())
+                let closeBtn = document.getElementById('close-show-presentation')
+                if (closeBtn) {
+                    closeBtn.style.display = 'none'
+                }
+            }, 0)
+        }
+    }, [])
 
     let handleUndoRedo = (evt: KeyboardEvent) => {
         if (evt.ctrlKey && evt.shiftKey && evt.keyCode === 90) {

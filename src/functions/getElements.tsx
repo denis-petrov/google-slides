@@ -3,7 +3,7 @@ import {getSelectedPoints} from "./getSelectedPoints"
 import {ElementType, ImageElement, Text} from "../entities/Elements"
 import React, {Dispatch} from "react"
 import {selectElements} from "../slideArea/selectElements"
-import {v4 as uuidv4} from "uuid";
+import {v4 as uuidv4} from 'uuid'
 
 
 export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boolean = true) {

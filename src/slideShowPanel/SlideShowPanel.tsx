@@ -97,7 +97,7 @@ function SlideShowPanel(props: any) {
                 <KeyboardArrowRightIcon id='show-next-slide' onClick={(evt) =>
                     showNextSlide(editor, dispatch)
                 }/>
-                <div onClick={(evt) => {
+                <div id='close-show-presentation' onClick={(evt) => {
                     slideShow(editor, dispatch, evt, true)
                     stopShowPresentation()
                 }}>Close

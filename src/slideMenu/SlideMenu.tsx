@@ -8,6 +8,7 @@ import {getSlideBackgroundById} from "../functions/getSlideBackgroundById"
 import {connect, useDispatch} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {Slide} from "../entities/Slide"
+import {v4 as uuidv4} from "uuid";
 
 
 const mapStateToProps = (state: Editor) => {
