@@ -107,7 +107,7 @@ export function useDragAndDrop() {
     useEventListener('mouseup', handleMouseUp)
 }
 
-function useEventListener(eventName: string, handler: any, element = window) {
+export function useEventListener(eventName: string, handler: any, element = window) {
     const savedHandler = useRef<any>()
 
     useEffect(() => {

@@ -4,51 +4,47 @@ import Nav from './nav/Nav'
 import SlideArea from './slideArea/SlideArea'
 import SlideMenu from './slideMenu/SlideMenu'
 import SlideShowPanel from './slideShowPanel/SlideShowPanel'
-import {useDragAndDrop} from "./useDragAndDrop"
-import {useDispatch} from "react-redux"
-import {WHITE} from "./entities/Constants"
-import {v4 as uuidv4} from "uuid"
-import {store} from "./store/store"
-/*import {stateHistory} from "./store/stateHistory"*/
+import {useDragAndDrop, useEventListener} from "./useDragAndDrop"
+import {connect} from "react-redux"
+import {initialState} from "./store/localStorage"
+import {Editor} from "./entities/Editor";
+import {canRedo, canUndo, canUndoKeyboard} from "./store/stateHistory"
 
 
-export default function App() {
-    const dispatch: Dispatch<any> = useDispatch()
+const mapStateToProps = (state: Editor) => {
+    return {
+        state: state
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+    return {
+        setEditor: () => dispatch({type: 'SET_EDITOR', payload: initialState}),
+        undo: () => dispatch({type: 'UNDO'}),
+        redo: () => dispatch({type: 'REDO'}),
+    }
+}
+
+function App(props: any) {
+    if (Object.keys(props.state).length == 0) {
+        props.setEditor()
+    }
 
     useDragAndDrop()
 
-    /*window.addEventListener('keydown', (evt: KeyboardEvent) => {
+    let handleUndoRedo = (evt: KeyboardEvent) => {
         if (evt.ctrlKey && evt.shiftKey && evt.keyCode === 90) {
-            if (stateHistory.index < stateHistory.history.length - 1) {
-                dispatch({type: 'REDO'})
+            if (canRedo()) {
+                props.redo()
             }
-        } else if (evt.ctrlKey && evt.keyCode === 90) {
-            if (stateHistory.index > 0) {
-                dispatch({type: 'UNDO'})
+        } else if (canUndoKeyboard(evt)) {
+            if (canUndo()) {
+                props.undo()
             }
         }
-    })*/
-
-    let ed = store.getState()
-    let firstSlideId = uuidv4()
-    if (Object.keys(ed).length == 0) {
-        dispatch({
-            type: 'SET_EDITOR', payload: {
-                presentation: {
-                    name: '',
-                    slides: [
-                        {
-                            id: firstSlideId,
-                            selectionElementsId: [],
-                            elements: [],
-                            background: WHITE
-                        }
-                    ]
-                },
-                selectionSlidesId: [firstSlideId]
-            }
-        })
     }
+
+    useEventListener('keydown', handleUndoRedo)
 
     return (
         <div className="wrapper">
@@ -62,3 +58,5 @@ export default function App() {
     )
 }
 
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

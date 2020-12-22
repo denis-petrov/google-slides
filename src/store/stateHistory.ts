@@ -20,16 +20,24 @@ export function saveStateToHistory(state: Editor) {
     }
 }
 
+export function canRedo(): boolean {
+    return stateHistory.index < stateHistory.history.length - 1
+}
+
+export function canUndo(): boolean {
+    return stateHistory.index > 0
+}
+
+export function canUndoKeyboard(evt: KeyboardEvent): boolean {
+    return evt.ctrlKey && evt.keyCode === 90
+}
+
 function decIndex(stateHistory: StateHistory): StateHistory {
     return {
         ...stateHistory,
         index: stateHistory.index - 1
     }
 }
-
-/*function decIndex(stateHistory: StateHistory): StateHistory {
-    return incIndex(twoDecIndex(stateHistory))
-}*/
 
 function incIndex(stateHistory: StateHistory): StateHistory {
     return {
@@ -40,7 +48,7 @@ function incIndex(stateHistory: StateHistory): StateHistory {
 
 export function undo() {
     /*console.log(stateHistory.index)
-    if (stateHistory.index > 0) {
+    if (canUndo()) {
         console.log(stateHistory.index)
 
         decHistoryIndex()
@@ -59,7 +67,7 @@ export function undo() {
 }
 
 export function redo() {
-    if (stateHistory.index < stateHistory.history.length - 1) {
+    if (canRedo()) {
         stateHistory = incIndex(stateHistory)
 
         return stateHistory.history[stateHistory.index]
