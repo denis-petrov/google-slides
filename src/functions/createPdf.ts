@@ -6,7 +6,7 @@ import {PAGE_HEIGHT, PAGE_WIDTH, WHITE} from "../entities/Constants"
 import {Color, isColor} from "../entities/Color"
 import html2canvas from "html2canvas"
 import {changeTextPlaceholder} from "./showPresentation"
-import {store} from "../stateManager/StateManager";
+import {store} from "../store/store";
 
 
 export async function drawElement(pdfDocument: jsPDF, element: Element) {

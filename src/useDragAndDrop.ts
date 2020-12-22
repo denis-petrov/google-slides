@@ -9,7 +9,7 @@ import {moveSlides} from "./functions/moveSlides"
 import {moveElements} from "./slideArea/moveElements"
 import {Dispatch, useEffect, useRef} from "react"
 import {useDispatch} from "react-redux"
-import {store} from "./stateManager/StateManager"
+import {store} from "./store/store"
 
 
 let isMoveElements: boolean

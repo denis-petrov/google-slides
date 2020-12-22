@@ -1,4 +1,4 @@
-import {store} from "../stateManager/StateManager"
+import {store} from "../store/store"
 
 export function moveElements(event: any) {
     let isMoveElements = false

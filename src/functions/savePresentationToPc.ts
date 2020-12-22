@@ -1,10 +1,6 @@
 import {Editor} from '../entities/Editor'
 
-export {
-    savePresentationToPc
-}
-
-function savePresentationToPc(editor: Editor): void {
+export function savePresentationToPc(editor: Editor): void {
     let fileName = editor.presentation.name + '.json'
     if (!editor.presentation.name) {
         fileName = 'presentation_name.json'

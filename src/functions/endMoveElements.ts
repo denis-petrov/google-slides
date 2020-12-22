@@ -1,5 +1,5 @@
 import {Dispatch} from "react"
-import {store} from "../stateManager/StateManager"
+import {store} from "../store/store"
 
 export function endMoveElements(isMoveElements: boolean, dispatch: Dispatch<any>) {
     let editor = store.getState()

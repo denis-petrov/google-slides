@@ -7,6 +7,7 @@ import {getElements} from '../functions/getElements'
 import {getSlideBackgroundById} from "../functions/getSlideBackgroundById"
 import {connect, useDispatch} from "react-redux"
 import {Editor} from "../entities/Editor"
+import {Slide} from "../entities/Slide"
 
 
 const mapStateToProps = (state: Editor) => {
@@ -15,23 +16,30 @@ const mapStateToProps = (state: Editor) => {
     }
 }
 
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+    return {
+        getElements: (slide: Slide, isIdNeeded: boolean = true) => getElements(slide, dispatch, isIdNeeded),
+        chooseSlides: (id: string | Array<string>) => dispatch({type: 'CHOOSE_SLIDES', payload: id})
+    }
+}
+
 function SlideMenu(props: any) {
     let editor = props.state
     const dispatch: Dispatch<any> = useDispatch()
 
     let slides = editor.presentation.slides.map((item: any) => {
-        let elements = getElements(item, dispatch, false)
+        let elements = props.getElements(item, false)
 
-        return <div>
-            <hr key={'slide_hr_before_key_' + item.id} id={'slide_hr_before' + item.id}
+        return <div key={item.id}>
+            <hr id={'slide_hr_before' + item.id}
                 className="slide_hr slide_hr__before"/>
-            <div className='slide' data-is-checked={editor.selectionSlidesId.includes(item.id)} key={item.id}
+            <div className='slide' data-is-checked={editor.selectionSlidesId.includes(item.id)}
                  id={'slide' + item.id}
                  onClick={(evt) => {
                      if (isMultipleSelectSlide(editor, evt, item.id)) {
-                         dispatch({type: 'CHOOSE_SLIDES', payload: editor.selectionSlidesId})
+                         props.chooseSlides(editor.selectionSlidesId)
                      } else {
-                         dispatch({type: 'CHOOSE_SLIDES', payload: [item.id]})
+                         props.chooseSlides([item.id])
                      }
                  }}
             >
@@ -44,7 +52,7 @@ function SlideMenu(props: any) {
                     </svg>
                 </Card>
             </div>
-            <hr key={'slide_hr_after_key_' + item.id} id={'slide_hr_after' + item.id}
+            <hr id={'slide_hr_after' + item.id}
                 className="slide_hr slide_hr__after"/>
         </div>
     })
@@ -56,4 +64,4 @@ function SlideMenu(props: any) {
     )
 }
 
-export default connect(mapStateToProps)(SlideMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(SlideMenu)

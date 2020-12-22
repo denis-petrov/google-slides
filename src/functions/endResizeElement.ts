@@ -1,5 +1,5 @@
 import {ElementType, ImageElement} from "../entities/Elements"
-import {store} from "../stateManager/StateManager"
+import {store} from "../store/store"
 
 export function endResizeElement(payload: any) {
     let editor = store.getState()

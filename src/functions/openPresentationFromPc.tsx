@@ -1,5 +1,5 @@
 import React, {Dispatch} from 'react'
-import {Editor} from "../entities/Editor";
+import {Editor} from "../entities/Editor"
 
 export function openPresentationFromPc(e: React.ChangeEvent<HTMLInputElement>, dispatch: Dispatch<any>) {
     let fileReader: FileReader

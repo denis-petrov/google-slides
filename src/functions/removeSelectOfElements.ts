@@ -1,6 +1,6 @@
 import {changeTextStyleMenu} from "./changeTextStyleMenu"
 import {Dispatch} from "react"
-import {store} from "../stateManager/StateManager"
+import {store} from "../store/store";
 
 
 export function removeSelectOfElement(evt: any, dispatch: Dispatch<any>) {

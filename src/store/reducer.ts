@@ -1,5 +1,3 @@
-import {LOCAL_STORAGE_EDITOR_KEY, WHITE} from "../entities/Constants"
-import {v4 as uuidv4} from 'uuid'
 import {Editor} from "../entities/Editor"
 import {EditorAction} from "../type"
 import * as actionTypes from "./actionTypes"
@@ -23,75 +21,28 @@ import {changeTextItalic} from "../functions/changeTextItalic"
 import {changeTextUnderline} from "../functions/changeTextUnderline"
 import {changeTextFont} from "../functions/changeTextFont"
 import {changeTextSize} from "../functions/changeTextSize"
-import {deepCopy} from "deep-copy-ts";
-import {store} from "../stateManager/StateManager";
-import {State} from "../entities/State";
-
-
-let firstSlideId = uuidv4()
-/*const initialState: State = {
-    past: [],
-    present: {
-        presentation: {
-            name: '',
-            slides: [
-                {
-                    id: firstSlideId,
-                    selectionElementsId: [],
-                    elements: [],
-                    background: WHITE
-                }
-            ]
-        },
-        selectionSlidesId: [firstSlideId]
-    },
-    future: []
-}*/
-
-export const initialState: Editor = {
-    presentation: {
-        name: '',
-        slides: [
-            {
-                id: firstSlideId,
-                selectionElementsId: [],
-                elements: [],
-                background: WHITE
-            }
-        ]
-    },
-    selectionSlidesId: [firstSlideId]
-}
+import {initialState} from "./localStorage"
+import {redo, undo} from "./stateHistory"
 
 
 const reducer = (
     state: Editor = initialState,
     action: EditorAction
 ): Editor => {
-    /* const {past, present, future} = state*/
-
     switch (action.type) {
         /* editor */
         case actionTypes.SET_EDITOR:
             return setEditor(action.payload)
         case actionTypes.CHANGE_PRESENTATION_NAME:
             return changeNamePresentation(state, action.payload)
-        /*case actionTypes.UNDO:
-            const previous = past[past.length - 1]
-            const newPast = past.slice(0, past.length - 1)
-            return {
-                past: newPast,
-                present: previous,
-                future: [present, ...future]
-            }
+
+        /* undo and redo*/
+        case actionTypes.UNDO:
+            undo()
+
+            return state
         case actionTypes.REDO:
-            const next = future[0]
-            const newFuture = future.slice(1)
-            return {
-                past: [...past, present],
-                present: next,
-                future: newFuture
-            }*/
+            return redo()
 
 
         /* slides */

@@ -1,4 +1,4 @@
-import {store} from "../stateManager/StateManager"
+import {store} from "../store/store"
 
 export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number) {
     let editor = store.getState()

@@ -2,26 +2,35 @@ import React, {Dispatch} from 'react'
 import './slideArea.css'
 import {getSlideBackground} from "../functions/getSlideBackground"
 import {getElements} from "../functions/getElements"
-import {connect, useDispatch} from "react-redux"
+import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
+import {v4 as uuidv4} from 'uuid'
+import {Slide} from "../entities/Slide"
 
 
 const mapStateToProps = (state: Editor) => {
     return {
-        state: state
+        state: state,
+        randomStr: uuidv4(),
+        selectionSlidesId: state.selectionSlidesId
+    }
+}
+
+
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+    return {
+        getElements: (slide: Slide, isIdNeeded: boolean = true) => getElements(slide, dispatch, isIdNeeded)
     }
 }
 
 function SlideArea(props: any) {
-    const dispatch: Dispatch<any> = useDispatch()
-
     let editor = props.state
     let slideId = ''
 
-    let elements = editor.presentation.slides.map((s: any) => {
+    let elements = editor.presentation.slides.map((s: Slide) => {
         if (editor.selectionSlidesId.includes(s.id)) {
             slideId = s.id
-            return getElements(s, dispatch)
+            return props.getElements(s)
         }
     })
 
@@ -35,4 +44,4 @@ function SlideArea(props: any) {
     )
 }
 
-export default connect(mapStateToProps)(SlideArea)
+export default connect(mapStateToProps, mapDispatchToProps)(SlideArea)

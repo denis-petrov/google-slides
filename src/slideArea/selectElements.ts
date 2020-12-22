@@ -1,7 +1,7 @@
 import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu"
 import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
 import {Dispatch} from "react"
-import {store} from "../stateManager/StateManager"
+import {store} from "../store/store"
 
 export function selectElements(event: any, id: string, dispatch: Dispatch<any>) {
     let clickedElem = event.currentTarget

@@ -3,6 +3,7 @@ import {getSelectedPoints} from "./getSelectedPoints"
 import {ElementType, ImageElement, Text} from "../entities/Elements"
 import React, {Dispatch} from "react"
 import {selectElements} from "../slideArea/selectElements"
+import {v4 as uuidv4} from "uuid";
 
 
 export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boolean = true) {
@@ -31,8 +32,10 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
         let viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
         let d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
         let elementPoints = d
+        let key = 'slidebar_' + e.id
         if (isIdNeeded) {
             elemId = e.id
+            key = e.id
             pathId = 'slide_' + s.id + '_element_' + e.id
             pointsId = 'slide_' + s.id + '_points_' + e.id
             elemParentId = `svg_${elemId}`
@@ -58,28 +61,28 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
 
         let points = [
             <path data-value="point" d={selectedPoints.d1} stroke="rgb(255, 255, 255)" strokeWidth="2"
-                  strokeLinejoin="miter"
+                  strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>,
             <path data-value="point" d={selectedPoints.d2} stroke="rgb(255, 255, 255)" strokeWidth="2"
-                  strokeLinejoin="miter"
+                  strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ns-resize'}}/>,
             <path data-value="point" d={selectedPoints.d3} stroke="rgb(255, 255, 255)" strokeWidth="2"
-                  strokeLinejoin="miter"
+                  strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nesw-resize'}}/>,
             <path data-value="point" d={selectedPoints.d4} stroke="rgb(255, 255, 255)" strokeWidth="2"
-                  strokeLinejoin="miter"
+                  strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ew-resize'}}/>,
             <path data-value="point" d={selectedPoints.d5} stroke="rgb(255, 255, 255)" strokeWidth="2"
-                  strokeLinejoin="miter"
+                  strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ew-resize'}}/>,
             <path data-value="point" d={selectedPoints.d6} stroke="rgb(255, 255, 255)" strokeWidth="2"
-                  strokeLinejoin="miter"
-                  strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nesw                 -resize'}}/>,
+                  strokeLinejoin="miter" key={uuidv4()}
+                  strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nesw-resize'}}/>,
             <path data-value="point" d={selectedPoints.d7} stroke="rgb(255, 255, 255)" strokeWidth="2"
-                  strokeLinejoin="miter"
+                  strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ns-resize'}}/>,
             <path data-value="point" d={selectedPoints.d8} stroke="rgb(255, 255, 255)" strokeWidth="2"
-                  strokeLinejoin="miter"
+                  strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>
         ]
 
@@ -98,7 +101,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
 
             return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'}
-                        height={height + '%'} preserveAspectRatio="none" key={e.id}>
+                        height={height + '%'} preserveAspectRatio="none" key={key}>
                 <path id={elemId} data-path-id={pathId} data-points-id={pointsId} d={elementPoints} stroke={borderColor}
                       strokeWidth={e.borderWidth} strokeLinejoin={strokeLinejoin}
                       strokeLinecap={strokeLinecap} fill={backgroundColor}
@@ -127,7 +130,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
             return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'}
                         height={height + '%'} preserveAspectRatio="none" style={{overflowWrap: "break-word"}}
-                        key={e.id}>
+                        key={key}>
                 <foreignObject width={'100%'} height={'100%'} overflow={'visible'}>
                     <p contentEditable={true} suppressContentEditableWarning={true} id={elemId} data-path-id={pathId}
                        data-points-id={pointsId} data-placeholder={placeholder}
@@ -172,7 +175,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
             }
 
             return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
-                        width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={e.id}>
+                        width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={key}>
                 <image id={elemId} data-path-id={pathId} data-points-id={pointsId} href={image.link} x="0" y="0"
                        onClick={(evt) => {
                            if (isIdNeeded) {

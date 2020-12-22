@@ -5,10 +5,11 @@ import SlideArea from './slideArea/SlideArea'
 import SlideMenu from './slideMenu/SlideMenu'
 import SlideShowPanel from './slideShowPanel/SlideShowPanel'
 import {useDragAndDrop} from "./useDragAndDrop"
-import {reDo, store, unDo} from "./stateManager/StateManager"
 import {useDispatch} from "react-redux"
 import {WHITE} from "./entities/Constants"
 import {v4 as uuidv4} from "uuid"
+import {store} from "./store/store"
+/*import {stateHistory} from "./store/stateHistory"*/
 
 
 export default function App() {
@@ -18,9 +19,13 @@ export default function App() {
 
     /*window.addEventListener('keydown', (evt: KeyboardEvent) => {
         if (evt.ctrlKey && evt.shiftKey && evt.keyCode === 90) {
-            reDo()
+            if (stateHistory.index < stateHistory.history.length - 1) {
+                dispatch({type: 'REDO'})
+            }
         } else if (evt.ctrlKey && evt.keyCode === 90) {
-            unDo()
+            if (stateHistory.index > 0) {
+                dispatch({type: 'UNDO'})
+            }
         }
     })*/
 

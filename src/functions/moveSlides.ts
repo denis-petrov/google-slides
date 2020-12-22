@@ -1,4 +1,4 @@
-import {store} from "../stateManager/StateManager"
+import {store} from "../store/store"
 
 export function moveSlides(event: any) {
     let isMoveSlides = false

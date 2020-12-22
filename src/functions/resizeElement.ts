@@ -1,5 +1,5 @@
 import {Element, ElementType, ImageElement} from "../entities/Elements"
-import {store} from "../stateManager/StateManager"
+import {store} from "../store/store"
 
 export function resizeElement(event: any, pointIndex: number) {
     let point = event.target

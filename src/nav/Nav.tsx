@@ -1,4 +1,4 @@
-import React, {Dispatch} from 'react'
+import React, {ChangeEvent, Dispatch} from 'react'
 import {AppBar, TextField, Toolbar} from '@material-ui/core'
 import {Dropdown} from 'react-bootstrap'
 import AddIcon from '@material-ui/icons/Add'
@@ -21,7 +21,6 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './nav.css'
 import {savePresentationToPc} from '../functions/savePresentationToPc'
-import {reDo, unDo} from '../stateManager/StateManager'
 import {openPresentationFromPc} from '../functions/openPresentationFromPc'
 import {DEFAULT_ELLIPSE, DEFAULT_RECTANGLE, DEFAULT_TEXT, DEFAULT_TRIANGLE} from "../entities/Constants"
 import {Editor} from "../entities/Editor"
@@ -34,7 +33,7 @@ import {getSelectedElement} from "../functions/getSelectedElement"
 import {ElementType, Text} from "../entities/Elements"
 import {showPresentation} from "../functions/showPresentation"
 import {connect, useDispatch} from "react-redux"
-import {initialState} from "../store/reducer";
+import {initialState} from "../store/localStorage"
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -45,6 +44,35 @@ const imageToBackFiled = React.createRef<HTMLInputElement>()
 const mapStateToProps = (state: Editor) => {
     return {
         state: state
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+    return {
+        changePresentationName: (newName: string) => dispatch({type: 'CHANGE_PRESENTATION_NAME', payload: newName}),
+        setEditor: (state: Editor) => dispatch({type: 'SET_EDITOR', payload: state}),
+        openPresentationFromPc: (e: ChangeEvent<HTMLInputElement>) => openPresentationFromPc(e, dispatch),
+
+        addTriangle: () => dispatch({type: 'ADD_ELEMENT', payload: DEFAULT_TRIANGLE}),
+        addEllipse: () => dispatch({type: 'ADD_ELEMENT', payload: DEFAULT_ELLIPSE}),
+        addRectangle: () => dispatch({type: 'ADD_ELEMENT', payload: DEFAULT_RECTANGLE}),
+        addText: () => dispatch({type: 'ADD_ELEMENT', payload: DEFAULT_TEXT}),
+        deleteElements: () => dispatch({type: 'DELETE_ELEMENTS'}),
+
+        addEmptySlide: () => dispatch({type: 'ADD_EMPTY_SLIDE'}),
+        deleteSlides: () => dispatch({type: 'DELETE_SLIDES'}),
+
+        undo: () => dispatch({type: 'UNDO'}),
+        redo: () => dispatch({type: 'REDO'}),
+
+        changeElementBorderColor: (data: string) => dispatch({type: 'CHANGE_ELEMENT_BORDER_COLOR', payload: data}),
+        changeElementFillColor: (data: string) => dispatch({type: 'CHANGE_ELEMENT_FILL_COLOR', payload: data}),
+        changeElementBorderWidth: (data: string) => dispatch({type: 'CHANGE_ELEMENT_BORDER_WIDTH', payload: data}),
+        changeTextBold: () => dispatch({type: 'CHANGE_TEXT_BOLD'}),
+        changeTextItalic: () => dispatch({type: 'CHANGE_TEXT_ITALIC'}),
+        changeTextUnderline: () => dispatch({type: 'CHANGE_TEXT_UNDERLINE'}),
+        changeTextFont: (data: string) => dispatch({type: 'CHANGE_TEXT_FONT', payload: data}),
+        changeTextSize: (data: string) => dispatch({type: 'CHANGE_TEXT_SIZE', payload: data})
     }
 }
 
@@ -86,7 +114,7 @@ function Nav(props: any) {
                                        aria-describedby="emailHelp" placeholder="NEW PRESENTATION"
                                        value={editor.presentation.name}
                                        onChange={(e) =>
-                                           dispatch({type: 'CHANGE_PRESENTATION_NAME', payload: e.target.value})
+                                           props.changePresentationName(e.target.value)
                                        }
                                 />
                             </div>
@@ -98,10 +126,10 @@ function Nav(props: any) {
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
-                                        <Dropdown.Item className="btn-sm button__onclick" onClick={() => dispatch({
-                                            type: 'SET_EDITOR',
-                                            payload: initialState
-                                        })}>New presentation</Dropdown.Item>
+                                        <Dropdown.Item className="btn-sm button__onclick"
+                                                       onClick={() => props.setEditor(initialState)}>
+                                            New presentation
+                                        </Dropdown.Item>
 
                                         <div>
                                             <label htmlFor="myfile"
@@ -111,7 +139,7 @@ function Nav(props: any) {
                                                 id="myfile"
                                                 name="myfile"
                                                 accept=".json"
-                                                onChange={(e) => openPresentationFromPc(e, dispatch)}
+                                                onChange={(e) => props.openPresentationFromPc(e)}
                                                 ref={fileField}
                                                 type="file"
                                             />
@@ -135,31 +163,19 @@ function Nav(props: any) {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => dispatch({
-                                                           type: 'ADD_ELEMENT',
-                                                           payload: DEFAULT_TRIANGLE
-                                                       })}>
+                                                       onClick={() => props.addTriangle}>
                                             Triangle
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => dispatch({
-                                                           type: 'ADD_ELEMENT',
-                                                           payload: DEFAULT_ELLIPSE
-                                                       })}>
+                                                       onClick={() => props.addEllipse}>
                                             Ellipse
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => dispatch({
-                                                           type: 'ADD_ELEMENT',
-                                                           payload: DEFAULT_RECTANGLE
-                                                       })}>
+                                                       onClick={() => props.addRectangle}>
                                             Rectangle
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => dispatch({
-                                                           type: 'ADD_ELEMENT',
-                                                           payload: DEFAULT_TEXT
-                                                       })}>
+                                                       onClick={() => props.addText}>
                                             Text
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick">Image</Dropdown.Item>
@@ -174,11 +190,11 @@ function Nav(props: any) {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => dispatch({type: 'ADD_EMPTY_SLIDE'})}>
+                                                       onClick={() => props.addEmptySlide}>
                                             New slide
                                         </Dropdown.Item>
                                         <Dropdown.Item className="btn-sm button__onclick"
-                                                       onClick={() => dispatch({type: 'DELETE_SLIDES'})}>
+                                                       onClick={() => props.deleteSlides}>
                                             Delete slide
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
@@ -204,12 +220,9 @@ function Nav(props: any) {
                             <Dropdown.Menu>
                                 <Dropdown.Item className="btn-sm button__onclick"
                                                onClick={() => {
-                                                   dispatch({
-                                                       type: 'SET_EDITOR',
-                                                       payload: {
-                                                           ...editor,
-                                                           selectionSlidesId: [editor.presentation.slides[0].id]
-                                                       }
+                                                   props.setEditor({
+                                                       ...editor,
+                                                       selectionSlidesId: [editor.presentation.slides[0].id]
                                                    })
                                                    showPresentation(editor)
                                                }}>
@@ -230,60 +243,44 @@ function Nav(props: any) {
             <AppBar position="static" className="nav">
                 <Toolbar variant="dense">
                     <button type="button" className="btn btn-sm button__onclick dropbox__button"
-                            onClick={() => dispatch({type: 'ADD_EMPTY_SLIDE'})}>
+                            onClick={() => props.addEmptySlide()}>
                         <AddIcon/>
                     </button>
 
                     <button type="button" className="btn btn-sm button__onclick dropbox__button"
-                            onClick={() => dispatch({type: 'DELETE_SLIDES'})}>
+                            onClick={() => props.deleteSlides()}>
                         <RemoveIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => {
-                                unDo()
-                            }}>
+                            onClick={() => props.undo()}>
                         <UndoIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => {
-                                reDo()
-                            }}>
+                            onClick={() => props.redo()}>
                         <RedoIcon/>
                     </button>
 
                     <div className="vertical_separator">&nbsp;</div>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => dispatch({
-                                type: 'ADD_ELEMENT',
-                                payload: DEFAULT_TRIANGLE
-                            })}>
+                            onClick={() => props.addTriangle()}>
                         <ChangeHistoryIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => dispatch({
-                                type: 'ADD_ELEMENT',
-                                payload: DEFAULT_ELLIPSE
-                            })}>
+                            onClick={() => props.addEllipse()}>
                         <RadioButtonUncheckedIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => dispatch({
-                                type: 'ADD_ELEMENT',
-                                payload: DEFAULT_RECTANGLE
-                            })}>
+                            onClick={() => props.addRectangle()}>
                         <CheckBoxOutlineBlankIcon/>
                     </button>
 
                     <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
-                            onClick={() => dispatch({
-                                type: 'ADD_ELEMENT',
-                                payload: DEFAULT_TEXT
-                            })}>
+                            onClick={() => props.addText()}>
                         <TextFieldsIcon/>
                     </button>
 
@@ -364,7 +361,7 @@ function Nav(props: any) {
                     {/*delete element*/}
                     <button id="edit_style_text_delete" type="button"
                             className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
-                        dispatch({type: 'DELETE_ELEMENTS'})
+                        props.deleteElements()
                     }>
                         <DeleteRoundedIcon/>
                     </button>
@@ -387,7 +384,7 @@ function Nav(props: any) {
 
                         <Dropdown.Menu>
                             <ColorPicker color={fillColor} onChange={(color) =>
-                                dispatch({type: 'CHANGE_ELEMENT_FILL_COLOR', payload: color.hex})
+                                props.changeElementFillColor(color.hex)
                             } hideAlpha={true} hideInputs={true}/>
                         </Dropdown.Menu>
                     </Dropdown>
@@ -406,13 +403,13 @@ function Nav(props: any) {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <ColorPicker color={borderColor} onChange={(color) => {
-                                dispatch({type: 'CHANGE_ELEMENT_BORDER_COLOR', payload: color.hex})
-                            }} hideAlpha={true} hideInputs={true}/>
+                            <ColorPicker color={borderColor} onChange={(color) =>
+                                props.changeElementBorderColor(color.hex)
+                            } hideAlpha={true} hideInputs={true}/>
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    {/* Border size */}
+                    {/*Border size*/}
                     <div id="edit_style_border_size" className="hidden edit_style_text_size">
                         <TextField
                             size="small"
@@ -424,18 +421,18 @@ function Nav(props: any) {
                             value={borderSizeView}
                             type="number"
                             onChange={(e) =>
-                                dispatch({type: 'CHANGE_ELEMENT_BORDER_WIDTH', payload: e.target.value})
+                                props.changeElementBorderWidth(e.target.value)
                             }
                         />
                     </div>
 
-                    {/* separator */}
+                    {/*separator*/}
                     <div id="edit_style_text_sep_2" className="vertical_separator hidden">&nbsp;</div>
 
                     {/*bold text*/}
                     <button id="edit_style_text_bold" type="button"
                             className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
-                        dispatch({type: 'CHANGE_TEXT_BOLD'})
+                        props.changeTextBold()
                     }>
                         <FormatBoldRoundedIcon/>
                     </button>
@@ -443,7 +440,7 @@ function Nav(props: any) {
                     {/*italic text*/}
                     <button id="edit_style_text_italic" type="button"
                             className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
-                        dispatch({type: 'CHANGE_TEXT_ITALIC'})
+                        props.changeTextItalic()
                     }>
                         <FormatItalicRoundedIcon/>
                     </button>
@@ -451,15 +448,15 @@ function Nav(props: any) {
                     {/*italic text*/}
                     <button id="edit_style_text_underline" type="button"
                             className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
-                        dispatch({type: 'CHANGE_TEXT_UNDERLINE'})
+                        props.changeTextUnderline()
                     }>
                         <FormatUnderlinedIcon/>
                     </button>
 
-                    {/* separator 2*/}
+                    {/*separator 2*/}
                     <div id="edit_style_text_sep_3" className="vertical_separator hidden">&nbsp;</div>
 
-                    {/* font */}
+                    {/*font*/}
                     <Dropdown id="edit_style_text_font" className="hidden">
                         <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
                                          variant="success" id="dropdown-slide">
@@ -470,37 +467,37 @@ function Nav(props: any) {
                         <Dropdown.Menu>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__time_new_roman"
                                            onClick={() =>
-                                               dispatch({type: 'CHANGE_TEXT_FONT', payload: 'Times New Roman'})
+                                               props.changeTextFont('Times New Roman')
                                            }>
                                 Times New Roman
                             </Dropdown.Item>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__roboto" onClick={() =>
-                                dispatch({type: 'CHANGE_TEXT_FONT', payload: 'Roboto'})
+                                props.changeTextFont('Roboto')
                             }>
                                 Roboto
                             </Dropdown.Item>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__arial" onClick={() =>
-                                dispatch({type: 'CHANGE_TEXT_FONT', payload: 'Arial'})
+                                props.changeTextFont('Arial')
                             }>
                                 Arial
                             </Dropdown.Item>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__cambria" onClick={() =>
-                                dispatch({type: 'CHANGE_TEXT_FONT', payload: 'Cambria'})
+                                props.changeTextFont('Cambria')
                             }>
                                 Cambria
                             </Dropdown.Item>
                             <Dropdown.Item className="btn-sm button__onclick edit_style_text__samanata" onClick={() =>
-                                dispatch({type: 'CHANGE_TEXT_FONT', payload: 'Samanata'})
+                                props.changeTextFont('Samanata')
                             }>
                                 Samanata
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    {/* separator */}
+                    {/*separator*/}
                     <div id="edit_style_text_sep_4" className="vertical_separator hidden">&nbsp;</div>
 
-                    {/* Font size */}
+                    {/*Font size*/}
                     <div id="edit_style_text_size" className="hidden edit_style_text_size">
                         <TextField
                             size="small"
@@ -512,7 +509,7 @@ function Nav(props: any) {
                                 shrink: true,
                             }}
                             onChange={(e) =>
-                                dispatch({type: 'CHANGE_TEXT_SIZE', payload: e.target.value})
+                                props.changeTextSize(e.target.value)
                             }
                         />
                     </div>
@@ -524,4 +521,4 @@ function Nav(props: any) {
     )
 }
 
-export default connect(mapStateToProps)(Nav)
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)
