@@ -3,7 +3,7 @@ import {ElementType, Text} from "../entities/Elements"
 
 
 export function changeTextBold(editor: Editor): Editor {
-    return <Editor>{
+    return {
         ...editor,
         presentation: {
             ...editor.presentation,
@@ -26,5 +26,5 @@ export function changeTextBold(editor: Editor): Editor {
                 return s
             })
         }
-    }
+    } as Editor
 }   

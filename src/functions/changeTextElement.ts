@@ -3,7 +3,7 @@ import {ElementType, Text} from "../entities/Elements"
 
 
 export function changeTextValue(editor: Editor, payload: any): Editor {
-    return <Editor>{
+    return {
         ...editor,
         presentation: {
             ...editor.presentation,
@@ -26,5 +26,5 @@ export function changeTextValue(editor: Editor, payload: any): Editor {
                 return s
             })
         }
-    }
+    } as Editor
 }

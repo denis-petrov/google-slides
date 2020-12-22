@@ -5,10 +5,9 @@ import './slideMenu.css'
 import {isMultipleSelectSlide} from '../functions/isMultipleSelectSlide'
 import {getElements} from '../functions/getElements'
 import {getSlideBackgroundById} from "../functions/getSlideBackgroundById"
-import {connect, useDispatch} from "react-redux"
+import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {Slide} from "../entities/Slide"
-import {v4 as uuidv4} from "uuid";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -26,7 +25,6 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 
 function SlideMenu(props: any) {
     let editor = props.state
-    const dispatch: Dispatch<any> = useDispatch()
 
     let slides = editor.presentation.slides.map((item: any) => {
         let elements = props.getElements(item, false)

@@ -3,7 +3,7 @@ import {ElementType, Text} from "../entities/Elements"
 
 
 export function changeTextSize(editor: Editor, size: number): Editor {
-    return <Editor>{
+    return {
         ...editor,
         presentation: {
             ...editor.presentation,
@@ -26,5 +26,5 @@ export function changeTextSize(editor: Editor, size: number): Editor {
                 return s
             })
         }
-    }
+    } as Editor
 }   

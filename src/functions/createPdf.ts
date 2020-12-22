@@ -14,7 +14,7 @@ export async function drawElement(pdfDocument: jsPDF, element: Element, slide: S
     let borderWidth: number = element.borderWidth
 
     pdfDocument.setFillColor(backgroundColor.red, backgroundColor.green, backgroundColor.blue)
-    if (borderWidth != 0) {
+    if (borderWidth !== 0) {
         pdfDocument.setDrawColor(borderColor.red, borderColor.green, borderColor.blue)
         pdfDocument.setLineWidth(borderWidth)
     } else {

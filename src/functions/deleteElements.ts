@@ -14,7 +14,7 @@ export function deleteElements(editor: Editor): Editor {
                     return {
                         ...s,
                         elements: s.elements.filter(elem => {
-                            if (elem.type == ElementType.text) {
+                            if (elem.type === ElementType.text) {
                                 changeTextStyleMenu(false)
                             } else {
                                 changePrimitiveStyleMenu(false)

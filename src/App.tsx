@@ -9,13 +9,8 @@ import {connect} from "react-redux"
 import {initialState} from "./store/localStorage"
 import {Editor} from "./entities/Editor";
 import {canRedo, canUndo, canUndoKeyboard} from "./store/stateHistory"
-import {reDo, unDo} from "./stateManager/StateManager"
-import {useDispatch} from "react-redux"
-import {WHITE} from "./entities/Constants"
-import {v4 as uuidv4} from "uuid"
-import {changeSlideSize, isShowCurrentlyPresentation, showPresentation} from "./functions/showPresentation";
-import {changeWorkspaceSize} from "./functions/changeWorkspaceSize";
-import {store} from "./store/store";
+import {showPresentation} from "./functions/showPresentation"
+import {store} from "./store/store"
 
 const mapStateToProps = (state: Editor) => {
     return {
@@ -32,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 }
 
 function App(props: any) {
-    if (Object.keys(props.state).length == 0) {
+    if (Object.keys(props.state).length === 0) {
         props.setEditor()
     }
 

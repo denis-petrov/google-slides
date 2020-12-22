@@ -81,11 +81,11 @@ function Nav(props: any) {
     const dispatch: Dispatch<any> = useDispatch()
 
     const elem = getSelectedElement()
-    let fillColor
-    let borderColor
-    let borderSizeView
-    let font
-    let fontSize
+    let fillColor: string = ''
+    let borderColor: string = ''
+    let borderSizeView: string = ''
+    let font: string = ''
+    let fontSize: number = 10
     if ((elem !== undefined) && (elem != null)) {
         borderColor = `rgb(${elem.borderColor.red},${elem.borderColor.green},${elem.borderColor.blue})`
         borderSizeView = `${elem.borderWidth}`

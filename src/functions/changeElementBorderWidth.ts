@@ -1,7 +1,7 @@
 import {Editor} from '../entities/Editor'
 
 export function changeElementBorderWidth(editor: Editor, width: number): Editor {
-    return <Editor>{
+    return {
         ...editor,
         presentation: {
             ...editor.presentation,
@@ -21,5 +21,5 @@ export function changeElementBorderWidth(editor: Editor, width: number): Editor 
                 return s
             })
         }
-    }
+    } as Editor
 }   

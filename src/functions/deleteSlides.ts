@@ -6,7 +6,7 @@ import {Slide} from "../entities/Slide"
 export function deleteSlides(editor: Editor): Editor {
     let slidesId = editor.selectionSlidesId
 
-    let selectedSlide = editor.presentation.slides.filter(slide => slide.id == slidesId[0])[0]
+    let selectedSlide = editor.presentation.slides.filter(slide => slide.id === slidesId[0])[0]
     let indexOfSelectedSlide = editor.presentation.slides.indexOf(selectedSlide)
 
     let newSlides = editor.presentation.slides.filter(slide => {
@@ -21,7 +21,7 @@ export function deleteSlides(editor: Editor): Editor {
         return !isDeleted
     })
 
-    if (editor.presentation.slides.length == 1) {
+    if (editor.presentation.slides.length === 1) {
         let slideId = uuidv4()
         return {
             ...editor,
@@ -37,7 +37,7 @@ export function deleteSlides(editor: Editor): Editor {
             selectionSlidesId: [slideId]
         }
     } else {
-        if (indexOfSelectedSlide == editor.presentation.slides.length - 1) {
+        if (indexOfSelectedSlide === editor.presentation.slides.length - 1) {
             indexOfSelectedSlide -= 1
         }
 

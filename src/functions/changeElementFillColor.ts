@@ -4,7 +4,7 @@ import {hexToRgb} from "./hexToRgb"
 
 
 export function changeElementFillColor(editor: Editor, color: string): Editor {
-    return <Editor>{
+    return {
         ...editor,
         presentation: {
             ...editor.presentation,
@@ -29,5 +29,5 @@ export function changeElementFillColor(editor: Editor, color: string): Editor {
                 return s
             })
         }
-    }
+    } as Editor
 }   

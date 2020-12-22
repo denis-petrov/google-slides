@@ -9,8 +9,8 @@ export function isMultipleSelectSlide(editor: Editor, event: any, slideId: strin
     let currSlideElement = document.getElementById(currSlideDomElementId)
     let allSlides = document.getElementsByClassName(slideClass)
 
-    if ((event != null) && (event.shiftKey)) {
-        if (currSlideElement != null) {
+    if ((event !== null) && (event.shiftKey)) {
+        if (currSlideElement !== null) {
             let previousAttributeValue = currSlideElement.getAttribute(attributeName)
             currSlideElement.setAttribute(attributeName, previousAttributeValue === 'true' ? 'false' : 'true')
         }
@@ -25,7 +25,7 @@ export function isMultipleSelectSlide(editor: Editor, event: any, slideId: strin
             if (!editor.selectionSlidesId.includes(editor.presentation.slides[index].id)) {
                 editor.selectionSlidesId.push(editor.presentation.slides[index].id)
             } else {
-                editor.selectionSlidesId = editor.selectionSlidesId.filter((slideId) => slideId != editor.presentation.slides[index].id)
+                editor.selectionSlidesId = editor.selectionSlidesId.filter((slideId) => slideId !== editor.presentation.slides[index].id)
             }
         }
 

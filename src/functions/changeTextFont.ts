@@ -7,7 +7,7 @@ export function changeTextFont(editor: Editor, font: string): Editor {
     if (element) {
         element.style.fontFamily = font
     }
-    return <Editor>{
+    return {
         ...editor,
         presentation: {
             ...editor.presentation,
@@ -30,5 +30,5 @@ export function changeTextFont(editor: Editor, font: string): Editor {
                 return s
             })
         }
-    }
+    } as Editor
 }   

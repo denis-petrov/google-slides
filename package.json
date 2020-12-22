@@ -48,7 +48,8 @@
     "yarn": "^1.22.10"
   },
   "scripts": {
-    "start": "react-scripts start --hot --host 0.0.0.0",
+    "start": "react-scripts start",
+    "start-mobile": "react-scripts start --hot --host 0.0.0.0",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -4,7 +4,7 @@ import {ImageElement} from "../entities/Elements"
 
 
 export function addToBackground(editor: Editor, elem: ImageElement | Color): Editor {
-    return <Editor>{
+    return {
         ...editor,
         presentation: {
             ...editor.presentation,
@@ -18,5 +18,5 @@ export function addToBackground(editor: Editor, elem: ImageElement | Color): Edi
                 return s
             })
         }
-    }
+    } as Editor
 }   

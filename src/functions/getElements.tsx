@@ -145,7 +145,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
                            cursor: cursor
                        }}
                        onClick={(evt) => {
-                           if (isIdNeeded && s.selectionElementsId[0] != e.id) {
+                           if (isIdNeeded && s.selectionElementsId[0] !== e.id) {
                                selectElements(evt, e.id, dispatch)
                            }
                        }}
