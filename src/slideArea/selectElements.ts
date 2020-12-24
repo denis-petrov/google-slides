@@ -62,7 +62,7 @@ export function selectElements(event: any, id: string, dispatch: Dispatch<any>) 
             editor.presentation.slides.map(s => {
                 if (editor.selectionSlidesId.includes(s.id)) {
                     for (let i = 0; i < s.elements.length; i++) {
-                        //workspace.appendChild(document.getElementById(`svg_${s.elements[i].id}`) as HTMLElement)
+                        workspace.appendChild(document.getElementById(`svg_${s.elements[i].id}`) as HTMLElement)
                     }
                 }
             })
