@@ -1,16 +1,16 @@
-import React, {Dispatch, useEffect} from 'react'
+import React, {Dispatch} from 'react'
 import './App.css'
 import Nav from './nav/Nav'
 import SlideArea from './slideArea/SlideArea'
 import SlideMenu from './slideMenu/SlideMenu'
 import SlideShowPanel from './slideShowPanel/SlideShowPanel'
-import {useDragAndDrop, useEventListener} from "./useDragAndDrop"
 import {connect} from "react-redux"
 import {initialState} from "./store/localStorage"
-import {Editor} from "./entities/Editor";
+import {Editor} from "./entities/Editor"
 import {canRedo, canUndo, canUndoKeyboard} from "./store/stateHistory"
-import {showPresentation} from "./functions/showPresentation"
-import {store} from "./store/store"
+import {useDragAndDrop} from "./customHooks/useDragAndDrop"
+import {useEventListener} from "./customHooks/useEventListner"
+import {useMobileViewOnLoad} from "./customHooks/useMobileViewOnLoad"
 
 const mapStateToProps = (state: Editor) => {
     return {
@@ -31,20 +31,6 @@ function App(props: any) {
         props.setEditor()
     }
 
-    useDragAndDrop()
-
-    useEffect(() => {
-        if (window.innerWidth <= 1024 || window.innerHeight <= 768) {
-            setTimeout(() => {
-                showPresentation(store.getState())
-                let closeBtn = document.getElementById('close-show-presentation')
-                if (closeBtn) {
-                    closeBtn.style.display = 'none'
-                }
-            }, 0)
-        }
-    }, [])
-
     let handleUndoRedo = (evt: KeyboardEvent) => {
         if (evt.ctrlKey && evt.shiftKey && evt.keyCode === 90) {
             if (canRedo()) {
@@ -56,6 +42,9 @@ function App(props: any) {
             }
         }
     }
+
+    useDragAndDrop()
+    useMobileViewOnLoad()
 
     useEventListener('keydown', handleUndoRedo)
 

@@ -34,6 +34,13 @@ import {ElementType, Text} from "../entities/Elements"
 import {showPresentation} from "../functions/showPresentation"
 import {connect, useDispatch} from "react-redux"
 import {initialState} from "../store/localStorage"
+import {
+    ADD_ELEMENT,
+    ADD_EMPTY_SLIDE, CHANGE_ELEMENT_BORDER_COLOR, CHANGE_ELEMENT_BORDER_WIDTH, CHANGE_ELEMENT_FILL_COLOR,
+    CHANGE_PRESENTATION_NAME, CHANGE_TEXT_BOLD, CHANGE_TEXT_FONT, CHANGE_TEXT_ITALIC, CHANGE_TEXT_SIZE,
+    DELETE_ELEMENTS, DELETE_SLIDES, REDO,
+    SET_EDITOR, UNDO
+} from "../store/actionTypes"
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -49,30 +56,30 @@ const mapStateToProps = (state: Editor) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        changePresentationName: (newName: string) => dispatch({type: 'CHANGE_PRESENTATION_NAME', payload: newName}),
-        setEditor: (state: Editor) => dispatch({type: 'SET_EDITOR', payload: state}),
+        changePresentationName: (newName: string) => dispatch({type: CHANGE_PRESENTATION_NAME, payload: newName}),
+        setEditor: (state: Editor) => dispatch({type: SET_EDITOR, payload: state}),
         openPresentationFromPc: (e: ChangeEvent<HTMLInputElement>) => openPresentationFromPc(e, dispatch),
 
-        addTriangle: () => dispatch({type: 'ADD_ELEMENT', payload: DEFAULT_TRIANGLE}),
-        addEllipse: () => dispatch({type: 'ADD_ELEMENT', payload: DEFAULT_ELLIPSE}),
-        addRectangle: () => dispatch({type: 'ADD_ELEMENT', payload: DEFAULT_RECTANGLE}),
-        addText: () => dispatch({type: 'ADD_ELEMENT', payload: DEFAULT_TEXT}),
-        deleteElements: () => dispatch({type: 'DELETE_ELEMENTS'}),
+        addTriangle: () => dispatch({type: ADD_ELEMENT, payload: DEFAULT_TRIANGLE}),
+        addEllipse: () => dispatch({type: ADD_ELEMENT, payload: DEFAULT_ELLIPSE}),
+        addRectangle: () => dispatch({type: ADD_ELEMENT, payload: DEFAULT_RECTANGLE}),
+        addText: () => dispatch({type: ADD_ELEMENT, payload: DEFAULT_TEXT}),
+        deleteElements: () => dispatch({type: DELETE_ELEMENTS}),
 
-        addEmptySlide: () => dispatch({type: 'ADD_EMPTY_SLIDE'}),
-        deleteSlides: () => dispatch({type: 'DELETE_SLIDES'}),
+        addEmptySlide: () => dispatch({type: ADD_EMPTY_SLIDE}),
+        deleteSlides: () => dispatch({type: DELETE_SLIDES}),
 
-        undo: () => dispatch({type: 'UNDO'}),
-        redo: () => dispatch({type: 'REDO'}),
+        undo: () => dispatch({type: UNDO}),
+        redo: () => dispatch({type: REDO}),
 
-        changeElementBorderColor: (data: string) => dispatch({type: 'CHANGE_ELEMENT_BORDER_COLOR', payload: data}),
-        changeElementFillColor: (data: string) => dispatch({type: 'CHANGE_ELEMENT_FILL_COLOR', payload: data}),
-        changeElementBorderWidth: (data: string) => dispatch({type: 'CHANGE_ELEMENT_BORDER_WIDTH', payload: data}),
-        changeTextBold: () => dispatch({type: 'CHANGE_TEXT_BOLD'}),
-        changeTextItalic: () => dispatch({type: 'CHANGE_TEXT_ITALIC'}),
-        changeTextUnderline: () => dispatch({type: 'CHANGE_TEXT_UNDERLINE'}),
-        changeTextFont: (data: string) => dispatch({type: 'CHANGE_TEXT_FONT', payload: data}),
-        changeTextSize: (data: string) => dispatch({type: 'CHANGE_TEXT_SIZE', payload: data})
+        changeElementBorderColor: (data: string) => dispatch({type: CHANGE_ELEMENT_BORDER_COLOR, payload: data}),
+        changeElementFillColor: (data: string) => dispatch({type: CHANGE_ELEMENT_FILL_COLOR, payload: data}),
+        changeElementBorderWidth: (data: string) => dispatch({type: CHANGE_ELEMENT_BORDER_WIDTH, payload: data}),
+        changeTextBold: () => dispatch({type: CHANGE_TEXT_BOLD}),
+        changeTextItalic: () => dispatch({type: CHANGE_TEXT_ITALIC}),
+        changeTextUnderline: () => dispatch({type: CHANGE_TEXT_ITALIC}),
+        changeTextFont: (data: string) => dispatch({type: CHANGE_TEXT_FONT, payload: data}),
+        changeTextSize: (data: string) => dispatch({type: CHANGE_TEXT_SIZE, payload: data})
     }
 }
 

@@ -1,15 +1,17 @@
-import {mouseMoveElements} from "./functions/mouseMoveElements"
-import {changeVisibilitySlideHr} from "./slideMenu/changeVisibilitySlideHr"
-import {moveElementPoint, resizeElement} from "./functions/resizeElement"
-import {endMoveElements} from "./functions/endMoveElements"
-import {clearAllSlideHr} from "./slideMenu/clearAllSlideHr"
-import {endResizeElement} from "./functions/endResizeElement"
-import {removeSelectOfElement} from "./functions/removeSelectOfElements"
-import {moveSlides} from "./functions/moveSlides"
-import {moveElements} from "./slideArea/moveElements"
-import {Dispatch, useEffect, useRef} from "react"
+import {mouseMoveElements} from "../functions/mouseMoveElements"
+import {changeVisibilitySlideHr} from "../slideMenu/changeVisibilitySlideHr"
+import {moveElementPoint, resizeElement} from "../functions/resizeElement"
+import {endMoveElements} from "../functions/endMoveElements"
+import {clearAllSlideHr} from "../slideMenu/clearAllSlideHr"
+import {endResizeElement} from "../functions/endResizeElement"
+import {removeSelectOfElement} from "../functions/removeSelectOfElements"
+import {moveSlides} from "../functions/moveSlides"
+import {moveElements} from "../slideArea/moveElements"
+import {Dispatch} from "react"
 import {useDispatch} from "react-redux"
-import {store} from "./store/store"
+import {store} from "../store/store"
+import {CHANGE_POSITION_OF_ELEMENTS, END_MOVE_SLIDES} from "../store/actionTypes"
+import {useEventListener} from "./useEventListner"
 
 
 let isMoveElements: boolean
@@ -83,7 +85,7 @@ export function useDragAndDrop() {
 
             if (isMouseMove && elem.id !== '' && elem.id !== undefined && selectedSlide !== elem.id) {
                 dispatch({
-                    type: 'END_MOVE_SLIDES',
+                    type: END_MOVE_SLIDES,
                     payload: {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id}
                 })
                 isMouseMove = false
@@ -99,38 +101,10 @@ export function useDragAndDrop() {
             if (resized) {
                 endResizeElement(payload)
                 if (!payload.get('small')) {
-                    dispatch({type: 'CHANGE_POSITION_OF_ELEMENTS', payload: payload})
+                    dispatch({type: CHANGE_POSITION_OF_ELEMENTS, payload: payload})
                 }
             }
         }
     }
     useEventListener('mouseup', handleMouseUp)
-}
-
-export function useEventListener(eventName: string, handler: any, element = window) {
-    const savedHandler = useRef<any>()
-
-    useEffect(() => {
-        savedHandler.current = handler
-    }, [handler])
-
-    useEffect(
-        () => {
-            const isSupported = element && element.addEventListener
-            if (!isSupported) return
-
-            const eventListener = (event: any) => {
-                if (event !== undefined) {
-                    savedHandler.current(event)
-                }
-            }
-
-            element.addEventListener(eventName, eventListener)
-
-            return () => {
-                element.removeEventListener(eventName, eventListener)
-            }
-        },
-        [eventName, element]
-    )
 }

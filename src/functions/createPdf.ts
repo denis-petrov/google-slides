@@ -5,8 +5,8 @@ import {Slide} from "../entities/Slide"
 import {PAGE_HEIGHT, PAGE_WIDTH, WHITE} from "../entities/Constants"
 import {Color, isColor} from "../entities/Color"
 import html2canvas from "html2canvas"
-import {changeTextPlaceholder} from "./showPresentation"
-import {store} from "../store/store";
+import {store} from "../store/store"
+import {changeTextPlaceholder} from "../slideShowPanel/changeTextPlaceholder"
 
 export async function drawElement(pdfDocument: jsPDF, element: Element, slide: Slide) {
     let backgroundColor: Color = (element.backgroundColor === null) ? WHITE : (element.backgroundColor as Color)

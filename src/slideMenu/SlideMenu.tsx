@@ -8,6 +8,7 @@ import {getSlideBackgroundById} from "../functions/getSlideBackgroundById"
 import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {Slide} from "../entities/Slide"
+import {CHOOSE_SLIDES} from "../store/actionTypes"
 
 
 const mapStateToProps = (state: Editor) => {
@@ -19,7 +20,8 @@ const mapStateToProps = (state: Editor) => {
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
         getElements: (slide: Slide, isIdNeeded: boolean = true) => getElements(slide, dispatch, isIdNeeded),
-        chooseSlides: (id: string | Array<string>) => dispatch({type: 'CHOOSE_SLIDES', payload: id})
+        getSlideBackgroundById: (editor: Editor, id: string) => getSlideBackgroundById(editor, id),
+        chooseSlides: (id: string | Array<string>) => dispatch({type: CHOOSE_SLIDES, payload: id})
     }
 }
 
@@ -46,7 +48,7 @@ function SlideMenu(props: any) {
                   style={{userSelect: 'none'}}>{editor.presentation.slides.indexOf(item) + 1}</span>
                 <Card className={'mb-3 slides-menu-item'}>
                     <svg className='slides-menu-item-svg' id={item.id}
-                         style={{background: `0 0 / cover ${getSlideBackgroundById(editor, item.id)}`}}>
+                         style={{background: `0 0 / cover ${props.getSlideBackgroundById(editor, item.id)}`}}>
                         {elements}
                     </svg>
                 </Card>

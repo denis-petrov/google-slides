@@ -19,7 +19,8 @@ const mapStateToProps = (state: Editor) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        getElements: (slide: Slide, isIdNeeded: boolean = true) => getElements(slide, dispatch, isIdNeeded)
+        getElements: (slide: Slide, isIdNeeded: boolean = true) => getElements(slide, dispatch, isIdNeeded),
+        getSlideBackground: (editor: Editor) => getSlideBackground(editor)
     }
 }
 
@@ -37,7 +38,7 @@ function SlideArea(props: any) {
     return (
         <div id="slide-area" className='slide-area'>
             <svg className={'workspace'} id={'slide_area_' + slideId}
-                 style={{background: `0 0 / cover ${getSlideBackground(editor)}`}}>
+                 style={{background: `0 0 / cover ${props.getSlideBackground(editor)}`}}>
                 {elements}
             </svg>
         </div>

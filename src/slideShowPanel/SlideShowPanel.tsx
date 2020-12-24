@@ -1,12 +1,4 @@
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft"
-import {
-    changeSlideSize,
-    isShowCurrentlyPresentation,
-    showNextSlide,
-    showPrevSlide,
-    showSlideShowPanel,
-    stopShowPresentation
-} from "../functions/showPresentation"
 import PlayArrowIcon from "@material-ui/icons/PlayArrow"
 import PauseIcon from "@material-ui/icons/Pause"
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight"
@@ -16,6 +8,12 @@ import {connect, useDispatch} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {changeTextCursor} from "../functions/changeTextCursor"
 import {changeWorkspaceSize} from "../functions/changeWorkspaceSize"
+import {showNextSlide} from "./showNextSlide"
+import {showSlideShowPanel} from "./showSlideShowPanel"
+import {getIsShowCurrentlyPresentation} from "../functions/showPresentation"
+import {stopShowPresentation} from "./stopShowPresentation"
+import {showPrevSlide} from "./showPrevSlide"
+import {changeSlideSize} from "./changeSlideSize"
 
 
 const mapStateToProps = (state: Editor) => {
@@ -37,7 +35,7 @@ function SlideShowPanel(props: any) {
     })
 
     window.addEventListener('resize', () => {
-        if (isShowCurrentlyPresentation) {
+        if (getIsShowCurrentlyPresentation()) {
             changeSlideSize()
         } else {
             changeWorkspaceSize()
@@ -46,11 +44,11 @@ function SlideShowPanel(props: any) {
 
     window.addEventListener('keydown', (evt: KeyboardEvent) => {
         if (evt.keyCode === 27) {
-            slideShow(editor, dispatch, evt,true)
+            slideShow(editor, dispatch, evt, true)
             stopShowPresentation()
         }
 
-        if (isShowCurrentlyPresentation) {
+        if (getIsShowCurrentlyPresentation()) {
             if (evt.keyCode === 39) {
                 showNextSlide(editor, dispatch)
             }
@@ -84,7 +82,7 @@ function SlideShowPanel(props: any) {
             </div>
             <div className='presentation_panel'>
                 <div>Slide {slidesNumber} / {slidesCount}</div>
-                <KeyboardArrowLeftIcon id='show-prev-slide' onClick={(evt) =>
+                <KeyboardArrowLeftIcon id='show-prev-slide' onClick={() =>
                     showPrevSlide(editor, dispatch)
                 }/>
                 <PlayArrowIcon id='start-slide-show' onClick={(evt) => {
@@ -94,7 +92,7 @@ function SlideShowPanel(props: any) {
                 <PauseIcon id='stop-slide-show' style={{display: 'none'}} onClick={(evt) => {
                     slideShow(editor, dispatch, evt, true)
                 }}/>
-                <KeyboardArrowRightIcon id='show-next-slide' onClick={(evt) =>
+                <KeyboardArrowRightIcon id='show-next-slide' onClick={() =>
                     showNextSlide(editor, dispatch)
                 }/>
                 <div id='close-show-presentation' onClick={(evt) => {
