@@ -5,6 +5,7 @@ import {changeTextPlaceholder} from "./changeTextPlaceholder"
 import {changeArrowColor} from "./changeArrowColor"
 import {CHOOSE_SLIDES} from "../store/actionTypes"
 import {getIsShowCurrentlyPresentation} from "../functions/showPresentation"
+import {store} from "../store/store";
 
 
 export function showNextSlide(editor: Editor, dispatch: Dispatch<any>) {
@@ -25,7 +26,7 @@ export function showNextSlide(editor: Editor, dispatch: Dispatch<any>) {
         changeTextPlaceholder('')
     }
 
-    changeArrowColor(editor)
+    changeArrowColor(store.getState())
 
     return isLastPage
 }

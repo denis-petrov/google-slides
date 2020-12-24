@@ -5,6 +5,7 @@ import {changeTextPlaceholder} from "./changeTextPlaceholder"
 import {changeArrowColor} from "./changeArrowColor"
 import {getIsShowCurrentlyPresentation} from "../functions/showPresentation"
 import {CHOOSE_SLIDES} from "../store/actionTypes"
+import {store} from "../store/store";
 
 export function showPrevSlide(editor: Editor, dispatch: Dispatch<any>) {
     let slide = document.getElementsByClassName('workspace')[0]
@@ -19,5 +20,5 @@ export function showPrevSlide(editor: Editor, dispatch: Dispatch<any>) {
         changeTextPlaceholder('')
     }
 
-    changeArrowColor(editor)
+    changeArrowColor(store.getState())
 }

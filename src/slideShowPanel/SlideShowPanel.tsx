@@ -14,6 +14,7 @@ import {getIsShowCurrentlyPresentation} from "../functions/showPresentation"
 import {stopShowPresentation} from "./stopShowPresentation"
 import {showPrevSlide} from "./showPrevSlide"
 import {changeSlideSize} from "./changeSlideSize"
+import {useEventListener} from "../customHooks/useEventListner";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -34,15 +35,16 @@ function SlideShowPanel(props: any) {
         }
     })
 
-    window.addEventListener('resize', () => {
+    let handleResize = () => {
         if (getIsShowCurrentlyPresentation()) {
             changeSlideSize()
         } else {
             changeWorkspaceSize()
         }
-    })
+    }
+    useEventListener('resize', handleResize)
 
-    window.addEventListener('keydown', (evt: KeyboardEvent) => {
+    let handleKeyDown = (evt: KeyboardEvent) => {
         if (evt.keyCode === 27) {
             slideShow(editor, dispatch, evt, true)
             stopShowPresentation()
@@ -57,13 +59,15 @@ function SlideShowPanel(props: any) {
                 showPrevSlide(editor, dispatch)
             }
         }
-    })
+    }
+    useEventListener('keydown', handleKeyDown)
 
-    window.addEventListener('mousemove', (evt) => {
+    let handleMouseMove = (evt: MouseEvent) => {
         document.documentElement.style.cursor = ''
         showSlideShowPanel(evt)
         changeTextCursor(evt)
-    })
+    }
+    useEventListener('mousemove', handleMouseMove)
 
     return (
         <div id='slide-mask'>

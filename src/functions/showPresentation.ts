@@ -2,6 +2,7 @@ import {Editor} from "../entities/Editor"
 import {changeArrowColor} from "../slideShowPanel/changeArrowColor"
 import {changeTextPlaceholder} from "../slideShowPanel/changeTextPlaceholder"
 import {changeSlideSize} from "../slideShowPanel/changeSlideSize"
+import {store} from "../store/store";
 
 let timerId: NodeJS.Timeout
 
@@ -12,7 +13,6 @@ export function getTimerId() {
 export function setTimerId(newTime: NodeJS.Timeout) {
     timerId = newTime
 }
-
 
 let isShowCurrentlyPresentation: boolean
 
@@ -61,5 +61,5 @@ export function showPresentation(editor: Editor) {
     timerId = setTimeout(() => document.documentElement.style.cursor = 'none', 2000)
 
     isShowCurrentlyPresentation = true
-    changeArrowColor(editor)
+    changeArrowColor(store.getState())
 }
