@@ -60,7 +60,6 @@ nav__menu:hover {
 }
 
 .dropbox__button {
-    margin-right: 10px;
     color: rgba(0, 0, 0, 0.87) !important;
     background-color: white !important;
     border: white !important;
@@ -213,8 +212,6 @@ nav__menu:hover {
 
 .edit_style_text_size {
     max-width: 6rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
     text-align: center;
 }
 
@@ -242,4 +239,12 @@ nav__menu:hover {
     width: 20px;
     height: 20px;
     float: left;
+}
+
+#edit_style_border_size .dropdown-item {
+    padding: .25rem .65rem;
+}
+
+#edit_style_border_size .dropdown-menu {
+    min-width: 7rem;
 }

@@ -41,6 +41,9 @@ import {
     DELETE_ELEMENTS, DELETE_SLIDES, REDO,
     SET_EDITOR, UNDO
 } from "../store/actionTypes"
+import LineWeightIcon from '@material-ui/icons/LineWeight'
+import CheckIcon from '@material-ui/icons/Check'
+import FormatColorTextIcon from '@material-ui/icons/FormatColorText'
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -74,7 +77,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 
         changeElementBorderColor: (data: string) => dispatch({type: CHANGE_ELEMENT_BORDER_COLOR, payload: data}),
         changeElementFillColor: (data: string) => dispatch({type: CHANGE_ELEMENT_FILL_COLOR, payload: data}),
-        changeElementBorderWidth: (data: string) => dispatch({type: CHANGE_ELEMENT_BORDER_WIDTH, payload: data}),
+        changeElementBorderWidth: (data: number) => dispatch({type: CHANGE_ELEMENT_BORDER_WIDTH, payload: data}),
         changeTextBold: () => dispatch({type: CHANGE_TEXT_BOLD}),
         changeTextItalic: () => dispatch({type: CHANGE_TEXT_ITALIC}),
         changeTextUnderline: () => dispatch({type: CHANGE_TEXT_ITALIC}),
@@ -90,23 +93,39 @@ function Nav(props: any) {
     const elem = getSelectedElement()
     let fillColor: string = ''
     let borderColor: string = ''
-    let borderSizeView: string = ''
+    let borderSizeView: number = 0
     let font: string = ''
     let fontSize: number = 10
+    let boldSelect: string = '#fff'
     if ((elem !== undefined) && (elem != null)) {
         borderColor = `rgb(${elem.borderColor.red},${elem.borderColor.green},${elem.borderColor.blue})`
-        borderSizeView = `${elem.borderWidth}`
+        borderSizeView = elem.borderWidth
         if (elem.type === ElementType.text) {
             const textStyle = (elem as Text).textStyle
             fillColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
             font = textStyle.font
             fontSize = textStyle.sizeFont
+            boldSelect = textStyle.isBold ? 'rgb(254, 239, 195)' : '#fff'
         } else {
             if (elem.backgroundColor != null) {
                 fillColor = `rgb(${elem.backgroundColor.red},${elem.backgroundColor.green},${elem.backgroundColor.blue})`
             }
         }
     }
+
+    const borderSizes = [1, 2, 3, 4, 8, 12, 16, 24]
+    let borderSizeItems = borderSizes.map((borderSize: number) => {
+        let opacity: number = 0
+        if (borderSize === borderSizeView) {
+            opacity = 1
+        }
+
+        return <Dropdown.Item className="btn-sm button__onclick"
+                              onClick={(e) => props.changeElementBorderWidth(borderSize)}>
+            <CheckIcon fontSize='small' style={{marginRight: '.65rem', opacity: opacity}}/>
+            {borderSize} px
+        </Dropdown.Item>
+    })
 
     return (
         <div id='nav_bar'>
@@ -381,11 +400,11 @@ function Nav(props: any) {
                         <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
                                          variant="success" id="dropdown-slide">
                             <div id="fill_element" className="edit_style_text__font">
-                                <div style={{float: 'left'}}>
-                                    Fill &zwj;
-                                </div>
-                                <div className="rect_color" style={{backgroundColor: fillColor}}/>
-                                <ArrowDropDownRoundedIcon/>
+                                <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <path d="M16.56 8.94L7.62 0 6.21 1.41l2.38 2.38-5.15 5.15c-.59.59-.59 1.54 0 2.12l5.5 5.5c.29.29.68.44 1.06.44s.77-.15 1.06-.44l5.5-5.5c.59-.58.59-1.53 0-2.12zM5.21 10L10 5.21 14.79 10H5.21zM19 11.5s-2 2.17-2 3.5c0 1.1.9 2 2 2s2-.9 2-2c0-1.33-2-3.5-2-3.5z"/>
+                                    <path fill={fillColor} d="M0 20h24v4H0z"/>
+                                </svg>
                             </div>
                         </Dropdown.Toggle>
 
@@ -401,11 +420,11 @@ function Nav(props: any) {
                         <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
                                          variant="success" id="dropdown-slide">
                             <div id="border_element" className="edit_style_text__font">
-                                <div style={{float: 'left'}}>
-                                    Border &zwj;
-                                </div>
-                                <div className="rect_color" style={{backgroundColor: borderColor}}/>
-                                <ArrowDropDownRoundedIcon/>
+                                <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <path d="M17.75 7L14 3.25l-10 10V17h3.75l10-10zm2.96-2.96c.39-.39.39-1.02 0-1.41L18.37.29a.9959.9959 0 0 0-1.41 0L15 2.25 18.75 6l1.96-1.96z"/>
+                                    <path fill={borderColor} d="M0 20h24v4H0z"/>
+                                </svg>
                             </div>
                         </Dropdown.Toggle>
 
@@ -417,28 +436,25 @@ function Nav(props: any) {
                     </Dropdown>
 
                     {/*Border size*/}
-                    <div id="edit_style_border_size" className="hidden edit_style_text_size">
-                        <TextField
-                            size="small"
-                            label="border-size"
-                            inputProps={{min: 0, style: {textAlign: 'center'}}}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            value={borderSizeView}
-                            type="number"
-                            onChange={(e) =>
-                                props.changeElementBorderWidth(e.target.value)
-                            }
-                        />
-                    </div>
+                    <Dropdown id="edit_style_border_size" className="hidden edit_style_text_size">
+                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                         variant="success" id="dropdown-slide">
+                            <div className="edit_style_text__font">
+                                <LineWeightIcon/>
+                            </div>
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu style={{backgroundColor: '#fff'}}>
+                            {borderSizeItems}
+                        </Dropdown.Menu>
+                    </Dropdown>
 
                     {/*separator*/}
                     <div id="edit_style_text_sep_2" className="vertical_separator hidden">&nbsp;</div>
 
                     {/*bold text*/}
                     <button id="edit_style_text_bold" type="button"
-                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
+                            className="btn btn-sm button__onclick dropbox__button hidden" style={{backgroundColor: boldSelect}} onClick={() =>
                         props.changeTextBold()
                     }>
                         <FormatBoldRoundedIcon/>
@@ -459,6 +475,26 @@ function Nav(props: any) {
                     }>
                         <FormatUnderlinedIcon/>
                     </button>
+
+                    {/*font color*/}
+                    <Dropdown id="edit_style_text_color" className="hidden">
+                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                         variant="success" id="dropdown-slide">
+                            <div id="fill_element" className="edit_style_text__font">
+                                <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <path fill={fillColor} d="M0 20h24v4H0z"/>
+                                    <path d="M11 3L5.5 17h2.25l1.12-3h6.25l1.12 3h2.25L13 3h-2zm-1.38 9L12 5.67 14.38 12H9.62z"/>
+                                </svg>
+                            </div>
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <ColorPicker color={fillColor} onChange={(color) =>
+                                props.changeElementFillColor(color.hex)
+                            } hideAlpha={true} hideInputs={true}/>
+                        </Dropdown.Menu>
+                    </Dropdown>
 
                     {/*separator 2*/}
                     <div id="edit_style_text_sep_3" className="vertical_separator hidden">&nbsp;</div>
