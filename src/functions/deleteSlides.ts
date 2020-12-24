@@ -2,52 +2,27 @@ import {Editor} from '../entities/Editor'
 import {v4 as uuidv4} from "uuid"
 import {WHITE} from "../entities/Constants"
 import {Slide} from "../entities/Slide"
+import {deepCopy} from "deep-copy-ts";
+import {Element} from "../entities/Elements";
 
 export function deleteSlides(editor: Editor): Editor {
     let slidesId = editor.selectionSlidesId
+    let allSlidesWithoutDeleted = editor.presentation.slides.filter(currSlide => !slidesId.includes(currSlide.id))
 
-    let selectedSlide = editor.presentation.slides.filter(slide => slide.id === slidesId[0])[0]
-    let indexOfSelectedSlide = editor.presentation.slides.indexOf(selectedSlide)
-
-    let newSlides = editor.presentation.slides.filter(slide => {
-        let isDeleted = false
-
-        for (let i = 0; i < slidesId.length; i++) {
-            isDeleted = (slidesId[i] === slide.id)
-            if (isDeleted) {
-                break
-            }
-        }
-        return !isDeleted
-    })
-
-    if (editor.presentation.slides.length === 1) {
-        let slideId = uuidv4()
-        return {
-            ...editor,
-            presentation: {
-                name: editor.presentation.name,
-                slides: [{
-                    id: slideId,
-                    elements: [],
-                    background: WHITE,
-                    selectionElementsId: []
-                } as Slide]
-            },
-            selectionSlidesId: [slideId]
-        }
+    let newEditor = deepCopy(editor)
+    if (allSlidesWithoutDeleted.length > 0) {
+        newEditor.presentation.slides = allSlidesWithoutDeleted
+        newEditor.selectionSlidesId = [allSlidesWithoutDeleted[0].id]
+        return newEditor;
     } else {
-        if (indexOfSelectedSlide === editor.presentation.slides.length - 1) {
-            indexOfSelectedSlide -= 1
-        }
-
-        return {
-            ...editor,
-            presentation: {
-                name: editor.presentation.name,
-                slides: newSlides
-            },
-            selectionSlidesId: [newSlides[indexOfSelectedSlide].id]
-        }
+        let newSlideId = uuidv4()
+        newEditor.presentation.slides = [{
+            id: newSlideId,
+            elements: new Array<Element>(),
+            background: WHITE,
+            selectionElementsId: [newSlideId]
+        } as Slide];
+        newEditor.selectionSlidesId = [newSlideId]
+        return newEditor
     }
 }
