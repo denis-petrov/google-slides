@@ -45,6 +45,7 @@ import {
     CHANGE_TEXT_FONT,
     CHANGE_TEXT_ITALIC,
     CHANGE_TEXT_SIZE,
+    CHANGE_TEXT_UNDERLINE,
     DELETE_ELEMENTS,
     DELETE_SLIDES,
     REDO,
@@ -94,9 +95,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
         changeElementBorderWidth: (data: number) => dispatch({type: CHANGE_ELEMENT_BORDER_WIDTH, payload: data}),
         changeTextBold: () => dispatch({type: CHANGE_TEXT_BOLD}),
         changeTextItalic: () => dispatch({type: CHANGE_TEXT_ITALIC}),
-        changeTextUnderline: () => dispatch({type: CHANGE_TEXT_ITALIC}),
+        changeTextUnderline: () => dispatch({type: CHANGE_TEXT_UNDERLINE}),
         changeTextFont: (data: string) => dispatch({type: CHANGE_TEXT_FONT, payload: data}),
-        changeTextSize: (data: string) => dispatch({type: CHANGE_TEXT_SIZE, payload: data})
+        changeTextSize: (data: number) => dispatch({type: CHANGE_TEXT_SIZE, payload: data})
     }
 }
 
@@ -110,7 +111,9 @@ function Nav(props: any) {
     let borderSizeView: number = 0
     let font: string = ''
     let fontSize: number = 10
-    let boldSelect: string = '#fff'
+    let boldSelect: string = ''
+    let underlinedSelect: string = ''
+    let italicSelect: string = ''
     if ((elem !== undefined) && (elem != null)) {
         borderColor = `rgb(${elem.borderColor.red},${elem.borderColor.green},${elem.borderColor.blue})`
         borderSizeView = elem.borderWidth
@@ -119,7 +122,9 @@ function Nav(props: any) {
             fillColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
             font = textStyle.font
             fontSize = textStyle.sizeFont
-            boldSelect = textStyle.isBold ? 'rgb(254, 239, 195)' : '#fff'
+            boldSelect = textStyle.isBold ? 'text-bold' : ''
+            italicSelect = textStyle.isCurve ? 'text-italic' : ''
+            underlinedSelect = textStyle.isUnderline ? 'text-underlined' : ''
         } else {
             if (elem.backgroundColor != null) {
                 fillColor = `rgb(${elem.backgroundColor.red},${elem.backgroundColor.green},${elem.backgroundColor.blue})`
@@ -470,8 +475,7 @@ function Nav(props: any) {
 
                     {/*bold text*/}
                     <button id="edit_style_text_bold" type="button"
-                            className="btn btn-sm button__onclick dropbox__button hidden"
-                            style={{backgroundColor: boldSelect}} onClick={() =>
+                            className={"btn btn-sm button__onclick dropbox__button hidden " + boldSelect} onClick={() =>
                         props.changeTextBold()
                     }>
                         <FormatBoldRoundedIcon/>
@@ -479,15 +483,15 @@ function Nav(props: any) {
 
                     {/*italic text*/}
                     <button id="edit_style_text_italic" type="button"
-                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
+                            className={"btn btn-sm button__onclick dropbox__button hidden " + italicSelect} onClick={() =>
                         props.changeTextItalic()
                     }>
                         <FormatItalicRoundedIcon/>
                     </button>
 
-                    {/*italic text*/}
+                    {/*underlined text*/}
                     <button id="edit_style_text_underline" type="button"
-                            className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
+                            className={"btn btn-sm button__onclick dropbox__button hidden " + underlinedSelect} onClick={() =>
                         props.changeTextUnderline()
                     }>
                         <FormatUnderlinedIcon/>
@@ -559,20 +563,27 @@ function Nav(props: any) {
                     <div id="edit_style_text_sep_4" className="vertical_separator hidden">&nbsp;</div>
 
                     {/*Font size*/}
-                    <div id="edit_style_text_size" className="hidden edit_style_text_size">
-                        <TextField
-                            size="small"
-                            label="font-size"
-                            inputProps={{min: 0, style: {textAlign: 'center'}}}
-                            value={fontSize}
-                            type="number"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            onChange={(e) =>
-                                props.changeTextSize(e.target.value)
+                    <div id="edit_style_text_size" className="hidden edit_style_text_size font-size-block">
+                        <RemoveIcon fontSize='small' onClick={() => {
+                            if (fontSize - 1 >= 1) {
+                                props.changeTextSize(fontSize - 1)
                             }
-                        />
+                        }} />
+                        <input aria-invalid="false" type="number" min="1" max="80"
+                               value={fontSize} onChange={(e) => {
+                            if (parseInt(e.target.value) > 80) {
+                                fontSize = 80
+                            } else if (parseInt(e.target.value) < 1) {
+                                fontSize = 1
+                            } else {
+                                props.changeTextSize(parseInt(e.target.value))
+                            }
+                        }}/>
+                        <AddIcon fontSize='small' onClick={() => {
+                            if (fontSize + 1 <= 80) {
+                                props.changeTextSize(fontSize + 1)
+                            }
+                        }}/>
                     </div>
 
                 </Toolbar>
