@@ -55,6 +55,7 @@ import {
 import LineWeightIcon from '@material-ui/icons/LineWeight'
 import CheckIcon from '@material-ui/icons/Check'
 import {resetStateHistory} from "../store/stateHistory"
+import {v4 as uuidv4} from 'uuid'
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -139,7 +140,7 @@ function Nav(props: any) {
             opacity = 1
         }
 
-        return <Dropdown.Item className="btn-sm button__onclick"
+        return <Dropdown.Item key={uuidv4()} className="btn-sm button__onclick"
                               onClick={() => props.changeElementBorderWidth(borderSize)}>
             <CheckIcon fontSize='small' style={{marginRight: '.65rem', opacity: opacity}}/>
             {borderSize} px
@@ -287,80 +288,82 @@ function Nav(props: any) {
 
             <AppBar position="static" className="nav">
                 <Toolbar variant="dense">
-                    <button type="button" className="btn btn-sm button__onclick dropbox__button"
+                    <button data-title="Add&nbsp;slide" type="button" className="btn btn-sm button__onclick dropbox__button"
                             onClick={() => props.addEmptySlide()}>
                         <AddIcon/>
                     </button>
 
-                    <button type="button" className="btn btn-sm button__onclick dropbox__button"
+                    <button data-title="Remove&nbsp;slides" type="button" className="btn btn-sm button__onclick dropbox__button"
                             onClick={() => props.deleteSlides()}>
                         <RemoveIcon/>
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Undo" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.undo()}>
                         <UndoIcon/>
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Redo" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.redo()}>
                         <RedoIcon/>
                     </button>
 
                     <div className="vertical_separator">&nbsp;</div>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Add&nbsp;triangle" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.addTriangle()}>
                         <ChangeHistoryIcon/>
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Add&nbsp;ellipse" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.addEllipse()}>
                         <RadioButtonUncheckedIcon/>
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Add&nbsp;rectangle" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.addRectangle()}>
                         <CheckBoxOutlineBlankIcon/>
                     </button>
 
-                    <button type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Add&nbsp;text" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.addText()}>
                         <TextFieldsIcon/>
                     </button>
 
-                    <Dropdown>
-                        <Dropdown.Toggle className="btn-light btn-sm dropbox__insert dropbox__button"
-                                         variant="success" id="dropdown-insert">
-                            <CropOriginalIcon/>
-                        </Dropdown.Toggle>
+                    <div data-title="Add&nbsp;image">
+                        <Dropdown>
+                            <Dropdown.Toggle className="btn-light btn-sm dropbox__insert dropbox__button"
+                                             variant="success" id="dropdown-insert">
+                                <CropOriginalIcon/>
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <div>
-                                <label htmlFor="myImage" className="btn-sm button__onclick dropbox_image__item">
-                                    <GetAppRoundedIcon/> Insert from computer
-                                </label>
-                                <input
-                                    className="dropbox__open_button"
-                                    id="myImage"
-                                    name="myImage"
-                                    accept="image/*"
-                                    onChange={(e: any) => {
-                                        if (e.target.files !== null) {
-                                            insertImageFromPc(e, 'ADD_ELEMENT', dispatch)
+                            <Dropdown.Menu>
+                                <div>
+                                    <label htmlFor="myImage" className="btn-sm button__onclick dropbox_image__item">
+                                        <GetAppRoundedIcon/> Insert from computer
+                                    </label>
+                                    <input
+                                        className="dropbox__open_button"
+                                        id="myImage"
+                                        name="myImage"
+                                        accept="image/*"
+                                        onChange={(e: any) => {
+                                            if (e.target.files !== null) {
+                                                insertImageFromPc(e, 'ADD_ELEMENT', dispatch)
 
-                                            e.target.value = null
-                                        }
-                                    }}
-                                    ref={imageFiled}
-                                    type="file"
-                                />
-                            </div>
-                            <div>
-                                <FormDialog isBackground={false}/>
-                            </div>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                                                e.target.value = null
+                                            }
+                                        }}
+                                        ref={imageFiled}
+                                        type="file"
+                                    />
+                                </div>
+                                <div>
+                                    <FormDialog isBackground={false}/>
+                                </div>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
 
                     <div className="vertical_separator">&nbsp;</div>
 
@@ -404,7 +407,7 @@ function Nav(props: any) {
                     <div id="edit_style_text_sep_0" className="vertical_separator hidden">&nbsp;</div>
 
                     {/*delete element*/}
-                    <button id="edit_style_text_delete" type="button"
+                    <button data-title="Delete&nbsp;elements" id="edit_style_text_delete" type="button"
                             className="btn btn-sm button__onclick dropbox__button hidden" onClick={() =>
                         props.deleteElements()
                     }>
@@ -415,66 +418,72 @@ function Nav(props: any) {
                     <div id="edit_style_text_sep_1" className="vertical_separator hidden">&nbsp;</div>
 
                     {/*Fill backgroundColor*/}
-                    <Dropdown id="edit_style_element_fill_color" className="hidden">
-                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
-                                         variant="success" id="dropdown-slide">
-                            <div id="fill_element" className="edit_style_text__font">
-                                <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24"
-                                     aria-hidden="true">
-                                    <path
-                                        d="M16.56 8.94L7.62 0 6.21 1.41l2.38 2.38-5.15 5.15c-.59.59-.59 1.54 0 2.12l5.5 5.5c.29.29.68.44 1.06.44s.77-.15 1.06-.44l5.5-5.5c.59-.58.59-1.53 0-2.12zM5.21 10L10 5.21 14.79 10H5.21zM19 11.5s-2 2.17-2 3.5c0 1.1.9 2 2 2s2-.9 2-2c0-1.33-2-3.5-2-3.5z"/>
-                                    <path fill={fillColor} d="M0 20h24v4H0z"/>
-                                </svg>
-                            </div>
-                        </Dropdown.Toggle>
+                    <div data-title="Fill&nbsp;color">
+                        <Dropdown id="edit_style_element_fill_color" className="hidden">
+                            <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                             variant="success" id="dropdown-slide">
+                                <div id="fill_element" className="edit_style_text__font">
+                                    <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24"
+                                         aria-hidden="true">
+                                        <path
+                                            d="M16.56 8.94L7.62 0 6.21 1.41l2.38 2.38-5.15 5.15c-.59.59-.59 1.54 0 2.12l5.5 5.5c.29.29.68.44 1.06.44s.77-.15 1.06-.44l5.5-5.5c.59-.58.59-1.53 0-2.12zM5.21 10L10 5.21 14.79 10H5.21zM19 11.5s-2 2.17-2 3.5c0 1.1.9 2 2 2s2-.9 2-2c0-1.33-2-3.5-2-3.5z"/>
+                                        <path fill={fillColor} d="M0 20h24v4H0z"/>
+                                    </svg>
+                                </div>
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <ColorPicker color={fillColor} onChange={(color) =>
-                                props.changeElementFillColor(color.hex)
-                            } hideAlpha={true} hideInputs={true}/>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                            <Dropdown.Menu>
+                                <ColorPicker color={fillColor} onChange={(color) =>
+                                    props.changeElementFillColor(color.hex)
+                                } hideAlpha={true} hideInputs={true}/>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
 
                     {/*Border color*/}
-                    <Dropdown id="edit_style_element_border_color" className="hidden">
-                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
-                                         variant="success" id="dropdown-slide">
-                            <div id="border_element" className="edit_style_text__font">
-                                <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24"
-                                     aria-hidden="true">
-                                    <path
-                                        d="M17.75 7L14 3.25l-10 10V17h3.75l10-10zm2.96-2.96c.39-.39.39-1.02 0-1.41L18.37.29a.9959.9959 0 0 0-1.41 0L15 2.25 18.75 6l1.96-1.96z"/>
-                                    <path fill={borderColor} d="M0 20h24v4H0z"/>
-                                </svg>
-                            </div>
-                        </Dropdown.Toggle>
+                    <div data-title="Border&nbsp;color">
+                        <Dropdown id="edit_style_element_border_color" className="hidden">
+                            <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                             variant="success" id="dropdown-slide">
+                                <div id="border_element" className="edit_style_text__font">
+                                    <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24"
+                                         aria-hidden="true">
+                                        <path
+                                            d="M17.75 7L14 3.25l-10 10V17h3.75l10-10zm2.96-2.96c.39-.39.39-1.02 0-1.41L18.37.29a.9959.9959 0 0 0-1.41 0L15 2.25 18.75 6l1.96-1.96z"/>
+                                        <path fill={borderColor} d="M0 20h24v4H0z"/>
+                                    </svg>
+                                </div>
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <ColorPicker color={borderColor} onChange={(color) =>
-                                props.changeElementBorderColor(color.hex)
-                            } hideAlpha={true} hideInputs={true}/>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                            <Dropdown.Menu>
+                                <ColorPicker color={borderColor} onChange={(color) =>
+                                    props.changeElementBorderColor(color.hex)
+                                } hideAlpha={true} hideInputs={true}/>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
 
                     {/*Border size*/}
-                    <Dropdown id="edit_style_border_size" className="hidden edit_style_text_size">
-                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
-                                         variant="success" id="dropdown-slide">
-                            <div className="edit_style_text__font">
-                                <LineWeightIcon/>
-                            </div>
-                        </Dropdown.Toggle>
+                    <div data-title="Border&nbsp;size">
+                        <Dropdown id="edit_style_border_size" className="hidden edit_style_text_size">
+                            <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                             variant="success" id="dropdown-slide">
+                                <div className="edit_style_text__font">
+                                    <LineWeightIcon/>
+                                </div>
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu style={{backgroundColor: '#fff'}}>
-                            {borderSizeItems}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                            <Dropdown.Menu style={{backgroundColor: '#fff'}}>
+                                {borderSizeItems}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
 
                     {/*separator*/}
                     <div id="edit_style_text_sep_2" className="vertical_separator hidden">&nbsp;</div>
 
                     {/*bold text*/}
-                    <button id="edit_style_text_bold" type="button"
+                    <button data-title="Bold" id="edit_style_text_bold" type="button"
                             className={"btn btn-sm button__onclick dropbox__button hidden " + boldSelect} onClick={() =>
                         props.changeTextBold()
                     }>
@@ -482,7 +491,7 @@ function Nav(props: any) {
                     </button>
 
                     {/*italic text*/}
-                    <button id="edit_style_text_italic" type="button"
+                    <button data-title="Italic" id="edit_style_text_italic" type="button"
                             className={"btn btn-sm button__onclick dropbox__button hidden " + italicSelect} onClick={() =>
                         props.changeTextItalic()
                     }>
@@ -490,7 +499,7 @@ function Nav(props: any) {
                     </button>
 
                     {/*underlined text*/}
-                    <button id="edit_style_text_underline" type="button"
+                    <button data-title="Underline" id="edit_style_text_underline" type="button"
                             className={"btn btn-sm button__onclick dropbox__button hidden " + underlinedSelect} onClick={() =>
                         props.changeTextUnderline()
                     }>
@@ -498,25 +507,27 @@ function Nav(props: any) {
                     </button>
 
                     {/*font color*/}
-                    <Dropdown id="edit_style_text_color" className="hidden">
-                        <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
-                                         variant="success" id="dropdown-slide">
-                            <div id="fill_element" className="edit_style_text__font">
-                                <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24"
-                                     aria-hidden="true">
-                                    <path fill={fillColor} d="M0 20h24v4H0z"/>
-                                    <path
-                                        d="M11 3L5.5 17h2.25l1.12-3h6.25l1.12 3h2.25L13 3h-2zm-1.38 9L12 5.67 14.38 12H9.62z"/>
-                                </svg>
-                            </div>
-                        </Dropdown.Toggle>
+                    <div data-title="Font&nbsp;color">
+                        <Dropdown id="edit_style_text_color" className="hidden">
+                            <Dropdown.Toggle className="btn-light btn-sm btn button__onclick dropbox__button"
+                                             variant="success" id="dropdown-slide">
+                                <div id="fill_element" className="edit_style_text__font">
+                                    <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24"
+                                         aria-hidden="true">
+                                        <path fill={fillColor} d="M0 20h24v4H0z"/>
+                                        <path
+                                            d="M11 3L5.5 17h2.25l1.12-3h6.25l1.12 3h2.25L13 3h-2zm-1.38 9L12 5.67 14.38 12H9.62z"/>
+                                    </svg>
+                                </div>
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <ColorPicker color={fillColor} onChange={(color) =>
-                                props.changeElementFillColor(color.hex)
-                            } hideAlpha={true} hideInputs={true}/>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                            <Dropdown.Menu>
+                                <ColorPicker color={fillColor} onChange={(color) =>
+                                    props.changeElementFillColor(color.hex)
+                                } hideAlpha={true} hideInputs={true}/>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
 
                     {/*separator 2*/}
                     <div id="edit_style_text_sep_3" className="vertical_separator hidden">&nbsp;</div>
@@ -564,26 +575,32 @@ function Nav(props: any) {
 
                     {/*Font size*/}
                     <div id="edit_style_text_size" className="hidden edit_style_text_size font-size-block">
-                        <RemoveIcon fontSize='small' onClick={() => {
-                            if (fontSize - 1 >= 1) {
-                                props.changeTextSize(fontSize - 1)
-                            }
-                        }} />
-                        <input aria-invalid="false" type="number" min="1" max="80"
-                               value={fontSize} onChange={(e) => {
-                            if (parseInt(e.target.value) > 80) {
-                                fontSize = 80
-                            } else if (parseInt(e.target.value) < 1) {
-                                fontSize = 1
-                            } else {
-                                props.changeTextSize(parseInt(e.target.value))
-                            }
-                        }}/>
-                        <AddIcon fontSize='small' onClick={() => {
-                            if (fontSize + 1 <= 80) {
-                                props.changeTextSize(fontSize + 1)
-                            }
-                        }}/>
+                        <div data-title="Decrease&nbsp;font&nbsp;size">
+                            <RemoveIcon fontSize='small' onClick={() => {
+                                if (fontSize - 1 >= 1) {
+                                    props.changeTextSize(fontSize - 1)
+                                }
+                            }} />
+                        </div>
+                        <div data-title="Font&nbsp;size">
+                            <input aria-invalid="false" type="number" min="1" max="80"
+                                   value={fontSize} onChange={(e) => {
+                                if (parseInt(e.target.value) > 80) {
+                                    fontSize = 80
+                                } else if (parseInt(e.target.value) < 1) {
+                                    fontSize = 1
+                                } else {
+                                    props.changeTextSize(parseInt(e.target.value))
+                                }
+                            }}/>
+                        </div>
+                        <div data-title="Increase&nbsp;font&nbsp;size">
+                            <AddIcon fontSize='small' onClick={() => {
+                                if (fontSize + 1 <= 80) {
+                                    props.changeTextSize(fontSize + 1)
+                                }
+                            }}/>
+                        </div>
                     </div>
 
                 </Toolbar>

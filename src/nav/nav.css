@@ -222,8 +222,7 @@ nav__menu:hover {
     text-align: center;
 }
 
-.edit_style_text_size input,
-.edit_style_text_size svg {
+.edit_style_text_size div {
     display: inline-block;
 }
 
@@ -241,7 +240,7 @@ nav__menu:hover {
     transition: background-color .3s ease-in;
 }
 
-.font-size-block svg:hover {
+.font-size-block div:hover {
     background-color: #f8f9fa;
 }
 
@@ -254,11 +253,11 @@ input[type='number'] {
     -moz-appearance: textfield;
 }
 
-.font-size-block svg:first-child {
+.font-size-block div:first-child {
     border-right: 1px solid #c2c3c4;
 }
 
-.font-size-block svg:last-child {
+.font-size-block div:last-child {
     border-left: 1px solid #c2c3c4;
 }
 
@@ -300,4 +299,21 @@ input[type='number'] {
 .text-underlined,
 .text-bold {
     background-color: rgb(254, 239, 195) !important;
+}
+
+*[data-title]:hover:after,
+.font-size-block div[data-title]:hover:after {
+    content: attr(data-title);
+    position: absolute;
+    background-color: #000;
+    color: #fff;
+    font-size: 14px;
+    padding: 3px 7px;
+    border-radius: 3px;
+    top: 100%;
+    transform: translateX(-60%);
+}
+
+div[data-title]:hover:after {
+    transform: translateX(-20%);
 }
