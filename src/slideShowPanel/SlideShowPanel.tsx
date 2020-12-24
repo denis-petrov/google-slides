@@ -14,7 +14,7 @@ import {getIsShowCurrentlyPresentation} from "../functions/showPresentation"
 import {stopShowPresentation} from "./stopShowPresentation"
 import {showPrevSlide} from "./showPrevSlide"
 import {changeSlideSize} from "./changeSlideSize"
-import {useEventListener} from "../customHooks/useEventListner";
+import {useEventListener} from "../customHooks/useEventListner"
 
 
 const mapStateToProps = (state: Editor) => {

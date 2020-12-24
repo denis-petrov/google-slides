@@ -1,11 +1,9 @@
 import {Editor} from "../entities/Editor"
 import {deepCopy} from "deep-copy-ts"
 import {StateHistory} from "../entities/StateHistory"
+import {INITIAL_STATE_HISTORY} from "../entities/Constants"
 
-let stateHistory: StateHistory = {
-    history: [],
-    index: 0
-}
+let stateHistory: StateHistory = INITIAL_STATE_HISTORY
 
 export function saveStateToHistory(state: Editor) {
     try {
@@ -14,10 +12,14 @@ export function saveStateToHistory(state: Editor) {
         }
 
         stateHistory.history.push(deepCopy(state))
-        stateHistory.index += 1
+        stateHistory = incIndex(stateHistory)
     } catch (err) {
         console.log(err)
     }
+}
+
+export function resetStateHistory() {
+    stateHistory = INITIAL_STATE_HISTORY
 }
 
 export function canRedo(): boolean {
@@ -25,7 +27,7 @@ export function canRedo(): boolean {
 }
 
 export function canUndo(): boolean {
-    return stateHistory.index > 0
+    return stateHistory.index >= 0
 }
 
 export function canUndoKeyboard(evt: KeyboardEvent): boolean {
@@ -47,23 +49,14 @@ function incIndex(stateHistory: StateHistory): StateHistory {
 }
 
 export function undo() {
-    /*console.log(stateHistory.index)
     if (canUndo()) {
-        console.log(stateHistory.index)
-
-        decHistoryIndex()
-
-        console.log(stateHistory.index)
-        console.log(stateHistory)
+        if (stateHistory.index > 0) {
+            stateHistory = decIndex(stateHistory)
+        }
 
         return stateHistory.history[stateHistory.index]
     }
-    return stateHistory.history[stateHistory.index]*/
-    console.log(stateHistory)
-    console.log(stateHistory.index)
-    stateHistory = decIndex(stateHistory)
-    console.log(stateHistory.index)
-    console.log(stateHistory)
+    return stateHistory.history[stateHistory.index]
 }
 
 export function redo() {

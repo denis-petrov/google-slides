@@ -2,11 +2,11 @@ import {loadState, saveStateToLocalStorage} from "./localStorage"
 import {applyMiddleware, compose, createStore, Store} from "redux"
 import {Editor} from "../entities/Editor"
 import {DispatchType, EditorAction} from "../type"
-import reducer from "./reducer"
+import reducer, {lastCommand} from "./reducer"
 import thunk from "redux-thunk"
 import {createLogger} from "redux-logger"
 import {saveStateToHistory} from "./stateHistory"
-import {StateHistory} from "../entities/StateHistory";
+import {CHOOSE_ELEMENTS, CHOOSE_SLIDES, REDO, UNDO} from "./actionTypes"
 
 
 const oldState = loadState()
@@ -15,18 +15,15 @@ export const store: Store<Editor, EditorAction> & {
 } = createStore(reducer, oldState, applyMiddleware(thunk))
 
 
-export let stateHistory: StateHistory = {
-    history: [],
-    index: 0
-}
-
-
+let notValidActions: Array<string> = [UNDO, REDO, CHOOSE_SLIDES, CHOOSE_ELEMENTS]
 store.subscribe(() => {
     let state = store.getState()
 
     saveStateToLocalStorage(state)
-   /* saveStateHistoryToLocalStorage(stateHistory)*/
-    saveStateToHistory(state)
+
+    if (!notValidActions.includes(lastCommand)) {
+        saveStateToHistory(state)
+    }
 })
 
 

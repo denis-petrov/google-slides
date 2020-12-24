@@ -1,7 +1,6 @@
 import {Editor} from "../entities/Editor"
-import {LOCAL_STORAGE_EDITOR_KEY, LOCAL_STORAGE_STATE_HISTORY_KEY, WHITE} from "../entities/Constants"
+import {LOCAL_STORAGE_EDITOR_KEY, WHITE} from "../entities/Constants"
 import {v4 as uuidv4} from "uuid"
-import {StateHistory} from "../entities/StateHistory";
 
 
 let firstSlideId = uuidv4()
@@ -31,16 +30,6 @@ export const saveStateToLocalStorage = (state: Editor) => {
         console.log(err)
     }
 }
-
-/*export const saveStateHistoryToLocalStorage = (stateHistory: StateHistory) => {
-    try {
-        const serialisedState = JSON.stringify(stateHistory)
-
-        window.localStorage.setItem(LOCAL_STORAGE_STATE_HISTORY_KEY, serialisedState)
-    } catch (err) {
-        console.log(err)
-    }
-}*/
 
 export const loadState = () => {
     try {

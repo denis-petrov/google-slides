@@ -24,11 +24,13 @@ import {changeTextSize} from "../functions/changeTextSize"
 import {initialState} from "./localStorage"
 import {redo, undo} from "./stateHistory"
 
+export let lastCommand: string
 
 const reducer = (
     state: Editor = initialState,
     action: EditorAction
 ): Editor => {
+    lastCommand = action.type
     switch (action.type) {
         /* editor */
         case actionTypes.SET_EDITOR:
@@ -38,9 +40,7 @@ const reducer = (
 
         /* undo and redo*/
         case actionTypes.UNDO:
-            undo()
-
-            return state
+            return undo()
         case actionTypes.REDO:
             return redo()
 

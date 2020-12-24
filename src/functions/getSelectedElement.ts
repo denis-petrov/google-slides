@@ -1,7 +1,6 @@
-import {store} from "../store/store"
+import {Editor} from "../entities/Editor"
 
-export function getSelectedElement() {
-    const editor = store.getState()
+export function getSelectedElement(editor: Editor) {
     let selectedSlideId = editor.selectionSlidesId[0]
     let selectedSlide = editor.presentation.slides.filter((slide) => {
         if (slide.id === selectedSlideId) {
