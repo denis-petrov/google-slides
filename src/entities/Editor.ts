@@ -3,6 +3,7 @@ import {isPresentation, Presentation} from './Presentation'
 export type {
     Editor
 }
+
 export {
     isRedactor
 }

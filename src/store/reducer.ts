@@ -38,6 +38,7 @@ const reducer = (
         case actionTypes.CHANGE_PRESENTATION_NAME:
             return changeNamePresentation(state, action.payload)
 
+
         /* undo and redo*/
         case actionTypes.UNDO:
             return undo()
@@ -57,7 +58,7 @@ const reducer = (
 
 
         /* elements */
-        /* main */
+            /* main */
         case actionTypes.CHOOSE_ELEMENTS:
             return chooseElements(state, action.payload)
         case actionTypes.ADD_ELEMENT:
@@ -66,21 +67,23 @@ const reducer = (
             return deleteElements(state)
         case actionTypes.ADD_TO_BACKGROUND:
             return addToBackground(state, action.payload)
-        /* move */
+        case actionTypes.ADD_IMAGE_TO_BACKGROUND:
+            return addToBackground(state, action.payload)
+            /* move */
         case actionTypes.CHANGE_POSITION_OF_ELEMENTS:
             return changePositionOfElements(state, action.payload)
         case actionTypes.END_MOVE_ELEMENTS:
             return changePositionOfElements(state, action.payload)
         case actionTypes.CHANGE_TEXT_VALUE:
             return changeTextValue(state, action.payload)
-        /* styles */
+            /* styles */
         case actionTypes.CHANGE_ELEMENT_FILL_COLOR:
             return changeElementFillColor(state, action.payload)
         case actionTypes.CHANGE_ELEMENT_BORDER_COLOR:
             return changeElementBorderColor(state, action.payload)
         case actionTypes.CHANGE_ELEMENT_BORDER_WIDTH:
             return changeElementBorderWidth(state, action.payload)
-        /* style text */
+            /* style text */
         case actionTypes.CHANGE_TEXT_BOLD:
             return changeTextBold(state)
         case actionTypes.CHANGE_TEXT_ITALIC:

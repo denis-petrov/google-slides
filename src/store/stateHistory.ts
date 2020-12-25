@@ -12,10 +12,14 @@ export function saveStateToHistory(state: Editor) {
         }
 
         stateHistory.history.push(deepCopy(state))
-        stateHistory = incIndex(stateHistory)
+        incIndex()
     } catch (err) {
         console.log(err)
     }
+}
+
+export function getStateHistory(): StateHistory {
+    return stateHistory
 }
 
 export function resetStateHistory() {
@@ -34,24 +38,18 @@ export function canUndoKeyboard(evt: KeyboardEvent): boolean {
     return evt.ctrlKey && evt.keyCode === 90
 }
 
-function decIndex(stateHistory: StateHistory): StateHistory {
-    return {
-        ...stateHistory,
-        index: stateHistory.index - 1
-    }
+export function decIndex() {
+    stateHistory.index--
 }
 
-function incIndex(stateHistory: StateHistory): StateHistory {
-    return {
-        ...stateHistory,
-        index: stateHistory.index + 1
-    }
+export function incIndex() {
+    stateHistory.index++
 }
 
 export function undo() {
     if (canUndo()) {
         if (stateHistory.index > 0) {
-            stateHistory = decIndex(stateHistory)
+            decIndex()
         }
 
         return stateHistory.history[stateHistory.index]
@@ -61,7 +59,7 @@ export function undo() {
 
 export function redo() {
     if (canRedo()) {
-        stateHistory = incIndex(stateHistory)
+        incIndex()
 
         return stateHistory.history[stateHistory.index]
     }

@@ -6,6 +6,7 @@ import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {v4 as uuidv4} from 'uuid'
 import {Slide} from "../entities/Slide"
+import {pathClassName, pointsClassName, removeAllSelectionView} from "../functions/removeSelectOfElements";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -27,6 +28,10 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 function SlideArea(props: any) {
     let editor = props.state
     let slideId = ''
+
+    /*if (editor.presentation.slides[0].selectionElementsId.length === 0) {
+        removeAllSelectionView(pathClassName, pointsClassName)
+    }*/
 
     let elements = editor.presentation.slides.map((s: Slide) => {
         if (editor.selectionSlidesId.includes(s.id)) {

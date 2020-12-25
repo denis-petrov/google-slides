@@ -17,7 +17,6 @@ export default function ColorPickerOur(props: any) {
     let slideColor: string = '#fff'
     editor.presentation.slides.map((s) => {
         if (editor.selectionSlidesId.includes(s.id) && typeof(s.background) !== "string") {
-            console.log(editor)
             slideColor = `rgb(${s.background.red}, ${s.background.green}, ${s.background.blue})`
         }
     })

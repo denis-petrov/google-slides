@@ -11,6 +11,8 @@ import {canRedo, canUndo, canUndoKeyboard} from "./store/stateHistory"
 import {useDragAndDrop} from "./customHooks/useDragAndDrop"
 import {useEventListener} from "./customHooks/useEventListner"
 import {useMobileViewOnLoad} from "./customHooks/useMobileViewOnLoad"
+import {DELETE_ELEMENTS, REDO, SET_EDITOR, UNDO} from "./store/actionTypes"
+
 
 const mapStateToProps = (state: Editor) => {
     return {
@@ -18,14 +20,16 @@ const mapStateToProps = (state: Editor) => {
     }
 }
 
+
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        setEditor: () => dispatch({type: 'SET_EDITOR', payload: initialState}),
-        undo: () => dispatch({type: 'UNDO'}),
-        redo: () => dispatch({type: 'REDO'}),
-        deleteElements: () => dispatch({type: 'DELETE_ELEMENTS'}),
+        setEditor: (state: Editor = initialState) => dispatch({type: SET_EDITOR, payload: state}),
+        undo: () => dispatch({type: UNDO}),
+        redo: () => dispatch({type: REDO}),
+        deleteElements: () => dispatch({type: DELETE_ELEMENTS}),
     }
 }
+
 
 function App(props: any) {
     if (Object.keys(props.state).length === 0) {
@@ -48,7 +52,7 @@ function App(props: any) {
         }
     }
 
-    useDragAndDrop()
+    useDragAndDrop(props.state)
     useMobileViewOnLoad()
 
     useEventListener('keydown', handleUndoRedo)

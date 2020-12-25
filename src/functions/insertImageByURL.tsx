@@ -3,6 +3,7 @@ import {DEFAULT_IMAGE} from '../entities/Constants'
 import {deepCopy} from "deep-copy-ts"
 import {imageInitAfterOnload} from "./imageInitAfterOnload"
 
+
 export function insertImageByURL(URL: string, type: string, dispatch: Dispatch<any>) {
     let copyImage = deepCopy(DEFAULT_IMAGE)
     let img = new Image()

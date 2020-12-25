@@ -2,6 +2,7 @@ import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu"
 import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
 import {Dispatch} from "react"
 import {store} from "../store/store"
+import {CHOOSE_ELEMENTS} from "../store/actionTypes"
 
 export function selectElements(event: any, id: string, dispatch: Dispatch<any>) {
     let clickedElem = event.currentTarget
@@ -54,7 +55,7 @@ export function selectElements(event: any, id: string, dispatch: Dispatch<any>) 
                 }
             }
 
-            dispatch({type: 'CHOOSE_ELEMENTS', payload: selectedElems})
+            dispatch({type: CHOOSE_ELEMENTS, payload: selectedElems})
         }
     } else {
         if (!clickedElem.classList.contains(elemClassName)) {
@@ -106,7 +107,7 @@ export function selectElements(event: any, id: string, dispatch: Dispatch<any>) 
                 changePrimitiveStyleMenu(true)
             }
 
-            dispatch({type: 'CHOOSE_ELEMENTS', payload: [id]})
+            dispatch({type: CHOOSE_ELEMENTS, payload: [id]})
         }
     }
 

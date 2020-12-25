@@ -12,6 +12,7 @@ import {useDispatch} from "react-redux"
 import {store} from "../store/store"
 import {CHANGE_POSITION_OF_ELEMENTS, END_MOVE_SLIDES} from "../store/actionTypes"
 import {useEventListener} from "./useEventListner"
+import {Editor} from "../entities/Editor"
 
 
 let isMoveElements: boolean
@@ -22,14 +23,13 @@ let isResize: boolean
 let isMoveSlides: boolean
 
 let pointIndex: number
-let payload: any
+let resizePayload: any
 let resized = false
 
 let isMouseMove = false
 
-export function useDragAndDrop() {
+export function useDragAndDrop(editor: Editor) {
     const dispatch: Dispatch<any> = useDispatch()
-    let editor = store.getState()
 
     let handleMouseDown = (evt: MouseEvent) => {
         firstPosX = evt.clientX
@@ -66,7 +66,7 @@ export function useDragAndDrop() {
 
         if (isResize) {
             resized = true
-            payload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
+            resizePayload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
         }
     }
     useEventListener('mousemove', handleMouseMove)
@@ -99,9 +99,9 @@ export function useDragAndDrop() {
             isResize = false
             pointIndex = -1
             if (resized) {
-                endResizeElement(payload)
-                if (!payload.get('small')) {
-                    dispatch({type: CHANGE_POSITION_OF_ELEMENTS, payload: payload})
+                endResizeElement(resizePayload)
+                if (!resizePayload.get('small')) {
+                    dispatch({type: CHANGE_POSITION_OF_ELEMENTS, payload: resizePayload})
                 }
             }
         }

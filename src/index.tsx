@@ -4,8 +4,6 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import * as React from "react"
 import {Provider} from "react-redux"
-import {BrowserRouter} from "react-router-dom"
-import {createLogger} from 'redux-logger'
 import {store} from "./store/store"
 
 

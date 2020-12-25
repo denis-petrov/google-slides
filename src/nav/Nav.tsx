@@ -1,5 +1,5 @@
 import React, {ChangeEvent, Dispatch} from 'react'
-import {AppBar, TextField, Toolbar} from '@material-ui/core'
+import {AppBar, Toolbar} from '@material-ui/core'
 import {Dropdown} from 'react-bootstrap'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
@@ -36,7 +36,7 @@ import {connect, useDispatch} from "react-redux"
 import {initialState} from "../store/localStorage"
 import {
     ADD_ELEMENT,
-    ADD_EMPTY_SLIDE,
+    ADD_EMPTY_SLIDE, ADD_TO_BACKGROUND,
     CHANGE_ELEMENT_BORDER_COLOR,
     CHANGE_ELEMENT_BORDER_WIDTH,
     CHANGE_ELEMENT_FILL_COLOR,
@@ -347,7 +347,7 @@ function Nav(props: any) {
                                     accept="image/*"
                                     onChange={(e: any) => {
                                         if (e.target.files !== null) {
-                                            insertImageFromPc(e, 'ADD_ELEMENT', dispatch)
+                                            insertImageFromPc(e, ADD_ELEMENT, dispatch)
 
                                             e.target.value = null
                                         }
@@ -386,7 +386,7 @@ function Nav(props: any) {
                                     accept="image/*"
                                     onChange={(e: any) => {
                                         if (e.target.files !== null) {
-                                            insertImageFromPc(e, 'ADD_IMAGE_TO_BACKGROUND', dispatch)
+                                            insertImageFromPc(e, ADD_TO_BACKGROUND, dispatch)
 
                                             e.target.value = null
                                         }
