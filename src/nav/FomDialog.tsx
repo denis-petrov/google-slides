@@ -44,8 +44,12 @@ function FormDialog(props: any) {
     let isBackground = props.isBackground
 
     const handleKeydown = (e: KeyboardEvent) => {
-        if (e.keyCode === 13) {
-            props.insertElementImageByURL(userUrl)
+        if (e.keyCode === 13 && open) {
+            if (isBackground) {
+                props.insertBackgroundImageByURL(userUrl)
+            } else {
+                props.insertElementImageByURL(userUrl)
+            }
             handleClose()
         }
     }
