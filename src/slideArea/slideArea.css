@@ -66,3 +66,7 @@ svg p:empty:not(.element_choosed)::before {
     color: #FFFFFF;
     text-shadow: 0 1px 0 #000000, 0 -1px 0 #000000, 1px 0 0 #000000, -1px 0 0 #000000, 1px 1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, -1px -1px 0 #000000;
 }
+
+.multiple-select {
+    display: none !important;
+}

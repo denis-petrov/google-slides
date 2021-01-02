@@ -17,14 +17,14 @@ export function getSelectedPoints(width: number, height: number, viewBoxWidth: n
     const d6 = `M 0, ${lastPointY} H ${pointWidth} V ${viewBoxHeight} H 0 V ${lastPointY}`
     const d7 = `M ${middlePointX}, ${lastPointY} H ${middlePointX + pointWidth} V ${viewBoxHeight} H ${middlePointX} V ${lastPointY}`
     const d8 = `M ${lastPointX}, ${lastPointY} H ${viewBoxWidth} V ${viewBoxHeight} H ${lastPointX} V ${lastPointY}`
-    return {
-        "d1": d1,
-        "d2": d2,
-        "d3": d3,
-        "d4": d4,
-        "d5": d5,
-        "d6": d6,
-        "d7": d7,
-        "d8": d8
-    }
+    return [
+        d1,
+        d2,
+        d3,
+        d4,
+        d5,
+        d6,
+        d7,
+        d8
+    ]
 }

@@ -1,9 +1,9 @@
 import {mouseMoveElements} from "../functions/mouseMoveElements"
 import {changeVisibilitySlideHr} from "../slideMenu/changeVisibilitySlideHr"
-import {moveElementPoint, resizeElement} from "../functions/resizeElement"
+import {moveElementPoint, resizeElements} from "../functions/resizeElements"
 import {endMoveElements} from "../functions/endMoveElements"
 import {clearAllSlideHr} from "../slideMenu/clearAllSlideHr"
-import {endResizeElement} from "../functions/endResizeElement"
+import {endResizeElements} from "../functions/endResizeElements"
 import {removeSelectOfElement} from "../functions/removeSelectOfElements"
 import {moveSlides} from "../functions/moveSlides"
 import {moveElements} from "../slideArea/moveElements"
@@ -13,6 +13,7 @@ import {store} from "../store/store"
 import {CHANGE_POSITION_OF_ELEMENTS, END_MOVE_SLIDES} from "../store/actionTypes"
 import {useEventListener} from "./useEventListner"
 import {Editor} from "../entities/Editor"
+import {multipleSelectElements} from "../slideArea/selectElements";
 
 
 let isMoveElements: boolean
@@ -38,7 +39,7 @@ export function useDragAndDrop(editor: Editor) {
 
         isMoveSlides = moveSlides(evt)
 
-        pointIndex = resizeElement(evt, pointIndex)
+        pointIndex = resizeElements(evt, pointIndex)
         isResize = pointIndex >= 0
 
         removeSelectOfElement(evt, store.dispatch)
@@ -99,9 +100,10 @@ export function useDragAndDrop(editor: Editor) {
             isResize = false
             pointIndex = -1
             if (resized) {
-                endResizeElement(resizePayload)
+                endResizeElements(resizePayload)
                 if (!resizePayload.get('small')) {
                     dispatch({type: CHANGE_POSITION_OF_ELEMENTS, payload: resizePayload})
+                    multipleSelectElements()
                 }
             }
         }

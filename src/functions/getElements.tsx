@@ -4,6 +4,9 @@ import {ElementType, ImageElement, Text} from "../entities/Elements"
 import React, {Dispatch} from "react"
 import {selectElements} from "../slideArea/selectElements"
 import {v4 as uuidv4} from 'uuid'
+import {Point} from "../entities/Point";
+import {svg} from "react-pick-color/build/components/ColorList/ColorList.style";
+import {store} from "../store/store";
 
 
 export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boolean = true) {
@@ -60,28 +63,28 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
         }
 
         let points = [
-            <path data-value="point" d={selectedPoints.d1} stroke="rgb(255, 255, 255)" strokeWidth="2"
+            <path data-value="point" d={selectedPoints[0]} stroke="rgb(255, 255, 255)" strokeWidth="2"
                   strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d2} stroke="rgb(255, 255, 255)" strokeWidth="2"
+            <path data-value="point" d={selectedPoints[1]} stroke="rgb(255, 255, 255)" strokeWidth="2"
                   strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ns-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d3} stroke="rgb(255, 255, 255)" strokeWidth="2"
+            <path data-value="point" d={selectedPoints[2]} stroke="rgb(255, 255, 255)" strokeWidth="2"
                   strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nesw-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d4} stroke="rgb(255, 255, 255)" strokeWidth="2"
+            <path data-value="point" d={selectedPoints[3]} stroke="rgb(255, 255, 255)" strokeWidth="2"
                   strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ew-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d5} stroke="rgb(255, 255, 255)" strokeWidth="2"
+            <path data-value="point" d={selectedPoints[4]} stroke="rgb(255, 255, 255)" strokeWidth="2"
                   strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ew-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d6} stroke="rgb(255, 255, 255)" strokeWidth="2"
+            <path data-value="point" d={selectedPoints[5]} stroke="rgb(255, 255, 255)" strokeWidth="2"
                   strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nesw-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d7} stroke="rgb(255, 255, 255)" strokeWidth="2"
+            <path data-value="point" d={selectedPoints[6]} stroke="rgb(255, 255, 255)" strokeWidth="2"
                   strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'ns-resize'}}/>,
-            <path data-value="point" d={selectedPoints.d8} stroke="rgb(255, 255, 255)" strokeWidth="2"
+            <path data-value="point" d={selectedPoints[7]} stroke="rgb(255, 255, 255)" strokeWidth="2"
                   strokeLinejoin="miter" key={uuidv4()}
                   strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>
         ]
