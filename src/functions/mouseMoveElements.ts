@@ -49,6 +49,28 @@ export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number
                     }
                 }
             }
+            if (s.selectionElementsId.length > 1) {
+                let multipleSelection = document.getElementById('multiple-selection') as HTMLElement
+                let prevXAttribute: number | string | null = multipleSelection.getAttribute('tlpX')
+                let prevYAttribute: number | string | null = multipleSelection.getAttribute('tlpY')
+                let X = prevXAttribute
+                let Y = prevYAttribute
+
+                if (prevXAttribute && prevYAttribute) {
+                    prevXAttribute = parseFloat(prevXAttribute)
+                    prevYAttribute = parseFloat(prevYAttribute)
+                }
+
+                if (typeof(prevXAttribute) === "number" && typeof(prevYAttribute) === "number") {
+                    X = Math.floor(stepX / (slide.clientWidth) * 100 * 100) / 100 + prevXAttribute + '%'
+                    Y = Math.floor(stepY / (slide.clientHeight) * 100 * 100) / 100 + prevYAttribute + '%'
+                }
+
+                if (X && Y) {
+                    multipleSelection.setAttribute('x', X)
+                    multipleSelection.setAttribute('y', Y)
+                }
+            }
         }
     })
 }
