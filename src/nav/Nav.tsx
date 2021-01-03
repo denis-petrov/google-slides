@@ -330,40 +330,40 @@ function Nav(props: any) {
                         <TextFieldsIcon/>
                     </button>
 
-                    <div data-title="Add&nbsp;image">
-                        <Dropdown>
+                    <Dropdown>
+                        <div className="custom-title" data-title="Add&nbsp;image">
                             <Dropdown.Toggle className="btn-light btn-sm dropbox__insert dropbox__button"
                                              variant="success" id="dropdown-insert">
                                 <CropOriginalIcon/>
                             </Dropdown.Toggle>
+                        </div>
 
-                            <Dropdown.Menu>
-                                <div>
-                                    <label htmlFor="myImage" className="btn-sm button__onclick dropbox_image__item">
-                                        <GetAppRoundedIcon/> Insert from computer
-                                    </label>
-                                    <input
-                                        className="dropbox__open_button"
-                                        id="myImage"
-                                        name="myImage"
-                                        accept="image/*"
-                                        onChange={(e: any) => {
-                                            if (e.target.files !== null) {
-                                                insertImageFromPc(e, ADD_ELEMENT, dispatch)
+                        <Dropdown.Menu>
+                            <div>
+                                <label htmlFor="myImage" className="btn-sm button__onclick dropbox_image__item">
+                                    <GetAppRoundedIcon/> Insert from computer
+                                </label>
+                                <input
+                                    className="dropbox__open_button"
+                                    id="myImage"
+                                    name="myImage"
+                                    accept="image/*"
+                                    onChange={(e: any) => {
+                                        if (e.target.files !== null) {
+                                            insertImageFromPc(e, ADD_ELEMENT, dispatch)
 
-                                                e.target.value = null
-                                            }
-                                        }}
-                                        ref={imageFiled}
-                                        type="file"
-                                    />
-                                </div>
-                                <div>
-                                    <FormDialog isBackground={false}/>
-                                </div>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </div>
+                                            e.target.value = null
+                                        }
+                                    }}
+                                    ref={imageFiled}
+                                    type="file"
+                                />
+                            </div>
+                            <div>
+                                <FormDialog isBackground={false}/>
+                            </div>
+                        </Dropdown.Menu>
+                    </Dropdown>
 
                     <div className="vertical_separator">&nbsp;</div>
 
