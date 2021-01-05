@@ -1,5 +1,6 @@
 /*editor*/
 export const SET_EDITOR = "SET_EDITOR"
+export const NEW_EDITOR = "NEW_EDITOR"
 export const CHANGE_PRESENTATION_NAME = "CHANGE_PRESENTATION_NAME"
 export const UNDO = "UNDO"
 export const REDO = "REDO"

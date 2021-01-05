@@ -1,6 +1,6 @@
 import {Editor} from "../entities/Editor"
 
-export function getSelectedElement(editor: Editor) {
+export function getSelectedElements(editor: Editor) {
     let selectedSlideId = editor.selectionSlidesId[0]
     let selectedSlide = editor.presentation.slides.filter((slide) => {
         if (slide.id === selectedSlideId) {
@@ -9,12 +9,12 @@ export function getSelectedElement(editor: Editor) {
     })[0]
 
     if (selectedSlide.selectionElementsId !== []) {
-        const selectedElementId = selectedSlide.selectionElementsId[0]
+        const selectedElementId = selectedSlide.selectionElementsId
         return selectedSlide.elements.filter((elem) => {
-            if (elem.id === selectedElementId) {
+            if (selectedElementId.includes(elem.id)) {
                 return elem
             }
-        })[0]
+        })
     } else {
         return null
     }

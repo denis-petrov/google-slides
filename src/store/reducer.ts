@@ -35,6 +35,8 @@ const reducer = (
         /* editor */
         case actionTypes.SET_EDITOR:
             return setEditor(action.payload)
+        case actionTypes.NEW_EDITOR:
+            return setEditor(initialState)
         case actionTypes.CHANGE_PRESENTATION_NAME:
             return changeNamePresentation(state, action.payload)
 

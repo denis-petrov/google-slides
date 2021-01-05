@@ -1,11 +1,9 @@
-import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu"
-import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
-import React, {Dispatch} from "react"
+import {Dispatch} from "react"
 import {store} from "../store/store"
 import {CHOOSE_ELEMENTS} from "../store/actionTypes"
 import {Point} from "../entities/Point";
-import {pathClassName, pointsClassName} from "../functions/removeSelectOfElements";
-import {getSelectedPoints} from "../functions/getSelectedPoints";
+import {pathClassName, pointsClassName} from "../functions/removeSelectOfElements"
+import {getSelectedPoints} from "../functions/getSelectedPoints"
 
 
 const multipleSelectClassName = 'multiple-select'
@@ -106,11 +104,6 @@ export function selectElements(event: any, id: string, dispatch: Dispatch<any>) 
 
             if (clickedElem.tagName === 'P') {
                 (clickedElem.parentNode as HTMLElement).style.cursor = 'move'
-                changePrimitiveStyleMenu(false)
-                changeTextStyleMenu(true)
-            } else {
-                changeTextStyleMenu(false)
-                changePrimitiveStyleMenu(true)
             }
 
             dispatch({type: CHOOSE_ELEMENTS, payload: [id]})

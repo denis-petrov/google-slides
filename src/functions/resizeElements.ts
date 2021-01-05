@@ -1,7 +1,5 @@
 import {Element, ElementType, ImageElement} from "../entities/Elements"
 import {store} from "../store/store"
-import {Point} from "../entities/Point";
-import {getSelectedPoints} from "./getSelectedPoints";
 
 export function resizeElements(event: any, pointIndex: number) {
     let point = event.target
@@ -119,11 +117,10 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
                 brpY = Math.round(brpY * 100) / 100
 
 
-
                 let prevWidth = 0
                 let prevHeight = 0
 
-                if (typeof(oldTlpX) === "number" && typeof(oldTlpY) === "number" && typeof(oldBrpX) === "number" && typeof(oldBrpY) === "number") {
+                if (typeof (oldTlpX) === "number" && typeof (oldTlpY) === "number" && typeof (oldBrpX) === "number" && typeof (oldBrpY) === "number") {
                     prevWidth = Math.round((oldBrpX - oldTlpX) * 100) / 100
                     prevHeight = Math.round((oldBrpY - oldTlpY) * 100) / 100
                 }
@@ -191,7 +188,7 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
                         let newBottomRightPoint = new Map()
                         let newCenter = new Map()
 
-                        if (typeof(oldTlpX) === "number" && typeof(oldTlpY) === "number" && typeof(oldBrpX) === "number" && typeof(oldBrpY) === "number") {
+                        if (typeof (oldTlpX) === "number" && typeof (oldTlpY) === "number" && typeof (oldBrpX) === "number" && typeof (oldBrpY) === "number") {
                             topLeftPointX = tlpX + differenceX * (e.topLeftPoint.x - oldTlpX)
                             topLeftPointY = tlpY + differenceY * (e.topLeftPoint.y - oldTlpY)
                             bottomRightPointX = brpX - differenceX * (oldBrpX - e.bottomRightPoint.x)

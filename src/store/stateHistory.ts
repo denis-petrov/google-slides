@@ -23,7 +23,10 @@ export function getStateHistory(): StateHistory {
 }
 
 export function resetStateHistory() {
-    stateHistory = INITIAL_STATE_HISTORY
+    stateHistory = {
+        history: [],
+        index: 0
+    } as StateHistory
 }
 
 export function canRedo(): boolean {
@@ -31,7 +34,7 @@ export function canRedo(): boolean {
 }
 
 export function canUndo(): boolean {
-    return stateHistory.index >= 0
+    return stateHistory.index >= 0 && stateHistory.history.length >= 1
 }
 
 export function canUndoKeyboard(evt: KeyboardEvent): boolean {

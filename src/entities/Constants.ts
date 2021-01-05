@@ -1,6 +1,6 @@
 import {Color} from './Color'
 import {Element, ElementType, ImageElement, Text} from "./Elements"
-import {StateHistory} from "./StateHistory";
+import {StateHistory} from "./StateHistory"
 
 export {
     WHITE,
@@ -15,7 +15,6 @@ export {
     PAGE_HEIGHT,
     PAGE_WIDTH,
     LOCAL_STORAGE_EDITOR_KEY,
-    LOCAL_STORAGE_STATE_HISTORY_KEY,
     INITIAL_STATE_HISTORY
 }
 
@@ -169,7 +168,6 @@ const DEFAULT_IMAGE: ImageElement = {
 const PAGE_WIDTH = 1920
 const PAGE_HEIGHT = 1080
 const LOCAL_STORAGE_EDITOR_KEY = "Editor"
-const LOCAL_STORAGE_STATE_HISTORY_KEY = "StateHistory"
 
 const INITIAL_STATE_HISTORY: StateHistory = {
     history: [],

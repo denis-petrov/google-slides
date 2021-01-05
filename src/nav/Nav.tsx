@@ -29,7 +29,7 @@ import FormDialog from "./FomDialog"
 import ColorPickerOur from "./ColorPicker"
 import {createPdf} from "../pdfCreation/createPdf"
 import ColorPicker from "react-pick-color"
-import {getSelectedElement} from "../functions/getSelectedElement"
+import {getSelectedElements} from "../functions/getSelectedElements"
 import {ElementType, Text} from "../entities/Elements"
 import {showPresentation} from "../functions/showPresentation"
 import {connect, useDispatch} from "react-redux"
@@ -47,7 +47,7 @@ import {
     CHANGE_TEXT_SIZE,
     CHANGE_TEXT_UNDERLINE,
     DELETE_ELEMENTS,
-    DELETE_SLIDES,
+    DELETE_SLIDES, NEW_EDITOR,
     REDO,
     SET_EDITOR,
     UNDO
@@ -56,6 +56,8 @@ import LineWeightIcon from '@material-ui/icons/LineWeight'
 import CheckIcon from '@material-ui/icons/Check'
 import {resetStateHistory} from "../store/stateHistory"
 import {v4 as uuidv4} from 'uuid'
+import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
+import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu"
 
 
 const fileField = React.createRef<HTMLInputElement>()
@@ -74,8 +76,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
         changePresentationName: (newName: string) => dispatch({type: CHANGE_PRESENTATION_NAME, payload: newName}),
         setEditor: (state: Editor) => dispatch({type: SET_EDITOR, payload: state}),
         newPresentation: () => {
-            dispatch({type: SET_EDITOR, payload: initialState})
-            resetStateHistory()
+            dispatch({type: NEW_EDITOR})
+            changePrimitiveStyleMenu(false)
+            changeTextStyleMenu(false)
         },
         openPresentationFromPc: (e: ChangeEvent<HTMLInputElement>) => openPresentationFromPc(e, dispatch),
 
@@ -106,7 +109,7 @@ function Nav(props: any) {
     let editor = props.state
     const dispatch: Dispatch<any> = useDispatch()
 
-    const elem = getSelectedElement(editor)
+    const elements = getSelectedElements(editor)
     let fillColor: string = ''
     let borderColor: string = ''
     let borderSizeView: number = 0
@@ -115,11 +118,14 @@ function Nav(props: any) {
     let boldSelect: string = ''
     let underlinedSelect: string = ''
     let italicSelect: string = ''
-    if ((elem !== undefined) && (elem != null)) {
-        borderColor = `rgb(${elem.borderColor.red},${elem.borderColor.green},${elem.borderColor.blue})`
-        borderSizeView = elem.borderWidth
-        if (elem.type === ElementType.text) {
-            const textStyle = (elem as Text).textStyle
+    if ((elements !== undefined) && (elements != null) && (elements.length >= 1)) {
+        let element = elements[0]
+        borderColor = `rgb(${element.borderColor.red},${element.borderColor.green},${element.borderColor.blue})`
+        borderSizeView = element.borderWidth
+        if ((elements.length < 2) && (element.type === ElementType.text)) {
+            changePrimitiveStyleMenu(false)
+            changeTextStyleMenu(true)
+            const textStyle = (element as Text).textStyle
             fillColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
             font = textStyle.font
             fontSize = textStyle.sizeFont
@@ -127,8 +133,10 @@ function Nav(props: any) {
             italicSelect = textStyle.isCurve ? 'text-italic' : ''
             underlinedSelect = textStyle.isUnderline ? 'text-underlined' : ''
         } else {
-            if (elem.backgroundColor != null) {
-                fillColor = `rgb(${elem.backgroundColor.red},${elem.backgroundColor.green},${elem.backgroundColor.blue})`
+            if (element.backgroundColor != null) {
+                changeTextStyleMenu(false)
+                changePrimitiveStyleMenu(true)
+                fillColor = `rgb(${element.backgroundColor.red},${element.backgroundColor.green},${element.backgroundColor.blue})`
             }
         }
     }
@@ -288,44 +296,52 @@ function Nav(props: any) {
 
             <AppBar position="static" className="nav">
                 <Toolbar variant="dense">
-                    <button data-title="Add&nbsp;slide" type="button" className="btn btn-sm button__onclick dropbox__button"
+                    <button data-title="Add&nbsp;slide" type="button"
+                            className="btn btn-sm button__onclick dropbox__button"
                             onClick={() => props.addEmptySlide()}>
                         <AddIcon/>
                     </button>
 
-                    <button data-title="Remove&nbsp;slides" type="button" className="btn btn-sm button__onclick dropbox__button"
+                    <button data-title="Remove&nbsp;slides" type="button"
+                            className="btn btn-sm button__onclick dropbox__button"
                             onClick={() => props.deleteSlides()}>
                         <RemoveIcon/>
                     </button>
 
-                    <button data-title="Undo" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Undo" type="button"
+                            className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.undo()}>
                         <UndoIcon/>
                     </button>
 
-                    <button data-title="Redo" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Redo" type="button"
+                            className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.redo()}>
                         <RedoIcon/>
                     </button>
 
                     <div className="vertical_separator">&nbsp;</div>
 
-                    <button data-title="Add&nbsp;triangle" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Add&nbsp;triangle" type="button"
+                            className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.addTriangle()}>
                         <ChangeHistoryIcon/>
                     </button>
 
-                    <button data-title="Add&nbsp;ellipse" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Add&nbsp;ellipse" type="button"
+                            className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.addEllipse()}>
                         <RadioButtonUncheckedIcon/>
                     </button>
 
-                    <button data-title="Add&nbsp;rectangle" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Add&nbsp;rectangle" type="button"
+                            className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.addRectangle()}>
                         <CheckBoxOutlineBlankIcon/>
                     </button>
 
-                    <button data-title="Add&nbsp;text" type="button" className="btn btn-light btn-sm button__onclick dropbox__button"
+                    <button data-title="Add&nbsp;text" type="button"
+                            className="btn btn-light btn-sm button__onclick dropbox__button"
                             onClick={() => props.addText()}>
                         <TextFieldsIcon/>
                     </button>
@@ -492,17 +508,19 @@ function Nav(props: any) {
 
                     {/*italic text*/}
                     <button data-title="Italic" id="edit_style_text_italic" type="button"
-                            className={"btn btn-sm button__onclick dropbox__button hidden " + italicSelect} onClick={() =>
-                        props.changeTextItalic()
-                    }>
+                            className={"btn btn-sm button__onclick dropbox__button hidden " + italicSelect}
+                            onClick={() =>
+                                props.changeTextItalic()
+                            }>
                         <FormatItalicRoundedIcon/>
                     </button>
 
                     {/*underlined text*/}
                     <button data-title="Underline" id="edit_style_text_underline" type="button"
-                            className={"btn btn-sm button__onclick dropbox__button hidden " + underlinedSelect} onClick={() =>
-                        props.changeTextUnderline()
-                    }>
+                            className={"btn btn-sm button__onclick dropbox__button hidden " + underlinedSelect}
+                            onClick={() =>
+                                props.changeTextUnderline()
+                            }>
                         <FormatUnderlinedIcon/>
                     </button>
 
@@ -580,7 +598,7 @@ function Nav(props: any) {
                                 if (fontSize - 1 >= 1) {
                                     props.changeTextSize(fontSize - 1)
                                 }
-                            }} />
+                            }}/>
                         </div>
                         <div data-title="Font&nbsp;size">
                             <input aria-invalid="false" type="number" min="1" max="80"
