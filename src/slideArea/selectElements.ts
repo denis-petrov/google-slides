@@ -10,38 +10,20 @@ const multipleSelectClassName = 'multiple-select'
 
 export function selectElements(event: any, id: string, dispatch: Dispatch<any>) {
     let clickedElem = event.currentTarget
-    let elemPathId = clickedElem.getAttribute('data-path-id')
-    let elemPointsId = clickedElem.getAttribute('data-points-id')
-    let elemPath = document.getElementById(elemPathId)
-    let elemPoints = document.getElementById(elemPointsId)
+    console.log(clickedElem)
+    //let elemPathId = clickedElem.getAttribute('data-path-id')
+    //let elemPointsId = clickedElem.getAttribute('data-points-id')
     let elemClassName = 'element_choosed'
-    let pathClassName = 'elem-path_active'
-    let pointsClassName = 'points_container_active'
     let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
+
     if (event.ctrlKey) {
-        if (clickedElem.getAttribute('data-path-id')) {
+        if (clickedElem.getAttribute('data-is-element')) {
             if (clickedElem.classList.contains(elemClassName)) {
-                if (elemPath) {
-                    elemPath.classList.remove(pathClassName)
-                }
-
-                if (elemPoints) {
-                    elemPoints.classList.remove(pointsClassName)
-                }
-
                 clickedElem.classList.remove(elemClassName)
                 if (clickedElem.tagName === 'P') {
                     (clickedElem.parentNode as HTMLElement).style.cursor = 'default'
                 }
             } else {
-                if (elemPath) {
-                    elemPath.classList.add(pathClassName)
-                }
-
-                if (elemPoints) {
-                    elemPoints.classList.add(pointsClassName)
-                }
-
                 clickedElem.classList.add(elemClassName)
                 if (clickedElem.tagName === 'P') {
                     (clickedElem.parentNode as HTMLElement).style.cursor = 'move'
@@ -72,20 +54,6 @@ export function selectElements(event: any, id: string, dispatch: Dispatch<any>) 
                 }
             })
 
-            let allSelectedElemsPaths = document.getElementsByClassName(pathClassName)
-            while (allSelectedElemsPaths[0]) {
-                if (allSelectedElemsPaths[0].classList.contains(pathClassName)) {
-                    allSelectedElemsPaths[0].classList.remove(pathClassName)
-                }
-            }
-
-            let allSelectedElemsPoints = document.getElementsByClassName(pointsClassName)
-            while (allSelectedElemsPoints[0]) {
-                if (allSelectedElemsPoints[0].classList.contains(pointsClassName)) {
-                    allSelectedElemsPoints[0].classList.remove(pointsClassName)
-                }
-            }
-
             let allSelectedElements = document.getElementsByClassName(elemClassName)
             while (allSelectedElements[0]) {
                 if (allSelectedElements[0].classList.contains(elemClassName)) {
@@ -94,13 +62,6 @@ export function selectElements(event: any, id: string, dispatch: Dispatch<any>) 
             }
 
             clickedElem.classList.toggle(elemClassName)
-            if (elemPath) {
-                elemPath.classList.add(pathClassName)
-            }
-
-            if (elemPoints) {
-                elemPoints.classList.add(pointsClassName)
-            }
 
             if (clickedElem.tagName === 'P') {
                 (clickedElem.parentNode as HTMLElement).style.cursor = 'move'
@@ -136,17 +97,12 @@ export function getMultipleSelection(topLeftPoint: Point, bottomRightPoint: Poin
     let d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
 
     let selectedPoints = getSelectedPoints(width, height, viewBoxWidth, viewBoxHeight)
-
-    let headSvg = document.createElement('svg')
-    let editor = store.getState()
-    editor.presentation.slides.map(s => {
-        if (editor.selectionSlidesId.includes(s.id)) {
-            let element = document.getElementById(`svg_${s.selectionElementsId[0]}`)
-            if (element) {
-                headSvg = element.cloneNode(true) as HTMLElement
-            }
-        }
-    })
+    let defaultSelectionElement = document.getElementById('default-selection-element') as HTMLElement
+    let multipleSelection = document.getElementById('multiple-selection') as HTMLElement
+    let headSvg = defaultSelectionElement.cloneNode(true) as HTMLElement
+    if (multipleSelection) {
+        multipleSelection.remove()
+    }
 
     headSvg.setAttribute('id', 'multiple-selection')
     headSvg.setAttribute('oldD', d)
@@ -160,32 +116,17 @@ export function getMultipleSelection(topLeftPoint: Point, bottomRightPoint: Poin
     headSvg.setAttribute('width', width + '%')
     headSvg.setAttribute('height', height + '%')
 
-    headSvg.children[0].remove()
 
     let selectionBorder = headSvg.children[0]
 
     selectionBorder.setAttribute('d', d)
-    selectionBorder.setAttribute('stroke', 'rgb(26, 115, 232)')
-    selectionBorder.setAttribute('stroke-width', '1')
-    selectionBorder.setAttribute('stroke-linejoin', 'miter')
-    selectionBorder.setAttribute('stroke-linecap', 'square')
-    selectionBorder.setAttribute('fill', 'none')
     if (!selectionBorder.classList.contains(pathClassName)) {
         selectionBorder.classList.add(pathClassName)
     }
 
-    if (selectionBorder.classList.contains(multipleSelectClassName)) {
-        selectionBorder.classList.remove(multipleSelectClassName)
-    }
-
     let svgPoints = headSvg.children[1]
-    svgPoints.setAttribute('id', 'multiple-selection-points')
     if (!svgPoints.classList.contains(pointsClassName)) {
         svgPoints.classList.add(pointsClassName)
-    }
-
-    if (svgPoints.classList.contains(multipleSelectClassName)) {
-        svgPoints.classList.remove(multipleSelectClassName)
     }
 
     let childPoints = svgPoints.children
@@ -202,7 +143,7 @@ export function multipleSelectElements() {
         if (editor.selectionSlidesId.includes(s.id)) {
             let multipleSelection = document.getElementById('multiple-selection')
             let workspace = document.getElementsByClassName('workspace')[0]
-            if (s.selectionElementsId.length > 1) {
+            if (s.selectionElementsId.length > 0) {
                 let bottomRightPoint: Point = {
                     x: -10000,
                     y: -10000
@@ -231,54 +172,16 @@ export function multipleSelectElements() {
                     }
                 })
 
-                if (multipleSelection) {
-                    multipleSelection.remove()
-                }
-
                 for (let i = 0; i < s.elements.length; i++) {
                     workspace.appendChild(document.getElementById(`svg_${s.elements[i].id}`) as HTMLElement)
                 }
 
-                let elemPathArray = document.getElementsByClassName(pathClassName)
-                for (let i = 0; i < elemPathArray.length; i++) {
-                    if (elemPathArray[i].classList.contains(pathClassName)) {
-                        if (elemPathArray[i].classList.contains(multipleSelectClassName)) {
-                            elemPathArray[i].classList.remove(multipleSelectClassName)
-                        }
-
-                        elemPathArray[i].classList.add(multipleSelectClassName)
-                    }
-                }
-
-                let elemPointsArray = document.getElementsByClassName(pointsClassName)
-                for (let i = 0; i < elemPointsArray.length; i++) {
-                    if (elemPointsArray[i].classList.contains(pointsClassName)) {
-                        if (elemPointsArray[i].classList.contains(multipleSelectClassName)) {
-                            elemPointsArray[i].classList.remove(multipleSelectClassName)
-                        }
-
-                        elemPointsArray[i].classList.add(multipleSelectClassName)
-                    }
-                }
-
                 workspace.appendChild(getMultipleSelection(topLeftPoint, bottomRightPoint))
             } else {
+                let multipleSelection = document.getElementById('multiple-selection')
                 if (multipleSelection) {
                     multipleSelection.remove()
                 }
-
-                let clickedElem = document.getElementById(s.selectionElementsId[0]) as HTMLElement
-                let clickedElemParent = clickedElem.parentNode as HTMLElement
-                if (clickedElem.tagName === 'P') {
-                    clickedElemParent = clickedElemParent.parentNode as HTMLElement
-                }
-
-                let allMultipleSelectElements = document.getElementsByClassName(multipleSelectClassName)
-                while(allMultipleSelectElements[0]) {
-                    allMultipleSelectElements[0].classList.remove(multipleSelectClassName)
-                }
-
-                workspace.appendChild(clickedElemParent)
             }
         }
     })

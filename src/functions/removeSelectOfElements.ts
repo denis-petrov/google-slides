@@ -22,7 +22,7 @@ export function removeSelectOfElement(evt: any, dispatch: Dispatch<any>) {
         itsNavBar = evt.target === navBar || (navBar.contains(evt.target as Node) && !itsShowPresentationBtn)
     }
 
-    if (clickedElem.getAttribute('data-path-id') || clickedElem.getAttribute('data-value') || clickedElem.tagName === 'foreignObject') {
+    if (clickedElem.getAttribute('data-is-element') || clickedElem.getAttribute('data-value') || clickedElem.tagName === 'foreignObject') {
         itsClickedElem = true
     }
 
@@ -37,6 +37,7 @@ export function removeSelectOfElement(evt: any, dispatch: Dispatch<any>) {
 
 
 export function removeAllSelectionView(pathClassName: string, pointsClassName: string) {
+    let multipleSelection = document.getElementById('multiple-selection') as HTMLElement
     let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
     let editor = store.getState()
     editor.presentation.slides.map(s => {
@@ -59,17 +60,14 @@ export function removeAllSelectionView(pathClassName: string, pointsClassName: s
         }
     }
 
-    let elemPathArray = document.getElementsByClassName(pathClassName)
-    while (elemPathArray[0]) {
-        if (elemPathArray[0].classList.contains(pathClassName)) {
-            elemPathArray[0].classList.remove(pathClassName)
-        }
+    let elemPath = multipleSelection.children[0]
+    let elemPoints = multipleSelection.children[1]
+
+    if (elemPath) {
+        elemPath.classList.remove(pathClassName)
     }
 
-    let elemPointsArray = document.getElementsByClassName(pointsClassName)
-    while (elemPointsArray[0]) {
-        if (elemPointsArray[0].classList.contains(pointsClassName)) {
-            elemPointsArray[0].classList.remove(pointsClassName)
-        }
+    if (elemPoints) {
+        elemPoints.classList.remove(pointsClassName)
     }
 }

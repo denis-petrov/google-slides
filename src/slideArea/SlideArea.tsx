@@ -1,12 +1,11 @@
 import React, {Dispatch} from 'react'
 import './slideArea.css'
 import {getSlideBackground} from "../functions/getSlideBackground"
-import {getElements} from "../functions/getElements"
+import {addDefaultSelectionElement, getElements} from "../functions/getElements"
 import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {v4 as uuidv4} from 'uuid'
 import {Slide} from "../entities/Slide"
-import {pathClassName, pointsClassName, removeAllSelectionView} from "../functions/removeSelectOfElements";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -44,6 +43,7 @@ function SlideArea(props: any) {
         <div id="slide-area" className='slide-area'>
             <svg className={'workspace'} id={'slide_area_' + slideId}
                  style={{background: `0 0 / cover ${props.getSlideBackground(editor)}`}}>
+                {addDefaultSelectionElement()}
                 {elements}
             </svg>
         </div>
