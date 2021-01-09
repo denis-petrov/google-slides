@@ -1,11 +1,12 @@
 import {Color, isColor} from "../entities/Color"
-import {Editor} from "../entities/Editor";
+import {Editor} from "../entities/Editor"
 
 export function getSlideBackgroundById(editor: Editor, id: string) {
     const currentSlide = editor.presentation.slides.filter(s => {
         if (s.id === id) {
             return s
         }
+        return false
     })[0]
 
     let slideBack

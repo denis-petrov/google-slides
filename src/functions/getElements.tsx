@@ -5,9 +5,8 @@ import React, {Dispatch} from "react"
 import {selectElements} from "../slideArea/selectElements"
 import {v4 as uuidv4} from 'uuid'
 import {svg} from "react-pick-color/build/components/ColorList/ColorList.style"
-import {DEFAULT_RECTANGLE} from "../entities/Constants";
-import {Point} from "../entities/Point";
-import {store} from "../store/store";
+import {Point} from "../entities/Point"
+import {store} from "../store/store"
 
 
 export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boolean = true) {
@@ -137,9 +136,8 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
 }
 export function multipleSelectElements() {
     let editor = store.getState()
-    let elem = editor.presentation.slides.map(s => {
+    return editor.presentation.slides.map(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
-            let workspace = document.getElementsByClassName('workspace')[0]
             if (s.selectionElementsId.length > 0) {
                 let bottomRightPoint: Point = {
                     x: -10000,
@@ -149,7 +147,7 @@ export function multipleSelectElements() {
                     x: 10000,
                     y: 10000
                 }
-                s.elements.filter(e => {
+                s.elements.forEach(e => {
                     if (s.selectionElementsId.includes(e.id)) {
                         if (e.bottomRightPoint.x > bottomRightPoint.x) {
                             bottomRightPoint.x = e.bottomRightPoint.x
@@ -171,10 +169,10 @@ export function multipleSelectElements() {
 
                 return getMultipleSelection(topLeftPoint, bottomRightPoint)
             }
+            return false
         }
+        return false
     })
-
-    return elem
 }
 export function getMultipleSelection(topLeftPoint: Point, bottomRightPoint: Point) {
     let width = Math.round((bottomRightPoint.x - topLeftPoint.x) * 100) / 100

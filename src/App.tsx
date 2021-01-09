@@ -1,6 +1,6 @@
 import React, {Dispatch} from 'react'
 import './App.css'
-import Nav from './nav/Nav'
+import {Nav} from './nav/Nav'
 import SlideArea from './slideArea/SlideArea'
 import SlideMenu from './slideMenu/SlideMenu'
 import SlideShowPanel from './slideShowPanel/SlideShowPanel'
@@ -12,9 +12,9 @@ import {useDragAndDrop} from "./customHooks/useDragAndDrop"
 import {useEventListener} from "./customHooks/useEventListner"
 import {useMobileViewOnLoad} from "./customHooks/useMobileViewOnLoad"
 import {DELETE_ELEMENTS, REDO, SET_EDITOR, UNDO} from "./store/actionTypes"
+import {changePrimitiveStyleMenu} from "./functions/changePrimitiveStyleMenu"
+import {changeTextStyleMenu} from "./functions/changeTextStyleMenu"
 import {getIsShowCurrentlyPresentation} from "./functions/showPresentation";
-import {changeSlideSize} from "./slideShowPanel/changeSlideSize";
-import {changeWorkspaceSize} from "./functions/changeWorkspaceSize";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -29,7 +29,11 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
         setEditor: (state: Editor = initialState) => dispatch({type: SET_EDITOR, payload: state}),
         undo: () => dispatch({type: UNDO}),
         redo: () => dispatch({type: REDO}),
-        deleteElements: () => dispatch({type: DELETE_ELEMENTS}),
+        deleteElements: () => {
+            dispatch({type: DELETE_ELEMENTS})
+            changePrimitiveStyleMenu(false)
+            changeTextStyleMenu(false)
+        },
     }
 }
 
@@ -40,18 +44,20 @@ function App(props: any) {
     }
 
     let handleUndoRedo = (evt: KeyboardEvent) => {
-        if (evt.ctrlKey && evt.shiftKey && evt.keyCode === 90) {
-            if (canRedo()) {
-                props.redo()
+        if (!getIsShowCurrentlyPresentation()) {
+            if (evt.ctrlKey && evt.shiftKey && evt.keyCode === 90) {
+                if (canRedo()) {
+                    props.redo()
+                }
+            } else if (canUndoKeyboard(evt)) {
+                if (canUndo()) {
+                    props.undo()
+                }
             }
-        } else if (canUndoKeyboard(evt)) {
-            if (canUndo()) {
-                props.undo()
-            }
-        }
 
-        if (evt.keyCode === 46) {
-            props.deleteElements()
+            if (evt.keyCode === 46) {
+                props.deleteElements()
+            }
         }
     }
 
@@ -59,15 +65,6 @@ function App(props: any) {
     useMobileViewOnLoad()
 
     useEventListener('keydown', handleUndoRedo)
-
-    let handleResizeApp = () => {
-        if (getIsShowCurrentlyPresentation()) {
-            changeSlideSize()
-        } else {
-            changeWorkspaceSize()
-        }
-    }
-    useEventListener('DOMContentLoaded', handleResizeApp)
 
     return (
         <div className="wrapper">
@@ -80,6 +77,5 @@ function App(props: any) {
         </div>
     )
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

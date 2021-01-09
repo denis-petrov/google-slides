@@ -4,7 +4,7 @@ export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number
     let editor = store.getState()
     let stepX
     let stepY
-    editor.presentation.slides.map(s => {
+    editor.presentation.slides.forEach(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
             let selectedElements = []
             for (let i = 0; i < s.selectionElementsId.length; i++) {
@@ -26,7 +26,7 @@ export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number
                     let prevXAttribute = 0
                     let prevYAttribute = 0
 
-                    s.elements.map(e => {
+                    s.elements.forEach(e => {
                         if (elem && e.id === elem.id) {
                             prevXAttribute = e.topLeftPoint.x
                             prevYAttribute = e.topLeftPoint.y

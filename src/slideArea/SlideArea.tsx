@@ -6,7 +6,6 @@ import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {v4 as uuidv4} from 'uuid'
 import {Slide} from "../entities/Slide"
-import {removeAllSelectionView} from "../functions/removeSelectOfElements";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -16,7 +15,6 @@ const mapStateToProps = (state: Editor) => {
         selectionSlidesId: state.selectionSlidesId
     }
 }
-
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {

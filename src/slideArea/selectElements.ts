@@ -1,11 +1,9 @@
-import React, {Dispatch} from "react"
-import {store} from "../store/store"
+import {Dispatch} from "react"
 import {CHOOSE_ELEMENTS} from "../store/actionTypes"
 
 export function selectElements(event: any, id: string, dispatch: Dispatch<any>) {
     let clickedElem = event.currentTarget
     let elemClassName = 'element_choosed'
-    let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
 
     if (event.ctrlKey) {
         if (clickedElem.getAttribute('data-is-element')) {
@@ -53,4 +51,3 @@ export function selectElements(event: any, id: string, dispatch: Dispatch<any>) 
         }
     }
 }
-

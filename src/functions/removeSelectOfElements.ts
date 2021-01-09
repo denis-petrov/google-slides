@@ -1,6 +1,5 @@
 import {changeTextStyleMenu} from "./changeTextStyleMenu"
 import {Dispatch} from "react"
-import {store} from "../store/store"
 import {CHOOSE_ELEMENTS} from "../store/actionTypes"
 
 

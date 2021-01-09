@@ -54,9 +54,8 @@ export function endMoveElements(isMoveElements: boolean, dispatch: Dispatch<any>
                         newPos.set('newBottomRightPoint', newBottomRightPoint)
                         newPos.set('newCenter', newCenter)
                         elements.set(e.id, newPos)
-                        if (topLeftPointX === e.topLeftPoint.x && topLeftPointY === e.topLeftPoint.y) {
-                            isMoved = false
-                        }
+
+                        isMoved = !(topLeftPointX === e.topLeftPoint.x && topLeftPointY === e.topLeftPoint.y)
                     }
                 })
             }

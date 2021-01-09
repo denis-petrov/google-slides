@@ -20,12 +20,6 @@ let notValidActions: Array<string> = [UNDO, REDO, CHOOSE_SLIDES, CHOOSE_ELEMENTS
 store.subscribe(() => {
     let state = store.getState()
     let stateHistory = getStateHistory()
-    /*let selectedElements = getSelectedElements(state)
-    if (selectedElements !== null) {
-        let selectedElementsId = []
-        selectedElements.forEach(e => selectedElementsId.push(e.id))
-    }*/
-
 
     saveStateToLocalStorage(state)
 
