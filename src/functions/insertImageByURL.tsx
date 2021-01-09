@@ -1,4 +1,4 @@
-import React, {Dispatch} from 'react'
+import {Dispatch} from 'react'
 import {DEFAULT_IMAGE} from '../entities/Constants'
 import {deepCopy} from "deep-copy-ts"
 import {imageInitAfterOnload} from "./imageInitAfterOnload"

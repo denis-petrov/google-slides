@@ -6,8 +6,8 @@ export function endMoveElements(isMoveElements: boolean, dispatch: Dispatch<any>
 
     isMoveElements = false
     let payload = new Map()
-    let isMoved = true
-    editor.presentation.slides.map(s => {
+    let isMoved: boolean = true
+    editor.presentation.slides.forEach(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
             let selectedElements = []
             let elements = new Map()
@@ -17,7 +17,7 @@ export function endMoveElements(isMoveElements: boolean, dispatch: Dispatch<any>
 
             for (let i = 0; i < selectedElements.length; i++) {
                 let elem = selectedElements[i]
-                s.elements.map(e => {
+                s.elements.forEach(e => {
                     if (elem && e.id === elem.id) {
                         let topLeftPointX = 0
                         let topLeftPointY = 0

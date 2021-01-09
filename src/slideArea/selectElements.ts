@@ -78,7 +78,7 @@ export function selectElements(event: any, id: string, dispatch: Dispatch<any>) 
 
     workspace.appendChild(clickedElemParent)
 
-    multipleSelectElements()
+    /*multipleSelectElements()*/
 }
 
 export function getMultipleSelection(topLeftPoint: Point, bottomRightPoint: Point) {
@@ -141,7 +141,6 @@ export function multipleSelectElements() {
     let editor = store.getState()
     editor.presentation.slides.map(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
-            let multipleSelection = document.getElementById('multiple-selection')
             let workspace = document.getElementsByClassName('workspace')[0]
             if (s.selectionElementsId.length > 0) {
                 let bottomRightPoint: Point = {

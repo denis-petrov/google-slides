@@ -33,10 +33,10 @@ import {getSelectedElements} from "../functions/getSelectedElements"
 import {ElementType, Text} from "../entities/Elements"
 import {showPresentation} from "../functions/showPresentation"
 import {connect, useDispatch} from "react-redux"
-import {initialState} from "../store/localStorage"
 import {
     ADD_ELEMENT,
-    ADD_EMPTY_SLIDE, ADD_TO_BACKGROUND,
+    ADD_EMPTY_SLIDE,
+    ADD_TO_BACKGROUND,
     CHANGE_ELEMENT_BORDER_COLOR,
     CHANGE_ELEMENT_BORDER_WIDTH,
     CHANGE_ELEMENT_FILL_COLOR,
@@ -47,14 +47,14 @@ import {
     CHANGE_TEXT_SIZE,
     CHANGE_TEXT_UNDERLINE,
     DELETE_ELEMENTS,
-    DELETE_SLIDES, NEW_EDITOR,
+    DELETE_SLIDES,
+    NEW_EDITOR,
     REDO,
     SET_EDITOR,
     UNDO
 } from "../store/actionTypes"
 import LineWeightIcon from '@material-ui/icons/LineWeight'
 import CheckIcon from '@material-ui/icons/Check'
-import {resetStateHistory} from "../store/stateHistory"
 import {v4 as uuidv4} from 'uuid'
 import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
 import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu"

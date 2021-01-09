@@ -20,7 +20,7 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
     let stepY
     let payload = new Map()
     let slide = document.getElementsByClassName('workspace')[0]
-    editor.presentation.slides.map(s => {
+    editor.presentation.slides.forEach(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
             stepX = event.clientX - firstPosX
             stepY = event.clientY - firstPosY
@@ -170,7 +170,7 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
                 elementBorder.setAttribute('d', d)
             }
 
-            s.elements.filter(e => {
+            s.elements.forEach(e => {
                 if (s.selectionElementsId.includes(e.id)) {
                     let newPos = new Map()
                     let newTopLeftPoint = new Map()

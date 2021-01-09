@@ -12,6 +12,10 @@ import {useDragAndDrop} from "./customHooks/useDragAndDrop"
 import {useEventListener} from "./customHooks/useEventListner"
 import {useMobileViewOnLoad} from "./customHooks/useMobileViewOnLoad"
 import {DELETE_ELEMENTS, REDO, SET_EDITOR, UNDO} from "./store/actionTypes"
+import {getIsShowCurrentlyPresentation} from "./functions/showPresentation";
+import {changeSlideSize} from "./slideShowPanel/changeSlideSize";
+import {changeWorkspaceSize} from "./functions/changeWorkspaceSize";
+import {multipleSelectElements} from "./slideArea/selectElements";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -56,6 +60,16 @@ function App(props: any) {
     useMobileViewOnLoad()
 
     useEventListener('keydown', handleUndoRedo)
+
+    let handleResizeApp = () => {
+        if (getIsShowCurrentlyPresentation()) {
+            changeSlideSize()
+        } else {
+            changeWorkspaceSize()
+        }
+        multipleSelectElements()
+    }
+    useEventListener('DOMContentLoaded', handleResizeApp)
 
     return (
         <div className="wrapper">

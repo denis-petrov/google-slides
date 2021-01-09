@@ -33,9 +33,9 @@ store.subscribe(() => {
         saveStateToHistory(state)
 
     }
+
     if (stateHistory.history.length === 0) {
         saveStateToHistory(oldState)
-        decIndex()
     }
     if (stateHistory.history.length === stateHistory.index) {
         decIndex()
@@ -43,7 +43,6 @@ store.subscribe(() => {
     if (lastCommand === NEW_EDITOR) {
         resetStateHistory()
     }
-    console.log(stateHistory)
 })
 
 
