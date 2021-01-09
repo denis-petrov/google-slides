@@ -38,36 +38,38 @@ export function removeSelectOfElement(evt: any, dispatch: Dispatch<any>) {
 
 export function removeAllSelectionView(pathClassName: string, pointsClassName: string) {
     let multipleSelection = document.getElementById('multiple-selection') as HTMLElement
-    let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
-    let editor = store.getState()
-    editor.presentation.slides.map(s => {
-        if (editor.selectionSlidesId.includes(s.id)) {
-            for (let i = 0; i < s.elements.length; i++) {
-                workspace.appendChild(document.getElementById(`svg_${s.elements[i].id}`) as HTMLElement)
+    if (multipleSelection) {
+        let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
+        let editor = store.getState()
+        editor.presentation.slides.map(s => {
+            if (editor.selectionSlidesId.includes(s.id)) {
+                for (let i = 0; i < s.elements.length; i++) {
+                    workspace.appendChild(document.getElementById(`svg_${s.elements[i].id}`) as HTMLElement)
+                }
+            }
+        })
+
+        let className = 'element_choosed'
+        let allSelectedElems = document.getElementsByClassName(className)
+        while (allSelectedElems[0]) {
+            if (allSelectedElems[0].classList.contains(className)) {
+                if (allSelectedElems[0].tagName === 'P') {
+                    (allSelectedElems[0].parentNode as HTMLElement).style.cursor = 'default'
+                }
+
+                allSelectedElems[0].classList.remove(className)
             }
         }
-    })
 
-    let className = 'element_choosed'
-    let allSelectedElems = document.getElementsByClassName(className)
-    while (allSelectedElems[0]) {
-        if (allSelectedElems[0].classList.contains(className)) {
-            if (allSelectedElems[0].tagName === 'P') {
-                (allSelectedElems[0].parentNode as HTMLElement).style.cursor = 'default'
-            }
+        let elemPath = multipleSelection.children[0]
+        let elemPoints = multipleSelection.children[1]
 
-            allSelectedElems[0].classList.remove(className)
+        if (elemPath) {
+            elemPath.classList.remove(pathClassName)
         }
-    }
 
-    let elemPath = multipleSelection.children[0]
-    let elemPoints = multipleSelection.children[1]
-
-    if (elemPath) {
-        elemPath.classList.remove(pathClassName)
-    }
-
-    if (elemPoints) {
-        elemPoints.classList.remove(pointsClassName)
+        if (elemPoints) {
+            elemPoints.classList.remove(pointsClassName)
+        }
     }
 }
