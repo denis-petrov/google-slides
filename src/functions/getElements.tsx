@@ -6,6 +6,8 @@ import {selectElements} from "../slideArea/selectElements"
 import {v4 as uuidv4} from 'uuid'
 import {svg} from "react-pick-color/build/components/ColorList/ColorList.style"
 import {DEFAULT_RECTANGLE} from "../entities/Constants";
+import {Point} from "../entities/Point";
+import {store} from "../store/store";
 
 
 export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boolean = true) {
@@ -133,11 +135,51 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
         return e
     })
 }
+export function multipleSelectElements() {
+    let editor = store.getState()
+    let elem = editor.presentation.slides.map(s => {
+        if (editor.selectionSlidesId.includes(s.id)) {
+            let workspace = document.getElementsByClassName('workspace')[0]
+            if (s.selectionElementsId.length > 0) {
+                let bottomRightPoint: Point = {
+                    x: -10000,
+                    y: -10000
+                }
+                let topLeftPoint: Point = {
+                    x: 10000,
+                    y: 10000
+                }
+                s.elements.filter(e => {
+                    if (s.selectionElementsId.includes(e.id)) {
+                        if (e.bottomRightPoint.x > bottomRightPoint.x) {
+                            bottomRightPoint.x = e.bottomRightPoint.x
+                        }
 
-export function addDefaultSelectionElement() {
-    let width = Math.round((DEFAULT_RECTANGLE.bottomRightPoint.x - DEFAULT_RECTANGLE.topLeftPoint.x) * 100) / 100
-    let height = Math.round((DEFAULT_RECTANGLE.bottomRightPoint.y - DEFAULT_RECTANGLE.topLeftPoint.y) * 100) / 100
-    let viewBoxWidth = Math.round((DEFAULT_RECTANGLE.bottomRightPoint.x - DEFAULT_RECTANGLE.topLeftPoint.x) * 10 * 100) / 100
+                        if (e.bottomRightPoint.y > bottomRightPoint.y) {
+                            bottomRightPoint.y = e.bottomRightPoint.y
+                        }
+
+                        if (e.topLeftPoint.x < topLeftPoint.x) {
+                            topLeftPoint.x = e.topLeftPoint.x
+                        }
+
+                        if (e.topLeftPoint.y < topLeftPoint.y) {
+                            topLeftPoint.y = e.topLeftPoint.y
+                        }
+                    }
+                })
+
+                return getMultipleSelection(topLeftPoint, bottomRightPoint)
+            }
+        }
+    })
+
+    return elem
+}
+export function getMultipleSelection(topLeftPoint: Point, bottomRightPoint: Point) {
+    let width = Math.round((bottomRightPoint.x - topLeftPoint.x) * 100) / 100
+    let height = Math.round((bottomRightPoint.y - topLeftPoint.y) * 100) / 100
+    let viewBoxWidth = Math.round((bottomRightPoint.x - topLeftPoint.x) * 10 * 100) / 100
     let viewBoxHeight
     if (width > height) {
         viewBoxHeight = Math.round(height * 10 * 100) / 100
@@ -176,11 +218,12 @@ export function addDefaultSelectionElement() {
               strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>
     ]
 
-    return <svg id='default-selection-element' x={DEFAULT_RECTANGLE.topLeftPoint.x + '%'} y={DEFAULT_RECTANGLE.topLeftPoint.y + '%'}
-                viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={uuidv4()}>
+    return <svg id='multiple-selection' x={topLeftPoint.x + '%'} y={topLeftPoint.y + '%'}
+                viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={uuidv4()}
+                data-tlp-x={topLeftPoint.x} data-tlp-y={topLeftPoint.y} data-brp-x={bottomRightPoint.x} data-brp-y={bottomRightPoint.y}>
         <path d={d} stroke="rgb(26, 115, 232)" strokeWidth="2" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="none" className="elem-path"/>
-        <svg id='multiple-selection-points' className="points_container">
+              strokeLinecap="square" fill="none" className="elem-path elem-path_active"/>
+        <svg id='multiple-selection-points' className="points_container points_container_active">
             {points.map((point) => {
                 return point
             })}

@@ -15,7 +15,6 @@ import {DELETE_ELEMENTS, REDO, SET_EDITOR, UNDO} from "./store/actionTypes"
 import {getIsShowCurrentlyPresentation} from "./functions/showPresentation";
 import {changeSlideSize} from "./slideShowPanel/changeSlideSize";
 import {changeWorkspaceSize} from "./functions/changeWorkspaceSize";
-import {multipleSelectElements} from "./slideArea/selectElements";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -67,7 +66,6 @@ function App(props: any) {
         } else {
             changeWorkspaceSize()
         }
-        multipleSelectElements()
     }
     useEventListener('DOMContentLoaded', handleResizeApp)
 

@@ -27,10 +27,10 @@ export function moveElementPoint(event: any, firstPosX: number, firstPosY: numbe
             let X = Math.floor(stepX / (slide.clientWidth) * 100 * 100) / 100
             let Y = Math.floor(stepY / (slide.clientHeight) * 100 * 100) / 100
             let multipleSelection = document.getElementById('multiple-selection') as HTMLElement
-            let oldTlpX: number | string | null = multipleSelection.getAttribute('tlpX')
-            let oldTlpY: number | string | null = multipleSelection.getAttribute('tlpY')
-            let oldBrpX: number | string | null = multipleSelection.getAttribute('brpX')
-            let oldBrpY: number | string | null = multipleSelection.getAttribute('brpY')
+            let oldTlpX: number | string | null = multipleSelection.getAttribute('data-tlp-x')
+            let oldTlpY: number | string | null = multipleSelection.getAttribute('data-tlp-y')
+            let oldBrpX: number | string | null = multipleSelection.getAttribute('data-brp-x')
+            let oldBrpY: number | string | null = multipleSelection.getAttribute('data-brp-y')
             let oldWidth: number = 0
             let oldHeight: number = 0
             let newWidth: number = 0

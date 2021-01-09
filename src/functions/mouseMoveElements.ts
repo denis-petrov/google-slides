@@ -51,8 +51,8 @@ export function mouseMoveElements(evt: any, firstPosX: number, firstPosY: number
             }
 
             let multipleSelection = document.getElementById('multiple-selection') as HTMLElement
-            let prevXAttribute: number | string | null = multipleSelection.getAttribute('tlpX')
-            let prevYAttribute: number | string | null = multipleSelection.getAttribute('tlpY')
+            let prevXAttribute: number | string | null = multipleSelection.getAttribute('data-tlp-x')
+            let prevYAttribute: number | string | null = multipleSelection.getAttribute('data-tlp-y')
             let X = prevXAttribute
             let Y = prevYAttribute
 

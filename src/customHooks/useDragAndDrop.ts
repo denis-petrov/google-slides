@@ -13,7 +13,7 @@ import {store} from "../store/store"
 import {CHANGE_POSITION_OF_ELEMENTS, END_MOVE_SLIDES} from "../store/actionTypes"
 import {useEventListener} from "./useEventListner"
 import {Editor} from "../entities/Editor"
-import {multipleSelectElements} from "../slideArea/selectElements";
+import {multipleSelectElements} from "../functions/getElements";
 
 
 let isMoveElements: boolean
@@ -103,7 +103,6 @@ export function useDragAndDrop(editor: Editor) {
                 endResizeElements(resizePayload)
                 if (!resizePayload.get('small')) {
                     dispatch({type: CHANGE_POSITION_OF_ELEMENTS, payload: resizePayload})
-                    multipleSelectElements()
                 }
             }
         }
