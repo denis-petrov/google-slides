@@ -217,7 +217,7 @@ export function getMultipleSelection(topLeftPoint: Point, bottomRightPoint: Poin
     ]
 
     return <svg id='multiple-selection' x={topLeftPoint.x + '%'} y={topLeftPoint.y + '%'}
-                viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={uuidv4()}
+                viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={uuidv4()} data-old-d={d}
                 data-tlp-x={topLeftPoint.x} data-tlp-y={topLeftPoint.y} data-brp-x={bottomRightPoint.x} data-brp-y={bottomRightPoint.y}>
         <path d={d} stroke="rgb(26, 115, 232)" strokeWidth="2" strokeLinejoin="miter"
               strokeLinecap="square" fill="none" className="elem-path elem-path_active"/>

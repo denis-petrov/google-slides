@@ -12,6 +12,7 @@ import {store} from "../store/store"
 import {CHANGE_POSITION_OF_ELEMENTS, END_MOVE_SLIDES} from "../store/actionTypes"
 import {useEventListener} from "./useEventListner"
 import {Editor} from "../entities/Editor"
+import {endResizeElements} from "../functions/endResizeElements";
 
 
 let isMoveElements: boolean
@@ -98,6 +99,7 @@ export function useDragAndDrop(editor: Editor) {
             isResize = false
             pointIndex = -1
             if (resized) {
+                endResizeElements()
                 if (!resizePayload.get('small')) {
                     dispatch({type: CHANGE_POSITION_OF_ELEMENTS, payload: resizePayload})
                 }
