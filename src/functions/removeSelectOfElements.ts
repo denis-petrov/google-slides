@@ -26,7 +26,6 @@ export function removeSelectOfElement(evt: any, dispatch: Dispatch<any>) {
     }
 
     if ((!itsNavBar && !itsClickedElem) || itsShowPresentationBtn) {
-        console.log('эзаход')
         removeAllSelectionView()
 
         dispatch({type: CHOOSE_ELEMENTS, payload: new Array<string>()})
@@ -37,7 +36,6 @@ export function removeSelectOfElement(evt: any, dispatch: Dispatch<any>) {
 
 
 export function removeAllSelectionView() {
-    console.log('убираем')
     let multipleSelection = document.getElementById('multiple-selection') as HTMLElement
     if (multipleSelection) {
         let className = 'element_choosed'
