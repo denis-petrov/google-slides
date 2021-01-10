@@ -12,6 +12,7 @@ export function insertImageByURL(URL: string, type: string, dispatch: Dispatch<a
     img.onload = () => {
         copyImage = imageInitAfterOnload(img, copyImage)
         copyImage.link = URL
+
         dispatch({type: type, payload: copyImage})
     }
 }
