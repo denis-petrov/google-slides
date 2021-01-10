@@ -70,7 +70,9 @@ function SlideMenu(props: any) {
                   style={{userSelect: 'none'}}>{editor.presentation.slides.indexOf(item) + 1}</span>
                 <Card className={'mb-3 slides-menu-item'}>
                     <svg className='slides-menu-item-svg' id={item.id}
-                         style={{background: `0 0 / cover ${props.getSlideBackgroundById(editor, item.id)}`}}>
+                         style={{
+                             background: `0 0 / cover ${props.getSlideBackgroundById(editor, item.id)}`,
+                         }}>
                         {elements}
                     </svg>
                 </Card>

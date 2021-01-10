@@ -7,7 +7,7 @@ import {v4 as uuidv4} from 'uuid'
 import {svg} from "react-pick-color/build/components/ColorList/ColorList.style"
 import {Point} from "../entities/Point"
 import {store} from "../store/store"
-import {CHANGE_TEXT_VALUE} from "../store/actionTypes";
+import {CHANGE_TEXT_VALUE} from "../store/actionTypes"
 
 
 export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boolean = true) {
@@ -136,6 +136,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
         return e
     })
 }
+
 export function multipleSelectElements() {
     let editor = store.getState()
     return editor.presentation.slides.map(s => {
@@ -176,6 +177,7 @@ export function multipleSelectElements() {
         return false
     })
 }
+
 export function getMultipleSelection(topLeftPoint: Point, bottomRightPoint: Point) {
     let width = Math.round((bottomRightPoint.x - topLeftPoint.x) * 100) / 100
     let height = Math.round((bottomRightPoint.y - topLeftPoint.y) * 100) / 100
