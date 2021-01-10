@@ -1,6 +1,7 @@
 import {store} from "../store/store";
 import {Element} from "../entities/Elements";
 import {Dispatch} from "react";
+import {PASTE_ELEMENTS} from "../store/actionTypes";
 
 function getCookie(name: string) {
     let matches = document.cookie.match(new RegExp(
@@ -41,6 +42,6 @@ export function pasteElements(dispatch: Dispatch<any>) {
     }
 
     if (json) {
-        dispatch({type: 'PASTE_ELEMENTS', payload: json.elements})
+        dispatch({type: PASTE_ELEMENTS, payload: json.elements})
     }
 }

@@ -7,6 +7,7 @@ import {v4 as uuidv4} from 'uuid'
 import {svg} from "react-pick-color/build/components/ColorList/ColorList.style"
 import {Point} from "../entities/Point"
 import {store} from "../store/store"
+import {CHANGE_TEXT_VALUE} from "../store/actionTypes";
 
 
 export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boolean = true) {
@@ -100,7 +101,8 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
                            overflowWrap: "break-word",
                            color: `${textColor}`,
                            outline: 'none',
-                           cursor: cursor
+                           cursor: cursor,
+                           whiteSpace: 'pre-wrap'
                        }}
                        onClick={(evt) => {
                            if (isIdNeeded && s.selectionElementsId[0] !== e.id) {
@@ -110,7 +112,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
 
                        onBlur={(evt) => {
                            if (isIdNeeded) {
-                               dispatch({type: 'CHANGE_TEXT_VALUE', payload: {id: e.id, value: evt.target.textContent}})
+                               dispatch({type: CHANGE_TEXT_VALUE, payload: {id: e.id, value: evt.target.innerText}})
                            }
                        }}
                     >
