@@ -404,31 +404,70 @@ function NavSecondLine(props: any) {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__time_new_roman"
-                                       onClick={() =>
-                                           props.changeTextFont('Times New Roman')
-                                       }>
-                            Times New Roman
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__font" onClick={() =>
+                            props.changeTextFont('Arial')
+                        }>
+                            Arial
                         </Dropdown.Item>
                         <Dropdown.Item className="btn-sm button__onclick edit_style_text__roboto" onClick={() =>
                             props.changeTextFont('Roboto')
                         }>
                             Roboto
                         </Dropdown.Item>
-                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__arial" onClick={() =>
-                            props.changeTextFont('Arial')
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__jetbrains_mono" onClick={() =>
+                            props.changeTextFont('JetBrains Mono')
                         }>
-                            Arial
+                            JetBrains Mono
                         </Dropdown.Item>
-                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__cambria" onClick={() =>
-                            props.changeTextFont('Cambria')
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__padauk" onClick={() =>
+                            props.changeTextFont('Padauk')
                         }>
-                            Cambria
+                            Padauk
                         </Dropdown.Item>
-                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__samanata" onClick={() =>
-                            props.changeTextFont('Samanata')
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__open_sans" onClick={() =>
+                            props.changeTextFont('Open Sans')
                         }>
-                            Samanata
+                            Open Sans
+                        </Dropdown.Item>
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__noto_sans_jp" onClick={() =>
+                            props.changeTextFont('Noto Sans JP')
+                        }>
+                            Noto Sans JP
+                        </Dropdown.Item>
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__lato" onClick={() =>
+                            props.changeTextFont('Lato')
+                        }>
+                            Lato
+                        </Dropdown.Item>
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__monsterrat" onClick={() =>
+                            props.changeTextFont('Monsterrat')
+                        }>
+                            Monsterrat
+                        </Dropdown.Item>
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__nerko_one" onClick={() =>
+                            props.changeTextFont('Nerko One')
+                        }>
+                            Nerko One
+                        </Dropdown.Item>
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__oswald" onClick={() =>
+                            props.changeTextFont('Oswald')
+                        }>
+                            Oswald
+                        </Dropdown.Item>
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__castoro" onClick={() =>
+                            props.changeTextFont('Castoro')
+                        }>
+                            Castoro
+                        </Dropdown.Item>
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__work_sans" onClick={() =>
+                            props.changeTextFont('Work Sans')
+                        }>
+                            Work Sans
+                        </Dropdown.Item>
+                        <Dropdown.Item className="btn-sm button__onclick edit_style_text__do_hyeon" onClick={() =>
+                            props.changeTextFont('Do Hyeon')
+                        }>
+                            Do Hyeon
                         </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -448,12 +487,16 @@ function NavSecondLine(props: any) {
                     <div data-title="Font&nbsp;size">
                         <input aria-invalid="false" type="number" min="1" max="80"
                                value={fontSize} onChange={(e) => {
-                            if (parseInt(e.target.value) > 80) {
-                                fontSize = 80
-                            } else if (parseInt(e.target.value) < 1) {
-                                fontSize = 1
+                            if (e.target.value !== '') {
+                                if (parseInt(e.target.value) > 80) {
+                                    fontSize = 80
+                                } else if (parseInt(e.target.value) < 1) {
+                                    fontSize = 1
+                                } else {
+                                    props.changeTextSize(parseInt(e.target.value))
+                                }
                             } else {
-                                props.changeTextSize(parseInt(e.target.value))
+                                fontSize = 40
                             }
                         }}/>
                     </div>

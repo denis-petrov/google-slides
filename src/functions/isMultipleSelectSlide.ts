@@ -10,7 +10,7 @@ export function isMultipleSelectSlide(editor: Editor, event: any, slideId: strin
     let allSlides = document.getElementsByClassName(slideClass)
 
     let isMultipleSelection: boolean = (event !== null) && (event.shiftKey) && !(
-        (editor.selectionSlidesId.length == 1) &&
+        (editor.selectionSlidesId.length === 1) &&
         (editor.selectionSlidesId.includes(slideId))
     )
     if (isMultipleSelection) {
@@ -22,7 +22,7 @@ export function isMultipleSelectSlide(editor: Editor, event: any, slideId: strin
         if (!editor.selectionSlidesId.includes(slideId)) {
             editor.selectionSlidesId.push(slideId)
         } else {
-            editor.selectionSlidesId = editor.selectionSlidesId.filter(elem => elem != slideId)
+            editor.selectionSlidesId = editor.selectionSlidesId.filter(elem => elem !== slideId)
         }
         return true
     } else {
