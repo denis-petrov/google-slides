@@ -50,13 +50,15 @@ function NavFirstLine(props: any) {
 
                 <div className="container-fluid">
                     <div className="row">
-                        <input type="text" className="form-control nav__presentation_name" id="presentationName"
-                               aria-describedby="emailHelp" placeholder="NEW PRESENTATION"
-                               value={editor.presentation.name}
-                               onChange={(e) =>
-                                   props.changePresentationName(e.target.value)
-                               }
-                        />
+                        <div className="presentation_name_container" data-presentation-name={editor.presentation.name}>
+                            <input type="text" className="form-control nav__presentation_name" id="presentationName"
+                                   aria-describedby="emailHelp" placeholder="NEW PRESENTATION"
+                                   value={editor.presentation.name}
+                                   onChange={(e) =>
+                                       props.changePresentationName(e.target.value)
+                                   }
+                            />
+                        </div>
                     </div>
                     <div className="row nav__menu_dropbox">
                         <Dropdown>

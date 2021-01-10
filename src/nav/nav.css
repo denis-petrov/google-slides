@@ -358,6 +358,31 @@ input[type='number'] {
     transform: translateX(-60%);
 }
 
+.presentation_name_container:hover:after {
+    content: attr(data-presentation-name);
+    position: absolute;
+    z-index: 2000;
+    background-color: #000;
+    color: #fff;
+    font-size: 14px;
+    padding: 3px 7px;
+    border-radius: 3px;
+    left: 100px;
+    animation: showTitle .5s cubic-bezier(1,-0.22,.47,.66) forwards;
+}
+
+@keyframes showTitle {
+    0%, 99% {
+        visibility: hidden;
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+
 div[data-title]:hover:after {
     transform: translateX(-20%);
 }
