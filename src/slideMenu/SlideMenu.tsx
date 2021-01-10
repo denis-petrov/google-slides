@@ -8,8 +8,10 @@ import {getSlideBackgroundById} from "../functions/getSlideBackgroundById"
 import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {Slide} from "../entities/Slide"
-import {CHOOSE_SLIDES} from "../store/actionTypes"
+import {CHOOSE_ELEMENTS, CHOOSE_SLIDES} from "../store/actionTypes"
 import {useEventListener} from "../customHooks/useEventListner"
+import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu"
+import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
 
 
 const mapStateToProps = (state: Editor) => {
@@ -22,7 +24,12 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
         getElements: (slide: Slide, isIdNeeded: boolean = true) => getElements(slide, dispatch, isIdNeeded),
         getSlideBackgroundById: (editor: Editor, id: string) => getSlideBackgroundById(editor, id),
-        chooseSlides: (id: string | Array<string>) => dispatch({type: CHOOSE_SLIDES, payload: id})
+        chooseSlides: (id: string | Array<string>) => {
+            dispatch({type: CHOOSE_ELEMENTS, payload: []})
+            changePrimitiveStyleMenu(false)
+            changeTextStyleMenu(false)
+            dispatch({type: CHOOSE_SLIDES, payload: id})
+        }
     }
 }
 
