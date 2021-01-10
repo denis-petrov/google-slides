@@ -2,7 +2,7 @@ import {Color, isColor} from "../entities/Color"
 import {Editor} from "../entities/Editor"
 
 export function getSlideBackground(editor: Editor) {
-    let currentSlide = editor.presentation.slides.filter(s => editor.selectionSlidesId.includes(s.id))[0]
+    let currentSlide = editor.presentation.slides.filter(s => editor.selectionSlidesId[0] == s.id)[0]
     let slideBack = null
     if (currentSlide !== undefined && currentSlide !== null) {
         if (isColor(currentSlide.background)) {
