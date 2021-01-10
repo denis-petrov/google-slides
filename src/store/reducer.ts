@@ -23,6 +23,7 @@ import {changeTextFont} from "../functions/changeTextFont"
 import {changeTextSize} from "../functions/changeTextSize"
 import {initialState} from "./localStorage"
 import {redo, undo} from "./stateHistory"
+import {addCopiedElements} from "../functions/addCopiedElements";
 
 export let lastCommand: string
 
@@ -71,6 +72,8 @@ const reducer = (
             return addToBackground(state, action.payload)
         case actionTypes.ADD_IMAGE_TO_BACKGROUND:
             return addToBackground(state, action.payload)
+        case actionTypes.PASTE_ELEMENTS:
+            return addCopiedElements(state, action.payload)
             /* move */
         case actionTypes.CHANGE_POSITION_OF_ELEMENTS:
             return changePositionOfElements(state, action.payload)

@@ -1,4 +1,4 @@
-import React, {Dispatch} from 'react'
+import React, {Dispatch, useState} from 'react'
 import './App.css'
 import {Nav} from './nav/Nav'
 import SlideArea from './slideArea/SlideArea'
@@ -15,6 +15,8 @@ import {DELETE_ELEMENTS, REDO, SET_EDITOR, UNDO} from "./store/actionTypes"
 import {changePrimitiveStyleMenu} from "./functions/changePrimitiveStyleMenu"
 import {changeTextStyleMenu} from "./functions/changeTextStyleMenu"
 import {getIsShowCurrentlyPresentation} from "./functions/showPresentation";
+import {store} from "./store/store";
+import {copyElements, pasteElements} from "./functions/copyPasteElements";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -39,6 +41,14 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 
 
 function App(props: any) {
+    let editor = store.getState()
+    let result = editor.presentation.name.match(/[0-9a-zA-Zа-яА-Я!@#$%^_&*]$/)
+    if (result && result.length > 0) {
+        document.title = editor.presentation.name
+    } else {
+        document.title = 'Копатычи slides'
+    }
+
     if (Object.keys(props.state).length === 0) {
         props.setEditor()
     }
@@ -57,6 +67,14 @@ function App(props: any) {
 
             if (evt.keyCode === 46) {
                 props.deleteElements()
+            }
+
+            if (evt.ctrlKey && evt.keyCode === 67) {
+                copyElements()
+            }
+
+            if (evt.ctrlKey && evt.keyCode === 86) {
+                pasteElements(store.dispatch)
             }
         }
     }
