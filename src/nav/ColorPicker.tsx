@@ -63,7 +63,7 @@ export default function ColorPickerOur(props: any) {
                             addSomeToBackground(hexToRgb(color) as Color, dispatch)
                             handleClose()
                         }
-                    } style={{color: color}}>
+                    }>
                         Submit
                     </Button>
                 </DialogActions>
