@@ -261,24 +261,68 @@ input[type='number'] {
     border-left: 1px solid #c2c3c4;
 }
 
-.edit_style_text__time_new_roman {
-    font-family: "Times New Roman", serif;
-}
+/*
+ * Fonts:
+ * Roboto
+ * JetBrains Mono
+ * Padauk
+ * Open Sans
+ * Noto sans JP
+ * Lato
+ * Monsterrat
+ * Nerko One
+ * Oswald
+ * Castoro
+ * Work Sans
+ * Do Hyeon
+*/
 
 .edit_style_text__roboto {
     font-family: "Roboto", serif;
 }
 
-.edit_style_text__arial {
-    font-family: "Arial", serif;
+.edit_style_text__jetbrains_mono {
+    font-family: "JetBrains Mono", serif;
 }
 
-.edit_style_text__cambria {
-    font-family: "Cambria", serif;
+.edit_style_text__padauk {
+    font-family: "Padauk", serif;
 }
 
-.edit_style_text__samanata {
-    font-family: "Samanata", serif;
+.edit_style_text__open_sans {
+    font-family: "Open Sans", serif;
+}
+
+.edit_style_text__noto_sans_jp {
+    font-family: "Noto Sans JP", serif;
+}
+
+.edit_style_text__lato {
+    font-family: "Lato", serif;
+}
+
+.edit_style_text__monsterrat {
+    font-family: "Monsterrat", serif;
+}
+
+.edit_style_text__nerko_one {
+    font-family: "Nerko One", serif;
+}
+
+.edit_style_text__oswald {
+    font-family: "Oswald", serif;
+}
+
+.edit_style_text__castoro {
+    font-family: "Castoro", serif;
+}
+
+.edit_style_text__work_sans {
+    font-family: "Work Sans", serif;
+}
+
+.edit_style_text__do_hyeon {
+    font-family: "Do Hyeon", serif;
 }
 
 .rect_color {

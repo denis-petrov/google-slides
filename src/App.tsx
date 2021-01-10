@@ -1,4 +1,4 @@
-import React, {Dispatch, useState} from 'react'
+import React, {Dispatch} from 'react'
 import './App.css'
 import {Nav} from './nav/Nav'
 import SlideArea from './slideArea/SlideArea'
@@ -14,9 +14,9 @@ import {useMobileViewOnLoad} from "./customHooks/useMobileViewOnLoad"
 import {DELETE_ELEMENTS, REDO, SET_EDITOR, UNDO} from "./store/actionTypes"
 import {changePrimitiveStyleMenu} from "./functions/changePrimitiveStyleMenu"
 import {changeTextStyleMenu} from "./functions/changeTextStyleMenu"
-import {getIsShowCurrentlyPresentation} from "./functions/showPresentation";
-import {store} from "./store/store";
-import {copyElements, pasteElements} from "./functions/copyPasteElements";
+import {getIsShowCurrentlyPresentation} from "./functions/showPresentation"
+import {store} from "./store/store"
+import {copyElements, pasteElements} from "./functions/copyPasteElements"
 
 
 const mapStateToProps = (state: Editor) => {

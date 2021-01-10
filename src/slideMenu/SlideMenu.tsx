@@ -35,7 +35,7 @@ function SlideMenu(props: any) {
             let firstSlideDomIdx = 'slide' + editor.selectionSlidesId[0];
 
             for (let i = 0; i < allSlides.length; i++) {
-                let isChecked = (allSlides[i].id == firstSlideDomIdx)
+                let isChecked = (allSlides[i].id === firstSlideDomIdx)
                 allSlides[i].setAttribute('data-is-checked', isChecked.toString())
             }
             props.chooseSlides([props.state.selectionSlidesId[0]])
@@ -48,7 +48,7 @@ function SlideMenu(props: any) {
         return <div key={item.id}>
             <hr id={'slide_hr_before' + item.id}
                 className="slide_hr slide_hr__before"/>
-            <div className='slide' data-is-checked={editor.selectionSlidesId[0] == item.id}
+            <div className='slide' data-is-checked={editor.selectionSlidesId[0] === item.id}
                  id={'slide' + item.id}
                  onClick={(evt) => {
                      if (isMultipleSelectSlide(editor, evt, item.id)) {
