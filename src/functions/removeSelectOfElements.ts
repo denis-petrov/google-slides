@@ -39,10 +39,14 @@ export function removeSelectOfElement(evt: any, dispatch: Dispatch<any>) {
 export function removeAllSelectionView(pathClassName: string, pointsClassName: string) {
     let multipleSelection = document.getElementById('multiple-selection') as HTMLElement
     let workspace = document.getElementsByClassName('workspace')[0] as HTMLElement
+    if (multipleSelection == null || workspace == null) {
+        return;
+    }
     let editor = store.getState()
     editor.presentation.slides.map(s => {
-        if (editor.selectionSlidesId.includes(s.id)) {
+        if (editor.selectionSlidesId[0] == s.id) {
             for (let i = 0; i < s.elements.length; i++) {
+                console.log(document.getElementById(`svg_${s.elements[i].id}`))
                 workspace.appendChild(document.getElementById(`svg_${s.elements[i].id}`) as HTMLElement)
             }
         }

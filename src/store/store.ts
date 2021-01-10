@@ -43,7 +43,6 @@ store.subscribe(() => {
     if (lastCommand === NEW_EDITOR) {
         resetStateHistory()
     }
-    console.log(stateHistory)
 })
 
 

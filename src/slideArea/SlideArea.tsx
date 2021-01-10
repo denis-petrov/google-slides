@@ -33,7 +33,7 @@ function SlideArea(props: any) {
     }*/
 
     let elements = editor.presentation.slides.map((s: Slide) => {
-        if (editor.selectionSlidesId.includes(s.id)) {
+        if (editor.selectionSlidesId[0] == s.id) {
             slideId = s.id
             return props.getElements(s)
         }
