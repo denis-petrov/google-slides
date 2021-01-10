@@ -8,6 +8,8 @@ import html2canvas from "html2canvas"
 import {store} from "../store/store"
 import {changeTextPlaceholder} from "../slideShowPanel/changeTextPlaceholder"
 
+const gifFrames = require('gif-frames');
+
 export async function drawElement(pdfDocument: jsPDF, element: Element, slide: Slide) {
     let backgroundColor: Color = (element.backgroundColor === null) ? WHITE : (element.backgroundColor as Color)
     let borderColor: Color = element.borderColor
@@ -72,12 +74,24 @@ export async function drawElement(pdfDocument: jsPDF, element: Element, slide: S
             'DF')
     } else if (element.type === ElementType.image) {
         let img = element as ImageElement;
+        let link = img.link;
+        let reg = new RegExp("image/gif");
+        let gifMatches = img.link.match(reg);
+        let isGif = img.link.match(/.gif\b/) || (gifMatches && gifMatches.length > 0);
+        if (isGif) {
+            await gifFrames({ url: img.link, frames: 0, outputType: 'canvas' })
+                .then(function (frameData: Array<any>) {
+                    let canvas = frameData[0].getImage();
+                    link = canvas.toDataURL('img/png');
+                })
+        }
+
         let width = Math.abs(img.bottomRightPoint.x - img.topLeftPoint.x) / 100 * PAGE_WIDTH;
         let height = Math.abs(img.bottomRightPoint.y - img.topLeftPoint.y) / 100 * PAGE_HEIGHT;
 
         pdfDocument.addImage(
-            img.link,
-            'JPEG',
+            link,
+            'png',
             img.topLeftPoint.x / 100 * PAGE_WIDTH,
             img.topLeftPoint.y / 100 * PAGE_HEIGHT,
             width,

@@ -352,7 +352,8 @@ input[type='number'] {
     background-color: #000;
     color: #fff;
     font-size: 14px;
-    padding: 3px 7px;
+    line-height: 2;
+    padding: 0 7px;
     border-radius: 3px;
     top: 100%;
     transform: translateX(-60%);
@@ -365,20 +366,25 @@ input[type='number'] {
     background-color: #000;
     color: #fff;
     font-size: 14px;
-    padding: 3px 7px;
+    line-height: 2;
+    padding: 0 7px;
     border-radius: 3px;
     left: 100px;
-    animation: showTitle .5s cubic-bezier(1,-0.22,.47,.66) forwards;
+    animation: showTitle 3s cubic-bezier(1,-0.22,.47,.66) forwards;
 }
 
 @keyframes showTitle {
-    0%, 99% {
+    0%, 33% {
         visibility: hidden;
         opacity: 0;
     }
-    100% {
+    34%, 99% {
         visibility: visible;
         opacity: 1;
+    }
+    100% {
+        visibility: hidden;
+        opacity: 0;
     }
 }
 
