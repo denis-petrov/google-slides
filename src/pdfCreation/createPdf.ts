@@ -34,7 +34,7 @@ export async function drawElement(pdfDocument: jsPDF, element: Element, slide: S
             'DF')
     } else if (element.type === ElementType.text) {
         const canvasScalingFactor = 2
-        let textDomElement = document.querySelector(`#slide-area p[id='${element.id}']`) as HTMLElement
+        let textDomElement = document.getElementById(element.id) as HTMLElement
         let canvas = await html2canvas(
             textDomElement,
             {
