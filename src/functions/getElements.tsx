@@ -167,6 +167,14 @@ export function multipleSelectElements() {
                         if (e.topLeftPoint.y < topLeftPoint.y) {
                             topLeftPoint.y = e.topLeftPoint.y
                         }
+
+                        if (e.type === ElementType.text) {
+                            const textElem = e as Text
+                            let input = document.getElementById('font-size-area') as HTMLInputElement
+                            if (input) {
+                                input.value = textElem.textStyle.sizeFont + ''
+                            }
+                        }
                     }
                 })
 

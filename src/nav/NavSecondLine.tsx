@@ -485,20 +485,21 @@ function NavSecondLine(props: any) {
                         }}/>
                     </div>
                     <div data-title="Font&nbsp;size">
-                        <input aria-invalid="false" type="number" min="1" max="80"
-                               value={fontSize} onChange={(e) => {
-                            if (e.target.value !== '') {
-                                if (parseInt(e.target.value) > 80) {
-                                    fontSize = 80
-                                } else if (parseInt(e.target.value) < 1) {
-                                    fontSize = 1
-                                } else {
-                                    props.changeTextSize(parseInt(e.target.value))
-                                }
-                            } else {
-                                fontSize = 40
-                            }
-                        }}/>
+                        <input id="font-size-area" type="number" min="1" max="80"
+                               onKeyDown={(evt) => {
+                                   if (evt.keyCode === 13) {
+                                       (evt.target as HTMLElement).blur()
+                                   }
+                            }}
+                               onBlur={(evt) => {
+                                   let value = evt.target.value
+                                   if (value !== '' && parseInt(value) <= 80 && parseInt(value) >= 1) {
+                                       props.changeTextSize(parseInt(value))
+                                   } else {
+                                       props.changeTextSize(fontSize)
+                                   }
+                            }}
+                        />
                     </div>
                     <div data-title="Increase&nbsp;font&nbsp;size">
                         <AddIcon fontSize='small' onClick={() => {
