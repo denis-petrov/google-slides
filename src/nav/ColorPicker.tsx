@@ -48,19 +48,18 @@ export default function ColorPickerOur(props: any) {
             </div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title" color="primary">Select background color</DialogTitle>
-                <DialogContent style={{border: 'none'}}>
+                <DialogContent>
                     <ColorPicker color={color} onChange={(color) => {
                         setColor(color.hex)
-                    }} hideAlpha={true} hideInputs={false}
-                                 theme={{
-                                     "background": "#fff",
-                                     "inputBackground": "#f4f4f4",
-                                     "color": "#262626",
-                                     "borderColor": "#ffffff",
-                                     "borderRadius": "5px",
-                                     "boxShadow": "none",
-                                     "width": "280px"
-                                 }}/>
+                    }} hideAlpha={true} hideInputs={false} theme={{
+                        "background": "#fff",
+                        "inputBackground": "#f4f4f4",
+                        "color": "#262626",
+                        "borderColor": "#ffffff",
+                        "borderRadius": "5px",
+                        "boxShadow": "none",
+                        "width": "280px"
+                    }}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">

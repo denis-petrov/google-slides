@@ -303,16 +303,15 @@ function NavSecondLine(props: any) {
                         <Dropdown.Menu>
                             <ColorPicker color={fillColor} onChange={(color) =>
                                 props.changeElementFillColor(color.hex)
-                            } hideAlpha={true} hideInputs={false}
-                                         theme={{
-                                             "background": "#fff",
-                                             "inputBackground": "#f4f4f4",
-                                             "color": "#262626",
-                                             "borderColor": "#ffffff",
-                                             "borderRadius": "5px",
-                                             "boxShadow": "none",
-                                             "width": "280px"
-                                         }}/>
+                            } hideAlpha={true} hideInputs={false} theme={{
+                                "background": "#fff",
+                                "inputBackground": "#f4f4f4",
+                                "color": "#262626",
+                                "borderColor": "#ffffff",
+                                "borderRadius": "5px",
+                                "boxShadow": "none",
+                                "width": "280px"
+                            }}/>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
@@ -335,16 +334,15 @@ function NavSecondLine(props: any) {
                         <Dropdown.Menu>
                             <ColorPicker color={borderColor} onChange={(color) =>
                                 props.changeElementBorderColor(color.hex)
-                            } hideAlpha={true} hideInputs={false}
-                                         theme={{
-                                             "background": "#fff",
-                                             "inputBackground": "#f4f4f4",
-                                             "color": "#262626",
-                                             "borderColor": "#ffffff",
-                                             "borderRadius": "5px",
-                                             "boxShadow": "none",
-                                             "width": "280px"
-                                         }}/>
+                            } hideAlpha={true} hideInputs={false} theme={{
+                                "background": "#fff",
+                                "inputBackground": "#f4f4f4",
+                                "color": "#262626",
+                                "borderColor": "#ffffff",
+                                "borderRadius": "5px",
+                                "boxShadow": "none",
+                                "width": "280px"
+                            }}/>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
@@ -412,16 +410,15 @@ function NavSecondLine(props: any) {
                         <Dropdown.Menu>
                             <ColorPicker color={fillColor} onChange={(color) =>
                                 props.changeElementFillColor(color.hex)
-                            } hideAlpha={true} hideInputs={false}
-                                         theme={{
-                                             "background": "#fff",
-                                             "inputBackground": "#f4f4f4",
-                                             "color": "#262626",
-                                             "borderColor": "#ffffff",
-                                             "borderRadius": "5px",
-                                             "boxShadow": "none",
-                                             "width": "280px"
-                                         }}/>
+                            } hideAlpha={true} hideInputs={false} theme={{
+                                "background": "#fff",
+                                "inputBackground": "#f4f4f4",
+                                "color": "#262626",
+                                "borderColor": "#ffffff",
+                                "borderRadius": "5px",
+                                "boxShadow": "none",
+                                "width": "280px"
+                            }}/>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
