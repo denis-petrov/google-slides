@@ -44,9 +44,9 @@ const reducer = (
 
         /* undo and redo*/
         case actionTypes.UNDO:
-            return undo()
+            return undo(state)
         case actionTypes.REDO:
-            return redo()
+            return redo(state)
 
 
         /* slides */

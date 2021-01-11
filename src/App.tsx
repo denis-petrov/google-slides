@@ -1,4 +1,4 @@
-import React, {Dispatch} from 'react'
+import React, {Dispatch, useEffect} from 'react'
 import './App.css'
 import {Nav} from './nav/Nav'
 import SlideArea from './slideArea/SlideArea'
@@ -17,6 +17,7 @@ import {changeTextStyleMenu} from "./functions/changeTextStyleMenu"
 import {getIsShowCurrentlyPresentation} from "./functions/showPresentation"
 import {store} from "./store/store"
 import {copyElements, pasteElements} from "./functions/copyPasteElements"
+import {removeAllSelectionView} from "./functions/removeSelectOfElements";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -52,6 +53,12 @@ function App(props: any) {
     if (Object.keys(props.state).length === 0) {
         props.setEditor()
     }
+
+    let handleClearWindow = () => {
+        removeAllSelectionView()
+        console.log('clear')
+    }
+    useEventListener('DOMContentLoaded', handleClearWindow)
 
     let handleUndoRedo = (evt: KeyboardEvent) => {
         if (!getIsShowCurrentlyPresentation()) {

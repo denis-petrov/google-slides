@@ -25,7 +25,6 @@ store.subscribe(() => {
 
     if (!notValidActions.includes(lastCommand)) {
         saveStateToHistory(state)
-
     }
 
     if (stateHistory.history.length === 0) {
