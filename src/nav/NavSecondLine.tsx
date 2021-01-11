@@ -105,7 +105,14 @@ function NavSecondLine(props: any) {
         let element = elements[0]
         borderColor = `rgb(${element.borderColor.red},${element.borderColor.green},${element.borderColor.blue})`
         borderSizeView = element.borderWidth
-        if ((elements.length < 2) && (element.type === ElementType.text)) {
+        let isText = new Array<boolean>()
+        elements.forEach(e => {
+            if (e.type !== ElementType.text) {
+                isText.push(false)
+            }
+        })
+
+        if (!isText.includes(false)) {
             changePrimitiveStyleMenu(false)
             changeTextStyleMenu(true)
             const textStyle = (element as Text).textStyle

@@ -41,6 +41,7 @@ function SlideArea(props: any) {
     let handleClearWindow = () => {
         props.clearSelectionOnLoaded()
     }
+    useEventListener('unload', handleClearWindow)
     useEventListener('DOMContentLoaded', handleClearWindow)
 
     return (

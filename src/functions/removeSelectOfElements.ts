@@ -1,6 +1,7 @@
 import {changeTextStyleMenu} from "./changeTextStyleMenu"
 import {Dispatch} from "react"
 import {CHOOSE_ELEMENTS} from "../store/actionTypes"
+import {changePrimitiveStyleMenu} from "./changePrimitiveStyleMenu";
 
 
 export const pathClassName = 'elem-path_active'
@@ -27,6 +28,7 @@ export function removeSelectOfElement(evt: any, dispatch: Dispatch<any>) {
 
     if ((!itsNavBar && !itsClickedElem) || itsShowPresentationBtn) {
         removeAllSelectionView()
+        changePrimitiveStyleMenu(false)
         changeTextStyleMenu(false)
         dispatch({type: CHOOSE_ELEMENTS, payload: new Array<string>()})
     }

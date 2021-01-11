@@ -73,8 +73,10 @@ function App(props: any) {
                 copyElements()
             }
 
-            if (evt.ctrlKey && evt.keyCode === 86) {
-                pasteElements(store.dispatch)
+            if (document.activeElement && document.activeElement.tagName !== 'P' && document.activeElement.tagName !== 'INPUT') {
+                if (evt.ctrlKey && evt.keyCode === 86) {
+                    pasteElements(store.dispatch)
+                }
             }
         }
     }
