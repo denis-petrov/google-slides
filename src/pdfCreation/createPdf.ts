@@ -33,13 +33,16 @@ export async function drawElement(pdfDocument: jsPDF, element: Element, slide: S
             element.topLeftPoint.y / 100 * PAGE_HEIGHT,
             'DF')
     } else if (element.type === ElementType.text) {
+        (document.getElementById(`slide${slide.id}`) as HTMLElement).click()
+        setTimeout(() => {}, 10)
+
         const canvasScalingFactor = 2
         let textDomElement = document.getElementById(element.id) as HTMLElement
         let canvas = await html2canvas(
             textDomElement,
             {
                 scale: canvasScalingFactor,
-                backgroundColor: null
+                backgroundColor: null,
             })
         let base64Image = canvas.toDataURL('img/png')
 
@@ -123,8 +126,9 @@ export function drawBackground(pdfDocument: jsPDF, background: Color | string) {
 export async function drawSlide(pdfDocument: jsPDF, slide: Slide) {
     drawBackground(pdfDocument, slide.background)
     for (let i = 0; i < slide.elements.length; i++) {
-        let currElement = slide.elements[i]
-        await drawElement(pdfDocument, currElement, slide)
+        setTimeout(function(){}, 0)
+        let currElements = slide.elements[i]
+        await drawElement(pdfDocument, currElements, slide)
     }
 }
 
@@ -134,9 +138,7 @@ export async function createPdf(): Promise<jsPDF> {
     changeTextPlaceholder('')
 
     let editor: Editor = store.getState()
-    /* !заранее задать шрифты в jsPDF! */
     let pdfDocument = new jsPDF('landscape', 'px', pageSizeFormat)
-    /* !заранее задать шрифты в jsPDF! */
 
     for (let i = 0; i < editor.presentation.slides.length; ++i) {
         let currSlide = editor.presentation.slides[i]
@@ -146,6 +148,7 @@ export async function createPdf(): Promise<jsPDF> {
             pdfDocument.addPage(pageSizeFormat)
         }
     }
+    (document.getElementById(`slide${editor.selectionSlidesId[0]}`) as HTMLElement).click()
     changeTextPlaceholder('Insert text here')
     showLoadingCircle(false)
 
