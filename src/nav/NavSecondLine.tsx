@@ -296,7 +296,16 @@ function NavSecondLine(props: any) {
                         <Dropdown.Menu>
                             <ColorPicker color={fillColor} onChange={(color) =>
                                 props.changeElementFillColor(color.hex)
-                            } hideAlpha={true} hideInputs={true}/>
+                            } hideAlpha={true} hideInputs={false}
+                                         theme={{
+                                             "background": "#fff",
+                                             "inputBackground": "#f4f4f4",
+                                             "color": "#262626",
+                                             "borderColor": "#ffffff",
+                                             "borderRadius": "5px",
+                                             "boxShadow": "none",
+                                             "width": "280px"
+                                         }}/>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
@@ -319,7 +328,16 @@ function NavSecondLine(props: any) {
                         <Dropdown.Menu>
                             <ColorPicker color={borderColor} onChange={(color) =>
                                 props.changeElementBorderColor(color.hex)
-                            } hideAlpha={true} hideInputs={true}/>
+                            } hideAlpha={true} hideInputs={false}
+                                         theme={{
+                                             "background": "#fff",
+                                             "inputBackground": "#f4f4f4",
+                                             "color": "#262626",
+                                             "borderColor": "#ffffff",
+                                             "borderRadius": "5px",
+                                             "boxShadow": "none",
+                                             "width": "280px"
+                                         }}/>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
@@ -387,7 +405,16 @@ function NavSecondLine(props: any) {
                         <Dropdown.Menu>
                             <ColorPicker color={fillColor} onChange={(color) =>
                                 props.changeElementFillColor(color.hex)
-                            } hideAlpha={true} hideInputs={true}/>
+                            } hideAlpha={true} hideInputs={false}
+                                         theme={{
+                                             "background": "#fff",
+                                             "inputBackground": "#f4f4f4",
+                                             "color": "#262626",
+                                             "borderColor": "#ffffff",
+                                             "borderRadius": "5px",
+                                             "boxShadow": "none",
+                                             "width": "280px"
+                                         }}/>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
@@ -490,7 +517,7 @@ function NavSecondLine(props: any) {
                                    if (evt.keyCode === 13) {
                                        (evt.target as HTMLElement).blur()
                                    }
-                            }}
+                               }}
                                onBlur={(evt) => {
                                    let value = evt.target.value
                                    if (value !== '' && parseInt(value) <= 80 && parseInt(value) >= 1) {
@@ -498,7 +525,7 @@ function NavSecondLine(props: any) {
                                    } else {
                                        props.changeTextSize(fontSize)
                                    }
-                            }}
+                               }}
                         />
                     </div>
                     <div data-title="Increase&nbsp;font&nbsp;size">
