@@ -8,9 +8,7 @@ import {getSlideBackgroundById} from "../functions/getSlideBackgroundById"
 import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {Slide} from "../entities/Slide"
-import {CHOOSE_ELEMENTS, CHOOSE_SLIDES} from "../store/actionTypes"
-import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu"
-import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
+import {CHOOSE_SLIDES} from "../store/actionTypes"
 
 
 const mapStateToProps = (state: Editor) => {
@@ -34,6 +32,19 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 
 function SlideMenu(props: any) {
     let editor = props.state
+
+    useEventListener("mousedown", (evt: MouseEvent) => {
+        if (!(document.getElementsByClassName("sidebar")[0] as HTMLElement).contains(evt.target as HTMLElement)) {
+            let allSlides = document.getElementsByClassName('slide')
+            let firstSlideDomIdx = 'slide' + editor.selectionSlidesId[0];
+
+            for (let i = 0; i < allSlides.length; i++) {
+                let isChecked = (allSlides[i].id == firstSlideDomIdx)
+                allSlides[i].setAttribute('data-is-checked', isChecked.toString())
+            }
+            props.chooseSlides([props.state.selectionSlidesId[0]])
+        }
+    })
 
     let slides = editor.presentation.slides.map((item: any) => {
         let elements = props.getElements(item, false)
