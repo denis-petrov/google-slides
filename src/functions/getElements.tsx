@@ -92,7 +92,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
                         key={key}>
                 <foreignObject width={'100%'} height={'100%'} overflow={'visible'}>
                     <p contentEditable={true} suppressContentEditableWarning={true} id={elemId}
-                       data-is-element={true} data-placeholder={placeholder}
+                       data-is-element={true} data-placeholder={placeholder} spellCheck={false}
                        style={{
                            font: font,
                            textDecoration: underline,

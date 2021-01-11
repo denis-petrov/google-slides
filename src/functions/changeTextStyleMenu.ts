@@ -1,5 +1,9 @@
 function changeVisibility(elementId: string, visibility: boolean) {
     let element = document.getElementById(elementId)
+    if (!visibility) {
+        (document.getElementById('font-size-area') as HTMLElement).blur()
+    }
+
     if (element) {
         element.style.visibility = visibility ? 'visible' : 'hidden'
         element.style.display = visibility ? 'block' : ''
