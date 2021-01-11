@@ -4,7 +4,7 @@ export function changeArrowColor(editor: Editor) {
     let prevArrow = document.getElementById('show-prev-slide')
     let nextArrow = document.getElementById('show-next-slide')
     let playBtn = document.getElementById('start-slide-show')
-    editor.presentation.slides.map(s => {
+    editor.presentation.slides.forEach(s => {
         if (s.id === editor.selectionSlidesId[0]) {
             if (editor.presentation.slides.indexOf(s) === 0) {
                 if (prevArrow) {

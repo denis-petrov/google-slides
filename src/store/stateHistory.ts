@@ -34,7 +34,7 @@ export function canRedo(): boolean {
 }
 
 export function canUndo(): boolean {
-    return stateHistory.index >= 0 && stateHistory.history.length >= 1
+    return stateHistory.index > 0 && stateHistory.history.length > 1
 }
 
 export function canUndoKeyboard(evt: KeyboardEvent): boolean {
@@ -49,7 +49,7 @@ export function incIndex() {
     stateHistory.index++
 }
 
-export function undo() {
+export function undo(state: Editor) {
     if (canUndo()) {
         if (stateHistory.index > 0) {
             decIndex()
@@ -57,14 +57,14 @@ export function undo() {
 
         return stateHistory.history[stateHistory.index]
     }
-    return stateHistory.history[stateHistory.index]
+    return state
 }
 
-export function redo() {
+export function redo(state: Editor) {
     if (canRedo()) {
         incIndex()
 
         return stateHistory.history[stateHistory.index]
     }
-    return stateHistory.history[stateHistory.index]
+    return state
 }

@@ -24,6 +24,7 @@ export function isMultipleSelectSlide(editor: Editor, event: any, slideId: strin
         } else {
             editor.selectionSlidesId = editor.selectionSlidesId.filter(elem => elem != slideId)
         }
+
         return true
     } else {
 
@@ -35,6 +36,7 @@ export function isMultipleSelectSlide(editor: Editor, event: any, slideId: strin
             let previousAttributeValue = currSlideElement.getAttribute(attributeName)
             currSlideElement.setAttribute(attributeName, previousAttributeValue === 'true' ? 'false' : 'true')
         }
+
         return false
     }
 }

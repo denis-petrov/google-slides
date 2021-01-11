@@ -3,7 +3,6 @@ import {changeVisibilitySlideHr} from "../slideMenu/changeVisibilitySlideHr"
 import {moveElementPoint, resizeElements} from "../functions/resizeElements"
 import {endMoveElements} from "../functions/endMoveElements"
 import {clearAllSlideHr} from "../slideMenu/clearAllSlideHr"
-import {endResizeElements} from "../functions/endResizeElements"
 import {removeSelectOfElement} from "../functions/removeSelectOfElements"
 import {moveSlides} from "../functions/moveSlides"
 import {moveElements} from "../slideArea/moveElements"
@@ -13,7 +12,7 @@ import {store} from "../store/store"
 import {CHANGE_POSITION_OF_ELEMENTS, END_MOVE_SLIDES} from "../store/actionTypes"
 import {useEventListener} from "./useEventListner"
 import {Editor} from "../entities/Editor"
-import {multipleSelectElements} from "../slideArea/selectElements";
+import {endResizeElements} from "../functions/endResizeElements"
 
 
 let isMoveElements: boolean
@@ -31,6 +30,7 @@ let isMouseMove = false
 
 export function useDragAndDrop(editor: Editor) {
     const dispatch: Dispatch<any> = useDispatch()
+    const allSlidesSvg = document.getElementsByClassName('slides-menu-item-svg')
 
     let handleMouseDown = (evt: MouseEvent) => {
         firstPosX = evt.clientX
@@ -53,14 +53,19 @@ export function useDragAndDrop(editor: Editor) {
         }
 
         if (isMoveSlides) {
-            let selectedSlide = editor.selectionSlidesId[0]
-
+            let selectedSlideId = editor.selectionSlidesId[0]
             let elem = evt.target as HTMLElement
+            let elemId = elem.id
 
             let shiftY = evt.pageY - elem.getBoundingClientRect().top
 
-            if (elem.id !== undefined && selectedSlide !== elem.id) {
-                changeVisibilitySlideHr(editor, {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id})
+            for (let i = 0; i < allSlidesSvg.length; i++) {
+                if (allSlidesSvg[i].contains(elem)) {
+                    elemId = allSlidesSvg[i].id
+                }
+            }
+            if (elemId !== undefined && selectedSlideId !== elemId) {
+                changeVisibilitySlideHr(editor, {shiftY: shiftY, startSlideId: selectedSlideId, endSlideId: elemId})
                 isMouseMove = true
             }
         }
@@ -81,13 +86,19 @@ export function useDragAndDrop(editor: Editor) {
         if (isMoveSlides) {
             let selectedSlide = editor.selectionSlidesId[0]
             let elem = evt.target as HTMLElement
+            let elemId = elem.id
 
             let shiftY = evt.pageY - elem.getBoundingClientRect().top
 
-            if (isMouseMove && elem.id !== '' && elem.id !== undefined && selectedSlide !== elem.id) {
+            for (let i = 0; i < allSlidesSvg.length; i++) {
+                if (allSlidesSvg[i].contains(elem)) {
+                    elemId = allSlidesSvg[i].id
+                }
+            }
+            if (isMouseMove && elemId !== '' && elemId !== undefined && selectedSlide !== elemId) {
                 dispatch({
                     type: END_MOVE_SLIDES,
-                    payload: {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elem.id}
+                    payload: {shiftY: shiftY, startSlideId: selectedSlide, endSlideId: elemId}
                 })
                 isMouseMove = false
             }
@@ -100,10 +111,9 @@ export function useDragAndDrop(editor: Editor) {
             isResize = false
             pointIndex = -1
             if (resized) {
-                endResizeElements(resizePayload)
+                endResizeElements()
                 if (!resizePayload.get('small')) {
                     dispatch({type: CHANGE_POSITION_OF_ELEMENTS, payload: resizePayload})
-                    multipleSelectElements()
                 }
             }
         }

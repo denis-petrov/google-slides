@@ -29,7 +29,7 @@ function SlideShowPanel(props: any) {
 
     let slidesNumber = 1
     let slidesCount = editor.presentation.slides.length
-    editor.presentation.slides.map((s: any) => {
+    editor.presentation.slides.forEach((s: any) => {
         if (s.id === editor.selectionSlidesId[0]) {
             slidesNumber = editor.presentation.slides.indexOf(s) + 1
         }
@@ -43,6 +43,7 @@ function SlideShowPanel(props: any) {
         }
     }
     useEventListener('resize', handleResize)
+    useEventListener('DOMContentLoaded', handleResize)
 
     let handleKeyDown = (evt: KeyboardEvent) => {
         if (evt.keyCode === 27) {

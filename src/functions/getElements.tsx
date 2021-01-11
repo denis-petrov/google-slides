@@ -5,7 +5,9 @@ import React, {Dispatch} from "react"
 import {selectElements} from "../slideArea/selectElements"
 import {v4 as uuidv4} from 'uuid'
 import {svg} from "react-pick-color/build/components/ColorList/ColorList.style"
-import {DEFAULT_RECTANGLE} from "../entities/Constants";
+import {Point} from "../entities/Point"
+import {store} from "../store/store"
+import {CHANGE_TEXT_VALUE} from "../store/actionTypes"
 
 
 export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boolean = true) {
@@ -90,7 +92,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
                         key={key}>
                 <foreignObject width={'100%'} height={'100%'} overflow={'visible'}>
                     <p contentEditable={true} suppressContentEditableWarning={true} id={elemId}
-                       data-is-element={true} data-placeholder={placeholder}
+                       data-is-element={true} data-placeholder={placeholder} spellCheck={false}
                        style={{
                            font: font,
                            textDecoration: underline,
@@ -99,7 +101,8 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
                            overflowWrap: "break-word",
                            color: `${textColor}`,
                            outline: 'none',
-                           cursor: cursor
+                           cursor: cursor,
+                           whiteSpace: 'pre-wrap'
                        }}
                        onClick={(evt) => {
                            if (isIdNeeded && s.selectionElementsId[0] !== e.id) {
@@ -109,7 +112,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
 
                        onBlur={(evt) => {
                            if (isIdNeeded) {
-                               dispatch({type: 'CHANGE_TEXT_VALUE', payload: {id: e.id, value: evt.target.textContent}})
+                               dispatch({type: CHANGE_TEXT_VALUE, payload: {id: e.id, value: evt.target.innerText}})
                            }
                        }}
                     >
@@ -134,10 +137,59 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
     })
 }
 
-export function addDefaultSelectionElement() {
-    let width = Math.round((DEFAULT_RECTANGLE.bottomRightPoint.x - DEFAULT_RECTANGLE.topLeftPoint.x) * 100) / 100
-    let height = Math.round((DEFAULT_RECTANGLE.bottomRightPoint.y - DEFAULT_RECTANGLE.topLeftPoint.y) * 100) / 100
-    let viewBoxWidth = Math.round((DEFAULT_RECTANGLE.bottomRightPoint.x - DEFAULT_RECTANGLE.topLeftPoint.x) * 10 * 100) / 100
+export function multipleSelectElements() {
+    let editor = store.getState()
+    return editor.presentation.slides.map(s => {
+        if (editor.selectionSlidesId.includes(s.id)) {
+            if (s.selectionElementsId.length > 0) {
+                let bottomRightPoint: Point = {
+                    x: -10000,
+                    y: -10000
+                }
+                let topLeftPoint: Point = {
+                    x: 10000,
+                    y: 10000
+                }
+                s.elements.forEach(e => {
+                    if (s.selectionElementsId.includes(e.id)) {
+                        if (e.bottomRightPoint.x > bottomRightPoint.x) {
+                            bottomRightPoint.x = e.bottomRightPoint.x
+                        }
+
+                        if (e.bottomRightPoint.y > bottomRightPoint.y) {
+                            bottomRightPoint.y = e.bottomRightPoint.y
+                        }
+
+                        if (e.topLeftPoint.x < topLeftPoint.x) {
+                            topLeftPoint.x = e.topLeftPoint.x
+                        }
+
+                        if (e.topLeftPoint.y < topLeftPoint.y) {
+                            topLeftPoint.y = e.topLeftPoint.y
+                        }
+
+                        if (e.type === ElementType.text) {
+                            const textElem = e as Text
+                            let input = document.getElementById('font-size-area') as HTMLInputElement
+                            if (input) {
+                                input.value = textElem.textStyle.sizeFont + ''
+                            }
+                        }
+                    }
+                })
+
+                return getMultipleSelection(topLeftPoint, bottomRightPoint)
+            }
+            return false
+        }
+        return false
+    })
+}
+
+export function getMultipleSelection(topLeftPoint: Point, bottomRightPoint: Point) {
+    let width = Math.round((bottomRightPoint.x - topLeftPoint.x) * 100) / 100
+    let height = Math.round((bottomRightPoint.y - topLeftPoint.y) * 100) / 100
+    let viewBoxWidth = Math.round((bottomRightPoint.x - topLeftPoint.x) * 10 * 100) / 100
     let viewBoxHeight
     if (width > height) {
         viewBoxHeight = Math.round(height * 10 * 100) / 100
@@ -176,11 +228,12 @@ export function addDefaultSelectionElement() {
               strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>
     ]
 
-    return <svg id='default-selection-element' x={DEFAULT_RECTANGLE.topLeftPoint.x + '%'} y={DEFAULT_RECTANGLE.topLeftPoint.y + '%'}
-                viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={uuidv4()}>
+    return <svg id='multiple-selection' x={topLeftPoint.x + '%'} y={topLeftPoint.y + '%'}
+                viewBox={viewBox} width={width + '%'} height={height + '%'} preserveAspectRatio="none" key={uuidv4()} data-old-d={d}
+                data-tlp-x={topLeftPoint.x} data-tlp-y={topLeftPoint.y} data-brp-x={bottomRightPoint.x} data-brp-y={bottomRightPoint.y}>
         <path d={d} stroke="rgb(26, 115, 232)" strokeWidth="2" strokeLinejoin="miter"
-                      strokeLinecap="square" fill="none" className="elem-path"/>
-        <svg id='multiple-selection-points' className="points_container">
+              strokeLinecap="square" fill="none" className="elem-path elem-path_active"/>
+        <svg id='multiple-selection-points' className="points_container points_container_active">
             {points.map((point) => {
                 return point
             })}

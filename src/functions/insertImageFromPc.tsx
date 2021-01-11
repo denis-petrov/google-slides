@@ -2,7 +2,9 @@ import React, {Dispatch} from 'react'
 import {DEFAULT_IMAGE} from "../entities/Constants"
 import {deepCopy} from "deep-copy-ts"
 import {imageInitAfterOnload} from "./imageInitAfterOnload"
+import {ADD_TO_BACKGROUND} from "../store/actionTypes";
 
+const gifFrames = require('gif-frames')
 
 export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>, type: string, dispatch: Dispatch<any>) {
     let fileReader: FileReader
@@ -18,7 +20,16 @@ export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>, type: 
                 img.onload = () => {
                     copyImage = imageInitAfterOnload(img, copyImage)
                     copyImage.link = fileReader.result as string
-                    dispatch({type: type, payload: copyImage})
+                    if (file.type === 'image/gif' && type === ADD_TO_BACKGROUND) {
+                        gifFrames({ url: copyImage.link, frames: 0, outputType: 'canvas' })
+                            .then(function (frameData: Array<any>) {
+                                let canvas = frameData[0].getImage()
+                                copyImage.link = canvas.toDataURL('img/png')
+                                dispatch({type: type, payload: copyImage})
+                            })
+                    } else {
+                        dispatch({type: type, payload: copyImage})
+                    }
                 }
             }
         }

@@ -9,7 +9,6 @@ import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {Slide} from "../entities/Slide"
 import {CHOOSE_SLIDES} from "../store/actionTypes"
-import {useEventListener} from "../customHooks/useEventListner";
 
 
 const mapStateToProps = (state: Editor) => {
@@ -22,7 +21,12 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
         getElements: (slide: Slide, isIdNeeded: boolean = true) => getElements(slide, dispatch, isIdNeeded),
         getSlideBackgroundById: (editor: Editor, id: string) => getSlideBackgroundById(editor, id),
-        chooseSlides: (id: string | Array<string>) => dispatch({type: CHOOSE_SLIDES, payload: id})
+        chooseSlides: (id: string | Array<string>) => {
+            dispatch({type: CHOOSE_ELEMENTS, payload: []})
+            changePrimitiveStyleMenu(false)
+            changeTextStyleMenu(false)
+            dispatch({type: CHOOSE_SLIDES, payload: id})
+        }
     }
 }
 
@@ -48,7 +52,7 @@ function SlideMenu(props: any) {
         return <div key={item.id}>
             <hr id={'slide_hr_before' + item.id}
                 className="slide_hr slide_hr__before"/>
-            <div className='slide' data-is-checked={editor.selectionSlidesId[0] == item.id}
+            <div className='slide' data-is-checked={editor.selectionSlidesId[0] === item.id}
                  id={'slide' + item.id}
                  onClick={(evt) => {
                      if (isMultipleSelectSlide(editor, evt, item.id)) {
@@ -62,7 +66,9 @@ function SlideMenu(props: any) {
                   style={{userSelect: 'none'}}>{editor.presentation.slides.indexOf(item) + 1}</span>
                 <Card className={'mb-3 slides-menu-item'}>
                     <svg className='slides-menu-item-svg' id={item.id}
-                         style={{background: `0 0 / cover ${props.getSlideBackgroundById(editor, item.id)}`}}>
+                         style={{
+                             background: `0 0 / cover ${props.getSlideBackgroundById(editor, item.id)}`,
+                         }}>
                         {elements}
                     </svg>
                 </Card>

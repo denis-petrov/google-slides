@@ -3,7 +3,7 @@ import {store} from "../store/store"
 export function moveSlides(event: any) {
     let isMoveSlides = false
     let editor = store.getState()
-    editor.presentation.slides.map(s => {
+    editor.presentation.slides.forEach(s => {
         if (editor.selectionSlidesId.includes(s.id)) {
             let selectedSlides = []
             for (let i = 0; i < editor.selectionSlidesId.length; i++) {
