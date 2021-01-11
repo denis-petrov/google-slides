@@ -80,8 +80,7 @@ export async function drawElement(pdfDocument: jsPDF, element: Element, slide: S
         let link = img.link;
         let reg = new RegExp("image/gif");
         let gifMatches = img.link.match(reg);
-        let isGif = img.link.match(/.gif\b/) || (gifMatches && gifMatches.length > 0);
-        if (isGif) {
+        if (gifMatches && gifMatches.length > 0) {
             await gifFrames({ url: img.link, frames: 0, outputType: 'canvas' })
                 .then(function (frameData: Array<any>) {
                     let canvas = frameData[0].getImage();
@@ -159,7 +158,7 @@ export function showLoadingCircle(show: boolean) {
     let slideMask = document.getElementById('slide-mask') as HTMLElement
     if (show) {
         slideMask.style.visibility = 'visible'
-        slideMask.style.backgroundColor = 'rgba(0, 0, 0, .5)'
+        slideMask.style.backgroundColor = 'rgb(0, 0, 0)'
         slideMask.style.zIndex = '99999'
     } else {
         slideMask.style.visibility = ''
