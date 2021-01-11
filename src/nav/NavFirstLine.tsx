@@ -54,6 +54,7 @@ function NavFirstLine(props: any) {
                             <input type="text" className="form-control nav__presentation_name" id="presentationName"
                                    aria-describedby="emailHelp" placeholder="NEW PRESENTATION"
                                    value={editor.presentation.name}
+                                   style={{textOverflow: 'ellipsis'}}
                                    onChange={(e) =>
                                        props.changePresentationName(e.target.value)
                                    }

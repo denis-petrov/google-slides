@@ -1,6 +1,6 @@
 import {Editor} from "../entities/Editor"
 import {jsPDF} from "jspdf"
-import {Element, ElementType, ImageElement} from "../entities/Elements"
+import {Element, ElementType, ImageElement, Text} from "../entities/Elements"
 import {Slide} from "../entities/Slide"
 import {PAGE_HEIGHT, PAGE_WIDTH, WHITE} from "../entities/Constants"
 import {Color, isColor} from "../entities/Color"
@@ -32,7 +32,7 @@ export async function drawElement(pdfDocument: jsPDF, element: Element, slide: S
             (element.bottomRightPoint.x + element.topLeftPoint.x) / 2 / 100 * PAGE_WIDTH,
             element.topLeftPoint.y / 100 * PAGE_HEIGHT,
             'DF')
-    } else if (element.type === ElementType.text) {
+    } else if (element.type === ElementType.text && (element as Text).text.trim().length > 0) {
         const canvasScalingFactor = 2
         let textDomElement = document.getElementById(element.id) as HTMLElement
         let canvas = await html2canvas(

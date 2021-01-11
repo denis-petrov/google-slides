@@ -85,6 +85,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
             const borderWidth = e.borderWidth
             const cursor = isIdNeeded ? 'auto' : 'default'
             const placeholder = isIdNeeded ? 'Insert text here' : ''
+            const slideArea = isIdNeeded ? 'true' : ''
 
             return <svg id={elemParentId} x={e.topLeftPoint.x + '%'} y={e.topLeftPoint.y + '%'} viewBox={viewBox}
                         width={width + '%'}
@@ -92,7 +93,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
                         key={key}>
                 <foreignObject width={'100%'} height={'100%'} overflow={'visible'}>
                     <p contentEditable={true} suppressContentEditableWarning={true} id={elemId}
-                       data-is-element={true} data-placeholder={placeholder} spellCheck={false}
+                       data-is-element={slideArea} data-placeholder={placeholder} spellCheck={false}
                        style={{
                            font: font,
                            textDecoration: underline,

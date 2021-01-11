@@ -11,38 +11,43 @@ export function insertImageByURL(URL: string, type: string, dispatch: Dispatch<a
     let img = new Image()
 
     img.setAttribute('src', URL)
-    img.onload = () => {
+    img.onload = async () => {
         copyImage = imageInitAfterOnload(img, copyImage)
         copyImage.link = URL
 
         let gifMatches = URL.match(/.gif\b/)
-        if (gifMatches && gifMatches.length > 0 && type === ADD_TO_BACKGROUND) {
-            gifFrames({ url: URL, frames: 0, outputType: 'canvas' })
-                .then(function (frameData: Array<any>) {
-                    let canvas = frameData[0].getImage()
-                    copyImage.link = canvas.toDataURL('img/png')
-                    dispatch({type: type, payload: copyImage})
-                })
+        if (gifMatches && gifMatches.length > 0) {
+            let base64 = URL
+
+            const corsDef = 'https://cors-anywhere.herokuapp.com/'
+            let xhr = new XMLHttpRequest()
+            xhr.onload = function() {
+                let fileReader = new FileReader()
+                fileReader.onloadend = function() {
+                    if (fileReader.result != null) {
+                        base64 = fileReader.result as string
+                        if (type === ADD_TO_BACKGROUND) {
+                            let elem
+                            gifFrames({ url: base64, frames: 0, outputType: 'canvas' })
+                                .then(function (frameData: Array<any>) {
+                                    elem = frameData
+                                    let canvas = frameData[0].getImage()
+                                    copyImage.link = canvas.toDataURL('img/png')
+                                    dispatch({type: type, payload: copyImage})
+                                })
+                        } else {
+                            copyImage.link = base64
+                            dispatch({type: type, payload: copyImage})
+                        }
+                    }
+                }
+                fileReader.readAsDataURL(xhr.response)
+            }
+            xhr.open('GET', corsDef + URL)
+            xhr.responseType = 'blob'
+            xhr.send()
         } else {
             dispatch({type: type, payload: copyImage})
         }
     }
 }
-
-
-/*const corsDef = 'https://cors-anywhere.herokuapp.com/'
-
-let xhr = new XMLHttpRequest()
-xhr.onload = function() {
-    let fileReader = new FileReader()
-    fileReader.onloadend = function() {
-        console.log(fileReader.result)
-        if (fileReader.result != null) {
-            //addSomeElement(getImage(DEFAULT_IMAGE, fileReader.result as string))
-        }
-    }
-    fileReader.readAsDataURL(xhr.response)
-}
-xhr.open('GET', corsDef + URL)
-xhr.responseType = 'blob'
-xhr.send()*/
