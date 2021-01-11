@@ -6,6 +6,8 @@ import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {v4 as uuidv4} from 'uuid'
 import {Slide} from "../entities/Slide"
+import {useEventListener} from "../customHooks/useEventListner"
+import {CHOOSE_ELEMENTS} from "../store/actionTypes"
 
 
 const mapStateToProps = (state: Editor) => {
@@ -19,7 +21,8 @@ const mapStateToProps = (state: Editor) => {
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
         getElements: (slide: Slide, isIdNeeded: boolean = true) => getElements(slide, dispatch, isIdNeeded),
-        getSlideBackground: (editor: Editor) => getSlideBackground(editor)
+        getSlideBackground: (editor: Editor) => getSlideBackground(editor),
+        clearSelectionOnLoaded: () => dispatch({type: CHOOSE_ELEMENTS, payload: []})
     }
 }
 
@@ -34,6 +37,11 @@ function SlideArea(props: any) {
             elements = props.getElements(s)
         }
     })
+
+    let handleClearWindow = () => {
+        props.clearSelectionOnLoaded()
+    }
+    useEventListener('DOMContentLoaded', handleClearWindow)
 
     return (
         <div id="slide-area" className='slide-area'>

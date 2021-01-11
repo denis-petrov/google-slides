@@ -1,7 +1,10 @@
 function changeVisibility(elementId: string, visibility: boolean) {
     let element = document.getElementById(elementId)
     if (!visibility) {
-        (document.getElementById('font-size-area') as HTMLElement).blur()
+        let fonSize = document.getElementById('font-size-area') as HTMLElement
+        if (fonSize) {
+            fonSize.blur()
+        }
     }
 
     if (element) {

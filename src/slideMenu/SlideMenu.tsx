@@ -9,7 +9,6 @@ import {connect} from "react-redux"
 import {Editor} from "../entities/Editor"
 import {Slide} from "../entities/Slide"
 import {CHOOSE_ELEMENTS, CHOOSE_SLIDES} from "../store/actionTypes"
-import {useEventListener} from "../customHooks/useEventListner"
 import {changePrimitiveStyleMenu} from "../functions/changePrimitiveStyleMenu"
 import {changeTextStyleMenu} from "../functions/changeTextStyleMenu"
 
