@@ -27,9 +27,8 @@ export function removeSelectOfElement(evt: any, dispatch: Dispatch<any>) {
 
     if ((!itsNavBar && !itsClickedElem) || itsShowPresentationBtn) {
         removeAllSelectionView()
-
-        dispatch({type: CHOOSE_ELEMENTS, payload: new Array<string>()})
         changeTextStyleMenu(false)
+        dispatch({type: CHOOSE_ELEMENTS, payload: new Array<string>()})
     }
 }
 
