@@ -10,7 +10,22 @@ import {Color, isColor} from "../entities/Color"
 import {ElementType} from "../entities/Elements"
 
 function createRgbLine(color: Color) {
-    return `#${color.red.toString(16)}${color.green.toString(16)}${color.blue.toString(16)}`
+    let redHex = color.red.toString(16)
+    if (redHex.length == 1) {
+        redHex = "0" + redHex
+    }
+
+    let greenHex = color.green.toString(16)
+    if (greenHex.length == 1) {
+        greenHex = "0" + greenHex
+    }
+
+    let blueHex = color.blue.toString(16)
+    if (blueHex.length == 1) {
+        blueHex = "0" + blueHex
+    }
+
+    return `#${redHex}${greenHex}${blueHex}`
 }
 
 function convertAlign(align: string | undefined): "left" | "right" | "center" | undefined {
@@ -66,7 +81,7 @@ export function drawElement(element: ElementsModule.Element): JSX.Element {
             type="rect"
             style={shapeSettings}/>
     } else if (element.type === ElementType.image) {
-        return <Image src={{kind:"data", data:""}} style={boundingBoxCoordinates}/>
+        return <Image src={{kind:"data", data:(element as ElementsModule.ImageElement).link}} style={boundingBoxCoordinates}/>
     } else {
         throw Error(`Incorrect slide element type`)
     }

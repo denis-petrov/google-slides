@@ -28,6 +28,7 @@ export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>, type: 
                                 dispatch({type: type, payload: copyImage})
                             })
                     } else {
+
                         dispatch({type: type, payload: copyImage})
                     }
                 }

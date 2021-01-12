@@ -35,7 +35,6 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 
 function SlideMenu(props: any) {
     let editor = props.state
-
     let handleClickOutside = (evt: MouseEvent) => {
         let isClickedOutSideBar = !(
             (

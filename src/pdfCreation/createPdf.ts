@@ -34,7 +34,7 @@ export async function drawElement(pdfDocument: jsPDF, element: Element, slide: S
             'DF')
     } else if (element.type === ElementType.text && (element as Text).text.trim().length > 0) {
         (document.getElementById(`slide${slide.id}`) as HTMLElement).click()
-        setTimeout(() => {}, 10)
+        setTimeout(() => {}, 1000)
 
         const canvasScalingFactor = 2
         let textDomElement = document.getElementById(element.id) as HTMLElement
