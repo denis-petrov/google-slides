@@ -37,8 +37,16 @@ function SlideMenu(props: any) {
     let editor = props.state
 
     let handleClickOutside = (evt: MouseEvent) => {
-        let isClickedOutSideBar = (document.getElementsByClassName("sidebar")[0] as HTMLElement).contains(evt.target as HTMLElement)
-        if (!isClickedOutSideBar && editor.selectionSlidesId.length > 1) {
+        let isClickedOutSideBar = !(
+            (
+                document.getElementById("dropdown-slide") &&
+                (document.getElementById("dropdown-slide") as HTMLElement).contains(evt.target as HTMLElement)
+            ) ||
+            (document.getElementById("slide-manipulation-buttons") as HTMLElement).contains(evt.target as HTMLElement) ||
+            (document.getElementsByClassName("sidebar")[0] as HTMLElement).contains(evt.target as HTMLElement)
+        )
+        console.log(evt.target)
+        if ((editor.selectionSlidesId.length > 1) && isClickedOutSideBar) {
             let allSlides = document.getElementsByClassName('slide')
             let firstSlideDomIdx = 'slide' + editor.selectionSlidesId[0]
 

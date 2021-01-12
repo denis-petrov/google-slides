@@ -125,13 +125,13 @@ function NavFirstLine(props: any) {
                             </Dropdown.Menu>
                         </Dropdown>
 
-                        <Dropdown>
+                        <Dropdown id="dropdown-slide">
                             <Dropdown.Toggle className="btn-light btn-sm dropbox__slide dropbox__button"
-                                             variant="success" id="dropdown-slide">
+                                             variant="success">
                                 Slide
                             </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
+                            <Dropdown.Menu id="slide-menu-dropdown">
                                 <Dropdown.Item className="btn-sm button__onclick"
                                                onClick={() => props.addEmptySlide()}>
                                     New slide
