@@ -45,7 +45,6 @@ function SlideMenu(props: any) {
             (document.getElementById("slide-manipulation-buttons") as HTMLElement).contains(evt.target as HTMLElement) ||
             (document.getElementsByClassName("sidebar")[0] as HTMLElement).contains(evt.target as HTMLElement)
         )
-        console.log(evt.target)
         if ((editor.selectionSlidesId.length > 1) && isClickedOutSideBar) {
             let allSlides = document.getElementsByClassName('slide')
             let firstSlideDomIdx = 'slide' + editor.selectionSlidesId[0]

@@ -93,7 +93,7 @@ export async function drawElement(pdfDocument: jsPDF, element: Element, slide: S
 
         pdfDocument.addImage(
             link,
-            'png',
+            'JPEG',
             img.topLeftPoint.x / 100 * PAGE_WIDTH,
             img.topLeftPoint.y / 100 * PAGE_HEIGHT,
             width,
