@@ -13,6 +13,7 @@ code {
 }
 
 .slide-area {
+  background-color: #f8f9fa;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
