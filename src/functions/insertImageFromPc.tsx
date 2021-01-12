@@ -21,7 +21,7 @@ export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>, type: 
                     copyImage = imageInitAfterOnload(img, copyImage)
                     copyImage.link = fileReader.result as string
                     if (copyImage.link.length > MAX_BASE64_LENGTH) {
-                        alert("Selected media size is out of bounds")
+                        alert("The size of the selected image must not exceed 512KB.")
                         return null;
                     }
 

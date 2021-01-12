@@ -26,7 +26,7 @@ export function insertImageByURL(URL: string, type: string, dispatch: Dispatch<a
                 if (fileReader.result != null) {
                     base64 = fileReader.result as string
                     if (base64.length > MAX_BASE64_LENGTH) {
-                        alert("Selected media size is out of bounds")
+                        alert("The size of the selected image must not exceed 512KB.")
                         return null;
                     }
                     if (type === ADD_TO_BACKGROUND && gifMatches && gifMatches.length > 0) {
