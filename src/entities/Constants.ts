@@ -15,7 +15,8 @@ export {
     PAGE_HEIGHT,
     PAGE_WIDTH,
     LOCAL_STORAGE_EDITOR_KEY,
-    INITIAL_STATE_HISTORY
+    INITIAL_STATE_HISTORY,
+    MAX_BASE64_LENGTH
 }
 
 const WHITE: Color = {
@@ -168,6 +169,7 @@ const DEFAULT_IMAGE: ImageElement = {
 const PAGE_WIDTH = 1920
 const PAGE_HEIGHT = 1080
 const LOCAL_STORAGE_EDITOR_KEY = "Editor"
+const MAX_BASE64_LENGTH = 699051
 
 const INITIAL_STATE_HISTORY: StateHistory = {
     history: [],

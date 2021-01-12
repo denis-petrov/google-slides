@@ -1,5 +1,5 @@
 import {Dispatch} from 'react'
-import {DEFAULT_IMAGE} from '../entities/Constants'
+import {DEFAULT_IMAGE, MAX_BASE64_LENGTH} from '../entities/Constants'
 import {deepCopy} from "deep-copy-ts"
 import {imageInitAfterOnload} from "./imageInitAfterOnload"
 import {ADD_TO_BACKGROUND} from "../store/actionTypes";
@@ -25,6 +25,10 @@ export function insertImageByURL(URL: string, type: string, dispatch: Dispatch<a
             fileReader.onloadend = function() {
                 if (fileReader.result != null) {
                     base64 = fileReader.result as string
+                    if (base64.length > MAX_BASE64_LENGTH) {
+                        alert("Selected media size is out of bounds")
+                        return null;
+                    }
                     if (type === ADD_TO_BACKGROUND && gifMatches && gifMatches.length > 0) {
                         gifFrames({ url: base64, frames: 0, outputType: 'canvas' })
                             .then(function (frameData: Array<any>) {
