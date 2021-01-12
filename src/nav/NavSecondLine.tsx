@@ -148,29 +148,31 @@ function NavSecondLine(props: any) {
     return (
         <AppBar position="static" className="nav">
             <Toolbar variant="dense">
-                <button data-title="Add&nbsp;slide" type="button"
-                        className="btn btn-sm button__onclick dropbox__button"
-                        onClick={() => props.addEmptySlide()}>
-                    <AddIcon/>
-                </button>
+                <div id="slide-manipulation-buttons">
+                    <button data-title="Add&nbsp;slide" type="button"
+                            className="btn btn-sm button__onclick dropbox__button"
+                            onClick={() => props.addEmptySlide()}>
+                        <AddIcon/>
+                    </button>
 
-                <button data-title="Remove&nbsp;slides" type="button"
-                        className="btn btn-sm button__onclick dropbox__button"
-                        onClick={() => props.deleteSlides()}>
-                    <RemoveIcon/>
-                </button>
+                    <button data-title="Remove&nbsp;slides" type="button"
+                            className="btn btn-sm button__onclick dropbox__button"
+                            onClick={() => props.deleteSlides()}>
+                        <RemoveIcon/>
+                    </button>
 
-                <button data-title="Undo" type="button"
-                        className="btn btn-light btn-sm button__onclick dropbox__button"
-                        onClick={() => props.undo()}>
-                    <UndoIcon/>
-                </button>
+                    <button data-title="Undo" type="button"
+                            className="btn btn-light btn-sm button__onclick dropbox__button"
+                            onClick={() => props.undo()}>
+                        <UndoIcon/>
+                    </button>
 
-                <button data-title="Redo" type="button"
-                        className="btn btn-light btn-sm button__onclick dropbox__button"
-                        onClick={() => props.redo()}>
-                    <RedoIcon/>
-                </button>
+                    <button data-title="Redo" type="button"
+                            className="btn btn-light btn-sm button__onclick dropbox__button"
+                            onClick={() => props.redo()}>
+                        <RedoIcon/>
+                    </button>
+                </div>
 
                 <div className="vertical_separator">&nbsp;</div>
 
