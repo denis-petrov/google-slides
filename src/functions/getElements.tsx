@@ -79,7 +79,7 @@ export function getElements(s: Slide, dispatch: Dispatch<any>, isIdNeeded: boole
             </svg>
         } else if (e.type === ElementType.text) {
             const textStyle = (e as Text).textStyle
-            const font = `${textStyle.isBold ? 'bold' : ''} ${textStyle.isCurve ? 'italic' : ''} ${textStyle.sizeFont}px ${textStyle.font}`
+            const font = `${textStyle.isBold ? 'bold' : ''} ${textStyle.isCurve ? 'italic' : ''} ${textStyle.sizeFont}px/1.2 ${textStyle.font}`
             const underline = `${textStyle.isUnderline ? 'underline' : 'none'}`
             const textColor = `rgb(${textStyle.color.red},${textStyle.color.green},${textStyle.color.blue})`
             const borderWidth = e.borderWidth

@@ -61,13 +61,13 @@ export function drawElement(element: ElementsModule.Element): JSX.Element {
     } else if (element.type === ElementType.text) {
         let text = element as ElementsModule.Text
         return <Text key={uuidv4()} style={{
-            x: `${Math.round(element.topLeftPoint.x * 0.99)}%`,
-            y: `${Math.round(element.topLeftPoint.y * 0.99)}%`,
-            w: `${Math.ceil(Math.abs(element.topLeftPoint.x - element.bottomRightPoint.x) * 1.25)}%`,
+            x: `${Math.round(element.topLeftPoint.x)}%`,
+            y: `${Math.round(element.topLeftPoint.y)}%`,
+            w: `${Math.ceil(Math.abs(element.topLeftPoint.x - element.bottomRightPoint.x))}%`,
             h: `${Math.ceil(Math.abs(element.topLeftPoint.y - element.bottomRightPoint.y))}%`,
             color: createRgbLine(text.textStyle.color),
             fontFace: text.textStyle.font,
-            fontSize: 0.75 * text.textStyle.sizeFont,
+            fontSize: 0.7 * text.textStyle.sizeFont,
             align: convertAlign(text.textStyle.align),
             verticalAlign: "top"
         }}>
