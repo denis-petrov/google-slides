@@ -10,7 +10,8 @@ import {DEFAULT_ELLIPSE, DEFAULT_RECTANGLE, DEFAULT_TEXT, DEFAULT_TRIANGLE} from
 import {savePresentationToPc} from "../functions/savePresentationToPc"
 import {createPdf} from "../pdfCreation/createPdf"
 import {openPresentationFromPc} from "../functions/openPresentationFromPc"
-
+import {store} from "../store/store";
+import {createPptx} from "../pptxCreation/createPptx";
 
 const mapStateToProps = (state: Editor) => {
     return {
@@ -95,6 +96,22 @@ function NavFirstLine(props: any) {
                                 <Dropdown.Item className="btn-sm button__onclick" onClick={async () => {
                                     (await createPdf()).save(editor.presentation.name)
                                 }}>Export to PDF</Dropdown.Item>
+
+                                <Dropdown.Item className="btn-sm button__onclick" onClick={async ()=> {
+                                    let editor = store.getState()
+                                    let buffer = (await createPptx(editor))
+                                    let blob = new Blob([new Uint8Array(buffer as ArrayBufferLike)])
+                                    let tempLink = document.createElement('a')
+                                    let presentationName = (editor.presentation.name.trim().length !== 0) ?
+                                        editor.presentation.name : "New presentation"
+
+                                    tempLink.href = window.URL.createObjectURL(blob)
+                                    tempLink.setAttribute('download', `${presentationName}.pptx`)
+                                    tempLink.click()
+
+                                }}>
+                                    Export to PPTX
+                                </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
 
