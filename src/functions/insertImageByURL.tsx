@@ -15,8 +15,8 @@ export function insertImageByURL(URL: string, type: string, dispatch: Dispatch<a
         copyImage = imageInitAfterOnload(img, copyImage)
         copyImage.link = URL
 
-        let reg = new RegExp("image/gif");
-        let gifMatches = URL.match(reg)
+
+        let gifMatches = URL.match(/.gif\b/)
         let base64 = URL
 
         const corsDef = 'https://cors-anywhere.herokuapp.com/'
