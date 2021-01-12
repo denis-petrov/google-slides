@@ -1,7 +1,7 @@
 import {store} from "../store/store";
 import {Element} from "../entities/Elements";
 import {Dispatch} from "react";
-import {PASTE_ELEMENTS} from "../store/actionTypes";
+import {CHOOSE_ELEMENTS, PASTE_ELEMENTS} from "../store/actionTypes";
 
 function getCookie(name: string) {
     let matches = document.cookie.match(new RegExp(
@@ -35,7 +35,9 @@ export function copyElements() {
 
 export function pasteElements(dispatch: Dispatch<any>) {
     let value =  getCookie(copyPastCookieName)
-    let json = null
+    let json = {
+        elements: new Array<Element>()
+    }
 
     if (value !== undefined) {
         json = JSON.parse(value)
@@ -43,5 +45,23 @@ export function pasteElements(dispatch: Dispatch<any>) {
 
     if (json) {
         dispatch({type: PASTE_ELEMENTS, payload: json.elements})
+        let editor = store.getState()
+        editor.presentation.slides.forEach(s => {
+            if (editor.selectionSlidesId.includes(s.id)) {
+                let elemCount = s.elements.length
+                let selectedElements = new Array<string>()
+                for (let i = elemCount - 1; i >= elemCount - json.elements.length; i--) {
+                    selectedElements.push(s.elements[i].id)
+                }
+
+                dispatch({type: CHOOSE_ELEMENTS, payload: selectedElements})
+                selectedElements.forEach(id => {
+                    let element = document.getElementById(id)
+                    if (element) {
+                        element.classList.add('element_choosed')
+                    }
+                })
+            }
+        })
     }
 }
