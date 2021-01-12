@@ -8,20 +8,21 @@ import * as ElementsModule from "../entities/Elements"
 import * as SlidesModule from "../entities/Slide"
 import {Color, isColor} from "../entities/Color"
 import {ElementType} from "../entities/Elements"
+import {v4 as uuidv4} from 'uuid'
 
 function createRgbLine(color: Color) {
     let redHex = color.red.toString(16)
-    if (redHex.length == 1) {
+    if (redHex.length === 1) {
         redHex = "0" + redHex
     }
 
     let greenHex = color.green.toString(16)
-    if (greenHex.length == 1) {
+    if (greenHex.length === 1) {
         greenHex = "0" + greenHex
     }
 
     let blueHex = color.blue.toString(16)
-    if (blueHex.length == 1) {
+    if (blueHex.length === 1) {
         blueHex = "0" + blueHex
     }
 
@@ -54,12 +55,12 @@ export function drawElement(element: ElementsModule.Element): JSX.Element {
         borderColor: createRgbLine(element.borderColor)
     }
     if (element.type === ElementType.triangle) {
-        return <Shape
+        return <Shape key={uuidv4()}
             type="triangle"
             style={shapeSettings}/>
     } else if (element.type === ElementType.text) {
         let text = element as ElementsModule.Text
-        return <Text style={{
+        return <Text key={uuidv4()} style={{
             x: `${Math.round(element.topLeftPoint.x * 0.99)}%`,
             y: `${Math.round(element.topLeftPoint.y * 0.99)}%`,
             w: `${Math.ceil(Math.abs(element.topLeftPoint.x - element.bottomRightPoint.x) * 1.25)}%`,
@@ -73,15 +74,15 @@ export function drawElement(element: ElementsModule.Element): JSX.Element {
             <b>{text.text}</b>
         </Text>
     } else if (element.type === ElementType.ellipse) {
-        return <Shape
+        return <Shape key={uuidv4()}
             type="ellipse"
             style={shapeSettings}/>
     } else if (element.type === ElementType.rectangle) {
-        return <Shape
+        return <Shape key={uuidv4()}
             type="rect"
             style={shapeSettings}/>
     } else if (element.type === ElementType.image) {
-        return <Image src={{kind:"data", data:(element as ElementsModule.ImageElement).link}} style={boundingBoxCoordinates}/>
+        return <Image key={uuidv4()} src={{kind:"data", data:(element as ElementsModule.ImageElement).link}} style={boundingBoxCoordinates}/>
     } else {
         throw Error(`Incorrect slide element type`)
     }
@@ -92,7 +93,7 @@ export function drawSlide(slide: SlidesModule.Slide): JSX.Element {
         isColor(slide.background) ? createRgbLine(slide.background as Color): undefined
     let backgroundImage: { kind: "data"; data: string; } | { kind: "path"; path: string; } | undefined =
         !isColor(slide.background) ? {kind: "data", "data": slide.background as string} : undefined
-    return <Slide style={{
+    return <Slide key={uuidv4()}  style={{
         backgroundColor: backgroundColor,
         backgroundImage: backgroundImage
     }}>
@@ -101,7 +102,7 @@ export function drawSlide(slide: SlidesModule.Slide): JSX.Element {
 }
 
 export async function createPptx(editor: Editor) {
-    return render(<Presentation layout={"16x9"}>
+    return render(<Presentation key={uuidv4()} layout={"16x9"}>
         {editor.presentation.slides.map(currSlide => drawSlide(currSlide))}
     </Presentation>)
 }

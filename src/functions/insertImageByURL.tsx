@@ -15,7 +15,6 @@ export function insertImageByURL(URL: string, type: string, dispatch: Dispatch<a
         copyImage = imageInitAfterOnload(img, copyImage)
         copyImage.link = URL
 
-
         let gifMatches = URL.match(/.gif\b/)
         let base64 = URL
 

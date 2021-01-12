@@ -130,7 +130,7 @@ export function drawBackground(pdfDocument: jsPDF, background: Color | string) {
 export async function drawSlide(pdfDocument: jsPDF, slide: Slide) {
     drawBackground(pdfDocument, slide.background)
     for (let i = 0; i < slide.elements.length; i++) {
-        setTimeout(function(){}, 0)
+        setTimeout(function(){}, 1000)
         let currElements = slide.elements[i]
         await drawElement(pdfDocument, currElements, slide)
     }
