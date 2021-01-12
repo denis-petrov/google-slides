@@ -1,5 +1,5 @@
 import React, {Dispatch} from 'react'
-import {DEFAULT_IMAGE} from "../entities/Constants"
+import {DEFAULT_IMAGE, MAX_BASE64_LENGTH} from "../entities/Constants"
 import {deepCopy} from "deep-copy-ts"
 import {imageInitAfterOnload} from "./imageInitAfterOnload"
 import {ADD_TO_BACKGROUND} from "../store/actionTypes";
@@ -20,6 +20,11 @@ export function insertImageFromPc(e: React.ChangeEvent<HTMLInputElement>, type: 
                 img.onload = () => {
                     copyImage = imageInitAfterOnload(img, copyImage)
                     copyImage.link = fileReader.result as string
+                    if (copyImage.link.length > MAX_BASE64_LENGTH) {
+                        alert("Selected media size is out of bounds")
+                        return null;
+                    }
+
                     if (file.type === 'image/gif' && type === ADD_TO_BACKGROUND) {
                         gifFrames({ url: copyImage.link, frames: 0, outputType: 'canvas' })
                             .then(function (frameData: Array<any>) {
