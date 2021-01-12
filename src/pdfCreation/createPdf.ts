@@ -114,11 +114,16 @@ export function drawBackground(pdfDocument: jsPDF, background: Color | string) {
         let originalWidth = img.width;
         let originalHeight = img.height;
         let height = PAGE_HEIGHT;
+        let wight = PAGE_WIDTH;
         if (originalHeight / 9 * 16 > originalWidth) {
             height = originalHeight / 9 * 16 / originalWidth * PAGE_HEIGHT;
         }
 
-        pdfDocument.addImage(imageLink, 'JPEG', 0, 0, PAGE_WIDTH, height)
+        if (originalWidth > originalHeight / 9 * 16) {
+            wight = originalWidth / 16 * 9 / originalHeight * PAGE_WIDTH;
+        }
+
+        pdfDocument.addImage(imageLink, 'JPEG', 0, 0, wight, height)
     }
 }
 
