@@ -35,6 +35,11 @@ export function showPresentation(editor: Editor) {
         }
     }
 
+    let slideArea = document.getElementById('slide-area')
+    if (slideArea) {
+        slideArea.style.backgroundColor = '#000'
+    }
+
     let mainBlock = document.getElementsByClassName('main-block')[0] as HTMLElement
     if (mainBlock) {
         mainBlock.style.display = 'block'

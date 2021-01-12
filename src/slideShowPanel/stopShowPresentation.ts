@@ -16,6 +16,11 @@ export function stopShowPresentation() {
         mainBlock.style.display = 'grid'
     }
 
+    let slideArea = document.getElementById('slide-area')
+    if (slideArea) {
+        slideArea.style.backgroundColor = ''
+    }
+
     let sidebar = document.getElementsByClassName('sidebar')[0] as HTMLElement
     if (sidebar) {
         sidebar.style.display = 'block'
