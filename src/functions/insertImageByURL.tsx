@@ -27,10 +27,8 @@ export function insertImageByURL(URL: string, type: string, dispatch: Dispatch<a
                     if (fileReader.result != null) {
                         base64 = fileReader.result as string
                         if (type === ADD_TO_BACKGROUND) {
-                            let elem
                             gifFrames({ url: base64, frames: 0, outputType: 'canvas' })
                                 .then(function (frameData: Array<any>) {
-                                    elem = frameData
                                     let canvas = frameData[0].getImage()
                                     copyImage.link = canvas.toDataURL('img/png')
                                     dispatch({type: type, payload: copyImage})

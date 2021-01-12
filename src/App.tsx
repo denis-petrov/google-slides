@@ -73,7 +73,7 @@ function App(props: any) {
                 copyElements()
             }
 
-            if (document.activeElement && document.activeElement.tagName !== 'P' && document.activeElement.tagName !== 'INPUT') {
+            if (document.activeElement && document.activeElement.tagName === 'BODY' && editor.selectionSlidesId.length < 2) {
                 if (evt.ctrlKey && evt.keyCode === 86) {
                     pasteElements(store.dispatch)
                 }
