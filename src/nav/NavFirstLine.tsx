@@ -121,7 +121,6 @@ function NavFirstLine(props: any) {
                                                onClick={() => props.addText()}>
                                     Text
                                 </Dropdown.Item>
-                                <Dropdown.Item className="btn-sm button__onclick">Image</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
 
