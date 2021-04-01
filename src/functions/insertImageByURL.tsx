@@ -2,7 +2,7 @@ import {Dispatch} from 'react'
 import {DEFAULT_IMAGE, MAX_BASE64_LENGTH} from '../entities/Constants'
 import {deepCopy} from "deep-copy-ts"
 import {imageInitAfterOnload} from "./imageInitAfterOnload"
-import {ADD_TO_BACKGROUND} from "../store/actionTypes";
+import {ADD_TO_BACKGROUND} from "../store/actionTypes"
 
 const gifFrames = require('gif-frames')
 
