@@ -5136,6 +5136,13 @@ express@^4.17.1:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
+expresse@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/expresse/-/expresse-1.0.2.tgz#00b1222a14209724738a4347ea9847d415b7ed71"
+  integrity sha1-ALEiKhQglyRzikNH6phH1BW37XE=
+  dependencies:
+    debug "^2.2.0"
+
 ext@^1.1.2:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/ext/-/ext-1.4.0.tgz#89ae7a07158f79d35517882904324077e4379244"
