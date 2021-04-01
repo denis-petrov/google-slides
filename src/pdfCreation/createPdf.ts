@@ -34,7 +34,6 @@ export async function drawElement(pdfDocument: jsPDF, element: Element, slide: S
             'DF')
     } else if (element.type === ElementType.text && (element as Text).text.trim().length > 0) {
         (document.getElementById(`slide${slide.id}`) as HTMLElement).click()
-        setTimeout(() => {}, 1000)
 
         const canvasScalingFactor = 2
         let textDomElement = document.getElementById(element.id) as HTMLElement
@@ -130,7 +129,6 @@ export function drawBackground(pdfDocument: jsPDF, background: Color | string) {
 export async function drawSlide(pdfDocument: jsPDF, slide: Slide) {
     drawBackground(pdfDocument, slide.background)
     for (let i = 0; i < slide.elements.length; i++) {
-        setTimeout(function(){}, 1000)
         let currElements = slide.elements[i]
         await drawElement(pdfDocument, currElements, slide)
     }
