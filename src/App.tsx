@@ -46,7 +46,7 @@ function App(props: any) {
     if (result && result.length > 0) {
         document.title = editor.presentation.name
     } else {
-        document.title = 'Копатычи slides'
+        document.title = 'Copy google slides'
     }
 
     if (Object.keys(props.state).length === 0) {
