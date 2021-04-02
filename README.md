@@ -3,7 +3,7 @@
 ## Idea
 Create clone of google slides: https://www.google.com/
 
-## Technology
+## Technologies
 React + Redux
 
 ## Prod
