@@ -1,7 +1,7 @@
 # Google-Slides
 
 ## Idea
-Create clone of google slides: https://www.google.com/
+Create clone of google slides: https://www.google.com/slides/
 
 ## Technologies
 React + Redux
